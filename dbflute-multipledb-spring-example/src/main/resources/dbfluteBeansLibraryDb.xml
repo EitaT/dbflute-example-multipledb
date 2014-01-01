@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans
+    PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd"
+>
+<beans>
+    <!-- The components of DBFlute Runtime. -->
+    <bean id="ldIntroduction" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBFluteInitializer">
+        <constructor-arg index="0"><ref bean="libraryDbDataSource"/></constructor-arg>
+    </bean>
+    <bean id="ldInvokerAssistant" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdImplementedInvokerAssistant" autowire="byType">
+        <property name="dataSource"><ref bean="libraryDbDataSource"/></property>
+        <property name="introduction"><ref bean="ldIntroduction"/></property>
+    </bean>
+    <bean id="ldCommonColumnAutoSetupper" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdImplementedCommonColumnAutoSetupper" autowire="byType"/>
+    <bean id="ldBehaviorSelector" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdImplementedBehaviorSelector" autowire="byType"/>
+    <bean id="ldBehaviorCommandInvoker" class="org.seasar.dbflute.bhv.core.BehaviorCommandInvoker" autowire="byType">
+        <property name="invokerAssistant"><ref bean="ldInvokerAssistant"/></property>
+    </bean>
+
+    <!-- The components of Behavior. -->
+	<bean id="ldAuthorBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdAuthorBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldBlackActionBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdBlackActionBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldBlackActionLookupBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdBlackActionLookupBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldBlackListBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdBlackListBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldBookBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdBookBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldCollectionBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdCollectionBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldCollectionStatusBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdCollectionStatusBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldCollectionStatusLookupBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdCollectionStatusLookupBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldGarbageBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdGarbageBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+    </bean>
+	<bean id="ldGarbagePlusBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdGarbagePlusBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+    </bean>
+	<bean id="ldGenreBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdGenreBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldLbUserBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdLbUserBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldLendingBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdLendingBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldLendingCollectionBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdLendingCollectionBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldLibraryBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdLibraryBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldLibraryTypeLookupBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdLibraryTypeLookupBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldLibraryUserBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdLibraryUserBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldMyselfBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdMyselfBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldMyselfCheckBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdMyselfCheckBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldNextLibraryBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdNextLibraryBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldPublisherBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdPublisherBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldVendorCheckBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdVendorCheckBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+    </bean>
+	<bean id="ldVendorConstraintNameAutoBarBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdVendorConstraintNameAutoBarBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldVendorConstraintNameAutoFooBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdVendorConstraintNameAutoFooBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldVendorConstraintNameAutoQuxBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdVendorConstraintNameAutoQuxBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+	<bean id="ldVendorConstraintNameAutoRefBhv" class="com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdVendorConstraintNameAutoRefBhv" autowire="byType">
+        <property name="behaviorCommandInvoker"><ref bean="ldBehaviorCommandInvoker"/></property>
+        <property name="behaviorSelector"><ref bean="ldBehaviorSelector"/></property>
+        <property name="commonColumnAutoSetupper"><ref bean="ldCommonColumnAutoSetupper"/></property>
+    </bean>
+</beans>

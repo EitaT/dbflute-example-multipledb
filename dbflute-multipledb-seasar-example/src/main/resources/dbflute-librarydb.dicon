@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+    "http://www.seasar.org/dtd/components21.dtd">
+
+<components namespace="dbflute">
+    <include path="j2ee-librarydb.dicon"/>
+    <include path="common.dicon"/>
+
+    <!-- The components of DBFlute Runtime. -->
+    <component name="introduction" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBFluteInitializer"/>
+    <component name="invokerAssistant" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdImplementedInvokerAssistant"/>
+    <component name="commonColumnAutoSetupper" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdImplementedCommonColumnAutoSetupper"/>
+    <component name="behaviorSelector" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdImplementedBehaviorSelector"/>
+    <component name="behaviorCommandInvoker" class="org.seasar.dbflute.bhv.core.BehaviorCommandInvoker"/>
+
+    <!-- The components of Behavior. -->
+    <component name="ldAuthorBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdAuthorBhv"/>
+    <component name="ldBlackActionBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdBlackActionBhv"/>
+    <component name="ldBlackActionLookupBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdBlackActionLookupBhv"/>
+    <component name="ldBlackListBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdBlackListBhv"/>
+    <component name="ldBookBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdBookBhv"/>
+    <component name="ldCollectionBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdCollectionBhv"/>
+    <component name="ldCollectionStatusBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdCollectionStatusBhv"/>
+    <component name="ldCollectionStatusLookupBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdCollectionStatusLookupBhv"/>
+    <component name="ldGarbageBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdGarbageBhv"/>
+    <component name="ldGarbagePlusBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdGarbagePlusBhv"/>
+    <component name="ldGenreBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdGenreBhv"/>
+    <component name="ldLbUserBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdLbUserBhv"/>
+    <component name="ldLendingBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdLendingBhv"/>
+    <component name="ldLendingCollectionBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdLendingCollectionBhv"/>
+    <component name="ldLibraryBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdLibraryBhv"/>
+    <component name="ldLibraryTypeLookupBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdLibraryTypeLookupBhv"/>
+    <component name="ldLibraryUserBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdLibraryUserBhv"/>
+    <component name="ldMyselfBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdMyselfBhv"/>
+    <component name="ldMyselfCheckBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdMyselfCheckBhv"/>
+    <component name="ldNextLibraryBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdNextLibraryBhv"/>
+    <component name="ldPublisherBhv" class="com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdPublisherBhv"/>
+</components>

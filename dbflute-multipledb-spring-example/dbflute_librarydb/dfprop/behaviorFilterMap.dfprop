@@ -1,0 +1,15 @@
+# /---------------------------------------------------------------------------
+# behaviorFilterMap: (Default 'map:{}')
+# 
+# The definition of behavior filter.
+#
+map:{
+    ; beforeInsertMap = map:{
+        ; GARBAGE_TIME = $$AccessContext$$.getAccessTimestampOnThread()
+        ; R_USER = $$AccessContext$$.getAccessUserOnThread()
+        ; R_TIMESTAMP = $$AccessContext$$.getAccessTimestampOnThread()
+    }
+    ; beforeUpdateMap = map:{
+    }
+}
+# ----------------/

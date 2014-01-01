@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+2014-01-01 14:29:31.460 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.5.3.0 - (802917): instance a816c00e-0143-4e35-95c1-0000044265b0
+on database directory /Users/jflute/works/dbflute/workspace/dbflute-example-multipledb/dbflute-multipledb-seasar-example/src/main/resources/librarydb  
+
+Database Class Loader started - derby.database.classpath=''
+
+2014-01-01 14:29:33.424 GMT:
+Shutting down instance a816c00e-0143-4e35-95c1-0000044265b0
+----------------------------------------------------------------

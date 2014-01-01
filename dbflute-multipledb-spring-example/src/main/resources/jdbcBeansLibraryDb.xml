@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans
+    PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd"
+>
+<beans>
+    <bean id="libraryDbDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName"><value>org.apache.derby.jdbc.EmbeddedDriver</value></property>
+        <property name="url" ref="libraryDbUrl"></property>
+        <property name="username"><value>librarydb</value></property>
+        <property name="password"><value>librarydb</value></property>
+        <property name="maxActive"><value>20</value></property>
+    </bean>
+
+    <bean id="libraryDbTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource">
+            <ref bean="libraryDbDataSource"/>
+        </property>
+    </bean>
+
+    <!-- The example component for building connection string of H2. -->
+    <bean name="libraryDbUrl" class="com.example.dbflute.multipledb.spring.EmbeddedDerbyUrlFactoryBean">
+    	<property name="urlSuffix" value="/librarydb" />
+    	<property name="referenceClassName" value="com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBCurrent" />
+    </bean>
+</beans>

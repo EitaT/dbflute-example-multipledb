@@ -1,0 +1,77 @@
+map:{
+    ; 2011/10/23 21:56:35 = map:{
+        ; diffDate = 2011/10/23 21:56:35
+        ; tableCount = map:{
+            ; next = 26
+            ; previous = 22
+        }
+        ; tableDiff = map:{
+            ; VENDOR_CONSTRAINT_NAME_AUTO_BAR = map:{
+                ; tableName = VENDOR_CONSTRAINT_NAME_AUTO_BAR
+                ; diffType = ADD
+            }
+            ; VENDOR_CONSTRAINT_NAME_AUTO_FOO = map:{
+                ; tableName = VENDOR_CONSTRAINT_NAME_AUTO_FOO
+                ; diffType = ADD
+            }
+            ; VENDOR_CONSTRAINT_NAME_AUTO_QUX = map:{
+                ; tableName = VENDOR_CONSTRAINT_NAME_AUTO_QUX
+                ; diffType = ADD
+            }
+            ; VENDOR_CONSTRAINT_NAME_AUTO_REF = map:{
+                ; tableName = VENDOR_CONSTRAINT_NAME_AUTO_REF
+                ; diffType = ADD
+            }
+        }
+    }
+    ; 2010/06/12 23:12:08 = map:{
+        ; diffDate = 2010/06/12 23:12:08
+        ; tableCount = map:{
+            ; next = 22
+            ; previous = 22
+        }
+        ; tableDiff = map:{
+            ; BLACK_ACTION = map:{
+                ; tableName = BLACK_ACTION
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; FK_BLACK_ACTION_BLACK_LIST = map:{
+                        ; constraintName = FK_BLACK_ACTION_BLACK_LIST
+                        ; diffType = ADD
+                    }
+                }
+                ; indexDiff = map:{
+                    ; SQL100612231150780 = map:{
+                        ; constraintName = SQL100612231150780
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+    ; 2010/06/12 23:11:17 = map:{
+        ; diffDate = 2010/06/12 23:11:17
+        ; tableCount = map:{
+            ; next = 22
+            ; previous = 22
+        }
+        ; tableDiff = map:{
+            ; BLACK_ACTION = map:{
+                ; tableName = BLACK_ACTION
+                ; diffType = CHANGE
+                ; foreignKeyDiff = map:{
+                    ; FK_BLACK_ACTION_BLACK_LIST = map:{
+                        ; constraintName = FK_BLACK_ACTION_BLACK_LIST
+                        ; diffType = DELETE
+                    }
+                }
+                ; indexDiff = map:{
+                    ; SQL100612230931630 = map:{
+                        ; constraintName = SQL100612230931630
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+    "http://www.seasar.org/dtd/components21.dtd">
+
+<components namespace="dbflute">
+    <include path="j2ee-memberdb.dicon"/>
+
+    <!-- The components of DBFlute Runtime. -->
+    <component name="introduction" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteInitializer"/>
+    <component name="invokerAssistant" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbImplementedInvokerAssistant"/>
+    <component name="commonColumnAutoSetupper" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbImplementedCommonColumnAutoSetupper"/>
+    <component name="behaviorSelector" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbImplementedBehaviorSelector"/>
+    <component name="behaviorCommandInvoker" class="org.seasar.dbflute.bhv.core.BehaviorCommandInvoker"/>
+
+    <!-- The components of Behavior. -->
+    <component name="mbMemberBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberBhv"/>
+    <component name="mbMemberAddressBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberAddressBhv"/>
+    <component name="mbMemberLoginBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberLoginBhv"/>
+    <component name="mbMemberSecurityBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberSecurityBhv"/>
+    <component name="mbMemberServiceBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberServiceBhv"/>
+    <component name="mbMemberStatusBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberStatusBhv"/>
+    <component name="mbMemberWithdrawalBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberWithdrawalBhv"/>
+    <component name="mbProductBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbProductBhv"/>
+    <component name="mbProductCategoryBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbProductCategoryBhv"/>
+    <component name="mbProductStatusBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbProductStatusBhv"/>
+    <component name="mbPurchaseBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbPurchaseBhv"/>
+    <component name="mbRegionBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbRegionBhv"/>
+    <component name="mbServiceRankBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbServiceRankBhv"/>
+    <component name="mbSummaryProductBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbSummaryProductBhv"/>
+    <component name="mbWithdrawalReasonBhv" class="com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbWithdrawalReasonBhv"/>
+</components>
