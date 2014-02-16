@@ -53,52 +53,52 @@ public class LdBlackActionDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgBlackActionId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getBlackActionId(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setBlackActionId(cti(v)); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getBlackActionId(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setBlackActionId(cti(vl)); }
     }
     public static class EpgBlackListId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getBlackListId(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setBlackListId(cti(v)); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getBlackListId(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setBlackListId(cti(vl)); }
     }
     public static class EpgBlackActionCode implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getBlackActionCode(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setBlackActionCode((String)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getBlackActionCode(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setBlackActionCode((String)vl); }
     }
     public static class EpgBlackLevel implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getBlackLevel(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setBlackLevel(cti(v)); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getBlackLevel(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setBlackLevel(cti(vl)); }
     }
     public static class EpgActionDate implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getActionDate(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setActionDate((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getActionDate(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setActionDate((java.sql.Timestamp)vl); }
     }
     public static class EpgEvidencePhotograph implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getEvidencePhotograph(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setEvidencePhotograph((byte[])v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getEvidencePhotograph(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setEvidencePhotograph((byte[])vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBlackAction)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdBlackAction)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdBlackAction)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdBlackAction)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -177,12 +177,12 @@ public class LdBlackActionDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignBlackList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnBlackListId(), LdBlackListDbm.getInstance().columnBlackListId());
-        return cfi("FK_BLACK_ACTION_BLACK_LIST", "blackList", this, LdBlackListDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "blackActionList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnBlackListId(), LdBlackListDbm.getInstance().columnBlackListId());
+        return cfi("FK_BLACK_ACTION_BLACK_LIST", "blackList", this, LdBlackListDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "blackActionList");
     }
     public ForeignInfo foreignBlackActionLookup() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnBlackActionCode(), LdBlackActionLookupDbm.getInstance().columnBlackActionCode());
-        return cfi("FK_BLACK_ACTION_LOOKUP", "blackActionLookup", this, LdBlackActionLookupDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "blackActionList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnBlackActionCode(), LdBlackActionLookupDbm.getInstance().columnBlackActionCode());
+        return cfi("FK_BLACK_ACTION_LOOKUP", "blackActionLookup", this, LdBlackActionLookupDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "blackActionList");
     }
 
     // -----------------------------------------------------
@@ -224,10 +224,10 @@ public class LdBlackActionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdBlackAction)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdBlackAction)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdBlackAction)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdBlackAction)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

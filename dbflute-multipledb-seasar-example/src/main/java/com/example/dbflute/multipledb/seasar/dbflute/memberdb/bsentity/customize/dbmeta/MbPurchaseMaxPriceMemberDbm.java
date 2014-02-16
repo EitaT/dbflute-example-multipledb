@@ -43,20 +43,20 @@ public class MbPurchaseMaxPriceMemberDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchaseMaxPriceMember)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbPurchaseMaxPriceMember)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbPurchaseMaxPriceMember)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbPurchaseMaxPriceMember)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchaseMaxPriceMember)e).getMemberName(); }
-        public void write(Entity e, Object v) { ((MbPurchaseMaxPriceMember)e).setMemberName((String)v); }
+        public Object read(Entity et) { return ((MbPurchaseMaxPriceMember)et).getMemberName(); }
+        public void write(Entity et, Object vl) { ((MbPurchaseMaxPriceMember)et).setMemberName((String)vl); }
     }
     public static class EpgPurchaseMaxPrice implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchaseMaxPriceMember)e).getPurchaseMaxPrice(); }
-        public void write(Entity e, Object v) { ((MbPurchaseMaxPriceMember)e).setPurchaseMaxPrice(cti(v)); }
+        public Object read(Entity et) { return ((MbPurchaseMaxPriceMember)et).getPurchaseMaxPrice(); }
+        public void write(Entity et, Object vl) { ((MbPurchaseMaxPriceMember)et).setPurchaseMaxPrice(cti(vl)); }
     }
     public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchaseMaxPriceMember)e).getMemberStatusName(); }
-        public void write(Entity e, Object v) { ((MbPurchaseMaxPriceMember)e).setMemberStatusName((String)v); }
+        public Object read(Entity et) { return ((MbPurchaseMaxPriceMember)et).getMemberStatusName(); }
+        public void write(Entity et, Object vl) { ((MbPurchaseMaxPriceMember)et).setMemberStatusName((String)vl); }
     }
 
     // ===================================================================================
@@ -142,10 +142,10 @@ public class MbPurchaseMaxPriceMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbPurchaseMaxPriceMember)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbPurchaseMaxPriceMember)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbPurchaseMaxPriceMember)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbPurchaseMaxPriceMember)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -162,12 +162,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BlackListAsOne for 'exists'. (NotNull)
      */
     public void existsBlackListAsOne(SubQuery<LdBlackListCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackListCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackListCB cb = new LdBlackListCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_ExistsReferrer_BlackListAsOne(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "blackListAsOne");
+        String pp = keepLbUserId_ExistsReferrer_BlackListAsOne(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "blackListAsOne");
     }
-    public abstract String keepLbUserId_ExistsReferrer_BlackListAsOne(LdBlackListCQ subQuery);
+    public abstract String keepLbUserId_ExistsReferrer_BlackListAsOne(LdBlackListCQ sq);
 
     /**
      * Set up ExistsReferrer (co-related sub-query). <br />
@@ -183,12 +183,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of LibraryUserList for 'exists'. (NotNull)
      */
     public void existsLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLibraryUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_ExistsReferrer_LibraryUserList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "libraryUserList");
+        String pp = keepLbUserId_ExistsReferrer_LibraryUserList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "libraryUserList");
     }
-    public abstract String keepLbUserId_ExistsReferrer_LibraryUserList(LdLibraryUserCQ subQuery);
+    public abstract String keepLbUserId_ExistsReferrer_LibraryUserList(LdLibraryUserCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -204,12 +204,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of LbUserId_NotExistsReferrer_BlackListAsOne for 'not exists'. (NotNull)
      */
     public void notExistsBlackListAsOne(SubQuery<LdBlackListCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackListCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackListCB cb = new LdBlackListCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_NotExistsReferrer_BlackListAsOne(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "blackListAsOne");
+        String pp = keepLbUserId_NotExistsReferrer_BlackListAsOne(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "blackListAsOne");
     }
-    public abstract String keepLbUserId_NotExistsReferrer_BlackListAsOne(LdBlackListCQ subQuery);
+    public abstract String keepLbUserId_NotExistsReferrer_BlackListAsOne(LdBlackListCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -225,12 +225,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of LbUserId_NotExistsReferrer_LibraryUserList for 'not exists'. (NotNull)
      */
     public void notExistsLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLibraryUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_NotExistsReferrer_LibraryUserList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "libraryUserList");
+        String pp = keepLbUserId_NotExistsReferrer_LibraryUserList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "libraryUserList");
     }
-    public abstract String keepLbUserId_NotExistsReferrer_LibraryUserList(LdLibraryUserCQ subQuery);
+    public abstract String keepLbUserId_NotExistsReferrer_LibraryUserList(LdLibraryUserCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -239,12 +239,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BlackListAsOne for 'in-scope'. (NotNull)
      */
     public void inScopeBlackListAsOne(SubQuery<LdBlackListCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackListCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackListCB cb = new LdBlackListCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_InScopeRelation_BlackListAsOne(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "blackListAsOne");
+        String pp = keepLbUserId_InScopeRelation_BlackListAsOne(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "blackListAsOne");
     }
-    public abstract String keepLbUserId_InScopeRelation_BlackListAsOne(LdBlackListCQ subQuery);
+    public abstract String keepLbUserId_InScopeRelation_BlackListAsOne(LdBlackListCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -253,12 +253,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of LibraryUserList for 'in-scope'. (NotNull)
      */
     public void inScopeLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLibraryUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_InScopeRelation_LibraryUserList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "libraryUserList");
+        String pp = keepLbUserId_InScopeRelation_LibraryUserList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "libraryUserList");
     }
-    public abstract String keepLbUserId_InScopeRelation_LibraryUserList(LdLibraryUserCQ subQuery);
+    public abstract String keepLbUserId_InScopeRelation_LibraryUserList(LdLibraryUserCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -267,12 +267,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BlackListAsOne for 'not in-scope'. (NotNull)
      */
     public void notInScopeBlackListAsOne(SubQuery<LdBlackListCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackListCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackListCB cb = new LdBlackListCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_NotInScopeRelation_BlackListAsOne(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "blackListAsOne");
+        String pp = keepLbUserId_NotInScopeRelation_BlackListAsOne(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "blackListAsOne");
     }
-    public abstract String keepLbUserId_NotInScopeRelation_BlackListAsOne(LdBlackListCQ subQuery);
+    public abstract String keepLbUserId_NotInScopeRelation_BlackListAsOne(LdBlackListCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -281,20 +281,20 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of LibraryUserList for 'not in-scope'. (NotNull)
      */
     public void notInScopeLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLibraryUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_NotInScopeRelation_LibraryUserList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "libraryUserList");
+        String pp = keepLbUserId_NotInScopeRelation_LibraryUserList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "libraryUserList");
     }
-    public abstract String keepLbUserId_NotInScopeRelation_LibraryUserList(LdLibraryUserCQ subQuery);
+    public abstract String keepLbUserId_NotInScopeRelation_LibraryUserList(LdLibraryUserCQ sq);
 
-    public void xsderiveLibraryUserList(String function, SubQuery<LdLibraryUserCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdLibraryUserCB>", subQuery);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_SpecifyDerivedReferrer_LibraryUserList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "libraryUserList", aliasName, option);
+    public void xsderiveLibraryUserList(String fn, SubQuery<LdLibraryUserCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepLbUserId_SpecifyDerivedReferrer_LibraryUserList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "libraryUserList", al, op);
     }
-    public abstract String keepLbUserId_SpecifyDerivedReferrer_LibraryUserList(LdLibraryUserCQ subQuery);
+    public abstract String keepLbUserId_SpecifyDerivedReferrer_LibraryUserList(LdLibraryUserCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -315,20 +315,20 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<LdLibraryUserCB> xcreateQDRFunctionLibraryUserList() {
         return new HpQDRFunction<LdLibraryUserCB>(new HpQDRSetupper<LdLibraryUserCB>() {
-            public void setup(String function, SubQuery<LdLibraryUserCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveLibraryUserList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdLibraryUserCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveLibraryUserList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveLibraryUserList(String function, SubQuery<LdLibraryUserCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdLibraryUserCB>", subQuery);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_QueryDerivedReferrer_LibraryUserList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepLbUserId_QueryDerivedReferrer_LibraryUserListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "libraryUserList", operand, value, parameterPropertyName, option);
+    public void xqderiveLibraryUserList(String fn, SubQuery<LdLibraryUserCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepLbUserId_QueryDerivedReferrer_LibraryUserList(cb.query()); // for saving query-value.
+        String prpp = keepLbUserId_QueryDerivedReferrer_LibraryUserListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "LB_USER_ID", "LB_USER_ID", sqpp, "libraryUserList", rd, vl, prpp, op);
     }
-    public abstract String keepLbUserId_QueryDerivedReferrer_LibraryUserList(LdLibraryUserCQ subQuery);
-    public abstract String keepLbUserId_QueryDerivedReferrer_LibraryUserListParameter(Object parameterValue);
+    public abstract String keepLbUserId_QueryDerivedReferrer_LibraryUserList(LdLibraryUserCQ sq);
+    public abstract String keepLbUserId_QueryDerivedReferrer_LibraryUserListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -342,8 +342,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      */
     public void setLbUserId_IsNotNull() { regLbUserId(CK_ISNN, DOBJ); }
 
-    protected void regLbUserId(ConditionKey k, Object v) { regQ(k, v, getCValueLbUserId(), "LB_USER_ID"); }
-    abstract protected ConditionValue getCValueLbUserId();
+    protected void regLbUserId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLbUserId(), "LB_USER_ID"); }
+    protected abstract ConditionValue getCValueLbUserId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -464,8 +464,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(lbUserName), getCValueLbUserName(), "LB_USER_NAME", likeSearchOption);
     }
 
-    protected void regLbUserName(ConditionKey k, Object v) { regQ(k, v, getCValueLbUserName(), "LB_USER_NAME"); }
-    abstract protected ConditionValue getCValueLbUserName();
+    protected void regLbUserName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLbUserName(), "LB_USER_NAME"); }
+    protected abstract ConditionValue getCValueLbUserName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -586,8 +586,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(userPassword), getCValueUserPassword(), "USER_PASSWORD", likeSearchOption);
     }
 
-    protected void regUserPassword(ConditionKey k, Object v) { regQ(k, v, getCValueUserPassword(), "USER_PASSWORD"); }
-    abstract protected ConditionValue getCValueUserPassword();
+    protected void regUserPassword(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUserPassword(), "USER_PASSWORD"); }
+    protected abstract ConditionValue getCValueUserPassword();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -708,8 +708,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rUser), getCValueRUser(), "R_USER", likeSearchOption);
     }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -830,8 +830,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rModule), getCValueRModule(), "R_MODULE", likeSearchOption);
     }
 
-    protected void regRModule(ConditionKey k, Object v) { regQ(k, v, getCValueRModule(), "R_MODULE"); }
-    abstract protected ConditionValue getCValueRModule();
+    protected void regRModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRModule(), "R_MODULE"); }
+    protected abstract ConditionValue getCValueRModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -896,7 +896,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -911,7 +911,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -941,8 +941,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(rTimestampList), getCValueRTimestamp(), "R_TIMESTAMP");
     }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1063,8 +1063,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uUser), getCValueUUser(), "U_USER", likeSearchOption);
     }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1185,8 +1185,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uModule), getCValueUModule(), "U_MODULE", likeSearchOption);
     }
 
-    protected void regUModule(ConditionKey k, Object v) { regQ(k, v, getCValueUModule(), "U_MODULE"); }
-    abstract protected ConditionValue getCValueUModule();
+    protected void regUModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUModule(), "U_MODULE"); }
+    protected abstract ConditionValue getCValueUModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1251,7 +1251,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -1266,7 +1266,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1296,8 +1296,8 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(uTimestampList), getCValueUTimestamp(), "U_TIMESTAMP");
     }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1404,22 +1404,22 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<LdLbUserCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<LdLbUserCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<LdLbUserCB>(new HpSSQSetupper<LdLbUserCB>() {
-            public void setup(String function, SubQuery<LdLbUserCB> subQuery, HpSSQOption<LdLbUserCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<LdLbUserCB> sq, HpSSQOption<LdLbUserCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<LdLbUserCB> subQuery, String operand, HpSSQOption<LdLbUserCB> option) {
-        assertObjectNotNull("subQuery<LdLbUserCB>", subQuery);
-        LdLbUserCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<LdLbUserCB> sq, String rd, HpSSQOption<LdLbUserCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLbUserCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(LdLbUserCQ subQuery);
+    public abstract String keepScalarCondition(LdLbUserCQ sq);
 
     protected LdLbUserCB xcreateScalarConditionCB() {
         LdLbUserCB cb = new LdLbUserCB();
@@ -1436,13 +1436,14 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<LdLbUserCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdLbUserCB>", subQuery);
-        LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<LdLbUserCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "LB_USER_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(LdLbUserCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(LdLbUserCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -1453,20 +1454,21 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<LdLbUserCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<LdLbUserCB>(new HpQDRSetupper<LdLbUserCB>() {
-            public void setup(String function, SubQuery<LdLbUserCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdLbUserCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<LdLbUserCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdLbUserCB>", subQuery);
-        LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<LdLbUserCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "LB_USER_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(LdLbUserCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(LdLbUserCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1476,12 +1478,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<LdLbUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLbUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(LdLbUserCQ subQuery);
+    public abstract String keepMyselfExists(LdLbUserCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1491,12 +1493,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdLbUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLbUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(LdLbUserCQ subQuery);
+    public abstract String keepMyselfInScope(LdLbUserCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

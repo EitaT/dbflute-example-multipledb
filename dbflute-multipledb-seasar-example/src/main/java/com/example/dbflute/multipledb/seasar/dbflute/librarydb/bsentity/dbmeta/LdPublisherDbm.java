@@ -49,36 +49,36 @@ public class LdPublisherDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgPublisherId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getPublisherId(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setPublisherId(cti(v)); }
+        public Object read(Entity et) { return ((LdPublisher)et).getPublisherId(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setPublisherId(cti(vl)); }
     }
     public static class EpgPublisherName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getPublisherName(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setPublisherName((String)v); }
+        public Object read(Entity et) { return ((LdPublisher)et).getPublisherName(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setPublisherName((String)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdPublisher)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdPublisher)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdPublisher)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdPublisher)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdPublisher)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdPublisher)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdPublisher)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdPublisher)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdPublisher)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -149,8 +149,8 @@ public class LdPublisherDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerBookList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnPublisherId(), LdBookDbm.getInstance().columnPublisherId());
-        return cri("FK_BOOK_PUBLISHER", "bookList", this, LdBookDbm.getInstance(), map, false, "publisher");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnPublisherId(), LdBookDbm.getInstance().columnPublisherId());
+        return cri("FK_BOOK_PUBLISHER", "bookList", this, LdBookDbm.getInstance(), mp, false, "publisher");
     }
 
     // ===================================================================================
@@ -188,10 +188,10 @@ public class LdPublisherDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdPublisher)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdPublisher)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdPublisher)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdPublisher)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -50,40 +50,40 @@ public class LdLendingDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgLibraryId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getLibraryId(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setLibraryId(cti(v)); }
+        public Object read(Entity et) { return ((LdLending)et).getLibraryId(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setLibraryId(cti(vl)); }
     }
     public static class EpgLbUserId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getLbUserId(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setLbUserId(cti(v)); }
+        public Object read(Entity et) { return ((LdLending)et).getLbUserId(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setLbUserId(cti(vl)); }
     }
     public static class EpgLendingDate implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getLendingDate(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setLendingDate((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdLending)et).getLendingDate(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setLendingDate((java.sql.Timestamp)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdLending)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdLending)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdLending)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdLending)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdLending)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLending)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdLending)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdLending)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -159,21 +159,21 @@ public class LdLendingDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignLibraryUser() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMapSized(4);
-        map.put(columnLibraryId(), LdLibraryUserDbm.getInstance().columnLibraryId());
-        map.put(columnLbUserId(), LdLibraryUserDbm.getInstance().columnLbUserId());
-        return cfi("FK_LENDING_LIBRARY_USER", "libraryUser", this, LdLibraryUserDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "lendingList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMapSized(4);
+        mp.put(columnLibraryId(), LdLibraryUserDbm.getInstance().columnLibraryId());
+        mp.put(columnLbUserId(), LdLibraryUserDbm.getInstance().columnLbUserId());
+        return cfi("FK_LENDING_LIBRARY_USER", "libraryUser", this, LdLibraryUserDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "lendingList");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerLendingCollectionList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMapSized(4);
-        map.put(columnLibraryId(), LdLendingCollectionDbm.getInstance().columnLibraryId());
-        map.put(columnLbUserId(), LdLendingCollectionDbm.getInstance().columnLbUserId());
-        map.put(columnLendingDate(), LdLendingCollectionDbm.getInstance().columnLendingDate());
-        return cri("FK_LENDING_COLLECTION_LENDING", "lendingCollectionList", this, LdLendingCollectionDbm.getInstance(), map, false, "lending");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMapSized(4);
+        mp.put(columnLibraryId(), LdLendingCollectionDbm.getInstance().columnLibraryId());
+        mp.put(columnLbUserId(), LdLendingCollectionDbm.getInstance().columnLbUserId());
+        mp.put(columnLendingDate(), LdLendingCollectionDbm.getInstance().columnLendingDate());
+        return cri("FK_LENDING_COLLECTION_LENDING", "lendingCollectionList", this, LdLendingCollectionDbm.getInstance(), mp, false, "lending");
     }
 
     // ===================================================================================
@@ -210,10 +210,10 @@ public class LdLendingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdLending)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdLending)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdLending)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdLending)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

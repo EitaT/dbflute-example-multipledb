@@ -43,20 +43,20 @@ public class MbOptionMemberDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbOptionMember)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbOptionMember)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbOptionMember)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbOptionMember)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbOptionMember)e).getMemberName(); }
-        public void write(Entity e, Object v) { ((MbOptionMember)e).setMemberName((String)v); }
+        public Object read(Entity et) { return ((MbOptionMember)et).getMemberName(); }
+        public void write(Entity et, Object vl) { ((MbOptionMember)et).setMemberName((String)vl); }
     }
     public static class EpgMemberStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbOptionMember)e).getMemberStatusCode(); }
-        public void write(Entity e, Object v) { ((MbOptionMember)e).setMemberStatusCode((String)v); }
+        public Object read(Entity et) { return ((MbOptionMember)et).getMemberStatusCode(); }
+        public void write(Entity et, Object vl) { ((MbOptionMember)et).setMemberStatusCode((String)vl); }
     }
     public static class EpgMemberStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbOptionMember)e).getMemberStatusName(); }
-        public void write(Entity e, Object v) { ((MbOptionMember)e).setMemberStatusName((String)v); }
+        public Object read(Entity et) { return ((MbOptionMember)et).getMemberStatusName(); }
+        public void write(Entity et, Object vl) { ((MbOptionMember)et).setMemberStatusName((String)vl); }
     }
 
     // ===================================================================================
@@ -142,10 +142,10 @@ public class MbOptionMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbOptionMember)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbOptionMember)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbOptionMember)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbOptionMember)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

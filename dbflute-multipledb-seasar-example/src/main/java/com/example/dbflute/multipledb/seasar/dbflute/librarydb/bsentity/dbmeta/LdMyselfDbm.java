@@ -43,12 +43,12 @@ public class LdMyselfDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMyselfId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdMyself)e).getMyselfId(); }
-        public void write(Entity e, Object v) { ((LdMyself)e).setMyselfId(cti(v)); }
+        public Object read(Entity et) { return ((LdMyself)et).getMyselfId(); }
+        public void write(Entity et, Object vl) { ((LdMyself)et).setMyselfId(cti(vl)); }
     }
     public static class EpgMyselfName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdMyself)e).getMyselfName(); }
-        public void write(Entity e, Object v) { ((LdMyself)e).setMyselfName((String)v); }
+        public Object read(Entity et) { return ((LdMyself)et).getMyselfName(); }
+        public void write(Entity et, Object vl) { ((LdMyself)et).setMyselfName((String)vl); }
     }
 
     // ===================================================================================
@@ -101,8 +101,8 @@ public class LdMyselfDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerMyselfCheckList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMyselfId(), LdMyselfCheckDbm.getInstance().columnMyselfId());
-        return cri("FK_MYSELF_CHECK_SELF", "myselfCheckList", this, LdMyselfCheckDbm.getInstance(), map, false, "myself");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMyselfId(), LdMyselfCheckDbm.getInstance().columnMyselfId());
+        return cri("FK_MYSELF_CHECK_SELF", "myselfCheckList", this, LdMyselfCheckDbm.getInstance(), mp, false, "myself");
     }
 
     // ===================================================================================
@@ -130,10 +130,10 @@ public class LdMyselfDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdMyself)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdMyself)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdMyself)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdMyself)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

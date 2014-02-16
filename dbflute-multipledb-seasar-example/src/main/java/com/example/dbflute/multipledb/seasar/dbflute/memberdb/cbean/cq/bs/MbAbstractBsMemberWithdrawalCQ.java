@@ -140,12 +140,12 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param subQuery The sub-query of Member for 'in-scope'. (NotNull)
      */
     public void inScopeMember(SubQuery<MbMemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MbMemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbMemberCB cb = new MbMemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_InScopeRelation_Member(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_InScopeRelation_Member(MbMemberCQ subQuery);
+    public abstract String keepMemberId_InScopeRelation_Member(MbMemberCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -154,12 +154,12 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param subQuery The sub-query of Member for 'not in-scope'. (NotNull)
      */
     public void notInScopeMember(SubQuery<MbMemberCB> subQuery) {
-        assertObjectNotNull("subQuery<MbMemberCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbMemberCB cb = new MbMemberCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "member");
+        String pp = keepMemberId_NotInScopeRelation_Member(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "MEMBER_ID", "MEMBER_ID", pp, "member");
     }
-    public abstract String keepMemberId_NotInScopeRelation_Member(MbMemberCQ subQuery);
+    public abstract String keepMemberId_NotInScopeRelation_Member(MbMemberCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -173,8 +173,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      */
     public void setMemberId_IsNotNull() { regMemberId(CK_ISNN, DOBJ); }
 
-    protected void regMemberId(ConditionKey k, Object v) { regQ(k, v, getCValueMemberId(), "MEMBER_ID"); }
-    abstract protected ConditionValue getCValueMemberId();
+    protected void regMemberId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMemberId(), "MEMBER_ID"); }
+    protected abstract ConditionValue getCValueMemberId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -253,12 +253,12 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param subQuery The sub-query of WithdrawalReason for 'in-scope'. (NotNull)
      */
     public void inScopeWithdrawalReason(SubQuery<MbWithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery<MbWithdrawalReasonCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "withdrawalReason");
+        String pp = keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
     }
-    public abstract String keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(MbWithdrawalReasonCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_InScopeRelation_WithdrawalReason(MbWithdrawalReasonCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -267,12 +267,12 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param subQuery The sub-query of WithdrawalReason for 'not in-scope'. (NotNull)
      */
     public void notInScopeWithdrawalReason(SubQuery<MbWithdrawalReasonCB> subQuery) {
-        assertObjectNotNull("subQuery<MbWithdrawalReasonCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", subQueryPropertyName, "withdrawalReason");
+        String pp = keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "WITHDRAWAL_REASON_CODE", "WITHDRAWAL_REASON_CODE", pp, "withdrawalReason");
     }
-    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(MbWithdrawalReasonCQ subQuery);
+    public abstract String keepWithdrawalReasonCode_NotInScopeRelation_WithdrawalReason(MbWithdrawalReasonCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -292,8 +292,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      */
     public void setWithdrawalReasonCode_IsNotNull() { regWithdrawalReasonCode(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonCode(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonCode();
+    protected void regWithdrawalReasonCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonCode(), "WITHDRAWAL_REASON_CODE"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -383,8 +383,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      */
     public void setWithdrawalReasonInputText_IsNotNull() { regWithdrawalReasonInputText(CK_ISNN, DOBJ); }
 
-    protected void regWithdrawalReasonInputText(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT"); }
-    abstract protected ConditionValue getCValueWithdrawalReasonInputText();
+    protected void regWithdrawalReasonInputText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonInputText(), "WITHDRAWAL_REASON_INPUT_TEXT"); }
+    protected abstract ConditionValue getCValueWithdrawalReasonInputText();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -440,7 +440,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setWithdrawalDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setWithdrawalDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME", fromToOption);
     }
 
@@ -455,7 +455,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param fromDate The from-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of withdrawalDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setWithdrawalDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setWithdrawalDatetime_DateFromTo(Date fromDate, Date toDate) {
         setWithdrawalDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -485,8 +485,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         regINS(CK_NINS, cTL(withdrawalDatetimeList), getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME");
     }
 
-    protected void regWithdrawalDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME"); }
-    abstract protected ConditionValue getCValueWithdrawalDatetime();
+    protected void regWithdrawalDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalDatetime(), "WITHDRAWAL_DATETIME"); }
+    protected abstract ConditionValue getCValueWithdrawalDatetime();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -542,7 +542,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of registerDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRegisterDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRegisterDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRegisterDatetime(), "REGISTER_DATETIME", fromToOption);
     }
 
@@ -557,7 +557,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param fromDate The from-date(yyyy/MM/dd) of registerDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of registerDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setRegisterDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRegisterDatetime_DateFromTo(Date fromDate, Date toDate) {
         setRegisterDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -587,8 +587,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         regINS(CK_NINS, cTL(registerDatetimeList), getCValueRegisterDatetime(), "REGISTER_DATETIME");
     }
 
-    protected void regRegisterDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
-    abstract protected ConditionValue getCValueRegisterDatetime();
+    protected void regRegisterDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterDatetime(), "REGISTER_DATETIME"); }
+    protected abstract ConditionValue getCValueRegisterDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -660,8 +660,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         regLSQ(CK_NLS, fRES(registerUser), getCValueRegisterUser(), "REGISTER_USER", likeSearchOption);
     }
 
-    protected void regRegisterUser(ConditionKey k, Object v) { regQ(k, v, getCValueRegisterUser(), "REGISTER_USER"); }
-    abstract protected ConditionValue getCValueRegisterUser();
+    protected void regRegisterUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRegisterUser(), "REGISTER_USER"); }
+    protected abstract ConditionValue getCValueRegisterUser();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -717,7 +717,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of updateDatetime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUpdateDatetime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUpdateDatetime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUpdateDatetime(), "UPDATE_DATETIME", fromToOption);
     }
 
@@ -732,7 +732,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param fromDate The from-date(yyyy/MM/dd) of updateDatetime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of updateDatetime. (NullAllowed: if null, no to-condition)
      */
-    public void setUpdateDatetime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUpdateDatetime_DateFromTo(Date fromDate, Date toDate) {
         setUpdateDatetime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -762,8 +762,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         regINS(CK_NINS, cTL(updateDatetimeList), getCValueUpdateDatetime(), "UPDATE_DATETIME");
     }
 
-    protected void regUpdateDatetime(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
-    abstract protected ConditionValue getCValueUpdateDatetime();
+    protected void regUpdateDatetime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateDatetime(), "UPDATE_DATETIME"); }
+    protected abstract ConditionValue getCValueUpdateDatetime();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -835,8 +835,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         regLSQ(CK_NLS, fRES(updateUser), getCValueUpdateUser(), "UPDATE_USER", likeSearchOption);
     }
 
-    protected void regUpdateUser(ConditionKey k, Object v) { regQ(k, v, getCValueUpdateUser(), "UPDATE_USER"); }
-    abstract protected ConditionValue getCValueUpdateUser();
+    protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
+    protected abstract ConditionValue getCValueUpdateUser();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -926,8 +926,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         regINS(CK_INS, cTL(versionNoList), getCValueVersionNo(), "VERSION_NO");
     }
 
-    protected void regVersionNo(ConditionKey k, Object v) { regQ(k, v, getCValueVersionNo(), "VERSION_NO"); }
-    abstract protected ConditionValue getCValueVersionNo();
+    protected void regVersionNo(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueVersionNo(), "VERSION_NO"); }
+    protected abstract ConditionValue getCValueVersionNo();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1034,22 +1034,22 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<MbMemberWithdrawalCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<MbMemberWithdrawalCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<MbMemberWithdrawalCB>(new HpSSQSetupper<MbMemberWithdrawalCB>() {
-            public void setup(String function, SubQuery<MbMemberWithdrawalCB> subQuery, HpSSQOption<MbMemberWithdrawalCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<MbMemberWithdrawalCB> sq, HpSSQOption<MbMemberWithdrawalCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<MbMemberWithdrawalCB> subQuery, String operand, HpSSQOption<MbMemberWithdrawalCB> option) {
-        assertObjectNotNull("subQuery<MbMemberWithdrawalCB>", subQuery);
-        MbMemberWithdrawalCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<MbMemberWithdrawalCB> sq, String rd, HpSSQOption<MbMemberWithdrawalCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        MbMemberWithdrawalCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(MbMemberWithdrawalCQ subQuery);
+    public abstract String keepScalarCondition(MbMemberWithdrawalCQ sq);
 
     protected MbMemberWithdrawalCB xcreateScalarConditionCB() {
         MbMemberWithdrawalCB cb = new MbMemberWithdrawalCB();
@@ -1066,13 +1066,14 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<MbMemberWithdrawalCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MbMemberWithdrawalCB>", subQuery);
-        MbMemberWithdrawalCB cb = new MbMemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<MbMemberWithdrawalCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MbMemberWithdrawalCB cb = new MbMemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "MEMBER_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(MbMemberWithdrawalCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(MbMemberWithdrawalCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -1083,20 +1084,21 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
     }
     protected HpQDRFunction<MbMemberWithdrawalCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<MbMemberWithdrawalCB>(new HpQDRSetupper<MbMemberWithdrawalCB>() {
-            public void setup(String function, SubQuery<MbMemberWithdrawalCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<MbMemberWithdrawalCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<MbMemberWithdrawalCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MbMemberWithdrawalCB>", subQuery);
-        MbMemberWithdrawalCB cb = new MbMemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "MEMBER_ID", "MEMBER_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<MbMemberWithdrawalCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MbMemberWithdrawalCB cb = new MbMemberWithdrawalCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "MEMBER_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(MbMemberWithdrawalCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(MbMemberWithdrawalCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1106,12 +1108,12 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<MbMemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MbMemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbMemberWithdrawalCB cb = new MbMemberWithdrawalCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(MbMemberWithdrawalCQ subQuery);
+    public abstract String keepMyselfExists(MbMemberWithdrawalCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1121,12 +1123,12 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<MbMemberWithdrawalCB> subQuery) {
-        assertObjectNotNull("subQuery<MbMemberWithdrawalCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbMemberWithdrawalCB cb = new MbMemberWithdrawalCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(MbMemberWithdrawalCQ subQuery);
+    public abstract String keepMyselfInScope(MbMemberWithdrawalCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

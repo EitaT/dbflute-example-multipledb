@@ -92,27 +92,27 @@ public class MbMemberStatusCIQ extends MbAbstractBsMemberStatusCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepMemberStatusCode_QueryDerivedReferrer_MemberList(MbMemberCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepMemberStatusCode_QueryDerivedReferrer_MemberListParameter(Object pv)
+    public String keepMemberStatusCode_QueryDerivedReferrer_MemberListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepMemberStatusCode_QueryDerivedReferrer_MemberLoginList(MbMemberLoginCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepMemberStatusCode_QueryDerivedReferrer_MemberLoginListParameter(Object pv)
+    public String keepMemberStatusCode_QueryDerivedReferrer_MemberLoginListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueMemberStatusName() { return _myCQ.getMemberStatusName(); }
     protected ConditionValue getCValueDescription() { return _myCQ.getDescription(); }
     protected ConditionValue getCValueDisplayOrder() { return _myCQ.getDisplayOrder(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(MbMemberStatusCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MbMemberStatusCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(MbMemberStatusCQ subQuery)
+    public String keepSpecifyMyselfDerived(MbMemberStatusCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(MbMemberStatusCQ subQuery)
+    public String keepQueryMyselfDerived(MbMemberStatusCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(MbMemberStatusCQ subQuery)
+    public String keepMyselfExists(MbMemberStatusCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MbMemberStatusCQ subQuery)
+    public String keepMyselfInScope(MbMemberStatusCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

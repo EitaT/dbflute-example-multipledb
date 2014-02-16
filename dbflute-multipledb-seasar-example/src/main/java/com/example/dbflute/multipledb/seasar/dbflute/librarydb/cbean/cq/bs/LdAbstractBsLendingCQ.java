@@ -160,8 +160,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      */
     public void setLibraryId_IsNotNull() { regLibraryId(CK_ISNN, DOBJ); }
 
-    protected void regLibraryId(ConditionKey k, Object v) { regQ(k, v, getCValueLibraryId(), "LIBRARY_ID"); }
-    abstract protected ConditionValue getCValueLibraryId();
+    protected void regLibraryId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLibraryId(), "LIBRARY_ID"); }
+    protected abstract ConditionValue getCValueLibraryId();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -276,8 +276,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      */
     public void setLbUserId_IsNotNull() { regLbUserId(CK_ISNN, DOBJ); }
 
-    protected void regLbUserId(ConditionKey k, Object v) { regQ(k, v, getCValueLbUserId(), "LB_USER_ID"); }
-    abstract protected ConditionValue getCValueLbUserId();
+    protected void regLbUserId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLbUserId(), "LB_USER_ID"); }
+    protected abstract ConditionValue getCValueLbUserId();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -342,7 +342,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of lendingDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setLendingDate_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setLendingDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueLendingDate(), "LENDING_DATE", fromToOption);
     }
 
@@ -357,7 +357,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of lendingDate. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of lendingDate. (NullAllowed: if null, no to-condition)
      */
-    public void setLendingDate_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setLendingDate_DateFromTo(Date fromDate, Date toDate) {
         setLendingDate_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -399,8 +399,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      */
     public void setLendingDate_IsNotNull() { regLendingDate(CK_ISNN, DOBJ); }
 
-    protected void regLendingDate(ConditionKey k, Object v) { regQ(k, v, getCValueLendingDate(), "LENDING_DATE"); }
-    abstract protected ConditionValue getCValueLendingDate();
+    protected void regLendingDate(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLendingDate(), "LENDING_DATE"); }
+    protected abstract ConditionValue getCValueLendingDate();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -521,8 +521,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rUser), getCValueRUser(), "R_USER", likeSearchOption);
     }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -648,8 +648,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(rModuleList), getCValueRModule(), "R_MODULE");
     }
 
-    protected void regRModule(ConditionKey k, Object v) { regQ(k, v, getCValueRModule(), "R_MODULE"); }
-    abstract protected ConditionValue getCValueRModule();
+    protected void regRModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRModule(), "R_MODULE"); }
+    protected abstract ConditionValue getCValueRModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -714,7 +714,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -729,7 +729,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -759,8 +759,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(rTimestampList), getCValueRTimestamp(), "R_TIMESTAMP");
     }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -881,8 +881,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uUser), getCValueUUser(), "U_USER", likeSearchOption);
     }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1008,8 +1008,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(uModuleList), getCValueUModule(), "U_MODULE");
     }
 
-    protected void regUModule(ConditionKey k, Object v) { regQ(k, v, getCValueUModule(), "U_MODULE"); }
-    abstract protected ConditionValue getCValueUModule();
+    protected void regUModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUModule(), "U_MODULE"); }
+    protected abstract ConditionValue getCValueUModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1074,7 +1074,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -1089,7 +1089,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1119,8 +1119,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(uTimestampList), getCValueUTimestamp(), "U_TIMESTAMP");
     }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                       Very Internal

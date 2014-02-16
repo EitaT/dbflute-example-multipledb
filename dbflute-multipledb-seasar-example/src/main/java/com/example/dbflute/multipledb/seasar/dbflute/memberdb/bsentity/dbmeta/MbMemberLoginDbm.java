@@ -44,24 +44,24 @@ public class MbMemberLoginDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberLoginId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberLogin)e).getMemberLoginId(); }
-        public void write(Entity e, Object v) { ((MbMemberLogin)e).setMemberLoginId(ctl(v)); }
+        public Object read(Entity et) { return ((MbMemberLogin)et).getMemberLoginId(); }
+        public void write(Entity et, Object vl) { ((MbMemberLogin)et).setMemberLoginId(ctl(vl)); }
     }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberLogin)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbMemberLogin)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberLogin)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbMemberLogin)et).setMemberId(cti(vl)); }
     }
     public static class EpgLoginDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberLogin)e).getLoginDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberLogin)e).setLoginDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberLogin)et).getLoginDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberLogin)et).setLoginDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgMobileLoginFlg implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberLogin)e).getMobileLoginFlg(); }
-        public void write(Entity e, Object v) { ((MbMemberLogin)e).setMobileLoginFlg(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberLogin)et).getMobileLoginFlg(); }
+        public void write(Entity et, Object vl) { ((MbMemberLogin)et).setMobileLoginFlg(cti(vl)); }
     }
     public static class EpgLoginMemberStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberLogin)e).getLoginMemberStatusCode(); }
-        public void write(Entity e, Object v) { ((MbMemberLogin)e).setLoginMemberStatusCode((String)v); }
+        public Object read(Entity et) { return ((MbMemberLogin)et).getLoginMemberStatusCode(); }
+        public void write(Entity et, Object vl) { ((MbMemberLogin)et).setLoginMemberStatusCode((String)vl); }
     }
 
     // ===================================================================================
@@ -119,12 +119,12 @@ public class MbMemberLoginDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMember() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_LOGIN_MEMBER", "member", this, MbMemberDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "memberLoginList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_LOGIN_MEMBER", "member", this, MbMemberDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "memberLoginList");
     }
     public ForeignInfo foreignMemberStatus() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnLoginMemberStatusCode(), MbMemberStatusDbm.getInstance().columnMemberStatusCode());
-        return cfi("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberStatus", this, MbMemberStatusDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "memberLoginList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLoginMemberStatusCode(), MbMemberStatusDbm.getInstance().columnMemberStatusCode());
+        return cfi("FK_MEMBER_LOGIN_MEMBER_STATUS", "memberStatus", this, MbMemberStatusDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberLoginList");
     }
 
     // -----------------------------------------------------
@@ -157,10 +157,10 @@ public class MbMemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbMemberLogin)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbMemberLogin)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbMemberLogin)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbMemberLogin)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

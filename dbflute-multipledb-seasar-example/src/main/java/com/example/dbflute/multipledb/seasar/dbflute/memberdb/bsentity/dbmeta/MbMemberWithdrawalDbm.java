@@ -48,40 +48,40 @@ public class MbMemberWithdrawalDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setMemberId(cti(vl)); }
     }
     public static class EpgWithdrawalReasonCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getWithdrawalReasonCode(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setWithdrawalReasonCode((String)v); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getWithdrawalReasonCode(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setWithdrawalReasonCode((String)vl); }
     }
     public static class EpgWithdrawalReasonInputText implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getWithdrawalReasonInputText(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setWithdrawalReasonInputText((String)v); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getWithdrawalReasonInputText(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setWithdrawalReasonInputText((String)vl); }
     }
     public static class EpgWithdrawalDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getWithdrawalDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setWithdrawalDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getWithdrawalDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setWithdrawalDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setUpdateUser((String)vl); }
     }
     public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberWithdrawal)e).getVersionNo(); }
-        public void write(Entity e, Object v) { ((MbMemberWithdrawal)e).setVersionNo(ctl(v)); }
+        public Object read(Entity et) { return ((MbMemberWithdrawal)et).getVersionNo(); }
+        public void write(Entity et, Object vl) { ((MbMemberWithdrawal)et).setVersionNo(ctl(vl)); }
     }
 
     // ===================================================================================
@@ -151,12 +151,12 @@ public class MbMemberWithdrawalDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMember() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_WITHDRAWAL_MEMBER", "member", this, MbMemberDbm.getInstance(), map, 0, true, false, false, false, null, null, false, "memberWithdrawalAsOne");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_WITHDRAWAL_MEMBER", "member", this, MbMemberDbm.getInstance(), mp, 0, true, false, false, false, null, null, false, "memberWithdrawalAsOne");
     }
     public ForeignInfo foreignWithdrawalReason() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnWithdrawalReasonCode(), MbWithdrawalReasonDbm.getInstance().columnWithdrawalReasonCode());
-        return cfi("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "withdrawalReason", this, MbWithdrawalReasonDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "memberWithdrawalList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnWithdrawalReasonCode(), MbWithdrawalReasonDbm.getInstance().columnWithdrawalReasonCode());
+        return cfi("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "withdrawalReason", this, MbWithdrawalReasonDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberWithdrawalList");
     }
 
     // -----------------------------------------------------
@@ -197,10 +197,10 @@ public class MbMemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbMemberWithdrawal)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbMemberWithdrawal)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbMemberWithdrawal)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbMemberWithdrawal)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

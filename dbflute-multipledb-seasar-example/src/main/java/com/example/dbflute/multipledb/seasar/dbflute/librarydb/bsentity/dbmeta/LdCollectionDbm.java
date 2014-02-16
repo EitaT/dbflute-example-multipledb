@@ -51,44 +51,44 @@ public class LdCollectionDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgCollectionId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getCollectionId(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setCollectionId(cti(v)); }
+        public Object read(Entity et) { return ((LdCollection)et).getCollectionId(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setCollectionId(cti(vl)); }
     }
     public static class EpgLibraryId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getLibraryId(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setLibraryId(cti(v)); }
+        public Object read(Entity et) { return ((LdCollection)et).getLibraryId(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setLibraryId(cti(vl)); }
     }
     public static class EpgBookId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getBookId(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setBookId(cti(v)); }
+        public Object read(Entity et) { return ((LdCollection)et).getBookId(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setBookId(cti(vl)); }
     }
     public static class EpgArrivalDate implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getArrivalDate(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setArrivalDate((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdCollection)et).getArrivalDate(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setArrivalDate((java.sql.Timestamp)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdCollection)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdCollection)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdCollection)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdCollection)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdCollection)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollection)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdCollection)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdCollection)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -161,24 +161,24 @@ public class LdCollectionDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignBook() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnBookId(), LdBookDbm.getInstance().columnBookId());
-        return cfi("FK_COLLECTION_BOOK", "book", this, LdBookDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "collectionList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnBookId(), LdBookDbm.getInstance().columnBookId());
+        return cfi("FK_COLLECTION_BOOK", "book", this, LdBookDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "collectionList");
     }
     public ForeignInfo foreignLibrary() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnLibraryId(), LdLibraryDbm.getInstance().columnLibraryId());
-        return cfi("FK_COLLECTION_LIBRARY", "library", this, LdLibraryDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "collectionList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLibraryId(), LdLibraryDbm.getInstance().columnLibraryId());
+        return cfi("FK_COLLECTION_LIBRARY", "library", this, LdLibraryDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "collectionList");
     }
     public ForeignInfo foreignCollectionStatusAsOne() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnCollectionId(), LdCollectionStatusDbm.getInstance().columnCollectionId());
-        return cfi("FK_COLLECTION_STATUS_COLLECTION", "collectionStatusAsOne", this, LdCollectionStatusDbm.getInstance(), map, 2, true, false, true, false, null, null, false, "collection");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCollectionId(), LdCollectionStatusDbm.getInstance().columnCollectionId());
+        return cfi("FK_COLLECTION_STATUS_COLLECTION", "collectionStatusAsOne", this, LdCollectionStatusDbm.getInstance(), mp, 2, true, false, true, false, null, null, false, "collection");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerLendingCollectionList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnCollectionId(), LdLendingCollectionDbm.getInstance().columnCollectionId());
-        return cri("FK_LENDING_COLLECTION_COL", "lendingCollectionList", this, LdLendingCollectionDbm.getInstance(), map, false, "collection");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCollectionId(), LdLendingCollectionDbm.getInstance().columnCollectionId());
+        return cri("FK_LENDING_COLLECTION_COL", "lendingCollectionList", this, LdLendingCollectionDbm.getInstance(), mp, false, "collection");
     }
 
     // ===================================================================================
@@ -216,10 +216,10 @@ public class LdCollectionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdCollection)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdCollection)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdCollection)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdCollection)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

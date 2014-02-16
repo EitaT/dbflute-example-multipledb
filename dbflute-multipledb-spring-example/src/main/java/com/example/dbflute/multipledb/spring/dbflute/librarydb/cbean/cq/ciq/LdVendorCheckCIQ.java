@@ -84,7 +84,7 @@ public class LdVendorCheckCIQ extends LdAbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfDate() { return _myCQ.getTypeOfDate(); }
     protected ConditionValue getCValueTypeOfTimestamp() { return _myCQ.getTypeOfTimestamp(); }
     protected ConditionValue getCValueTypeOfTime() { return _myCQ.getTypeOfTime(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
         throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");

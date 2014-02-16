@@ -84,21 +84,21 @@ public class LdVendorConstraintNameAutoFooCIQ extends LdAbstractBsVendorConstrai
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepConstraintNameAutoFooId_QueryDerivedReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepConstraintNameAutoFooId_QueryDerivedReferrer_VendorConstraintNameAutoRefListParameter(Object pv)
+    public String keepConstraintNameAutoFooId_QueryDerivedReferrer_VendorConstraintNameAutoRefListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueConstraintNameAutoFooName() { return _myCQ.getConstraintNameAutoFooName(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdVendorConstraintNameAutoFooCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdVendorConstraintNameAutoFooCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoFooCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoFooCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdVendorConstraintNameAutoFooCQ subQuery)
+    public String keepQueryMyselfDerived(LdVendorConstraintNameAutoFooCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdVendorConstraintNameAutoFooCQ subQuery)
+    public String keepMyselfExists(LdVendorConstraintNameAutoFooCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdVendorConstraintNameAutoFooCQ subQuery)
+    public String keepMyselfInScope(LdVendorConstraintNameAutoFooCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

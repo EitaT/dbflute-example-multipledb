@@ -357,8 +357,8 @@ public class LdBsPublisherCB extends AbstractConditionBean {
         public HpSDRFunction<LdBookCB, LdPublisherCQ> derivedBookList() {
             assertDerived("bookList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdBookCB, LdPublisherCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdBookCB, LdPublisherCQ>() {
-                public void setup(String function, SubQuery<LdBookCB> subQuery, LdPublisherCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveBookList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdBookCB> sq, LdPublisherCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveBookList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -367,8 +367,8 @@ public class LdBsPublisherCB extends AbstractConditionBean {
         public HpSDRFunction<LdPublisherCB, LdPublisherCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdPublisherCB, LdPublisherCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdPublisherCB, LdPublisherCQ>() {
-                public void setup(String function, SubQuery<LdPublisherCB> subQuery, LdPublisherCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdPublisherCB> sq, LdPublisherCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

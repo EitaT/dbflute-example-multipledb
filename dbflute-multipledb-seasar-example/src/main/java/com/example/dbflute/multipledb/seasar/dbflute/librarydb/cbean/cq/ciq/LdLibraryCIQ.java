@@ -114,19 +114,19 @@ public class LdLibraryCIQ extends LdAbstractBsLibraryCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepLibraryId_QueryDerivedReferrer_CollectionList(LdCollectionCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepLibraryId_QueryDerivedReferrer_CollectionListParameter(Object pv)
+    public String keepLibraryId_QueryDerivedReferrer_CollectionListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepLibraryId_QueryDerivedReferrer_LibraryUserList(LdLibraryUserCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepLibraryId_QueryDerivedReferrer_LibraryUserListParameter(Object pv)
+    public String keepLibraryId_QueryDerivedReferrer_LibraryUserListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdList(LdNextLibraryCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdListParameter(Object pv)
+    public String keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdListParameter(Object pv)
+    public String keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueLibraryName() { return _myCQ.getLibraryName(); }
     protected ConditionValue getCValueLibraryTypeCode() { return _myCQ.getLibraryTypeCode(); }
@@ -140,18 +140,18 @@ public class LdLibraryCIQ extends LdAbstractBsLibraryCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdLibraryCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdLibraryCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdLibraryCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdLibraryCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdLibraryCQ subQuery)
+    public String keepQueryMyselfDerived(LdLibraryCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdLibraryCQ subQuery)
+    public String keepMyselfExists(LdLibraryCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdLibraryCQ subQuery)
+    public String keepMyselfInScope(LdLibraryCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

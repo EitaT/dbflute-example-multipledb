@@ -155,12 +155,12 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of Library for 'in-scope'. (NotNull)
      */
     public void inScopeLibrary(SubQuery<LdLibraryCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLibraryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLibraryId_InScopeRelation_Library(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", subQueryPropertyName, "library");
+        String pp = keepLibraryId_InScopeRelation_Library(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "library");
     }
-    public abstract String keepLibraryId_InScopeRelation_Library(LdLibraryCQ subQuery);
+    public abstract String keepLibraryId_InScopeRelation_Library(LdLibraryCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -169,12 +169,12 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of Library for 'not in-scope'. (NotNull)
      */
     public void notInScopeLibrary(SubQuery<LdLibraryCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLibraryCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLibraryId_NotInScopeRelation_Library(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", subQueryPropertyName, "library");
+        String pp = keepLibraryId_NotInScopeRelation_Library(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "library");
     }
-    public abstract String keepLibraryId_NotInScopeRelation_Library(LdLibraryCQ subQuery);
+    public abstract String keepLibraryId_NotInScopeRelation_Library(LdLibraryCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -188,8 +188,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      */
     public void setLibraryId_IsNotNull() { regLibraryId(CK_ISNN, DOBJ); }
 
-    protected void regLibraryId(ConditionKey k, Object v) { regQ(k, v, getCValueLibraryId(), "LIBRARY_ID"); }
-    abstract protected ConditionValue getCValueLibraryId();
+    protected void regLibraryId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLibraryId(), "LIBRARY_ID"); }
+    protected abstract ConditionValue getCValueLibraryId();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -299,12 +299,12 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of LbUser for 'in-scope'. (NotNull)
      */
     public void inScopeLbUser(SubQuery<LdLbUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLbUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_InScopeRelation_LbUser(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "lbUser");
+        String pp = keepLbUserId_InScopeRelation_LbUser(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "lbUser");
     }
-    public abstract String keepLbUserId_InScopeRelation_LbUser(LdLbUserCQ subQuery);
+    public abstract String keepLbUserId_InScopeRelation_LbUser(LdLbUserCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -313,12 +313,12 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of LbUser for 'not in-scope'. (NotNull)
      */
     public void notInScopeLbUser(SubQuery<LdLbUserCB> subQuery) {
-        assertObjectNotNull("subQuery<LdLbUserCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepLbUserId_NotInScopeRelation_LbUser(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", subQueryPropertyName, "lbUser");
+        String pp = keepLbUserId_NotInScopeRelation_LbUser(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "LB_USER_ID", "LB_USER_ID", pp, "lbUser");
     }
-    public abstract String keepLbUserId_NotInScopeRelation_LbUser(LdLbUserCQ subQuery);
+    public abstract String keepLbUserId_NotInScopeRelation_LbUser(LdLbUserCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -332,8 +332,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      */
     public void setLbUserId_IsNotNull() { regLbUserId(CK_ISNN, DOBJ); }
 
-    protected void regLbUserId(ConditionKey k, Object v) { regQ(k, v, getCValueLbUserId(), "LB_USER_ID"); }
-    abstract protected ConditionValue getCValueLbUserId();
+    protected void regLbUserId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLbUserId(), "LB_USER_ID"); }
+    protected abstract ConditionValue getCValueLbUserId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -454,8 +454,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rUser), getCValueRUser(), "R_USER", likeSearchOption);
     }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -576,8 +576,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rModule), getCValueRModule(), "R_MODULE", likeSearchOption);
     }
 
-    protected void regRModule(ConditionKey k, Object v) { regQ(k, v, getCValueRModule(), "R_MODULE"); }
-    abstract protected ConditionValue getCValueRModule();
+    protected void regRModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRModule(), "R_MODULE"); }
+    protected abstract ConditionValue getCValueRModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -642,7 +642,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -657,7 +657,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -687,8 +687,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(rTimestampList), getCValueRTimestamp(), "R_TIMESTAMP");
     }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -809,8 +809,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uUser), getCValueUUser(), "U_USER", likeSearchOption);
     }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -931,8 +931,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uModule), getCValueUModule(), "U_MODULE", likeSearchOption);
     }
 
-    protected void regUModule(ConditionKey k, Object v) { regQ(k, v, getCValueUModule(), "U_MODULE"); }
-    abstract protected ConditionValue getCValueUModule();
+    protected void regUModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUModule(), "U_MODULE"); }
+    protected abstract ConditionValue getCValueUModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -997,7 +997,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -1012,7 +1012,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1042,8 +1042,8 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(uTimestampList), getCValueUTimestamp(), "U_TIMESTAMP");
     }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                       Very Internal

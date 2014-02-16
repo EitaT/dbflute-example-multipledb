@@ -375,8 +375,8 @@ public class LdBsMyselfCheckCB extends AbstractConditionBean {
         public HpSDRFunction<LdMyselfCheckCB, LdMyselfCheckCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdMyselfCheckCB, LdMyselfCheckCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdMyselfCheckCB, LdMyselfCheckCQ>() {
-                public void setup(String function, SubQuery<LdMyselfCheckCB> subQuery, LdMyselfCheckCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdMyselfCheckCB> sq, LdMyselfCheckCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

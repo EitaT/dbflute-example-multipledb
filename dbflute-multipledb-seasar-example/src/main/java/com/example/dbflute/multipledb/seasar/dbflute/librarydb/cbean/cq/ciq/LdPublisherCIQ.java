@@ -84,7 +84,7 @@ public class LdPublisherCIQ extends LdAbstractBsPublisherCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepPublisherId_QueryDerivedReferrer_BookList(LdBookCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepPublisherId_QueryDerivedReferrer_BookListParameter(Object pv)
+    public String keepPublisherId_QueryDerivedReferrer_BookListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValuePublisherName() { return _myCQ.getPublisherName(); }
     protected ConditionValue getCValueRUser() { return _myCQ.getRUser(); }
@@ -93,18 +93,18 @@ public class LdPublisherCIQ extends LdAbstractBsPublisherCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdPublisherCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdPublisherCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdPublisherCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdPublisherCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdPublisherCQ subQuery)
+    public String keepQueryMyselfDerived(LdPublisherCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdPublisherCQ subQuery)
+    public String keepMyselfExists(LdPublisherCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdPublisherCQ subQuery)
+    public String keepMyselfInScope(LdPublisherCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

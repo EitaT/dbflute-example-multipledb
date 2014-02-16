@@ -201,12 +201,12 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param subQuery The sub-query of CollectionStatusList for 'exists'. (NotNull)
      */
     public void existsCollectionStatusList(SubQuery<LdCollectionStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<LdCollectionStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepCollectionStatusCode_ExistsReferrer_CollectionStatusList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "collectionStatusList");
+        String pp = keepCollectionStatusCode_ExistsReferrer_CollectionStatusList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", pp, "collectionStatusList");
     }
-    public abstract String keepCollectionStatusCode_ExistsReferrer_CollectionStatusList(LdCollectionStatusCQ subQuery);
+    public abstract String keepCollectionStatusCode_ExistsReferrer_CollectionStatusList(LdCollectionStatusCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -222,12 +222,12 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param subQuery The sub-query of CollectionStatusCode_NotExistsReferrer_CollectionStatusList for 'not exists'. (NotNull)
      */
     public void notExistsCollectionStatusList(SubQuery<LdCollectionStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<LdCollectionStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepCollectionStatusCode_NotExistsReferrer_CollectionStatusList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "collectionStatusList");
+        String pp = keepCollectionStatusCode_NotExistsReferrer_CollectionStatusList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", pp, "collectionStatusList");
     }
-    public abstract String keepCollectionStatusCode_NotExistsReferrer_CollectionStatusList(LdCollectionStatusCQ subQuery);
+    public abstract String keepCollectionStatusCode_NotExistsReferrer_CollectionStatusList(LdCollectionStatusCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -236,12 +236,12 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param subQuery The sub-query of CollectionStatusList for 'in-scope'. (NotNull)
      */
     public void inScopeCollectionStatusList(SubQuery<LdCollectionStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<LdCollectionStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepCollectionStatusCode_InScopeRelation_CollectionStatusList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "collectionStatusList");
+        String pp = keepCollectionStatusCode_InScopeRelation_CollectionStatusList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", pp, "collectionStatusList");
     }
-    public abstract String keepCollectionStatusCode_InScopeRelation_CollectionStatusList(LdCollectionStatusCQ subQuery);
+    public abstract String keepCollectionStatusCode_InScopeRelation_CollectionStatusList(LdCollectionStatusCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -250,20 +250,20 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param subQuery The sub-query of CollectionStatusList for 'not in-scope'. (NotNull)
      */
     public void notInScopeCollectionStatusList(SubQuery<LdCollectionStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<LdCollectionStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepCollectionStatusCode_NotInScopeRelation_CollectionStatusList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "collectionStatusList");
+        String pp = keepCollectionStatusCode_NotInScopeRelation_CollectionStatusList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", pp, "collectionStatusList");
     }
-    public abstract String keepCollectionStatusCode_NotInScopeRelation_CollectionStatusList(LdCollectionStatusCQ subQuery);
+    public abstract String keepCollectionStatusCode_NotInScopeRelation_CollectionStatusList(LdCollectionStatusCQ sq);
 
-    public void xsderiveCollectionStatusList(String function, SubQuery<LdCollectionStatusCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdCollectionStatusCB>", subQuery);
-        LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepCollectionStatusCode_SpecifyDerivedReferrer_CollectionStatusList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "collectionStatusList", aliasName, option);
+    public void xsderiveCollectionStatusList(String fn, SubQuery<LdCollectionStatusCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepCollectionStatusCode_SpecifyDerivedReferrer_CollectionStatusList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", pp, "collectionStatusList", al, op);
     }
-    public abstract String keepCollectionStatusCode_SpecifyDerivedReferrer_CollectionStatusList(LdCollectionStatusCQ subQuery);
+    public abstract String keepCollectionStatusCode_SpecifyDerivedReferrer_CollectionStatusList(LdCollectionStatusCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -284,20 +284,20 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     }
     protected HpQDRFunction<LdCollectionStatusCB> xcreateQDRFunctionCollectionStatusList() {
         return new HpQDRFunction<LdCollectionStatusCB>(new HpQDRSetupper<LdCollectionStatusCB>() {
-            public void setup(String function, SubQuery<LdCollectionStatusCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveCollectionStatusList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdCollectionStatusCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveCollectionStatusList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveCollectionStatusList(String function, SubQuery<LdCollectionStatusCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdCollectionStatusCB>", subQuery);
-        LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "collectionStatusList", operand, value, parameterPropertyName, option);
+    public void xqderiveCollectionStatusList(String fn, SubQuery<LdCollectionStatusCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusList(cb.query()); // for saving query-value.
+        String prpp = keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", sqpp, "collectionStatusList", rd, vl, prpp, op);
     }
-    public abstract String keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusList(LdCollectionStatusCQ subQuery);
-    public abstract String keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusListParameter(Object parameterValue);
+    public abstract String keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusList(LdCollectionStatusCQ sq);
+    public abstract String keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -311,8 +311,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      */
     public void setCollectionStatusCode_IsNotNull() { regCollectionStatusCode(CK_ISNN, DOBJ); }
 
-    protected void regCollectionStatusCode(ConditionKey k, Object v) { regQ(k, v, getCValueCollectionStatusCode(), "COLLECTION_STATUS_CODE"); }
-    abstract protected ConditionValue getCValueCollectionStatusCode();
+    protected void regCollectionStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueCollectionStatusCode(), "COLLECTION_STATUS_CODE"); }
+    protected abstract ConditionValue getCValueCollectionStatusCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -433,8 +433,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         regLSQ(CK_NLS, fRES(collectionStatusName), getCValueCollectionStatusName(), "COLLECTION_STATUS_NAME", likeSearchOption);
     }
 
-    protected void regCollectionStatusName(ConditionKey k, Object v) { regQ(k, v, getCValueCollectionStatusName(), "COLLECTION_STATUS_NAME"); }
-    abstract protected ConditionValue getCValueCollectionStatusName();
+    protected void regCollectionStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueCollectionStatusName(), "COLLECTION_STATUS_NAME"); }
+    protected abstract ConditionValue getCValueCollectionStatusName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -555,8 +555,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         regLSQ(CK_NLS, fRES(rUser), getCValueRUser(), "R_USER", likeSearchOption);
     }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -682,8 +682,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         regINS(CK_NINS, cTL(rModuleList), getCValueRModule(), "R_MODULE");
     }
 
-    protected void regRModule(ConditionKey k, Object v) { regQ(k, v, getCValueRModule(), "R_MODULE"); }
-    abstract protected ConditionValue getCValueRModule();
+    protected void regRModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRModule(), "R_MODULE"); }
+    protected abstract ConditionValue getCValueRModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -748,7 +748,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -763,7 +763,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -793,8 +793,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         regINS(CK_NINS, cTL(rTimestampList), getCValueRTimestamp(), "R_TIMESTAMP");
     }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -915,8 +915,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         regLSQ(CK_NLS, fRES(uUser), getCValueUUser(), "U_USER", likeSearchOption);
     }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1042,8 +1042,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         regINS(CK_NINS, cTL(uModuleList), getCValueUModule(), "U_MODULE");
     }
 
-    protected void regUModule(ConditionKey k, Object v) { regQ(k, v, getCValueUModule(), "U_MODULE"); }
-    abstract protected ConditionValue getCValueUModule();
+    protected void regUModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUModule(), "U_MODULE"); }
+    protected abstract ConditionValue getCValueUModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1108,7 +1108,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -1123,7 +1123,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1153,8 +1153,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         regINS(CK_NINS, cTL(uTimestampList), getCValueUTimestamp(), "U_TIMESTAMP");
     }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1261,22 +1261,22 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<LdCollectionStatusLookupCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<LdCollectionStatusLookupCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<LdCollectionStatusLookupCB>(new HpSSQSetupper<LdCollectionStatusLookupCB>() {
-            public void setup(String function, SubQuery<LdCollectionStatusLookupCB> subQuery, HpSSQOption<LdCollectionStatusLookupCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<LdCollectionStatusLookupCB> sq, HpSSQOption<LdCollectionStatusLookupCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<LdCollectionStatusLookupCB> subQuery, String operand, HpSSQOption<LdCollectionStatusLookupCB> option) {
-        assertObjectNotNull("subQuery<LdCollectionStatusLookupCB>", subQuery);
-        LdCollectionStatusLookupCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<LdCollectionStatusLookupCB> sq, String rd, HpSSQOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdCollectionStatusLookupCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(LdCollectionStatusLookupCQ subQuery);
+    public abstract String keepScalarCondition(LdCollectionStatusLookupCQ sq);
 
     protected LdCollectionStatusLookupCB xcreateScalarConditionCB() {
         LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB();
@@ -1293,13 +1293,14 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<LdCollectionStatusLookupCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdCollectionStatusLookupCB>", subQuery);
-        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<LdCollectionStatusLookupCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "COLLECTION_STATUS_CODE";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(LdCollectionStatusLookupCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(LdCollectionStatusLookupCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -1310,20 +1311,21 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     }
     protected HpQDRFunction<LdCollectionStatusLookupCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<LdCollectionStatusLookupCB>(new HpQDRSetupper<LdCollectionStatusLookupCB>() {
-            public void setup(String function, SubQuery<LdCollectionStatusLookupCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdCollectionStatusLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<LdCollectionStatusLookupCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdCollectionStatusLookupCB>", subQuery);
-        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<LdCollectionStatusLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "COLLECTION_STATUS_CODE";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(LdCollectionStatusLookupCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(LdCollectionStatusLookupCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1333,12 +1335,12 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<LdCollectionStatusLookupCB> subQuery) {
-        assertObjectNotNull("subQuery<LdCollectionStatusLookupCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(LdCollectionStatusLookupCQ subQuery);
+    public abstract String keepMyselfExists(LdCollectionStatusLookupCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1348,12 +1350,12 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdCollectionStatusLookupCB> subQuery) {
-        assertObjectNotNull("subQuery<LdCollectionStatusLookupCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(LdCollectionStatusLookupCQ subQuery);
+    public abstract String keepMyselfInScope(LdCollectionStatusLookupCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

@@ -84,7 +84,7 @@ public class LdBlackListCIQ extends LdAbstractBsBlackListCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepBlackListId_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepBlackListId_QueryDerivedReferrer_BlackActionListParameter(Object pv)
+    public String keepBlackListId_QueryDerivedReferrer_BlackActionListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueLbUserId() { return _myCQ.getLbUserId(); }
     public String keepLbUserId_InScopeRelation_LbUser(LdLbUserCQ sq)
@@ -98,18 +98,18 @@ public class LdBlackListCIQ extends LdAbstractBsBlackListCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdBlackListCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdBlackListCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdBlackListCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdBlackListCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdBlackListCQ subQuery)
+    public String keepQueryMyselfDerived(LdBlackListCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdBlackListCQ subQuery)
+    public String keepMyselfExists(LdBlackListCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdBlackListCQ subQuery)
+    public String keepMyselfInScope(LdBlackListCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

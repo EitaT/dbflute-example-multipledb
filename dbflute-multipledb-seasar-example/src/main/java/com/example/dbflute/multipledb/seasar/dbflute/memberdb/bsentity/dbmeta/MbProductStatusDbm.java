@@ -42,16 +42,16 @@ public class MbProductStatusDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgProductStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProductStatus)e).getProductStatusCode(); }
-        public void write(Entity e, Object v) { ((MbProductStatus)e).setProductStatusCode((String)v); }
+        public Object read(Entity et) { return ((MbProductStatus)et).getProductStatusCode(); }
+        public void write(Entity et, Object vl) { ((MbProductStatus)et).setProductStatusCode((String)vl); }
     }
     public static class EpgProductStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProductStatus)e).getProductStatusName(); }
-        public void write(Entity e, Object v) { ((MbProductStatus)e).setProductStatusName((String)v); }
+        public Object read(Entity et) { return ((MbProductStatus)et).getProductStatusName(); }
+        public void write(Entity et, Object vl) { ((MbProductStatus)et).setProductStatusName((String)vl); }
     }
     public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProductStatus)e).getDisplayOrder(); }
-        public void write(Entity e, Object v) { ((MbProductStatus)e).setDisplayOrder(cti(v)); }
+        public Object read(Entity et) { return ((MbProductStatus)et).getDisplayOrder(); }
+        public void write(Entity et, Object vl) { ((MbProductStatus)et).setDisplayOrder(cti(vl)); }
     }
 
     // ===================================================================================
@@ -107,8 +107,8 @@ public class MbProductStatusDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerProductList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductStatusCode(), MbProductDbm.getInstance().columnProductStatusCode());
-        return cri("FK_PRODUCT_PRODUCT_STATUS", "productList", this, MbProductDbm.getInstance(), map, false, "productStatus");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductStatusCode(), MbProductDbm.getInstance().columnProductStatusCode());
+        return cri("FK_PRODUCT_PRODUCT_STATUS", "productList", this, MbProductDbm.getInstance(), mp, false, "productStatus");
     }
 
     // ===================================================================================
@@ -136,10 +136,10 @@ public class MbProductStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbProductStatus)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbProductStatus)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbProductStatus)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbProductStatus)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -50,48 +50,48 @@ public class MbProductDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgProductId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getProductId(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setProductId(cti(v)); }
+        public Object read(Entity et) { return ((MbProduct)et).getProductId(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setProductId(cti(vl)); }
     }
     public static class EpgProductName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getProductName(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setProductName((String)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getProductName(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setProductName((String)vl); }
     }
     public static class EpgProductHandleCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getProductHandleCode(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setProductHandleCode((String)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getProductHandleCode(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setProductHandleCode((String)vl); }
     }
     public static class EpgProductCategoryCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getProductCategoryCode(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setProductCategoryCode((String)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getProductCategoryCode(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setProductCategoryCode((String)vl); }
     }
     public static class EpgProductStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getProductStatusCode(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setProductStatusCode((String)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getProductStatusCode(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setProductStatusCode((String)vl); }
     }
     public static class EpgRegularPrice implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getRegularPrice(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setRegularPrice(cti(v)); }
+        public Object read(Entity et) { return ((MbProduct)et).getRegularPrice(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setRegularPrice(cti(vl)); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((MbProduct)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setUpdateUser((String)vl); }
     }
     public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProduct)e).getVersionNo(); }
-        public void write(Entity e, Object v) { ((MbProduct)e).setVersionNo(ctl(v)); }
+        public Object read(Entity et) { return ((MbProduct)et).getVersionNo(); }
+        public void write(Entity et, Object vl) { ((MbProduct)et).setVersionNo(ctl(vl)); }
     }
 
     // ===================================================================================
@@ -167,20 +167,20 @@ public class MbProductDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignProductCategory() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductCategoryCode(), MbProductCategoryDbm.getInstance().columnProductCategoryCode());
-        return cfi("FK_PRODUCT_PRODUCT_CATEGORY", "productCategory", this, MbProductCategoryDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "productList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductCategoryCode(), MbProductCategoryDbm.getInstance().columnProductCategoryCode());
+        return cfi("FK_PRODUCT_PRODUCT_CATEGORY", "productCategory", this, MbProductCategoryDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "productList");
     }
     public ForeignInfo foreignProductStatus() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductStatusCode(), MbProductStatusDbm.getInstance().columnProductStatusCode());
-        return cfi("FK_PRODUCT_PRODUCT_STATUS", "productStatus", this, MbProductStatusDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "productList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductStatusCode(), MbProductStatusDbm.getInstance().columnProductStatusCode());
+        return cfi("FK_PRODUCT_PRODUCT_STATUS", "productStatus", this, MbProductStatusDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "productList");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerPurchaseList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductId(), MbPurchaseDbm.getInstance().columnProductId());
-        return cri("FK_PURCHASE_PRODUCT", "purchaseList", this, MbPurchaseDbm.getInstance(), map, false, "product");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductId(), MbPurchaseDbm.getInstance().columnProductId());
+        return cri("FK_PURCHASE_PRODUCT", "purchaseList", this, MbPurchaseDbm.getInstance(), mp, false, "product");
     }
 
     // ===================================================================================
@@ -218,10 +218,10 @@ public class MbProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbProduct)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbProduct)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbProduct)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbProduct)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

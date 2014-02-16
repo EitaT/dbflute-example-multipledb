@@ -104,18 +104,18 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
 
     protected Map<String, LdBlackListCQ> _blackListId_InScopeRelation_BlackListMap;
     public Map<String, LdBlackListCQ> getBlackListId_InScopeRelation_BlackList() { return _blackListId_InScopeRelation_BlackListMap; }
-    public String keepBlackListId_InScopeRelation_BlackList(LdBlackListCQ subQuery) {
+    public String keepBlackListId_InScopeRelation_BlackList(LdBlackListCQ sq) {
         if (_blackListId_InScopeRelation_BlackListMap == null) { _blackListId_InScopeRelation_BlackListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_InScopeRelation_BlackListMap.size() + 1);
-        _blackListId_InScopeRelation_BlackListMap.put(key, subQuery); return "blackListId_InScopeRelation_BlackList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_InScopeRelation_BlackListMap.size() + 1);
+        _blackListId_InScopeRelation_BlackListMap.put(ky, sq); return "blackListId_InScopeRelation_BlackList." + ky;
     }
 
     protected Map<String, LdBlackListCQ> _blackListId_NotInScopeRelation_BlackListMap;
     public Map<String, LdBlackListCQ> getBlackListId_NotInScopeRelation_BlackList() { return _blackListId_NotInScopeRelation_BlackListMap; }
-    public String keepBlackListId_NotInScopeRelation_BlackList(LdBlackListCQ subQuery) {
+    public String keepBlackListId_NotInScopeRelation_BlackList(LdBlackListCQ sq) {
         if (_blackListId_NotInScopeRelation_BlackListMap == null) { _blackListId_NotInScopeRelation_BlackListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_NotInScopeRelation_BlackListMap.size() + 1);
-        _blackListId_NotInScopeRelation_BlackListMap.put(key, subQuery); return "blackListId_NotInScopeRelation_BlackList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_NotInScopeRelation_BlackListMap.size() + 1);
+        _blackListId_NotInScopeRelation_BlackListMap.put(ky, sq); return "blackListId_NotInScopeRelation_BlackList." + ky;
     }
 
     /** 
@@ -141,18 +141,18 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
 
     protected Map<String, LdBlackActionLookupCQ> _blackActionCode_InScopeRelation_BlackActionLookupMap;
     public Map<String, LdBlackActionLookupCQ> getBlackActionCode_InScopeRelation_BlackActionLookup() { return _blackActionCode_InScopeRelation_BlackActionLookupMap; }
-    public String keepBlackActionCode_InScopeRelation_BlackActionLookup(LdBlackActionLookupCQ subQuery) {
+    public String keepBlackActionCode_InScopeRelation_BlackActionLookup(LdBlackActionLookupCQ sq) {
         if (_blackActionCode_InScopeRelation_BlackActionLookupMap == null) { _blackActionCode_InScopeRelation_BlackActionLookupMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackActionCode_InScopeRelation_BlackActionLookupMap.size() + 1);
-        _blackActionCode_InScopeRelation_BlackActionLookupMap.put(key, subQuery); return "blackActionCode_InScopeRelation_BlackActionLookup." + key;
+        String ky = "subQueryMapKey" + (_blackActionCode_InScopeRelation_BlackActionLookupMap.size() + 1);
+        _blackActionCode_InScopeRelation_BlackActionLookupMap.put(ky, sq); return "blackActionCode_InScopeRelation_BlackActionLookup." + ky;
     }
 
     protected Map<String, LdBlackActionLookupCQ> _blackActionCode_NotInScopeRelation_BlackActionLookupMap;
     public Map<String, LdBlackActionLookupCQ> getBlackActionCode_NotInScopeRelation_BlackActionLookup() { return _blackActionCode_NotInScopeRelation_BlackActionLookupMap; }
-    public String keepBlackActionCode_NotInScopeRelation_BlackActionLookup(LdBlackActionLookupCQ subQuery) {
+    public String keepBlackActionCode_NotInScopeRelation_BlackActionLookup(LdBlackActionLookupCQ sq) {
         if (_blackActionCode_NotInScopeRelation_BlackActionLookupMap == null) { _blackActionCode_NotInScopeRelation_BlackActionLookupMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackActionCode_NotInScopeRelation_BlackActionLookupMap.size() + 1);
-        _blackActionCode_NotInScopeRelation_BlackActionLookupMap.put(key, subQuery); return "blackActionCode_NotInScopeRelation_BlackActionLookup." + key;
+        String ky = "subQueryMapKey" + (_blackActionCode_NotInScopeRelation_BlackActionLookupMap.size() + 1);
+        _blackActionCode_NotInScopeRelation_BlackActionLookupMap.put(ky, sq); return "blackActionCode_NotInScopeRelation_BlackActionLookup." + ky;
     }
 
     /** 
@@ -398,14 +398,14 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdBlackActionCQ baseQuery = (LdBlackActionCQ)baseQueryAsSuper;
-        LdBlackActionCQ unionQuery = (LdBlackActionCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryBlackList()) {
-            unionQuery.queryBlackList().reflectRelationOnUnionQuery(baseQuery.queryBlackList(), unionQuery.queryBlackList());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdBlackActionCQ bq = (LdBlackActionCQ)bqs;
+        LdBlackActionCQ uq = (LdBlackActionCQ)uqs;
+        if (bq.hasConditionQueryBlackList()) {
+            uq.queryBlackList().reflectRelationOnUnionQuery(bq.queryBlackList(), uq.queryBlackList());
         }
-        if (baseQuery.hasConditionQueryBlackActionLookup()) {
-            unionQuery.queryBlackActionLookup().reflectRelationOnUnionQuery(baseQuery.queryBlackActionLookup(), unionQuery.queryBlackActionLookup());
+        if (bq.hasConditionQueryBlackActionLookup()) {
+            uq.queryBlackActionLookup().reflectRelationOnUnionQuery(bq.queryBlackActionLookup(), uq.queryBlackActionLookup());
         }
     }
 
@@ -489,10 +489,10 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
     //                                                                     ===============
     protected Map<String, LdBlackActionCQ> _scalarConditionMap;
     public Map<String, LdBlackActionCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdBlackActionCQ subQuery) {
+    public String keepScalarCondition(LdBlackActionCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -500,25 +500,25 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
     //                                                                       =============
     protected Map<String, LdBlackActionCQ> _specifyMyselfDerivedMap;
     public Map<String, LdBlackActionCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdBlackActionCQ subQuery) {
+    public String keepSpecifyMyselfDerived(LdBlackActionCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, LdBlackActionCQ> _queryMyselfDerivedMap;
     public Map<String, LdBlackActionCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdBlackActionCQ subQuery) {
+    public String keepQueryMyselfDerived(LdBlackActionCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -526,10 +526,10 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
     //                                                                        ============
     protected Map<String, LdBlackActionCQ> _myselfExistsMap;
     public Map<String, LdBlackActionCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdBlackActionCQ subQuery) {
+    public String keepMyselfExists(LdBlackActionCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -537,10 +537,10 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
     //                                                                       =============
     protected Map<String, LdBlackActionCQ> _myselfInScopeMap;
     public Map<String, LdBlackActionCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdBlackActionCQ subQuery) {
+    public String keepMyselfInScope(LdBlackActionCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

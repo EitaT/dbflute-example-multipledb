@@ -82,22 +82,22 @@ public class MbWithdrawalReasonCIQ extends MbAbstractBsWithdrawalReasonCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalList(MbMemberWithdrawalCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalListParameter(Object pv)
+    public String keepWithdrawalReasonCode_QueryDerivedReferrer_MemberWithdrawalListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueWithdrawalReasonText() { return _myCQ.getWithdrawalReasonText(); }
     protected ConditionValue getCValueDisplayOrder() { return _myCQ.getDisplayOrder(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(MbWithdrawalReasonCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MbWithdrawalReasonCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(MbWithdrawalReasonCQ subQuery)
+    public String keepSpecifyMyselfDerived(MbWithdrawalReasonCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(MbWithdrawalReasonCQ subQuery)
+    public String keepQueryMyselfDerived(MbWithdrawalReasonCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(MbWithdrawalReasonCQ subQuery)
+    public String keepMyselfExists(MbWithdrawalReasonCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MbWithdrawalReasonCQ subQuery)
+    public String keepMyselfInScope(MbWithdrawalReasonCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

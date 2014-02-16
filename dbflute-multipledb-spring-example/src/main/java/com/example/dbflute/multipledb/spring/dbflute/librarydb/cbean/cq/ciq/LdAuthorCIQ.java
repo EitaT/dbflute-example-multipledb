@@ -84,7 +84,7 @@ public class LdAuthorCIQ extends LdAbstractBsAuthorCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepAuthorId_QueryDerivedReferrer_BookList(LdBookCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepAuthorId_QueryDerivedReferrer_BookListParameter(Object pv)
+    public String keepAuthorId_QueryDerivedReferrer_BookListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueAuthorName() { return _myCQ.getAuthorName(); }
     protected ConditionValue getCValueAuthorAge() { return _myCQ.getAuthorAge(); }
@@ -94,18 +94,18 @@ public class LdAuthorCIQ extends LdAbstractBsAuthorCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdAuthorCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdAuthorCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdAuthorCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdAuthorCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdAuthorCQ subQuery)
+    public String keepQueryMyselfDerived(LdAuthorCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdAuthorCQ subQuery)
+    public String keepMyselfExists(LdAuthorCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdAuthorCQ subQuery)
+    public String keepMyselfInScope(LdAuthorCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

@@ -83,89 +83,89 @@ public class LdBsLbUserCQ extends LdAbstractBsLbUserCQ {
 
     protected Map<String, LdBlackListCQ> _lbUserId_ExistsReferrer_BlackListAsOneMap;
     public Map<String, LdBlackListCQ> getLbUserId_ExistsReferrer_BlackListAsOne() { return _lbUserId_ExistsReferrer_BlackListAsOneMap; }
-    public String keepLbUserId_ExistsReferrer_BlackListAsOne(LdBlackListCQ subQuery) {
+    public String keepLbUserId_ExistsReferrer_BlackListAsOne(LdBlackListCQ sq) {
         if (_lbUserId_ExistsReferrer_BlackListAsOneMap == null) { _lbUserId_ExistsReferrer_BlackListAsOneMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_ExistsReferrer_BlackListAsOneMap.size() + 1);
-        _lbUserId_ExistsReferrer_BlackListAsOneMap.put(key, subQuery); return "lbUserId_ExistsReferrer_BlackListAsOne." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_ExistsReferrer_BlackListAsOneMap.size() + 1);
+        _lbUserId_ExistsReferrer_BlackListAsOneMap.put(ky, sq); return "lbUserId_ExistsReferrer_BlackListAsOne." + ky;
     }
 
     protected Map<String, LdLibraryUserCQ> _lbUserId_ExistsReferrer_LibraryUserListMap;
     public Map<String, LdLibraryUserCQ> getLbUserId_ExistsReferrer_LibraryUserList() { return _lbUserId_ExistsReferrer_LibraryUserListMap; }
-    public String keepLbUserId_ExistsReferrer_LibraryUserList(LdLibraryUserCQ subQuery) {
+    public String keepLbUserId_ExistsReferrer_LibraryUserList(LdLibraryUserCQ sq) {
         if (_lbUserId_ExistsReferrer_LibraryUserListMap == null) { _lbUserId_ExistsReferrer_LibraryUserListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_ExistsReferrer_LibraryUserListMap.size() + 1);
-        _lbUserId_ExistsReferrer_LibraryUserListMap.put(key, subQuery); return "lbUserId_ExistsReferrer_LibraryUserList." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_ExistsReferrer_LibraryUserListMap.size() + 1);
+        _lbUserId_ExistsReferrer_LibraryUserListMap.put(ky, sq); return "lbUserId_ExistsReferrer_LibraryUserList." + ky;
     }
 
     protected Map<String, LdBlackListCQ> _lbUserId_NotExistsReferrer_BlackListAsOneMap;
     public Map<String, LdBlackListCQ> getLbUserId_NotExistsReferrer_BlackListAsOne() { return _lbUserId_NotExistsReferrer_BlackListAsOneMap; }
-    public String keepLbUserId_NotExistsReferrer_BlackListAsOne(LdBlackListCQ subQuery) {
+    public String keepLbUserId_NotExistsReferrer_BlackListAsOne(LdBlackListCQ sq) {
         if (_lbUserId_NotExistsReferrer_BlackListAsOneMap == null) { _lbUserId_NotExistsReferrer_BlackListAsOneMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_NotExistsReferrer_BlackListAsOneMap.size() + 1);
-        _lbUserId_NotExistsReferrer_BlackListAsOneMap.put(key, subQuery); return "lbUserId_NotExistsReferrer_BlackListAsOne." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_NotExistsReferrer_BlackListAsOneMap.size() + 1);
+        _lbUserId_NotExistsReferrer_BlackListAsOneMap.put(ky, sq); return "lbUserId_NotExistsReferrer_BlackListAsOne." + ky;
     }
 
     protected Map<String, LdLibraryUserCQ> _lbUserId_NotExistsReferrer_LibraryUserListMap;
     public Map<String, LdLibraryUserCQ> getLbUserId_NotExistsReferrer_LibraryUserList() { return _lbUserId_NotExistsReferrer_LibraryUserListMap; }
-    public String keepLbUserId_NotExistsReferrer_LibraryUserList(LdLibraryUserCQ subQuery) {
+    public String keepLbUserId_NotExistsReferrer_LibraryUserList(LdLibraryUserCQ sq) {
         if (_lbUserId_NotExistsReferrer_LibraryUserListMap == null) { _lbUserId_NotExistsReferrer_LibraryUserListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_NotExistsReferrer_LibraryUserListMap.size() + 1);
-        _lbUserId_NotExistsReferrer_LibraryUserListMap.put(key, subQuery); return "lbUserId_NotExistsReferrer_LibraryUserList." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_NotExistsReferrer_LibraryUserListMap.size() + 1);
+        _lbUserId_NotExistsReferrer_LibraryUserListMap.put(ky, sq); return "lbUserId_NotExistsReferrer_LibraryUserList." + ky;
     }
 
     protected Map<String, LdLibraryUserCQ> _lbUserId_SpecifyDerivedReferrer_LibraryUserListMap;
     public Map<String, LdLibraryUserCQ> getLbUserId_SpecifyDerivedReferrer_LibraryUserList() { return _lbUserId_SpecifyDerivedReferrer_LibraryUserListMap; }
-    public String keepLbUserId_SpecifyDerivedReferrer_LibraryUserList(LdLibraryUserCQ subQuery) {
+    public String keepLbUserId_SpecifyDerivedReferrer_LibraryUserList(LdLibraryUserCQ sq) {
         if (_lbUserId_SpecifyDerivedReferrer_LibraryUserListMap == null) { _lbUserId_SpecifyDerivedReferrer_LibraryUserListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_SpecifyDerivedReferrer_LibraryUserListMap.size() + 1);
-        _lbUserId_SpecifyDerivedReferrer_LibraryUserListMap.put(key, subQuery); return "lbUserId_SpecifyDerivedReferrer_LibraryUserList." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_SpecifyDerivedReferrer_LibraryUserListMap.size() + 1);
+        _lbUserId_SpecifyDerivedReferrer_LibraryUserListMap.put(ky, sq); return "lbUserId_SpecifyDerivedReferrer_LibraryUserList." + ky;
     }
 
     protected Map<String, LdBlackListCQ> _lbUserId_InScopeRelation_BlackListAsOneMap;
     public Map<String, LdBlackListCQ> getLbUserId_InScopeRelation_BlackListAsOne() { return _lbUserId_InScopeRelation_BlackListAsOneMap; }
-    public String keepLbUserId_InScopeRelation_BlackListAsOne(LdBlackListCQ subQuery) {
+    public String keepLbUserId_InScopeRelation_BlackListAsOne(LdBlackListCQ sq) {
         if (_lbUserId_InScopeRelation_BlackListAsOneMap == null) { _lbUserId_InScopeRelation_BlackListAsOneMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_InScopeRelation_BlackListAsOneMap.size() + 1);
-        _lbUserId_InScopeRelation_BlackListAsOneMap.put(key, subQuery); return "lbUserId_InScopeRelation_BlackListAsOne." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_InScopeRelation_BlackListAsOneMap.size() + 1);
+        _lbUserId_InScopeRelation_BlackListAsOneMap.put(ky, sq); return "lbUserId_InScopeRelation_BlackListAsOne." + ky;
     }
 
     protected Map<String, LdLibraryUserCQ> _lbUserId_InScopeRelation_LibraryUserListMap;
     public Map<String, LdLibraryUserCQ> getLbUserId_InScopeRelation_LibraryUserList() { return _lbUserId_InScopeRelation_LibraryUserListMap; }
-    public String keepLbUserId_InScopeRelation_LibraryUserList(LdLibraryUserCQ subQuery) {
+    public String keepLbUserId_InScopeRelation_LibraryUserList(LdLibraryUserCQ sq) {
         if (_lbUserId_InScopeRelation_LibraryUserListMap == null) { _lbUserId_InScopeRelation_LibraryUserListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_InScopeRelation_LibraryUserListMap.size() + 1);
-        _lbUserId_InScopeRelation_LibraryUserListMap.put(key, subQuery); return "lbUserId_InScopeRelation_LibraryUserList." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_InScopeRelation_LibraryUserListMap.size() + 1);
+        _lbUserId_InScopeRelation_LibraryUserListMap.put(ky, sq); return "lbUserId_InScopeRelation_LibraryUserList." + ky;
     }
 
     protected Map<String, LdBlackListCQ> _lbUserId_NotInScopeRelation_BlackListAsOneMap;
     public Map<String, LdBlackListCQ> getLbUserId_NotInScopeRelation_BlackListAsOne() { return _lbUserId_NotInScopeRelation_BlackListAsOneMap; }
-    public String keepLbUserId_NotInScopeRelation_BlackListAsOne(LdBlackListCQ subQuery) {
+    public String keepLbUserId_NotInScopeRelation_BlackListAsOne(LdBlackListCQ sq) {
         if (_lbUserId_NotInScopeRelation_BlackListAsOneMap == null) { _lbUserId_NotInScopeRelation_BlackListAsOneMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_NotInScopeRelation_BlackListAsOneMap.size() + 1);
-        _lbUserId_NotInScopeRelation_BlackListAsOneMap.put(key, subQuery); return "lbUserId_NotInScopeRelation_BlackListAsOne." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_NotInScopeRelation_BlackListAsOneMap.size() + 1);
+        _lbUserId_NotInScopeRelation_BlackListAsOneMap.put(ky, sq); return "lbUserId_NotInScopeRelation_BlackListAsOne." + ky;
     }
 
     protected Map<String, LdLibraryUserCQ> _lbUserId_NotInScopeRelation_LibraryUserListMap;
     public Map<String, LdLibraryUserCQ> getLbUserId_NotInScopeRelation_LibraryUserList() { return _lbUserId_NotInScopeRelation_LibraryUserListMap; }
-    public String keepLbUserId_NotInScopeRelation_LibraryUserList(LdLibraryUserCQ subQuery) {
+    public String keepLbUserId_NotInScopeRelation_LibraryUserList(LdLibraryUserCQ sq) {
         if (_lbUserId_NotInScopeRelation_LibraryUserListMap == null) { _lbUserId_NotInScopeRelation_LibraryUserListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_NotInScopeRelation_LibraryUserListMap.size() + 1);
-        _lbUserId_NotInScopeRelation_LibraryUserListMap.put(key, subQuery); return "lbUserId_NotInScopeRelation_LibraryUserList." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_NotInScopeRelation_LibraryUserListMap.size() + 1);
+        _lbUserId_NotInScopeRelation_LibraryUserListMap.put(ky, sq); return "lbUserId_NotInScopeRelation_LibraryUserList." + ky;
     }
 
     protected Map<String, LdLibraryUserCQ> _lbUserId_QueryDerivedReferrer_LibraryUserListMap;
     public Map<String, LdLibraryUserCQ> getLbUserId_QueryDerivedReferrer_LibraryUserList() { return _lbUserId_QueryDerivedReferrer_LibraryUserListMap; }
-    public String keepLbUserId_QueryDerivedReferrer_LibraryUserList(LdLibraryUserCQ subQuery) {
+    public String keepLbUserId_QueryDerivedReferrer_LibraryUserList(LdLibraryUserCQ sq) {
         if (_lbUserId_QueryDerivedReferrer_LibraryUserListMap == null) { _lbUserId_QueryDerivedReferrer_LibraryUserListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_QueryDerivedReferrer_LibraryUserListMap.size() + 1);
-        _lbUserId_QueryDerivedReferrer_LibraryUserListMap.put(key, subQuery); return "lbUserId_QueryDerivedReferrer_LibraryUserList." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_QueryDerivedReferrer_LibraryUserListMap.size() + 1);
+        _lbUserId_QueryDerivedReferrer_LibraryUserListMap.put(ky, sq); return "lbUserId_QueryDerivedReferrer_LibraryUserList." + ky;
     }
     protected Map<String, Object> _lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap;
     public Map<String, Object> getLbUserId_QueryDerivedReferrer_LibraryUserListParameter() { return _lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap; }
-    public String keepLbUserId_QueryDerivedReferrer_LibraryUserListParameter(Object parameterValue) {
+    public String keepLbUserId_QueryDerivedReferrer_LibraryUserListParameter(Object vl) {
         if (_lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap == null) { _lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap.size() + 1);
-        _lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap.put(key, parameterValue); return "lbUserId_QueryDerivedReferrer_LibraryUserListParameter." + key;
+        String ky = "subQueryParameterKey" + (_lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap.size() + 1);
+        _lbUserId_QueryDerivedReferrer_LibraryUserListParameterMap.put(ky, vl); return "lbUserId_QueryDerivedReferrer_LibraryUserListParameter." + ky;
     }
 
     /** 
@@ -390,11 +390,11 @@ public class LdBsLbUserCQ extends LdAbstractBsLbUserCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdLbUserCQ baseQuery = (LdLbUserCQ)baseQueryAsSuper;
-        LdLbUserCQ unionQuery = (LdLbUserCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryBlackListAsOne()) {
-            unionQuery.queryBlackListAsOne().reflectRelationOnUnionQuery(baseQuery.queryBlackListAsOne(), unionQuery.queryBlackListAsOne());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdLbUserCQ bq = (LdLbUserCQ)bqs;
+        LdLbUserCQ uq = (LdLbUserCQ)uqs;
+        if (bq.hasConditionQueryBlackListAsOne()) {
+            uq.queryBlackListAsOne().reflectRelationOnUnionQuery(bq.queryBlackListAsOne(), uq.queryBlackListAsOne());
         }
     }
 
@@ -444,10 +444,10 @@ public class LdBsLbUserCQ extends LdAbstractBsLbUserCQ {
     //                                                                     ===============
     protected Map<String, LdLbUserCQ> _scalarConditionMap;
     public Map<String, LdLbUserCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdLbUserCQ subQuery) {
+    public String keepScalarCondition(LdLbUserCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -455,25 +455,25 @@ public class LdBsLbUserCQ extends LdAbstractBsLbUserCQ {
     //                                                                       =============
     protected Map<String, LdLbUserCQ> _specifyMyselfDerivedMap;
     public Map<String, LdLbUserCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdLbUserCQ subQuery) {
+    public String keepSpecifyMyselfDerived(LdLbUserCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, LdLbUserCQ> _queryMyselfDerivedMap;
     public Map<String, LdLbUserCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdLbUserCQ subQuery) {
+    public String keepQueryMyselfDerived(LdLbUserCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -481,10 +481,10 @@ public class LdBsLbUserCQ extends LdAbstractBsLbUserCQ {
     //                                                                        ============
     protected Map<String, LdLbUserCQ> _myselfExistsMap;
     public Map<String, LdLbUserCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdLbUserCQ subQuery) {
+    public String keepMyselfExists(LdLbUserCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -492,10 +492,10 @@ public class LdBsLbUserCQ extends LdAbstractBsLbUserCQ {
     //                                                                       =============
     protected Map<String, LdLbUserCQ> _myselfInScopeMap;
     public Map<String, LdLbUserCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdLbUserCQ subQuery) {
+    public String keepMyselfInScope(LdLbUserCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

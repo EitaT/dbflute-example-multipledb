@@ -49,36 +49,36 @@ public class LdCollectionStatusLookupDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgCollectionStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getCollectionStatusCode(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setCollectionStatusCode((String)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getCollectionStatusCode(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setCollectionStatusCode((String)vl); }
     }
     public static class EpgCollectionStatusName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getCollectionStatusName(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setCollectionStatusName((String)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getCollectionStatusName(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setCollectionStatusName((String)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdCollectionStatusLookup)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdCollectionStatusLookup)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdCollectionStatusLookup)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatusLookup)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -149,8 +149,8 @@ public class LdCollectionStatusLookupDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerCollectionStatusList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnCollectionStatusCode(), LdCollectionStatusDbm.getInstance().columnCollectionStatusCode());
-        return cri("FK_COLLECTION_STATUS_LOOKUP", "collectionStatusList", this, LdCollectionStatusDbm.getInstance(), map, false, "collectionStatusLookup");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCollectionStatusCode(), LdCollectionStatusDbm.getInstance().columnCollectionStatusCode());
+        return cri("FK_COLLECTION_STATUS_LOOKUP", "collectionStatusList", this, LdCollectionStatusDbm.getInstance(), mp, false, "collectionStatusLookup");
     }
 
     // ===================================================================================
@@ -187,10 +187,10 @@ public class LdCollectionStatusLookupDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdCollectionStatusLookup)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdCollectionStatusLookup)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdCollectionStatusLookup)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdCollectionStatusLookup)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

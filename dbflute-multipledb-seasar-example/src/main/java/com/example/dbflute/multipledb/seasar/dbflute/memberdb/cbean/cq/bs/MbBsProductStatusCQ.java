@@ -81,57 +81,57 @@ public class MbBsProductStatusCQ extends MbAbstractBsProductStatusCQ {
 
     protected Map<String, MbProductCQ> _productStatusCode_ExistsReferrer_ProductListMap;
     public Map<String, MbProductCQ> getProductStatusCode_ExistsReferrer_ProductList() { return _productStatusCode_ExistsReferrer_ProductListMap; }
-    public String keepProductStatusCode_ExistsReferrer_ProductList(MbProductCQ subQuery) {
+    public String keepProductStatusCode_ExistsReferrer_ProductList(MbProductCQ sq) {
         if (_productStatusCode_ExistsReferrer_ProductListMap == null) { _productStatusCode_ExistsReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_productStatusCode_ExistsReferrer_ProductListMap.size() + 1);
-        _productStatusCode_ExistsReferrer_ProductListMap.put(key, subQuery); return "productStatusCode_ExistsReferrer_ProductList." + key;
+        String ky = "subQueryMapKey" + (_productStatusCode_ExistsReferrer_ProductListMap.size() + 1);
+        _productStatusCode_ExistsReferrer_ProductListMap.put(ky, sq); return "productStatusCode_ExistsReferrer_ProductList." + ky;
     }
 
     protected Map<String, MbProductCQ> _productStatusCode_NotExistsReferrer_ProductListMap;
     public Map<String, MbProductCQ> getProductStatusCode_NotExistsReferrer_ProductList() { return _productStatusCode_NotExistsReferrer_ProductListMap; }
-    public String keepProductStatusCode_NotExistsReferrer_ProductList(MbProductCQ subQuery) {
+    public String keepProductStatusCode_NotExistsReferrer_ProductList(MbProductCQ sq) {
         if (_productStatusCode_NotExistsReferrer_ProductListMap == null) { _productStatusCode_NotExistsReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_productStatusCode_NotExistsReferrer_ProductListMap.size() + 1);
-        _productStatusCode_NotExistsReferrer_ProductListMap.put(key, subQuery); return "productStatusCode_NotExistsReferrer_ProductList." + key;
+        String ky = "subQueryMapKey" + (_productStatusCode_NotExistsReferrer_ProductListMap.size() + 1);
+        _productStatusCode_NotExistsReferrer_ProductListMap.put(ky, sq); return "productStatusCode_NotExistsReferrer_ProductList." + ky;
     }
 
     protected Map<String, MbProductCQ> _productStatusCode_InScopeRelation_ProductListMap;
     public Map<String, MbProductCQ> getProductStatusCode_InScopeRelation_ProductList() { return _productStatusCode_InScopeRelation_ProductListMap; }
-    public String keepProductStatusCode_InScopeRelation_ProductList(MbProductCQ subQuery) {
+    public String keepProductStatusCode_InScopeRelation_ProductList(MbProductCQ sq) {
         if (_productStatusCode_InScopeRelation_ProductListMap == null) { _productStatusCode_InScopeRelation_ProductListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_productStatusCode_InScopeRelation_ProductListMap.size() + 1);
-        _productStatusCode_InScopeRelation_ProductListMap.put(key, subQuery); return "productStatusCode_InScopeRelation_ProductList." + key;
+        String ky = "subQueryMapKey" + (_productStatusCode_InScopeRelation_ProductListMap.size() + 1);
+        _productStatusCode_InScopeRelation_ProductListMap.put(ky, sq); return "productStatusCode_InScopeRelation_ProductList." + ky;
     }
 
     protected Map<String, MbProductCQ> _productStatusCode_NotInScopeRelation_ProductListMap;
     public Map<String, MbProductCQ> getProductStatusCode_NotInScopeRelation_ProductList() { return _productStatusCode_NotInScopeRelation_ProductListMap; }
-    public String keepProductStatusCode_NotInScopeRelation_ProductList(MbProductCQ subQuery) {
+    public String keepProductStatusCode_NotInScopeRelation_ProductList(MbProductCQ sq) {
         if (_productStatusCode_NotInScopeRelation_ProductListMap == null) { _productStatusCode_NotInScopeRelation_ProductListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_productStatusCode_NotInScopeRelation_ProductListMap.size() + 1);
-        _productStatusCode_NotInScopeRelation_ProductListMap.put(key, subQuery); return "productStatusCode_NotInScopeRelation_ProductList." + key;
+        String ky = "subQueryMapKey" + (_productStatusCode_NotInScopeRelation_ProductListMap.size() + 1);
+        _productStatusCode_NotInScopeRelation_ProductListMap.put(ky, sq); return "productStatusCode_NotInScopeRelation_ProductList." + ky;
     }
 
     protected Map<String, MbProductCQ> _productStatusCode_SpecifyDerivedReferrer_ProductListMap;
     public Map<String, MbProductCQ> getProductStatusCode_SpecifyDerivedReferrer_ProductList() { return _productStatusCode_SpecifyDerivedReferrer_ProductListMap; }
-    public String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(MbProductCQ subQuery) {
+    public String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(MbProductCQ sq) {
         if (_productStatusCode_SpecifyDerivedReferrer_ProductListMap == null) { _productStatusCode_SpecifyDerivedReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_productStatusCode_SpecifyDerivedReferrer_ProductListMap.size() + 1);
-        _productStatusCode_SpecifyDerivedReferrer_ProductListMap.put(key, subQuery); return "productStatusCode_SpecifyDerivedReferrer_ProductList." + key;
+        String ky = "subQueryMapKey" + (_productStatusCode_SpecifyDerivedReferrer_ProductListMap.size() + 1);
+        _productStatusCode_SpecifyDerivedReferrer_ProductListMap.put(ky, sq); return "productStatusCode_SpecifyDerivedReferrer_ProductList." + ky;
     }
 
     protected Map<String, MbProductCQ> _productStatusCode_QueryDerivedReferrer_ProductListMap;
     public Map<String, MbProductCQ> getProductStatusCode_QueryDerivedReferrer_ProductList() { return _productStatusCode_QueryDerivedReferrer_ProductListMap; }
-    public String keepProductStatusCode_QueryDerivedReferrer_ProductList(MbProductCQ subQuery) {
+    public String keepProductStatusCode_QueryDerivedReferrer_ProductList(MbProductCQ sq) {
         if (_productStatusCode_QueryDerivedReferrer_ProductListMap == null) { _productStatusCode_QueryDerivedReferrer_ProductListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_productStatusCode_QueryDerivedReferrer_ProductListMap.size() + 1);
-        _productStatusCode_QueryDerivedReferrer_ProductListMap.put(key, subQuery); return "productStatusCode_QueryDerivedReferrer_ProductList." + key;
+        String ky = "subQueryMapKey" + (_productStatusCode_QueryDerivedReferrer_ProductListMap.size() + 1);
+        _productStatusCode_QueryDerivedReferrer_ProductListMap.put(ky, sq); return "productStatusCode_QueryDerivedReferrer_ProductList." + ky;
     }
     protected Map<String, Object> _productStatusCode_QueryDerivedReferrer_ProductListParameterMap;
     public Map<String, Object> getProductStatusCode_QueryDerivedReferrer_ProductListParameter() { return _productStatusCode_QueryDerivedReferrer_ProductListParameterMap; }
-    public String keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(Object parameterValue) {
+    public String keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(Object vl) {
         if (_productStatusCode_QueryDerivedReferrer_ProductListParameterMap == null) { _productStatusCode_QueryDerivedReferrer_ProductListParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_productStatusCode_QueryDerivedReferrer_ProductListParameterMap.size() + 1);
-        _productStatusCode_QueryDerivedReferrer_ProductListParameterMap.put(key, parameterValue); return "productStatusCode_QueryDerivedReferrer_ProductListParameter." + key;
+        String ky = "subQueryParameterKey" + (_productStatusCode_QueryDerivedReferrer_ProductListParameterMap.size() + 1);
+        _productStatusCode_QueryDerivedReferrer_ProductListParameterMap.put(ky, vl); return "productStatusCode_QueryDerivedReferrer_ProductListParameter." + ky;
     }
 
     /** 
@@ -230,7 +230,7 @@ public class MbBsProductStatusCQ extends MbAbstractBsProductStatusCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
     }
 
     // ===================================================================================
@@ -245,10 +245,10 @@ public class MbBsProductStatusCQ extends MbAbstractBsProductStatusCQ {
     //                                                                     ===============
     protected Map<String, MbProductStatusCQ> _scalarConditionMap;
     public Map<String, MbProductStatusCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(MbProductStatusCQ subQuery) {
+    public String keepScalarCondition(MbProductStatusCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -256,25 +256,25 @@ public class MbBsProductStatusCQ extends MbAbstractBsProductStatusCQ {
     //                                                                       =============
     protected Map<String, MbProductStatusCQ> _specifyMyselfDerivedMap;
     public Map<String, MbProductStatusCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(MbProductStatusCQ subQuery) {
+    public String keepSpecifyMyselfDerived(MbProductStatusCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, MbProductStatusCQ> _queryMyselfDerivedMap;
     public Map<String, MbProductStatusCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(MbProductStatusCQ subQuery) {
+    public String keepQueryMyselfDerived(MbProductStatusCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -282,10 +282,10 @@ public class MbBsProductStatusCQ extends MbAbstractBsProductStatusCQ {
     //                                                                        ============
     protected Map<String, MbProductStatusCQ> _myselfExistsMap;
     public Map<String, MbProductStatusCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(MbProductStatusCQ subQuery) {
+    public String keepMyselfExists(MbProductStatusCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -293,10 +293,10 @@ public class MbBsProductStatusCQ extends MbAbstractBsProductStatusCQ {
     //                                                                       =============
     protected Map<String, MbProductStatusCQ> _myselfInScopeMap;
     public Map<String, MbProductStatusCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(MbProductStatusCQ subQuery) {
+    public String keepMyselfInScope(MbProductStatusCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

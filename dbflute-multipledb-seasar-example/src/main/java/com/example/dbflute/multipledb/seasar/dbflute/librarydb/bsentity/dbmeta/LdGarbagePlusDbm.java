@@ -50,40 +50,40 @@ public class LdGarbagePlusDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgGarbageMemo implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getGarbageMemo(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setGarbageMemo((String)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getGarbageMemo(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setGarbageMemo((String)vl); }
     }
     public static class EpgGarbageTime implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getGarbageTime(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setGarbageTime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getGarbageTime(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setGarbageTime((java.sql.Timestamp)vl); }
     }
     public static class EpgGarbageCount implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getGarbageCount(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setGarbageCount(cti(v)); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getGarbageCount(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setGarbageCount(cti(vl)); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbagePlus)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdGarbagePlus)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGarbagePlus)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdGarbagePlus)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -186,10 +186,10 @@ public class LdGarbagePlusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdGarbagePlus)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdGarbagePlus)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdGarbagePlus)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdGarbagePlus)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

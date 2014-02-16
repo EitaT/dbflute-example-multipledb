@@ -94,11 +94,11 @@ public class LdGenreCIQ extends LdAbstractBsGenreCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepGenreCode_QueryDerivedReferrer_BookList(LdBookCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGenreCode_QueryDerivedReferrer_BookListParameter(Object pv)
+    public String keepGenreCode_QueryDerivedReferrer_BookListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepGenreCode_QueryDerivedReferrer_GenreSelfList(LdGenreCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(Object pv)
+    public String keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueGenreName() { return _myCQ.getGenreName(); }
     protected ConditionValue getCValueHierarchyLevel() { return _myCQ.getHierarchyLevel(); }
@@ -114,18 +114,18 @@ public class LdGenreCIQ extends LdAbstractBsGenreCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdGenreCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdGenreCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdGenreCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdGenreCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdGenreCQ subQuery)
+    public String keepQueryMyselfDerived(LdGenreCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdGenreCQ subQuery)
+    public String keepMyselfExists(LdGenreCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdGenreCQ subQuery)
+    public String keepMyselfInScope(LdGenreCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

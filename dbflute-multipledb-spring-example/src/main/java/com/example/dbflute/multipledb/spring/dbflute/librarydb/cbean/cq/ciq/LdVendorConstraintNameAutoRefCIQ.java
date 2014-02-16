@@ -88,18 +88,18 @@ public class LdVendorConstraintNameAutoRefCIQ extends LdAbstractBsVendorConstrai
     public String keepConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux(LdVendorConstraintNameAutoQuxCQ sq)
     { return _myCQ.keepConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux(sq); }
     protected ConditionValue getCValueConstraintNameAutoUnique() { return _myCQ.getConstraintNameAutoUnique(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdVendorConstraintNameAutoRefCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdVendorConstraintNameAutoRefCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoRefCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoRefCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdVendorConstraintNameAutoRefCQ subQuery)
+    public String keepQueryMyselfDerived(LdVendorConstraintNameAutoRefCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdVendorConstraintNameAutoRefCQ subQuery)
+    public String keepMyselfExists(LdVendorConstraintNameAutoRefCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdVendorConstraintNameAutoRefCQ subQuery)
+    public String keepMyselfInScope(LdVendorConstraintNameAutoRefCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

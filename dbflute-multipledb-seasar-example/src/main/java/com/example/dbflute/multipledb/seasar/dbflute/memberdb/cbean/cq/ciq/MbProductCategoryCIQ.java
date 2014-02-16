@@ -92,11 +92,11 @@ public class MbProductCategoryCIQ extends MbAbstractBsProductCategoryCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductList(MbProductCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(Object pv)
+    public String keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfList(MbProductCategoryCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(Object pv)
+    public String keepProductCategoryCode_QueryDerivedReferrer_ProductCategorySelfListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueProductCategoryName() { return _myCQ.getProductCategoryName(); }
     protected ConditionValue getCValueParentCategoryCode() { return _myCQ.getParentCategoryCode(); }
@@ -104,18 +104,18 @@ public class MbProductCategoryCIQ extends MbAbstractBsProductCategoryCQ {
     { return _myCQ.keepParentCategoryCode_InScopeRelation_ProductCategorySelf(sq); }
     public String keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(MbProductCategoryCQ sq)
     { return _myCQ.keepParentCategoryCode_NotInScopeRelation_ProductCategorySelf(sq); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(MbProductCategoryCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MbProductCategoryCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(MbProductCategoryCQ subQuery)
+    public String keepSpecifyMyselfDerived(MbProductCategoryCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(MbProductCategoryCQ subQuery)
+    public String keepQueryMyselfDerived(MbProductCategoryCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(MbProductCategoryCQ subQuery)
+    public String keepMyselfExists(MbProductCategoryCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MbProductCategoryCQ subQuery)
+    public String keepMyselfInScope(MbProductCategoryCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

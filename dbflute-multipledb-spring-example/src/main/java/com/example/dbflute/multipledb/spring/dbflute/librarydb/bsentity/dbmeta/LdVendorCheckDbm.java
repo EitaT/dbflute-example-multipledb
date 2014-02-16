@@ -54,56 +54,56 @@ public class LdVendorCheckDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgVendorCheckId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getVendorCheckId(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setVendorCheckId(ctl(v)); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getVendorCheckId(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setVendorCheckId(ctl(vl)); }
     }
     public static class EpgTypeOfChar implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfChar(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfChar((String)v); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfChar(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfChar((String)vl); }
     }
     public static class EpgTypeOfVarchar implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfVarchar(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfVarchar((String)v); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfVarchar(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfVarchar((String)vl); }
     }
     public static class EpgTypeOfLongVarchar implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfLongVarchar(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfLongVarchar((String)v); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfLongVarchar(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfLongVarchar((String)vl); }
     }
     public static class EpgTypeOfClob implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfClob(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfClob((String)v); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfClob(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfClob((String)vl); }
     }
     public static class EpgTypeOfDecimalInteger implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfDecimalInteger(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfDecimalInteger(ctb(v)); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfDecimalInteger(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfDecimalInteger(ctb(vl)); }
     }
     public static class EpgTypeOfDecimalBigint implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfDecimalBigint(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfDecimalBigint(ctb(v)); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfDecimalBigint(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfDecimalBigint(ctb(vl)); }
     }
     public static class EpgTypeOfDecimalDecimal implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfDecimalDecimal(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfDecimalDecimal(ctb(v)); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfDecimalDecimal(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfDecimalDecimal(ctb(vl)); }
     }
     public static class EpgTypeOfBigint implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfBigint(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfBigint(ctl(v)); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfBigint(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfBigint(ctl(vl)); }
     }
     public static class EpgTypeOfInteger implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfInteger(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfInteger(cti(v)); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfInteger(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfInteger(cti(vl)); }
     }
     public static class EpgTypeOfDate implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfDate(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfDate((java.util.Date)v); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfDate(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfDate((java.util.Date)vl); }
     }
     public static class EpgTypeOfTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfTimestamp(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgTypeOfTime implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorCheck)e).getTypeOfTime(); }
-        public void write(Entity e, Object v) { ((LdVendorCheck)e).setTypeOfTime((java.sql.Time)v); }
+        public Object read(Entity et) { return ((LdVendorCheck)et).getTypeOfTime(); }
+        public void write(Entity et, Object vl) { ((LdVendorCheck)et).setTypeOfTime((java.sql.Time)vl); }
     }
 
     // ===================================================================================
@@ -216,10 +216,10 @@ public class LdVendorCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdVendorCheck)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdVendorCheck)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdVendorCheck)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdVendorCheck)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -160,8 +160,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      */
     public void setBlackActionId_IsNotNull() { regBlackActionId(CK_ISNN, DOBJ); }
 
-    protected void regBlackActionId(ConditionKey k, Object v) { regQ(k, v, getCValueBlackActionId(), "BLACK_ACTION_ID"); }
-    abstract protected ConditionValue getCValueBlackActionId();
+    protected void regBlackActionId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackActionId(), "BLACK_ACTION_ID"); }
+    protected abstract ConditionValue getCValueBlackActionId();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -271,12 +271,12 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BlackList for 'in-scope'. (NotNull)
      */
     public void inScopeBlackList(SubQuery<LdBlackListCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackListCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackListCB cb = new LdBlackListCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackListId_InScopeRelation_BlackList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "BLACK_LIST_ID", "BLACK_LIST_ID", subQueryPropertyName, "blackList");
+        String pp = keepBlackListId_InScopeRelation_BlackList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "BLACK_LIST_ID", "BLACK_LIST_ID", pp, "blackList");
     }
-    public abstract String keepBlackListId_InScopeRelation_BlackList(LdBlackListCQ subQuery);
+    public abstract String keepBlackListId_InScopeRelation_BlackList(LdBlackListCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -285,15 +285,15 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BlackList for 'not in-scope'. (NotNull)
      */
     public void notInScopeBlackList(SubQuery<LdBlackListCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackListCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackListCB cb = new LdBlackListCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackListId_NotInScopeRelation_BlackList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "BLACK_LIST_ID", "BLACK_LIST_ID", subQueryPropertyName, "blackList");
+        String pp = keepBlackListId_NotInScopeRelation_BlackList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "BLACK_LIST_ID", "BLACK_LIST_ID", pp, "blackList");
     }
-    public abstract String keepBlackListId_NotInScopeRelation_BlackList(LdBlackListCQ subQuery);
+    public abstract String keepBlackListId_NotInScopeRelation_BlackList(LdBlackListCQ sq);
 
-    protected void regBlackListId(ConditionKey k, Object v) { regQ(k, v, getCValueBlackListId(), "BLACK_LIST_ID"); }
-    abstract protected ConditionValue getCValueBlackListId();
+    protected void regBlackListId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackListId(), "BLACK_LIST_ID"); }
+    protected abstract ConditionValue getCValueBlackListId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -421,12 +421,12 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BlackActionLookup for 'in-scope'. (NotNull)
      */
     public void inScopeBlackActionLookup(SubQuery<LdBlackActionLookupCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionLookupCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_InScopeRelation_BlackActionLookup(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionLookup");
+        String pp = keepBlackActionCode_InScopeRelation_BlackActionLookup(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", pp, "blackActionLookup");
     }
-    public abstract String keepBlackActionCode_InScopeRelation_BlackActionLookup(LdBlackActionLookupCQ subQuery);
+    public abstract String keepBlackActionCode_InScopeRelation_BlackActionLookup(LdBlackActionLookupCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -435,15 +435,15 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BlackActionLookup for 'not in-scope'. (NotNull)
      */
     public void notInScopeBlackActionLookup(SubQuery<LdBlackActionLookupCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionLookupCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_NotInScopeRelation_BlackActionLookup(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionLookup");
+        String pp = keepBlackActionCode_NotInScopeRelation_BlackActionLookup(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", pp, "blackActionLookup");
     }
-    public abstract String keepBlackActionCode_NotInScopeRelation_BlackActionLookup(LdBlackActionLookupCQ subQuery);
+    public abstract String keepBlackActionCode_NotInScopeRelation_BlackActionLookup(LdBlackActionLookupCQ sq);
 
-    protected void regBlackActionCode(ConditionKey k, Object v) { regQ(k, v, getCValueBlackActionCode(), "BLACK_ACTION_CODE"); }
-    abstract protected ConditionValue getCValueBlackActionCode();
+    protected void regBlackActionCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackActionCode(), "BLACK_ACTION_CODE"); }
+    protected abstract ConditionValue getCValueBlackActionCode();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -546,8 +546,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(blackLevelList), getCValueBlackLevel(), "BLACK_LEVEL");
     }
 
-    protected void regBlackLevel(ConditionKey k, Object v) { regQ(k, v, getCValueBlackLevel(), "BLACK_LEVEL"); }
-    abstract protected ConditionValue getCValueBlackLevel();
+    protected void regBlackLevel(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackLevel(), "BLACK_LEVEL"); }
+    protected abstract ConditionValue getCValueBlackLevel();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -612,7 +612,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of actionDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setActionDate_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setActionDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueActionDate(), "ACTION_DATE", fromToOption);
     }
 
@@ -627,7 +627,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of actionDate. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of actionDate. (NullAllowed: if null, no to-condition)
      */
-    public void setActionDate_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setActionDate_DateFromTo(Date fromDate, Date toDate) {
         setActionDate_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -669,8 +669,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      */
     public void setActionDate_IsNotNull() { regActionDate(CK_ISNN, DOBJ); }
 
-    protected void regActionDate(ConditionKey k, Object v) { regQ(k, v, getCValueActionDate(), "ACTION_DATE"); }
-    abstract protected ConditionValue getCValueActionDate();
+    protected void regActionDate(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueActionDate(), "ACTION_DATE"); }
+    protected abstract ConditionValue getCValueActionDate();
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -684,8 +684,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      */
     public void setEvidencePhotograph_IsNotNull() { regEvidencePhotograph(CK_ISNN, DOBJ); }
 
-    protected void regEvidencePhotograph(ConditionKey k, Object v) { regQ(k, v, getCValueEvidencePhotograph(), "EVIDENCE_PHOTOGRAPH"); }
-    abstract protected ConditionValue getCValueEvidencePhotograph();
+    protected void regEvidencePhotograph(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueEvidencePhotograph(), "EVIDENCE_PHOTOGRAPH"); }
+    protected abstract ConditionValue getCValueEvidencePhotograph();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -806,8 +806,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rUser), getCValueRUser(), "R_USER", likeSearchOption);
     }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -933,8 +933,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(rModuleList), getCValueRModule(), "R_MODULE");
     }
 
-    protected void regRModule(ConditionKey k, Object v) { regQ(k, v, getCValueRModule(), "R_MODULE"); }
-    abstract protected ConditionValue getCValueRModule();
+    protected void regRModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRModule(), "R_MODULE"); }
+    protected abstract ConditionValue getCValueRModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -999,7 +999,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -1014,7 +1014,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1044,8 +1044,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(rTimestampList), getCValueRTimestamp(), "R_TIMESTAMP");
     }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1166,8 +1166,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uUser), getCValueUUser(), "U_USER", likeSearchOption);
     }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1293,8 +1293,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(uModuleList), getCValueUModule(), "U_MODULE");
     }
 
-    protected void regUModule(ConditionKey k, Object v) { regQ(k, v, getCValueUModule(), "U_MODULE"); }
-    abstract protected ConditionValue getCValueUModule();
+    protected void regUModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUModule(), "U_MODULE"); }
+    protected abstract ConditionValue getCValueUModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1359,7 +1359,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -1374,7 +1374,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1404,8 +1404,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(uTimestampList), getCValueUTimestamp(), "U_TIMESTAMP");
     }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1512,22 +1512,22 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<LdBlackActionCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<LdBlackActionCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<LdBlackActionCB>(new HpSSQSetupper<LdBlackActionCB>() {
-            public void setup(String function, SubQuery<LdBlackActionCB> subQuery, HpSSQOption<LdBlackActionCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<LdBlackActionCB> sq, HpSSQOption<LdBlackActionCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<LdBlackActionCB> subQuery, String operand, HpSSQOption<LdBlackActionCB> option) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
-        LdBlackActionCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<LdBlackActionCB> sq, String rd, HpSSQOption<LdBlackActionCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(LdBlackActionCQ subQuery);
+    public abstract String keepScalarCondition(LdBlackActionCQ sq);
 
     protected LdBlackActionCB xcreateScalarConditionCB() {
         LdBlackActionCB cb = new LdBlackActionCB();
@@ -1544,13 +1544,14 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<LdBlackActionCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
-        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "BLACK_ACTION_ID", "BLACK_ACTION_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<LdBlackActionCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "BLACK_ACTION_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(LdBlackActionCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(LdBlackActionCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -1561,20 +1562,21 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<LdBlackActionCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<LdBlackActionCB>(new HpQDRSetupper<LdBlackActionCB>() {
-            public void setup(String function, SubQuery<LdBlackActionCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdBlackActionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<LdBlackActionCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
-        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "BLACK_ACTION_ID", "BLACK_ACTION_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<LdBlackActionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "BLACK_ACTION_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(LdBlackActionCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(LdBlackActionCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1584,12 +1586,12 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<LdBlackActionCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(LdBlackActionCQ subQuery);
+    public abstract String keepMyselfExists(LdBlackActionCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1599,12 +1601,12 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdBlackActionCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(LdBlackActionCQ subQuery);
+    public abstract String keepMyselfInScope(LdBlackActionCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

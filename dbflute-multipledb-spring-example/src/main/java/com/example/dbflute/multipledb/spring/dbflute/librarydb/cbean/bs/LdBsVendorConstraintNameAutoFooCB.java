@@ -327,8 +327,8 @@ public class LdBsVendorConstraintNameAutoFooCB extends AbstractConditionBean {
         public HpSDRFunction<LdVendorConstraintNameAutoRefCB, LdVendorConstraintNameAutoFooCQ> derivedVendorConstraintNameAutoRefList() {
             assertDerived("vendorConstraintNameAutoRefList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdVendorConstraintNameAutoRefCB, LdVendorConstraintNameAutoFooCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdVendorConstraintNameAutoRefCB, LdVendorConstraintNameAutoFooCQ>() {
-                public void setup(String function, SubQuery<LdVendorConstraintNameAutoRefCB> subQuery, LdVendorConstraintNameAutoFooCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveVendorConstraintNameAutoRefList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, LdVendorConstraintNameAutoFooCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveVendorConstraintNameAutoRefList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -337,8 +337,8 @@ public class LdBsVendorConstraintNameAutoFooCB extends AbstractConditionBean {
         public HpSDRFunction<LdVendorConstraintNameAutoFooCB, LdVendorConstraintNameAutoFooCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdVendorConstraintNameAutoFooCB, LdVendorConstraintNameAutoFooCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdVendorConstraintNameAutoFooCB, LdVendorConstraintNameAutoFooCQ>() {
-                public void setup(String function, SubQuery<LdVendorConstraintNameAutoFooCB> subQuery, LdVendorConstraintNameAutoFooCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdVendorConstraintNameAutoFooCB> sq, LdVendorConstraintNameAutoFooCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

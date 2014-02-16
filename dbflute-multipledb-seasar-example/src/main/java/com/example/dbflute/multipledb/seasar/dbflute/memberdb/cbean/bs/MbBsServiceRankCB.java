@@ -345,8 +345,8 @@ public class MbBsServiceRankCB extends AbstractConditionBean {
         public HpSDRFunction<MbMemberServiceCB, MbServiceRankCQ> derivedMemberServiceList() {
             assertDerived("memberServiceList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbMemberServiceCB, MbServiceRankCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbMemberServiceCB, MbServiceRankCQ>() {
-                public void setup(String function, SubQuery<MbMemberServiceCB> subQuery, MbServiceRankCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberServiceList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbMemberServiceCB> sq, MbServiceRankCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberServiceList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -355,8 +355,8 @@ public class MbBsServiceRankCB extends AbstractConditionBean {
         public HpSDRFunction<MbServiceRankCB, MbServiceRankCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbServiceRankCB, MbServiceRankCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbServiceRankCB, MbServiceRankCQ>() {
-                public void setup(String function, SubQuery<MbServiceRankCB> subQuery, MbServiceRankCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbServiceRankCB> sq, MbServiceRankCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

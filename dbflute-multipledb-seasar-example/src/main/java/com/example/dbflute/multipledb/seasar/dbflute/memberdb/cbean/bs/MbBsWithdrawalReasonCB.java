@@ -330,8 +330,8 @@ public class MbBsWithdrawalReasonCB extends AbstractConditionBean {
         public HpSDRFunction<MbMemberWithdrawalCB, MbWithdrawalReasonCQ> derivedMemberWithdrawalList() {
             assertDerived("memberWithdrawalList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbMemberWithdrawalCB, MbWithdrawalReasonCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbMemberWithdrawalCB, MbWithdrawalReasonCQ>() {
-                public void setup(String function, SubQuery<MbMemberWithdrawalCB> subQuery, MbWithdrawalReasonCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberWithdrawalList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbMemberWithdrawalCB> sq, MbWithdrawalReasonCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberWithdrawalList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -340,8 +340,8 @@ public class MbBsWithdrawalReasonCB extends AbstractConditionBean {
         public HpSDRFunction<MbWithdrawalReasonCB, MbWithdrawalReasonCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbWithdrawalReasonCB, MbWithdrawalReasonCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbWithdrawalReasonCB, MbWithdrawalReasonCQ>() {
-                public void setup(String function, SubQuery<MbWithdrawalReasonCB> subQuery, MbWithdrawalReasonCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbWithdrawalReasonCB> sq, MbWithdrawalReasonCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

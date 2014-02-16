@@ -83,18 +83,18 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
 
     protected Map<String, LdLibraryCQ> _libraryId_InScopeRelation_LibraryByLibraryIdMap;
     public Map<String, LdLibraryCQ> getLibraryId_InScopeRelation_LibraryByLibraryId() { return _libraryId_InScopeRelation_LibraryByLibraryIdMap; }
-    public String keepLibraryId_InScopeRelation_LibraryByLibraryId(LdLibraryCQ subQuery) {
+    public String keepLibraryId_InScopeRelation_LibraryByLibraryId(LdLibraryCQ sq) {
         if (_libraryId_InScopeRelation_LibraryByLibraryIdMap == null) { _libraryId_InScopeRelation_LibraryByLibraryIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_libraryId_InScopeRelation_LibraryByLibraryIdMap.size() + 1);
-        _libraryId_InScopeRelation_LibraryByLibraryIdMap.put(key, subQuery); return "libraryId_InScopeRelation_LibraryByLibraryId." + key;
+        String ky = "subQueryMapKey" + (_libraryId_InScopeRelation_LibraryByLibraryIdMap.size() + 1);
+        _libraryId_InScopeRelation_LibraryByLibraryIdMap.put(ky, sq); return "libraryId_InScopeRelation_LibraryByLibraryId." + ky;
     }
 
     protected Map<String, LdLibraryCQ> _libraryId_NotInScopeRelation_LibraryByLibraryIdMap;
     public Map<String, LdLibraryCQ> getLibraryId_NotInScopeRelation_LibraryByLibraryId() { return _libraryId_NotInScopeRelation_LibraryByLibraryIdMap; }
-    public String keepLibraryId_NotInScopeRelation_LibraryByLibraryId(LdLibraryCQ subQuery) {
+    public String keepLibraryId_NotInScopeRelation_LibraryByLibraryId(LdLibraryCQ sq) {
         if (_libraryId_NotInScopeRelation_LibraryByLibraryIdMap == null) { _libraryId_NotInScopeRelation_LibraryByLibraryIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_libraryId_NotInScopeRelation_LibraryByLibraryIdMap.size() + 1);
-        _libraryId_NotInScopeRelation_LibraryByLibraryIdMap.put(key, subQuery); return "libraryId_NotInScopeRelation_LibraryByLibraryId." + key;
+        String ky = "subQueryMapKey" + (_libraryId_NotInScopeRelation_LibraryByLibraryIdMap.size() + 1);
+        _libraryId_NotInScopeRelation_LibraryByLibraryIdMap.put(ky, sq); return "libraryId_NotInScopeRelation_LibraryByLibraryId." + ky;
     }
 
     /** 
@@ -120,18 +120,18 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
 
     protected Map<String, LdLibraryCQ> _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap;
     public Map<String, LdLibraryCQ> getNextLibraryId_InScopeRelation_LibraryByNextLibraryId() { return _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap; }
-    public String keepNextLibraryId_InScopeRelation_LibraryByNextLibraryId(LdLibraryCQ subQuery) {
+    public String keepNextLibraryId_InScopeRelation_LibraryByNextLibraryId(LdLibraryCQ sq) {
         if (_nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap == null) { _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap.size() + 1);
-        _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap.put(key, subQuery); return "nextLibraryId_InScopeRelation_LibraryByNextLibraryId." + key;
+        String ky = "subQueryMapKey" + (_nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap.size() + 1);
+        _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap.put(ky, sq); return "nextLibraryId_InScopeRelation_LibraryByNextLibraryId." + ky;
     }
 
     protected Map<String, LdLibraryCQ> _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap;
     public Map<String, LdLibraryCQ> getNextLibraryId_NotInScopeRelation_LibraryByNextLibraryId() { return _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap; }
-    public String keepNextLibraryId_NotInScopeRelation_LibraryByNextLibraryId(LdLibraryCQ subQuery) {
+    public String keepNextLibraryId_NotInScopeRelation_LibraryByNextLibraryId(LdLibraryCQ sq) {
         if (_nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap == null) { _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap.size() + 1);
-        _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap.put(key, subQuery); return "nextLibraryId_NotInScopeRelation_LibraryByNextLibraryId." + key;
+        String ky = "subQueryMapKey" + (_nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap.size() + 1);
+        _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap.put(ky, sq); return "nextLibraryId_NotInScopeRelation_LibraryByNextLibraryId." + ky;
     }
 
     /** 
@@ -335,14 +335,14 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdNextLibraryCQ baseQuery = (LdNextLibraryCQ)baseQueryAsSuper;
-        LdNextLibraryCQ unionQuery = (LdNextLibraryCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryLibraryByLibraryId()) {
-            unionQuery.queryLibraryByLibraryId().reflectRelationOnUnionQuery(baseQuery.queryLibraryByLibraryId(), unionQuery.queryLibraryByLibraryId());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdNextLibraryCQ bq = (LdNextLibraryCQ)bqs;
+        LdNextLibraryCQ uq = (LdNextLibraryCQ)uqs;
+        if (bq.hasConditionQueryLibraryByLibraryId()) {
+            uq.queryLibraryByLibraryId().reflectRelationOnUnionQuery(bq.queryLibraryByLibraryId(), uq.queryLibraryByLibraryId());
         }
-        if (baseQuery.hasConditionQueryLibraryByNextLibraryId()) {
-            unionQuery.queryLibraryByNextLibraryId().reflectRelationOnUnionQuery(baseQuery.queryLibraryByNextLibraryId(), unionQuery.queryLibraryByNextLibraryId());
+        if (bq.hasConditionQueryLibraryByNextLibraryId()) {
+            uq.queryLibraryByNextLibraryId().reflectRelationOnUnionQuery(bq.queryLibraryByNextLibraryId(), uq.queryLibraryByNextLibraryId());
         }
     }
 

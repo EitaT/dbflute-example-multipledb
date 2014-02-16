@@ -19,28 +19,28 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
  * <pre>
  * [primary key]
  *     COLLECTION_STATUS_CODE
- * 
+ *
  * [column]
  *     COLLECTION_STATUS_CODE, COLLECTION_STATUS_NAME, R_USER, R_MODULE, R_TIMESTAMP, U_USER, U_MODULE, U_TIMESTAMP
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     COLLECTION_STATUS
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     collectionStatusList
  * </pre>
@@ -102,7 +102,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(LdCollectionStatusLookupCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(LdCollectionStatusLookupCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -141,10 +141,10 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doSelectEntity(cb, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntity(final LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntity(final LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdCollectionStatusLookupCB>() {
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doSelectEntityWithDeletedCheck(cb, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntityWithDeletedCheck(final LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntityWithDeletedCheck(final LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdCollectionStatusLookupCB>() {
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -241,11 +241,11 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doSelectList(cb, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ListResultBean<ENTITY> doSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends LdCollectionStatusLookup> ListResultBean<ENTITY> doSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdCollectionStatusLookupCB>() {
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -282,11 +282,11 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doSelectPage(cb, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> PagingResultBean<ENTITY> doSelectPage(LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, LdCollectionStatusLookupCB>() {
+    protected <ENTITY extends LdCollectionStatusLookup> PagingResultBean<ENTITY> doSelectPage(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdCollectionStatusLookupCB>() {
             public int callbackSelectCount(LdCollectionStatusLookupCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -316,12 +316,12 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doSelectCursor(cb, entityRowHandler, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> void doSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<LdCollectionStatusLookup>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public void callbackSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends LdCollectionStatusLookup> void doSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdCollectionStatusLookupCB>() {
+            public void callbackSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -347,18 +347,18 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends LdCollectionStatusLookupCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends LdCollectionStatusLookupCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends LdCollectionStatusLookupCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends LdCollectionStatusLookupCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -429,17 +429,17 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         if (collectionStatusLookupList.isEmpty()) { return; }
         final LdCollectionStatusBhv referrerBhv = xgetBSFLR().select(LdCollectionStatusBhv.class);
         helpLoadReferrerInternally(collectionStatusLookupList, loadReferrerOption, new InternalLoadReferrerCallback<LdCollectionStatusLookup, String, LdCollectionStatusCB, LdCollectionStatus>() {
-            public String getPKVal(LdCollectionStatusLookup e)
-            { return e.getCollectionStatusCode(); }
-            public void setRfLs(LdCollectionStatusLookup e, List<LdCollectionStatus> ls)
-            { e.setCollectionStatusList(ls); }
+            public String getPKVal(LdCollectionStatusLookup et)
+            { return et.getCollectionStatusCode(); }
+            public void setRfLs(LdCollectionStatusLookup et, List<LdCollectionStatus> ls)
+            { et.setCollectionStatusList(ls); }
             public LdCollectionStatusCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(LdCollectionStatusCB cb, List<String> ls)
             { cb.query().setCollectionStatusCode_InScope(ls); }
             public void qyOdFKAsc(LdCollectionStatusCB cb) { cb.query().addOrderBy_CollectionStatusCode_Asc(); }
             public void spFKCol(LdCollectionStatusCB cb) { cb.specify().columnCollectionStatusCode(); }
             public List<LdCollectionStatus> selRfLs(LdCollectionStatusCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(LdCollectionStatus e) { return e.getCollectionStatusCode(); }
+            public String getFKVal(LdCollectionStatus re) { return re.getCollectionStatusCode(); }
             public void setlcEt(LdCollectionStatus re, LdCollectionStatusLookup le)
             { re.setCollectionStatusLookup(le); }
             public String getRfPrNm() { return "collectionStatusList"; }
@@ -460,7 +460,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      */
     public List<String> extractCollectionStatusCodeList(List<LdCollectionStatusLookup> collectionStatusLookupList) {
         return helpExtractListInternally(collectionStatusLookupList, new InternalExtractCallback<LdCollectionStatusLookup, String>() {
-            public String getCV(LdCollectionStatusLookup e) { return e.getCollectionStatusCode(); }
+            public String getCV(LdCollectionStatusLookup et) { return et.getCollectionStatusCode(); }
         });
     }
 
@@ -488,24 +488,24 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doInsert(collectionStatusLookup, null);
     }
 
-    protected void doInsert(LdCollectionStatusLookup collectionStatusLookup, InsertOption<LdCollectionStatusLookupCB> option) {
+    protected void doInsert(LdCollectionStatusLookup collectionStatusLookup, InsertOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareInsertOption(option);
-        delegateInsert(collectionStatusLookup, option);
+        prepareInsertOption(op);
+        delegateInsert(collectionStatusLookup, op);
     }
 
-    protected void prepareInsertOption(InsertOption<LdCollectionStatusLookupCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<LdCollectionStatusLookupCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -523,7 +523,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *     collectionStatusLookupBhv.<span style="color: #FD4747">update</span>(collectionStatusLookup);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param collectionStatusLookup The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
@@ -534,21 +534,21 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doUpdate(collectionStatusLookup, null);
     }
 
-    protected void doUpdate(LdCollectionStatusLookup collectionStatusLookup, final UpdateOption<LdCollectionStatusLookupCB> option) {
+    protected void doUpdate(LdCollectionStatusLookup collectionStatusLookup, final UpdateOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(collectionStatusLookup, new InternalUpdateCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateUpdate(LdCollectionStatusLookup entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(LdCollectionStatusLookup et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<LdCollectionStatusLookupCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<LdCollectionStatusLookupCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -565,9 +565,9 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     /**
@@ -593,17 +593,17 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doUpdateNonstrict(collectionStatusLookup, null);
     }
 
-    protected void doUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup, final UpdateOption<LdCollectionStatusLookupCB> option) {
+    protected void doUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup, final UpdateOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateNonstrictInternally(collectionStatusLookup, new InternalUpdateNonstrictCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateUpdateNonstrict(LdCollectionStatusLookup entity) { return delegateUpdateNonstrict(entity, option); } });
+            public int callbackDelegateUpdateNonstrict(LdCollectionStatusLookup et) { return delegateUpdateNonstrict(et, op); } });
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { updateNonstrict(downcast(entity)); }
-        else { varyingUpdateNonstrict(downcast(entity), downcast(option)); }
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { updateNonstrict(downcast(et)); }
+        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
     }
 
     /**
@@ -619,23 +619,22 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doInesrtOrUpdate(collectionStatusLookup, null, null);
     }
 
-    protected void doInesrtOrUpdate(LdCollectionStatusLookup collectionStatusLookup, final InsertOption<LdCollectionStatusLookupCB> insertOption, final UpdateOption<LdCollectionStatusLookupCB> updateOption) {
+    protected void doInesrtOrUpdate(LdCollectionStatusLookup collectionStatusLookup, final InsertOption<LdCollectionStatusLookupCB> iop, final UpdateOption<LdCollectionStatusLookupCB> uop) {
         helpInsertOrUpdateInternally(collectionStatusLookup, new InternalInsertOrUpdateCallback<LdCollectionStatusLookup, LdCollectionStatusLookupCB>() {
-            public void callbackInsert(LdCollectionStatusLookup entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(LdCollectionStatusLookup entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(LdCollectionStatusLookup et) { doInsert(et, iop); }
+            public void callbackUpdate(LdCollectionStatusLookup et) { doUpdate(et, uop); }
             public LdCollectionStatusLookupCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(LdCollectionStatusLookupCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<LdCollectionStatusLookupCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<LdCollectionStatusLookupCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<LdCollectionStatusLookupCB>();
+            uop = uop != null ? uop : new UpdateOption<LdCollectionStatusLookupCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
@@ -652,21 +651,20 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doInesrtOrUpdateNonstrict(collectionStatusLookup, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup, final InsertOption<LdCollectionStatusLookupCB> insertOption, final UpdateOption<LdCollectionStatusLookupCB> updateOption) {
+    protected void doInesrtOrUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup, final InsertOption<LdCollectionStatusLookupCB> iop, final UpdateOption<LdCollectionStatusLookupCB> uop) {
         helpInsertOrUpdateInternally(collectionStatusLookup, new InternalInsertOrUpdateNonstrictCallback<LdCollectionStatusLookup>() {
-            public void callbackInsert(LdCollectionStatusLookup entity) { doInsert(entity, insertOption); }
-            public void callbackUpdateNonstrict(LdCollectionStatusLookup entity) { doUpdateNonstrict(entity, updateOption); }
+            public void callbackInsert(LdCollectionStatusLookup et) { doInsert(et, iop); }
+            public void callbackUpdateNonstrict(LdCollectionStatusLookup et) { doUpdateNonstrict(et, uop); }
         });
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdateNonstrict(downcast(entity)); }
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<LdCollectionStatusLookupCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<LdCollectionStatusLookupCB>() : updateOption;
-            varyingInsertOrUpdateNonstrict(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<LdCollectionStatusLookupCB>();
+            uop = uop != null ? uop : new UpdateOption<LdCollectionStatusLookupCB>();
+            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
@@ -681,7 +679,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *     collectionStatusLookupBhv.<span style="color: #FD4747">delete</span>(collectionStatusLookup);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param collectionStatusLookup The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
@@ -691,22 +689,22 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doDelete(collectionStatusLookup, null);
     }
 
-    protected void doDelete(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> option) {
+    protected void doDelete(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(collectionStatusLookup, new InternalDeleteCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateDelete(LdCollectionStatusLookup entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(LdCollectionStatusLookup et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<LdCollectionStatusLookupCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
+    protected void prepareDeleteOption(DeleteOption<LdCollectionStatusLookupCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
     }
 
     /**
@@ -727,11 +725,11 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doDeleteNonstrict(collectionStatusLookup, null);
     }
 
-    protected void doDeleteNonstrict(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> option) {
+    protected void doDeleteNonstrict(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteNonstrictInternally(collectionStatusLookup, new InternalDeleteNonstrictCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateDeleteNonstrict(LdCollectionStatusLookup entity) { return delegateDeleteNonstrict(entity, option); } });
+            public int callbackDelegateDeleteNonstrict(LdCollectionStatusLookup et) { return delegateDeleteNonstrict(et, op); } });
     }
 
     /**
@@ -752,17 +750,17 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doDeleteNonstrictIgnoreDeleted(collectionStatusLookup, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> option) {
+    protected void doDeleteNonstrictIgnoreDeleted(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteNonstrictIgnoreDeletedInternally(collectionStatusLookup, new InternalDeleteNonstrictIgnoreDeletedCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateDeleteNonstrict(LdCollectionStatusLookup entity) { return delegateDeleteNonstrict(entity, option); } });
+            public int callbackDelegateDeleteNonstrict(LdCollectionStatusLookup et) { return delegateDeleteNonstrict(et, op); } });
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { deleteNonstrict(downcast(entity)); }
-        else { varyingDeleteNonstrict(downcast(entity), downcast(option)); }
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { deleteNonstrict(downcast(et)); }
+        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
     }
 
     // ===================================================================================
@@ -793,26 +791,26 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<LdCollectionStatusLookup> collectionStatusLookupList) {
-        InsertOption<LdCollectionStatusLookupCB> option = createInsertUpdateOption();
-        return doBatchInsert(collectionStatusLookupList, option);
+        InsertOption<LdCollectionStatusLookupCB> op = createInsertUpdateOption();
+        return doBatchInsert(collectionStatusLookupList, op);
     }
 
-    protected int[] doBatchInsert(List<LdCollectionStatusLookup> collectionStatusLookupList, InsertOption<LdCollectionStatusLookupCB> option) {
+    protected int[] doBatchInsert(List<LdCollectionStatusLookup> collectionStatusLookupList, InsertOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareBatchInsertOption(collectionStatusLookupList, option);
-        return delegateBatchInsert(collectionStatusLookupList, option);
+        prepareBatchInsertOption(collectionStatusLookupList, op);
+        return delegateBatchInsert(collectionStatusLookupList, op);
     }
 
-    protected void prepareBatchInsertOption(List<LdCollectionStatusLookup> collectionStatusLookupList, InsertOption<LdCollectionStatusLookupCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(collectionStatusLookupList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<LdCollectionStatusLookup> collectionStatusLookupList, InsertOption<LdCollectionStatusLookupCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(collectionStatusLookupList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -840,39 +838,39 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdCollectionStatusLookup> collectionStatusLookupList) {
-        UpdateOption<LdCollectionStatusLookupCB> option = createPlainUpdateOption();
-        return doBatchUpdate(collectionStatusLookupList, option);
+        UpdateOption<LdCollectionStatusLookupCB> op = createPlainUpdateOption();
+        return doBatchUpdate(collectionStatusLookupList, op);
     }
 
-    protected int[] doBatchUpdate(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> option) {
+    protected int[] doBatchUpdate(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareBatchUpdateOption(collectionStatusLookupList, option);
-        return delegateBatchUpdate(collectionStatusLookupList, option);
+        prepareBatchUpdateOption(collectionStatusLookupList, op);
+        return delegateBatchUpdate(collectionStatusLookupList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(collectionStatusLookupList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(collectionStatusLookupList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * collectionStatusLookupBhv.<span style="color: #FD4747">batchUpdate</span>(collectionStatusLookupList, new SpecifyQuery<LdCollectionStatusLookupCB>() {
      *     public void specify(LdCollectionStatusLookupCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * collectionStatusLookupBhv.<span style="color: #FD4747">batchUpdate</span>(collectionStatusLookupList, new SpecifyQuery<LdCollectionStatusLookupCB>() {
      *     public void specify(LdCollectionStatusLookupCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -922,24 +920,24 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doBatchUpdateNonstrict(collectionStatusLookupList, option);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> option) {
+    protected int[] doBatchUpdateNonstrict(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareBatchUpdateOption(collectionStatusLookupList, option);
-        return delegateBatchUpdateNonstrict(collectionStatusLookupList, option);
+        prepareBatchUpdateOption(collectionStatusLookupList, op);
+        return delegateBatchUpdateNonstrict(collectionStatusLookupList, op);
     }
 
     /**
      * Batch-update the entity list non-strictly specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * collectionStatusLookupBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(collectionStatusLookupList, new SpecifyQuery<LdCollectionStatusLookupCB>() {
      *     public void specify(LdCollectionStatusLookupCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * collectionStatusLookupBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(collectionStatusLookupList, new SpecifyQuery<LdCollectionStatusLookupCB>() {
      *     public void specify(LdCollectionStatusLookupCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -960,9 +958,9 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(option)); }
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
+        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -976,16 +974,16 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doBatchDelete(collectionStatusLookupList, null);
     }
 
-    protected int[] doBatchDelete(List<LdCollectionStatusLookup> collectionStatusLookupList, DeleteOption<LdCollectionStatusLookupCB> option) {
+    protected int[] doBatchDelete(List<LdCollectionStatusLookup> collectionStatusLookupList, DeleteOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(collectionStatusLookupList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(collectionStatusLookupList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -999,16 +997,16 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doBatchDeleteNonstrict(collectionStatusLookupList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<LdCollectionStatusLookup> collectionStatusLookupList, DeleteOption<LdCollectionStatusLookupCB> option) {
+    protected int[] doBatchDeleteNonstrict(List<LdCollectionStatusLookup> collectionStatusLookupList, DeleteOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareDeleteOption(option);
-        return delegateBatchDeleteNonstrict(collectionStatusLookupList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDeleteNonstrict(collectionStatusLookupList, op);
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
+        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
     }
 
     // ===================================================================================
@@ -1021,7 +1019,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *     public ConditionBean setup(collectionStatusLookup entity, LdCollectionStatusLookupCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
-     * 
+     *
      *         <span style="color: #3F7E5E">// mapping</span>
      *         intoCB.specify().columnMyName().mappedFrom(cb.specify().columnFooName());
      *         intoCB.specify().columnMyCount().mappedFrom(cb.specify().columnFooCount());
@@ -1032,7 +1030,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *         <span style="color: #3F7E5E">//entity.set...;</span>
      *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
-     * 
+     *
      *         return cb;
      *     }
      * });
@@ -1044,13 +1042,12 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB> setupper, InsertOption<LdCollectionStatusLookupCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        LdCollectionStatusLookup entity = new LdCollectionStatusLookup();
-        LdCollectionStatusLookupCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB> sp, InsertOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        LdCollectionStatusLookup e = new LdCollectionStatusLookup();
+        LdCollectionStatusLookupCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected LdCollectionStatusLookupCB createCBForQueryInsert() {
@@ -1091,16 +1088,16 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doQueryUpdate(collectionStatusLookup, cb, null);
     }
 
-    protected int doQueryUpdate(LdCollectionStatusLookup collectionStatusLookup, LdCollectionStatusLookupCB cb, UpdateOption<LdCollectionStatusLookupCB> option) {
+    protected int doQueryUpdate(LdCollectionStatusLookup collectionStatusLookup, LdCollectionStatusLookupCB cb, UpdateOption<LdCollectionStatusLookupCB> op) {
         assertObjectNotNull("collectionStatusLookup", collectionStatusLookup); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(collectionStatusLookup, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(collectionStatusLookup, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (LdCollectionStatusLookupCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (LdCollectionStatusLookupCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (LdCollectionStatusLookupCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (LdCollectionStatusLookupCB)cb, downcast(op)); }
     }
 
     /**
@@ -1118,16 +1115,16 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(LdCollectionStatusLookupCB cb, DeleteOption<LdCollectionStatusLookupCB> option) {
+    protected int doQueryDelete(LdCollectionStatusLookupCB cb, DeleteOption<LdCollectionStatusLookupCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((LdCollectionStatusLookupCB)cb); }
-        else { return varyingQueryDelete((LdCollectionStatusLookupCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((LdCollectionStatusLookupCB)cb); }
+        else { return varyingQueryDelete((LdCollectionStatusLookupCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1360,7 +1357,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     /**
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
-     * Other specifications are same as queryInsert(entity, setupper). 
+     * Other specifications are same as queryInsert(entity, setupper).
      * @param setupper The setup-per of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
@@ -1374,7 +1371,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br />
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br />
-     * Other specifications are same as queryUpdate(entity, cb). 
+     * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
      * LdCollectionStatusLookup collectionStatusLookup = new LdCollectionStatusLookup();
@@ -1431,27 +1428,27 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdCollectionStatusLookupBhv> outsideSql() {
         return doOutsideSql();
@@ -1466,29 +1463,29 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     //                                                ------
     protected int delegateSelectCountUniquely(LdCollectionStatusLookupCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(LdCollectionStatusLookupCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdCollectionStatusLookup> void delegateSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends LdCollectionStatusLookup> List<ENTITY> delegateSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends LdCollectionStatusLookup> void delegateSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends LdCollectionStatusLookup> List<ENTITY> delegateSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(LdCollectionStatusLookup e, InsertOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(LdCollectionStatusLookup e, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateEntityCommand(e, op)); }
-    protected int delegateUpdateNonstrict(LdCollectionStatusLookup e, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(LdCollectionStatusLookup e, DeleteOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteEntityCommand(e, op)); }
-    protected int delegateDeleteNonstrict(LdCollectionStatusLookup e, DeleteOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(LdCollectionStatusLookup et, InsertOption<LdCollectionStatusLookupCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(LdCollectionStatusLookup et, UpdateOption<LdCollectionStatusLookupCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateEntityCommand(et, op)); }
+    protected int delegateUpdateNonstrict(LdCollectionStatusLookup et, UpdateOption<LdCollectionStatusLookupCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(LdCollectionStatusLookup et, DeleteOption<LdCollectionStatusLookupCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteEntityCommand(et, op)); }
+    protected int delegateDeleteNonstrict(LdCollectionStatusLookup et, DeleteOption<LdCollectionStatusLookupCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<LdCollectionStatusLookup> ls, InsertOption<LdCollectionStatusLookupCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1506,10 +1503,10 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(LdCollectionStatusLookup e, LdCollectionStatusLookupCB inCB, ConditionBean resCB, InsertOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(LdCollectionStatusLookup e, LdCollectionStatusLookupCB cb, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(LdCollectionStatusLookup et, LdCollectionStatusLookupCB inCB, ConditionBean resCB, InsertOption<LdCollectionStatusLookupCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(LdCollectionStatusLookup et, LdCollectionStatusLookupCB cb, UpdateOption<LdCollectionStatusLookupCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(LdCollectionStatusLookupCB cb, DeleteOption<LdCollectionStatusLookupCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1517,11 +1514,11 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     //                                                                     Filter Override
     //                                                                     ===============
     @Override
-    protected void filterEntityOfInsert(Entity targetEntity, InsertOption<? extends ConditionBean> option) {
-        super.filterEntityOfInsert(targetEntity, option);
-        LdCollectionStatusLookup entity = downcast(targetEntity);
-        entity.setRUser(org.seasar.dbflute.AccessContext.getAccessUserOnThread());
-        entity.setRTimestamp(org.seasar.dbflute.AccessContext.getAccessTimestampOnThread());
+    protected void filterEntityOfInsert(Entity tgt, InsertOption<? extends ConditionBean> op) {
+        super.filterEntityOfInsert(tgt, op);
+        LdCollectionStatusLookup et = downcast(tgt);
+        et.setRUser(org.seasar.dbflute.AccessContext.getAccessUserOnThread());
+        et.setRTimestamp(org.seasar.dbflute.AccessContext.getAccessTimestampOnThread());
     }
 
     // ===================================================================================
@@ -1531,7 +1528,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1539,15 +1536,15 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
-        return downcast(entity).getUTimestamp() != null;
+    protected boolean hasUpdateDateValue(Entity et) {
+        return downcast(et).getUTimestamp() != null;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected LdCollectionStatusLookup downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, LdCollectionStatusLookup.class);
+    protected LdCollectionStatusLookup downcast(Entity et) {
+        return helpEntityDowncastInternally(et, LdCollectionStatusLookup.class);
     }
 
     protected LdCollectionStatusLookupCB downcast(ConditionBean cb) {
@@ -1555,27 +1552,27 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     }
 
     @SuppressWarnings("unchecked")
-    protected List<LdCollectionStatusLookup> downcast(List<? extends Entity> entityList) {
-        return (List<LdCollectionStatusLookup>)entityList;
+    protected List<LdCollectionStatusLookup> downcast(List<? extends Entity> ls) {
+        return (List<LdCollectionStatusLookup>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<LdCollectionStatusLookupCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<LdCollectionStatusLookupCB>)option;
+    protected InsertOption<LdCollectionStatusLookupCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<LdCollectionStatusLookupCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<LdCollectionStatusLookupCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<LdCollectionStatusLookupCB>)option;
+    protected UpdateOption<LdCollectionStatusLookupCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<LdCollectionStatusLookupCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<LdCollectionStatusLookupCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<LdCollectionStatusLookupCB>)option;
+    protected DeleteOption<LdCollectionStatusLookupCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<LdCollectionStatusLookupCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB>)option;
+    protected QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB>)sp;
     }
 }

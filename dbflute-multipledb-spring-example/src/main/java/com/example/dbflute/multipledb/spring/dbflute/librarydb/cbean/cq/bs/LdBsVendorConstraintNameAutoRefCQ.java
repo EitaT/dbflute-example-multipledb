@@ -104,18 +104,18 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
 
     protected Map<String, LdVendorConstraintNameAutoFooCQ> _constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap;
     public Map<String, LdVendorConstraintNameAutoFooCQ> getConstraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo() { return _constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap; }
-    public String keepConstraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo(LdVendorConstraintNameAutoFooCQ subQuery) {
+    public String keepConstraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo(LdVendorConstraintNameAutoFooCQ sq) {
         if (_constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap == null) { _constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap.size() + 1);
-        _constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap.put(key, subQuery); return "constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo." + key;
+        String ky = "subQueryMapKey" + (_constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap.size() + 1);
+        _constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFooMap.put(ky, sq); return "constraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo." + ky;
     }
 
     protected Map<String, LdVendorConstraintNameAutoFooCQ> _constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap;
     public Map<String, LdVendorConstraintNameAutoFooCQ> getConstraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo() { return _constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap; }
-    public String keepConstraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo(LdVendorConstraintNameAutoFooCQ subQuery) {
+    public String keepConstraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo(LdVendorConstraintNameAutoFooCQ sq) {
         if (_constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap == null) { _constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap.size() + 1);
-        _constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap.put(key, subQuery); return "constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo." + key;
+        String ky = "subQueryMapKey" + (_constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap.size() + 1);
+        _constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFooMap.put(ky, sq); return "constraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo." + ky;
     }
 
     /** 
@@ -141,18 +141,18 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
 
     protected Map<String, LdVendorConstraintNameAutoBarCQ> _constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap;
     public Map<String, LdVendorConstraintNameAutoBarCQ> getConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar() { return _constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap; }
-    public String keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar(LdVendorConstraintNameAutoBarCQ subQuery) {
+    public String keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar(LdVendorConstraintNameAutoBarCQ sq) {
         if (_constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap == null) { _constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap.size() + 1);
-        _constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap.put(key, subQuery); return "constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar." + key;
+        String ky = "subQueryMapKey" + (_constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap.size() + 1);
+        _constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBarMap.put(ky, sq); return "constraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar." + ky;
     }
 
     protected Map<String, LdVendorConstraintNameAutoBarCQ> _constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap;
     public Map<String, LdVendorConstraintNameAutoBarCQ> getConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar() { return _constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap; }
-    public String keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar(LdVendorConstraintNameAutoBarCQ subQuery) {
+    public String keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar(LdVendorConstraintNameAutoBarCQ sq) {
         if (_constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap == null) { _constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap.size() + 1);
-        _constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap.put(key, subQuery); return "constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar." + key;
+        String ky = "subQueryMapKey" + (_constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap.size() + 1);
+        _constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBarMap.put(ky, sq); return "constraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar." + ky;
     }
 
     /** 
@@ -178,18 +178,18 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
 
     protected Map<String, LdVendorConstraintNameAutoQuxCQ> _constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap;
     public Map<String, LdVendorConstraintNameAutoQuxCQ> getConstraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux() { return _constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap; }
-    public String keepConstraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux(LdVendorConstraintNameAutoQuxCQ subQuery) {
+    public String keepConstraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux(LdVendorConstraintNameAutoQuxCQ sq) {
         if (_constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap == null) { _constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap.size() + 1);
-        _constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap.put(key, subQuery); return "constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux." + key;
+        String ky = "subQueryMapKey" + (_constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap.size() + 1);
+        _constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQuxMap.put(ky, sq); return "constraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux." + ky;
     }
 
     protected Map<String, LdVendorConstraintNameAutoQuxCQ> _constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap;
     public Map<String, LdVendorConstraintNameAutoQuxCQ> getConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux() { return _constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap; }
-    public String keepConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux(LdVendorConstraintNameAutoQuxCQ subQuery) {
+    public String keepConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux(LdVendorConstraintNameAutoQuxCQ sq) {
         if (_constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap == null) { _constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap.size() + 1);
-        _constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap.put(key, subQuery); return "constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux." + key;
+        String ky = "subQueryMapKey" + (_constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap.size() + 1);
+        _constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQuxMap.put(ky, sq); return "constraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux." + ky;
     }
 
     /** 
@@ -267,17 +267,17 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdVendorConstraintNameAutoRefCQ baseQuery = (LdVendorConstraintNameAutoRefCQ)baseQueryAsSuper;
-        LdVendorConstraintNameAutoRefCQ unionQuery = (LdVendorConstraintNameAutoRefCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryVendorConstraintNameAutoFoo()) {
-            unionQuery.queryVendorConstraintNameAutoFoo().reflectRelationOnUnionQuery(baseQuery.queryVendorConstraintNameAutoFoo(), unionQuery.queryVendorConstraintNameAutoFoo());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdVendorConstraintNameAutoRefCQ bq = (LdVendorConstraintNameAutoRefCQ)bqs;
+        LdVendorConstraintNameAutoRefCQ uq = (LdVendorConstraintNameAutoRefCQ)uqs;
+        if (bq.hasConditionQueryVendorConstraintNameAutoFoo()) {
+            uq.queryVendorConstraintNameAutoFoo().reflectRelationOnUnionQuery(bq.queryVendorConstraintNameAutoFoo(), uq.queryVendorConstraintNameAutoFoo());
         }
-        if (baseQuery.hasConditionQueryVendorConstraintNameAutoBar()) {
-            unionQuery.queryVendorConstraintNameAutoBar().reflectRelationOnUnionQuery(baseQuery.queryVendorConstraintNameAutoBar(), unionQuery.queryVendorConstraintNameAutoBar());
+        if (bq.hasConditionQueryVendorConstraintNameAutoBar()) {
+            uq.queryVendorConstraintNameAutoBar().reflectRelationOnUnionQuery(bq.queryVendorConstraintNameAutoBar(), uq.queryVendorConstraintNameAutoBar());
         }
-        if (baseQuery.hasConditionQueryVendorConstraintNameAutoQux()) {
-            unionQuery.queryVendorConstraintNameAutoQux().reflectRelationOnUnionQuery(baseQuery.queryVendorConstraintNameAutoQux(), unionQuery.queryVendorConstraintNameAutoQux());
+        if (bq.hasConditionQueryVendorConstraintNameAutoQux()) {
+            uq.queryVendorConstraintNameAutoQux().reflectRelationOnUnionQuery(bq.queryVendorConstraintNameAutoQux(), uq.queryVendorConstraintNameAutoQux());
         }
     }
 
@@ -395,10 +395,10 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
     //                                                                     ===============
     protected Map<String, LdVendorConstraintNameAutoRefCQ> _scalarConditionMap;
     public Map<String, LdVendorConstraintNameAutoRefCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdVendorConstraintNameAutoRefCQ subQuery) {
+    public String keepScalarCondition(LdVendorConstraintNameAutoRefCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -406,25 +406,25 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
     //                                                                       =============
     protected Map<String, LdVendorConstraintNameAutoRefCQ> _specifyMyselfDerivedMap;
     public Map<String, LdVendorConstraintNameAutoRefCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoRefCQ subQuery) {
+    public String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoRefCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, LdVendorConstraintNameAutoRefCQ> _queryMyselfDerivedMap;
     public Map<String, LdVendorConstraintNameAutoRefCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdVendorConstraintNameAutoRefCQ subQuery) {
+    public String keepQueryMyselfDerived(LdVendorConstraintNameAutoRefCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -432,10 +432,10 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
     //                                                                        ============
     protected Map<String, LdVendorConstraintNameAutoRefCQ> _myselfExistsMap;
     public Map<String, LdVendorConstraintNameAutoRefCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdVendorConstraintNameAutoRefCQ subQuery) {
+    public String keepMyselfExists(LdVendorConstraintNameAutoRefCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -443,10 +443,10 @@ public class LdBsVendorConstraintNameAutoRefCQ extends LdAbstractBsVendorConstra
     //                                                                       =============
     protected Map<String, LdVendorConstraintNameAutoRefCQ> _myselfInScopeMap;
     public Map<String, LdVendorConstraintNameAutoRefCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdVendorConstraintNameAutoRefCQ subQuery) {
+    public String keepMyselfInScope(LdVendorConstraintNameAutoRefCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

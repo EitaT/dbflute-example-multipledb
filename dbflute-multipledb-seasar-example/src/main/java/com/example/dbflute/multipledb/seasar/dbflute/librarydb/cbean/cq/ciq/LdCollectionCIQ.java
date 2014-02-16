@@ -92,7 +92,7 @@ public class LdCollectionCIQ extends LdAbstractBsCollectionCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepCollectionId_QueryDerivedReferrer_LendingCollectionList(LdLendingCollectionCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepCollectionId_QueryDerivedReferrer_LendingCollectionListParameter(Object pv)
+    public String keepCollectionId_QueryDerivedReferrer_LendingCollectionListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueLibraryId() { return _myCQ.getLibraryId(); }
     public String keepLibraryId_InScopeRelation_Library(LdLibraryCQ sq)
@@ -111,18 +111,18 @@ public class LdCollectionCIQ extends LdAbstractBsCollectionCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdCollectionCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdCollectionCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdCollectionCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdCollectionCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdCollectionCQ subQuery)
+    public String keepQueryMyselfDerived(LdCollectionCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdCollectionCQ subQuery)
+    public String keepMyselfExists(LdCollectionCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdCollectionCQ subQuery)
+    public String keepMyselfInScope(LdCollectionCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

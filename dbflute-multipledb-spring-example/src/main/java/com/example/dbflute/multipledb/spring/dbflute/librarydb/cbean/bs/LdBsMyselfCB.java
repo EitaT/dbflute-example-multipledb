@@ -327,8 +327,8 @@ public class LdBsMyselfCB extends AbstractConditionBean {
         public HpSDRFunction<LdMyselfCheckCB, LdMyselfCQ> derivedMyselfCheckList() {
             assertDerived("myselfCheckList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdMyselfCheckCB, LdMyselfCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdMyselfCheckCB, LdMyselfCQ>() {
-                public void setup(String function, SubQuery<LdMyselfCheckCB> subQuery, LdMyselfCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMyselfCheckList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdMyselfCheckCB> sq, LdMyselfCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMyselfCheckList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -337,8 +337,8 @@ public class LdBsMyselfCB extends AbstractConditionBean {
         public HpSDRFunction<LdMyselfCB, LdMyselfCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdMyselfCB, LdMyselfCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdMyselfCB, LdMyselfCQ>() {
-                public void setup(String function, SubQuery<LdMyselfCB> subQuery, LdMyselfCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdMyselfCB> sq, LdMyselfCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

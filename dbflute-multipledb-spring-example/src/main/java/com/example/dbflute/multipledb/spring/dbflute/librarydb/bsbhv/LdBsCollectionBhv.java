@@ -19,28 +19,28 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
  * <pre>
  * [primary key]
  *     COLLECTION_ID
- * 
+ *
  * [column]
  *     COLLECTION_ID, LIBRARY_ID, BOOK_ID, ARRIVAL_DATE, R_USER, R_MODULE, R_TIMESTAMP, U_USER, U_MODULE, U_TIMESTAMP
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     COLLECTION_ID
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     BOOK, LIBRARY, COLLECTION_STATUS(AsOne)
- * 
+ *
  * [referrer table]
  *     LENDING_COLLECTION, COLLECTION_STATUS
- * 
+ *
  * [foreign property]
  *     book, library, collectionStatusAsOne
- * 
+ *
  * [referrer property]
  *     lendingCollectionList
  * </pre>
@@ -102,7 +102,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(LdCollectionCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(LdCollectionCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -141,10 +141,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, LdCollection.class);
     }
 
-    protected <ENTITY extends LdCollection> ENTITY doSelectEntity(final LdCollectionCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends LdCollection> ENTITY doSelectEntity(final LdCollectionCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, LdCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdCollectionCB>() {
+            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, LdCollection.class);
     }
 
-    protected <ENTITY extends LdCollection> ENTITY doSelectEntityWithDeletedCheck(final LdCollectionCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends LdCollection> ENTITY doSelectEntityWithDeletedCheck(final LdCollectionCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdCollectionCB>() {
+            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -241,11 +241,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, LdCollection.class);
     }
 
-    protected <ENTITY extends LdCollection> ListResultBean<ENTITY> doSelectList(LdCollectionCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, LdCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends LdCollection> ListResultBean<ENTITY> doSelectList(LdCollectionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdCollectionCB>() {
+            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -282,11 +282,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, LdCollection.class);
     }
 
-    protected <ENTITY extends LdCollection> PagingResultBean<ENTITY> doSelectPage(LdCollectionCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, LdCollectionCB>() {
+    protected <ENTITY extends LdCollection> PagingResultBean<ENTITY> doSelectPage(LdCollectionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdCollectionCB>() {
             public int callbackSelectCount(LdCollectionCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -316,12 +316,12 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, LdCollection.class);
     }
 
-    protected <ENTITY extends LdCollection> void doSelectCursor(LdCollectionCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<LdCollection>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, LdCollectionCB>() {
-            public void callbackSelectCursor(LdCollectionCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends LdCollection> void doSelectCursor(LdCollectionCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdCollectionCB>() {
+            public void callbackSelectCursor(LdCollectionCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -347,18 +347,18 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends LdCollectionCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends LdCollectionCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends LdCollectionCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends LdCollectionCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -429,17 +429,17 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         if (collectionList.isEmpty()) { return; }
         final LdLendingCollectionBhv referrerBhv = xgetBSFLR().select(LdLendingCollectionBhv.class);
         helpLoadReferrerInternally(collectionList, loadReferrerOption, new InternalLoadReferrerCallback<LdCollection, Integer, LdLendingCollectionCB, LdLendingCollection>() {
-            public Integer getPKVal(LdCollection e)
-            { return e.getCollectionId(); }
-            public void setRfLs(LdCollection e, List<LdLendingCollection> ls)
-            { e.setLendingCollectionList(ls); }
+            public Integer getPKVal(LdCollection et)
+            { return et.getCollectionId(); }
+            public void setRfLs(LdCollection et, List<LdLendingCollection> ls)
+            { et.setLendingCollectionList(ls); }
             public LdLendingCollectionCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(LdLendingCollectionCB cb, List<Integer> ls)
             { cb.query().setCollectionId_InScope(ls); }
             public void qyOdFKAsc(LdLendingCollectionCB cb) { cb.query().addOrderBy_CollectionId_Asc(); }
             public void spFKCol(LdLendingCollectionCB cb) { cb.specify().columnCollectionId(); }
             public List<LdLendingCollection> selRfLs(LdLendingCollectionCB cb) { return referrerBhv.selectList(cb); }
-            public Integer getFKVal(LdLendingCollection e) { return e.getCollectionId(); }
+            public Integer getFKVal(LdLendingCollection re) { return re.getCollectionId(); }
             public void setlcEt(LdLendingCollection re, LdCollection le)
             { re.setCollection(le); }
             public String getRfPrNm() { return "lendingCollectionList"; }
@@ -456,10 +456,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      */
     public List<LdBook> pulloutBook(List<LdCollection> collectionList) {
         return helpPulloutInternally(collectionList, new InternalPulloutCallback<LdCollection, LdBook>() {
-            public LdBook getFr(LdCollection e) { return e.getBook(); }
+            public LdBook getFr(LdCollection et) { return et.getBook(); }
             public boolean hasRf() { return true; }
-            public void setRfLs(LdBook e, List<LdCollection> ls)
-            { e.setCollectionList(ls); }
+            public void setRfLs(LdBook et, List<LdCollection> ls)
+            { et.setCollectionList(ls); }
         });
     }
     /**
@@ -469,10 +469,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      */
     public List<LdLibrary> pulloutLibrary(List<LdCollection> collectionList) {
         return helpPulloutInternally(collectionList, new InternalPulloutCallback<LdCollection, LdLibrary>() {
-            public LdLibrary getFr(LdCollection e) { return e.getLibrary(); }
+            public LdLibrary getFr(LdCollection et) { return et.getLibrary(); }
             public boolean hasRf() { return true; }
-            public void setRfLs(LdLibrary e, List<LdCollection> ls)
-            { e.setCollectionList(ls); }
+            public void setRfLs(LdLibrary et, List<LdCollection> ls)
+            { et.setCollectionList(ls); }
         });
     }
     /**
@@ -482,10 +482,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      */
     public List<LdCollectionStatus> pulloutCollectionStatusAsOne(List<LdCollection> collectionList) {
         return helpPulloutInternally(collectionList, new InternalPulloutCallback<LdCollection, LdCollectionStatus>() {
-            public LdCollectionStatus getFr(LdCollection e) { return e.getCollectionStatusAsOne(); }
+            public LdCollectionStatus getFr(LdCollection et) { return et.getCollectionStatusAsOne(); }
             public boolean hasRf() { return true; }
-            public void setRfLs(LdCollectionStatus e, List<LdCollection> ls)
-            { if (!ls.isEmpty()) { e.setCollection(ls.get(0)); } }
+            public void setRfLs(LdCollectionStatus et, List<LdCollection> ls)
+            { if (!ls.isEmpty()) { et.setCollection(ls.get(0)); } }
         });
     }
 
@@ -499,7 +499,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      */
     public List<Integer> extractCollectionIdList(List<LdCollection> collectionList) {
         return helpExtractListInternally(collectionList, new InternalExtractCallback<LdCollection, Integer>() {
-            public Integer getCV(LdCollection e) { return e.getCollectionId(); }
+            public Integer getCV(LdCollection et) { return et.getCollectionId(); }
         });
     }
 
@@ -527,24 +527,24 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doInsert(collection, null);
     }
 
-    protected void doInsert(LdCollection collection, InsertOption<LdCollectionCB> option) {
+    protected void doInsert(LdCollection collection, InsertOption<LdCollectionCB> op) {
         assertObjectNotNull("collection", collection);
-        prepareInsertOption(option);
-        delegateInsert(collection, option);
+        prepareInsertOption(op);
+        delegateInsert(collection, op);
     }
 
-    protected void prepareInsertOption(InsertOption<LdCollectionCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<LdCollectionCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -562,7 +562,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *     collectionBhv.<span style="color: #FD4747">update</span>(collection);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param collection The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
@@ -573,21 +573,21 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doUpdate(collection, null);
     }
 
-    protected void doUpdate(LdCollection collection, final UpdateOption<LdCollectionCB> option) {
+    protected void doUpdate(LdCollection collection, final UpdateOption<LdCollectionCB> op) {
         assertObjectNotNull("collection", collection);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(collection, new InternalUpdateCallback<LdCollection>() {
-            public int callbackDelegateUpdate(LdCollection entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(LdCollection et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<LdCollectionCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<LdCollectionCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -604,9 +604,9 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     /**
@@ -632,17 +632,17 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doUpdateNonstrict(collection, null);
     }
 
-    protected void doUpdateNonstrict(LdCollection collection, final UpdateOption<LdCollectionCB> option) {
+    protected void doUpdateNonstrict(LdCollection collection, final UpdateOption<LdCollectionCB> op) {
         assertObjectNotNull("collection", collection);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateNonstrictInternally(collection, new InternalUpdateNonstrictCallback<LdCollection>() {
-            public int callbackDelegateUpdateNonstrict(LdCollection entity) { return delegateUpdateNonstrict(entity, option); } });
+            public int callbackDelegateUpdateNonstrict(LdCollection et) { return delegateUpdateNonstrict(et, op); } });
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { updateNonstrict(downcast(entity)); }
-        else { varyingUpdateNonstrict(downcast(entity), downcast(option)); }
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { updateNonstrict(downcast(et)); }
+        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
     }
 
     /**
@@ -658,23 +658,22 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doInesrtOrUpdate(collection, null, null);
     }
 
-    protected void doInesrtOrUpdate(LdCollection collection, final InsertOption<LdCollectionCB> insertOption, final UpdateOption<LdCollectionCB> updateOption) {
+    protected void doInesrtOrUpdate(LdCollection collection, final InsertOption<LdCollectionCB> iop, final UpdateOption<LdCollectionCB> uop) {
         helpInsertOrUpdateInternally(collection, new InternalInsertOrUpdateCallback<LdCollection, LdCollectionCB>() {
-            public void callbackInsert(LdCollection entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(LdCollection entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(LdCollection et) { doInsert(et, iop); }
+            public void callbackUpdate(LdCollection et) { doUpdate(et, uop); }
             public LdCollectionCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(LdCollectionCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<LdCollectionCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<LdCollectionCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<LdCollectionCB>();
+            uop = uop != null ? uop : new UpdateOption<LdCollectionCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
@@ -691,21 +690,20 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doInesrtOrUpdateNonstrict(collection, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(LdCollection collection, final InsertOption<LdCollectionCB> insertOption, final UpdateOption<LdCollectionCB> updateOption) {
+    protected void doInesrtOrUpdateNonstrict(LdCollection collection, final InsertOption<LdCollectionCB> iop, final UpdateOption<LdCollectionCB> uop) {
         helpInsertOrUpdateInternally(collection, new InternalInsertOrUpdateNonstrictCallback<LdCollection>() {
-            public void callbackInsert(LdCollection entity) { doInsert(entity, insertOption); }
-            public void callbackUpdateNonstrict(LdCollection entity) { doUpdateNonstrict(entity, updateOption); }
+            public void callbackInsert(LdCollection et) { doInsert(et, iop); }
+            public void callbackUpdateNonstrict(LdCollection et) { doUpdateNonstrict(et, uop); }
         });
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdateNonstrict(downcast(entity)); }
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<LdCollectionCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<LdCollectionCB>() : updateOption;
-            varyingInsertOrUpdateNonstrict(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<LdCollectionCB>();
+            uop = uop != null ? uop : new UpdateOption<LdCollectionCB>();
+            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
@@ -720,7 +718,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *     collectionBhv.<span style="color: #FD4747">delete</span>(collection);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param collection The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
@@ -730,22 +728,22 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doDelete(collection, null);
     }
 
-    protected void doDelete(LdCollection collection, final DeleteOption<LdCollectionCB> option) {
+    protected void doDelete(LdCollection collection, final DeleteOption<LdCollectionCB> op) {
         assertObjectNotNull("collection", collection);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(collection, new InternalDeleteCallback<LdCollection>() {
-            public int callbackDelegateDelete(LdCollection entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(LdCollection et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<LdCollectionCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
+    protected void prepareDeleteOption(DeleteOption<LdCollectionCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
     }
 
     /**
@@ -766,11 +764,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doDeleteNonstrict(collection, null);
     }
 
-    protected void doDeleteNonstrict(LdCollection collection, final DeleteOption<LdCollectionCB> option) {
+    protected void doDeleteNonstrict(LdCollection collection, final DeleteOption<LdCollectionCB> op) {
         assertObjectNotNull("collection", collection);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteNonstrictInternally(collection, new InternalDeleteNonstrictCallback<LdCollection>() {
-            public int callbackDelegateDeleteNonstrict(LdCollection entity) { return delegateDeleteNonstrict(entity, option); } });
+            public int callbackDelegateDeleteNonstrict(LdCollection et) { return delegateDeleteNonstrict(et, op); } });
     }
 
     /**
@@ -791,17 +789,17 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         doDeleteNonstrictIgnoreDeleted(collection, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(LdCollection collection, final DeleteOption<LdCollectionCB> option) {
+    protected void doDeleteNonstrictIgnoreDeleted(LdCollection collection, final DeleteOption<LdCollectionCB> op) {
         assertObjectNotNull("collection", collection);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteNonstrictIgnoreDeletedInternally(collection, new InternalDeleteNonstrictIgnoreDeletedCallback<LdCollection>() {
-            public int callbackDelegateDeleteNonstrict(LdCollection entity) { return delegateDeleteNonstrict(entity, option); } });
+            public int callbackDelegateDeleteNonstrict(LdCollection et) { return delegateDeleteNonstrict(et, op); } });
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { deleteNonstrict(downcast(entity)); }
-        else { varyingDeleteNonstrict(downcast(entity), downcast(option)); }
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { deleteNonstrict(downcast(et)); }
+        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
     }
 
     // ===================================================================================
@@ -832,26 +830,26 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<LdCollection> collectionList) {
-        InsertOption<LdCollectionCB> option = createInsertUpdateOption();
-        return doBatchInsert(collectionList, option);
+        InsertOption<LdCollectionCB> op = createInsertUpdateOption();
+        return doBatchInsert(collectionList, op);
     }
 
-    protected int[] doBatchInsert(List<LdCollection> collectionList, InsertOption<LdCollectionCB> option) {
+    protected int[] doBatchInsert(List<LdCollection> collectionList, InsertOption<LdCollectionCB> op) {
         assertObjectNotNull("collectionList", collectionList);
-        prepareBatchInsertOption(collectionList, option);
-        return delegateBatchInsert(collectionList, option);
+        prepareBatchInsertOption(collectionList, op);
+        return delegateBatchInsert(collectionList, op);
     }
 
-    protected void prepareBatchInsertOption(List<LdCollection> collectionList, InsertOption<LdCollectionCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(collectionList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<LdCollection> collectionList, InsertOption<LdCollectionCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(collectionList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -879,39 +877,39 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdCollection> collectionList) {
-        UpdateOption<LdCollectionCB> option = createPlainUpdateOption();
-        return doBatchUpdate(collectionList, option);
+        UpdateOption<LdCollectionCB> op = createPlainUpdateOption();
+        return doBatchUpdate(collectionList, op);
     }
 
-    protected int[] doBatchUpdate(List<LdCollection> collectionList, UpdateOption<LdCollectionCB> option) {
+    protected int[] doBatchUpdate(List<LdCollection> collectionList, UpdateOption<LdCollectionCB> op) {
         assertObjectNotNull("collectionList", collectionList);
-        prepareBatchUpdateOption(collectionList, option);
-        return delegateBatchUpdate(collectionList, option);
+        prepareBatchUpdateOption(collectionList, op);
+        return delegateBatchUpdate(collectionList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<LdCollection> collectionList, UpdateOption<LdCollectionCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(collectionList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<LdCollection> collectionList, UpdateOption<LdCollectionCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(collectionList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * collectionBhv.<span style="color: #FD4747">batchUpdate</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * collectionBhv.<span style="color: #FD4747">batchUpdate</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -961,24 +959,24 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doBatchUpdateNonstrict(collectionList, option);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<LdCollection> collectionList, UpdateOption<LdCollectionCB> option) {
+    protected int[] doBatchUpdateNonstrict(List<LdCollection> collectionList, UpdateOption<LdCollectionCB> op) {
         assertObjectNotNull("collectionList", collectionList);
-        prepareBatchUpdateOption(collectionList, option);
-        return delegateBatchUpdateNonstrict(collectionList, option);
+        prepareBatchUpdateOption(collectionList, op);
+        return delegateBatchUpdateNonstrict(collectionList, op);
     }
 
     /**
      * Batch-update the entity list non-strictly specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * collectionBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * collectionBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -999,9 +997,9 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(option)); }
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
+        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -1015,16 +1013,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doBatchDelete(collectionList, null);
     }
 
-    protected int[] doBatchDelete(List<LdCollection> collectionList, DeleteOption<LdCollectionCB> option) {
+    protected int[] doBatchDelete(List<LdCollection> collectionList, DeleteOption<LdCollectionCB> op) {
         assertObjectNotNull("collectionList", collectionList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(collectionList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(collectionList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -1038,16 +1036,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(collectionList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<LdCollection> collectionList, DeleteOption<LdCollectionCB> option) {
+    protected int[] doBatchDeleteNonstrict(List<LdCollection> collectionList, DeleteOption<LdCollectionCB> op) {
         assertObjectNotNull("collectionList", collectionList);
-        prepareDeleteOption(option);
-        return delegateBatchDeleteNonstrict(collectionList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDeleteNonstrict(collectionList, op);
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
+        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
     }
 
     // ===================================================================================
@@ -1060,7 +1058,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *     public ConditionBean setup(collection entity, LdCollectionCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
-     * 
+     *
      *         <span style="color: #3F7E5E">// mapping</span>
      *         intoCB.specify().columnMyName().mappedFrom(cb.specify().columnFooName());
      *         intoCB.specify().columnMyCount().mappedFrom(cb.specify().columnFooCount());
@@ -1071,7 +1069,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">//entity.set...;</span>
      *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
-     * 
+     *
      *         return cb;
      *     }
      * });
@@ -1083,13 +1081,12 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<LdCollection, LdCollectionCB> setupper, InsertOption<LdCollectionCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        LdCollection entity = new LdCollection();
-        LdCollectionCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<LdCollection, LdCollectionCB> sp, InsertOption<LdCollectionCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        LdCollection e = new LdCollection();
+        LdCollectionCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected LdCollectionCB createCBForQueryInsert() {
@@ -1130,16 +1127,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(collection, cb, null);
     }
 
-    protected int doQueryUpdate(LdCollection collection, LdCollectionCB cb, UpdateOption<LdCollectionCB> option) {
+    protected int doQueryUpdate(LdCollection collection, LdCollectionCB cb, UpdateOption<LdCollectionCB> op) {
         assertObjectNotNull("collection", collection); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(collection, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(collection, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (LdCollectionCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (LdCollectionCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (LdCollectionCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (LdCollectionCB)cb, downcast(op)); }
     }
 
     /**
@@ -1157,16 +1154,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(LdCollectionCB cb, DeleteOption<LdCollectionCB> option) {
+    protected int doQueryDelete(LdCollectionCB cb, DeleteOption<LdCollectionCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((LdCollectionCB)cb); }
-        else { return varyingQueryDelete((LdCollectionCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((LdCollectionCB)cb); }
+        else { return varyingQueryDelete((LdCollectionCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1399,7 +1396,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
-     * Other specifications are same as queryInsert(entity, setupper). 
+     * Other specifications are same as queryInsert(entity, setupper).
      * @param setupper The setup-per of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
@@ -1413,7 +1410,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br />
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br />
-     * Other specifications are same as queryUpdate(entity, cb). 
+     * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
      * LdCollection collection = new LdCollection();
@@ -1470,27 +1467,27 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdCollectionBhv> outsideSql() {
         return doOutsideSql();
@@ -1505,29 +1502,29 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     //                                                ------
     protected int delegateSelectCountUniquely(LdCollectionCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(LdCollectionCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdCollection> void delegateSelectCursor(LdCollectionCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends LdCollection> List<ENTITY> delegateSelectList(LdCollectionCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends LdCollection> void delegateSelectCursor(LdCollectionCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends LdCollection> List<ENTITY> delegateSelectList(LdCollectionCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(LdCollection e, InsertOption<LdCollectionCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(LdCollection e, UpdateOption<LdCollectionCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateEntityCommand(e, op)); }
-    protected int delegateUpdateNonstrict(LdCollection e, UpdateOption<LdCollectionCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(LdCollection e, DeleteOption<LdCollectionCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteEntityCommand(e, op)); }
-    protected int delegateDeleteNonstrict(LdCollection e, DeleteOption<LdCollectionCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(LdCollection et, InsertOption<LdCollectionCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(LdCollection et, UpdateOption<LdCollectionCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateEntityCommand(et, op)); }
+    protected int delegateUpdateNonstrict(LdCollection et, UpdateOption<LdCollectionCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(LdCollection et, DeleteOption<LdCollectionCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteEntityCommand(et, op)); }
+    protected int delegateDeleteNonstrict(LdCollection et, DeleteOption<LdCollectionCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<LdCollection> ls, InsertOption<LdCollectionCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1545,10 +1542,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(LdCollection e, LdCollectionCB inCB, ConditionBean resCB, InsertOption<LdCollectionCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(LdCollection e, LdCollectionCB cb, UpdateOption<LdCollectionCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(LdCollection et, LdCollectionCB inCB, ConditionBean resCB, InsertOption<LdCollectionCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(LdCollection et, LdCollectionCB cb, UpdateOption<LdCollectionCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(LdCollectionCB cb, DeleteOption<LdCollectionCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1556,11 +1553,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     //                                                                     Filter Override
     //                                                                     ===============
     @Override
-    protected void filterEntityOfInsert(Entity targetEntity, InsertOption<? extends ConditionBean> option) {
-        super.filterEntityOfInsert(targetEntity, option);
-        LdCollection entity = downcast(targetEntity);
-        entity.setRUser(org.seasar.dbflute.AccessContext.getAccessUserOnThread());
-        entity.setRTimestamp(org.seasar.dbflute.AccessContext.getAccessTimestampOnThread());
+    protected void filterEntityOfInsert(Entity tgt, InsertOption<? extends ConditionBean> op) {
+        super.filterEntityOfInsert(tgt, op);
+        LdCollection et = downcast(tgt);
+        et.setRUser(org.seasar.dbflute.AccessContext.getAccessUserOnThread());
+        et.setRTimestamp(org.seasar.dbflute.AccessContext.getAccessTimestampOnThread());
     }
 
     // ===================================================================================
@@ -1570,7 +1567,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1578,15 +1575,15 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
-        return downcast(entity).getUTimestamp() != null;
+    protected boolean hasUpdateDateValue(Entity et) {
+        return downcast(et).getUTimestamp() != null;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected LdCollection downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, LdCollection.class);
+    protected LdCollection downcast(Entity et) {
+        return helpEntityDowncastInternally(et, LdCollection.class);
     }
 
     protected LdCollectionCB downcast(ConditionBean cb) {
@@ -1594,27 +1591,27 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<LdCollection> downcast(List<? extends Entity> entityList) {
-        return (List<LdCollection>)entityList;
+    protected List<LdCollection> downcast(List<? extends Entity> ls) {
+        return (List<LdCollection>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<LdCollectionCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<LdCollectionCB>)option;
+    protected InsertOption<LdCollectionCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<LdCollectionCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<LdCollectionCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<LdCollectionCB>)option;
+    protected UpdateOption<LdCollectionCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<LdCollectionCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<LdCollectionCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<LdCollectionCB>)option;
+    protected DeleteOption<LdCollectionCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<LdCollectionCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdCollection, LdCollectionCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<LdCollection, LdCollectionCB>)option;
+    protected QueryInsertSetupper<LdCollection, LdCollectionCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<LdCollection, LdCollectionCB>)sp;
     }
 }

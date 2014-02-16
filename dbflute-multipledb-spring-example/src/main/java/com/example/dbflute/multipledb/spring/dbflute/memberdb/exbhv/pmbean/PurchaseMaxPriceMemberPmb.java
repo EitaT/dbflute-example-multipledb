@@ -5,7 +5,7 @@ import com.example.dbflute.multipledb.spring.dbflute.memberdb.bsbhv.pmbean.BsPur
 /**
  * <!-- df:beginClassDescription -->
  * The typed parameter-bean of PurchaseMaxPriceMember. <span style="color: #AD4747">(typed to entity, manual-paging)</span><br />
- * This is related to "<span style="color: #AD4747">selectPurchaseMaxPriceMember</span>" on MemberBhv.
+ * This is related to "<span style="color: #AD4747">selectPurchaseMaxPriceMember</span>" on MemberBhv. <br />
  * <!-- df:endClassDescription -->
  * <p>
  * You can implement your original methods here.

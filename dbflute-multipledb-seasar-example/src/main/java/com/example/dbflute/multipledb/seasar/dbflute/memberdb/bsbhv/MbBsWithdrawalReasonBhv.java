@@ -17,28 +17,28 @@ import com.example.dbflute.multipledb.seasar.dbflute.memberdb.cbean.*;
  * <pre>
  * [primary key]
  *     WITHDRAWAL_REASON_CODE
- * 
+ *
  * [column]
  *     WITHDRAWAL_REASON_CODE, WITHDRAWAL_REASON_TEXT, DISPLAY_ORDER
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     MEMBER_WITHDRAWAL
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     memberWithdrawalList
  * </pre>
@@ -100,7 +100,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(MbWithdrawalReasonCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(MbWithdrawalReasonCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -139,10 +139,10 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, MbWithdrawalReason.class);
     }
 
-    protected <ENTITY extends MbWithdrawalReason> ENTITY doSelectEntity(final MbWithdrawalReasonCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends MbWithdrawalReason> ENTITY doSelectEntity(final MbWithdrawalReasonCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, MbWithdrawalReasonCB>() {
-            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, MbWithdrawalReasonCB>() {
+            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -168,10 +168,10 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, MbWithdrawalReason.class);
     }
 
-    protected <ENTITY extends MbWithdrawalReason> ENTITY doSelectEntityWithDeletedCheck(final MbWithdrawalReasonCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends MbWithdrawalReason> ENTITY doSelectEntityWithDeletedCheck(final MbWithdrawalReasonCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, MbWithdrawalReasonCB>() {
-            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, MbWithdrawalReasonCB>() {
+            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -239,11 +239,11 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doSelectList(cb, MbWithdrawalReason.class);
     }
 
-    protected <ENTITY extends MbWithdrawalReason> ListResultBean<ENTITY> doSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, MbWithdrawalReasonCB>() {
-            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends MbWithdrawalReason> ListResultBean<ENTITY> doSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, MbWithdrawalReasonCB>() {
+            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -280,11 +280,11 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doSelectPage(cb, MbWithdrawalReason.class);
     }
 
-    protected <ENTITY extends MbWithdrawalReason> PagingResultBean<ENTITY> doSelectPage(MbWithdrawalReasonCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, MbWithdrawalReasonCB>() {
+    protected <ENTITY extends MbWithdrawalReason> PagingResultBean<ENTITY> doSelectPage(MbWithdrawalReasonCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, MbWithdrawalReasonCB>() {
             public int callbackSelectCount(MbWithdrawalReasonCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -314,12 +314,12 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         doSelectCursor(cb, entityRowHandler, MbWithdrawalReason.class);
     }
 
-    protected <ENTITY extends MbWithdrawalReason> void doSelectCursor(MbWithdrawalReasonCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<MbWithdrawalReason>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, MbWithdrawalReasonCB>() {
-            public void callbackSelectCursor(MbWithdrawalReasonCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends MbWithdrawalReason> void doSelectCursor(MbWithdrawalReasonCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, MbWithdrawalReasonCB>() {
+            public void callbackSelectCursor(MbWithdrawalReasonCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -345,18 +345,18 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends MbWithdrawalReasonCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends MbWithdrawalReasonCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends MbWithdrawalReasonCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends MbWithdrawalReasonCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -427,17 +427,17 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         if (withdrawalReasonList.isEmpty()) { return; }
         final MbMemberWithdrawalBhv referrerBhv = xgetBSFLR().select(MbMemberWithdrawalBhv.class);
         helpLoadReferrerInternally(withdrawalReasonList, loadReferrerOption, new InternalLoadReferrerCallback<MbWithdrawalReason, String, MbMemberWithdrawalCB, MbMemberWithdrawal>() {
-            public String getPKVal(MbWithdrawalReason e)
-            { return e.getWithdrawalReasonCode(); }
-            public void setRfLs(MbWithdrawalReason e, List<MbMemberWithdrawal> ls)
-            { e.setMemberWithdrawalList(ls); }
+            public String getPKVal(MbWithdrawalReason et)
+            { return et.getWithdrawalReasonCode(); }
+            public void setRfLs(MbWithdrawalReason et, List<MbMemberWithdrawal> ls)
+            { et.setMemberWithdrawalList(ls); }
             public MbMemberWithdrawalCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(MbMemberWithdrawalCB cb, List<String> ls)
             { cb.query().setWithdrawalReasonCode_InScope(ls); }
             public void qyOdFKAsc(MbMemberWithdrawalCB cb) { cb.query().addOrderBy_WithdrawalReasonCode_Asc(); }
             public void spFKCol(MbMemberWithdrawalCB cb) { cb.specify().columnWithdrawalReasonCode(); }
             public List<MbMemberWithdrawal> selRfLs(MbMemberWithdrawalCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(MbMemberWithdrawal e) { return e.getWithdrawalReasonCode(); }
+            public String getFKVal(MbMemberWithdrawal re) { return re.getWithdrawalReasonCode(); }
             public void setlcEt(MbMemberWithdrawal re, MbWithdrawalReason le)
             { re.setWithdrawalReason(le); }
             public String getRfPrNm() { return "memberWithdrawalList"; }
@@ -458,7 +458,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      */
     public List<String> extractWithdrawalReasonCodeList(List<MbWithdrawalReason> withdrawalReasonList) {
         return helpExtractListInternally(withdrawalReasonList, new InternalExtractCallback<MbWithdrawalReason, String>() {
-            public String getCV(MbWithdrawalReason e) { return e.getWithdrawalReasonCode(); }
+            public String getCV(MbWithdrawalReason et) { return et.getWithdrawalReasonCode(); }
         });
     }
 
@@ -469,7 +469,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      */
     public List<Integer> extractDisplayOrderList(List<MbWithdrawalReason> withdrawalReasonList) {
         return helpExtractListInternally(withdrawalReasonList, new InternalExtractCallback<MbWithdrawalReason, Integer>() {
-            public Integer getCV(MbWithdrawalReason e) { return e.getDisplayOrder(); }
+            public Integer getCV(MbWithdrawalReason et) { return et.getDisplayOrder(); }
         });
     }
 
@@ -497,24 +497,24 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         doInsert(withdrawalReason, null);
     }
 
-    protected void doInsert(MbWithdrawalReason withdrawalReason, InsertOption<MbWithdrawalReasonCB> option) {
+    protected void doInsert(MbWithdrawalReason withdrawalReason, InsertOption<MbWithdrawalReasonCB> op) {
         assertObjectNotNull("withdrawalReason", withdrawalReason);
-        prepareInsertOption(option);
-        delegateInsert(withdrawalReason, option);
+        prepareInsertOption(op);
+        delegateInsert(withdrawalReason, op);
     }
 
-    protected void prepareInsertOption(InsertOption<MbWithdrawalReasonCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<MbWithdrawalReasonCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -532,7 +532,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *     withdrawalReasonBhv.<span style="color: #FD4747">update</span>(withdrawalReason);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param withdrawalReason The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -543,21 +543,21 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         doUpdate(withdrawalReason, null);
     }
 
-    protected void doUpdate(MbWithdrawalReason withdrawalReason, final UpdateOption<MbWithdrawalReasonCB> option) {
+    protected void doUpdate(MbWithdrawalReason withdrawalReason, final UpdateOption<MbWithdrawalReasonCB> op) {
         assertObjectNotNull("withdrawalReason", withdrawalReason);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(withdrawalReason, new InternalUpdateCallback<MbWithdrawalReason>() {
-            public int callbackDelegateUpdate(MbWithdrawalReason entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(MbWithdrawalReason et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<MbWithdrawalReasonCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<MbWithdrawalReasonCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -574,14 +574,14 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        doModify(entity, option);
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        doModify(et, op);
     }
 
     /**
@@ -597,30 +597,28 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         doInesrtOrUpdate(withdrawalReason, null, null);
     }
 
-    protected void doInesrtOrUpdate(MbWithdrawalReason withdrawalReason, final InsertOption<MbWithdrawalReasonCB> insertOption, final UpdateOption<MbWithdrawalReasonCB> updateOption) {
+    protected void doInesrtOrUpdate(MbWithdrawalReason withdrawalReason, final InsertOption<MbWithdrawalReasonCB> iop, final UpdateOption<MbWithdrawalReasonCB> uop) {
         helpInsertOrUpdateInternally(withdrawalReason, new InternalInsertOrUpdateCallback<MbWithdrawalReason, MbWithdrawalReasonCB>() {
-            public void callbackInsert(MbWithdrawalReason entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(MbWithdrawalReason entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(MbWithdrawalReason et) { doInsert(et, iop); }
+            public void callbackUpdate(MbWithdrawalReason et) { doUpdate(et, uop); }
             public MbWithdrawalReasonCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(MbWithdrawalReasonCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<MbWithdrawalReasonCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<MbWithdrawalReasonCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<MbWithdrawalReasonCB>();
+            uop = uop != null ? uop : new UpdateOption<MbWithdrawalReasonCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        doCreateOrModify(entity, insertOption, updateOption);
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        doCreateOrModify(et, iop, uop);
     }
 
     /**
@@ -634,7 +632,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *     withdrawalReasonBhv.<span style="color: #FD4747">delete</span>(withdrawalReason);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param withdrawalReason The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -644,27 +642,27 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         doDelete(withdrawalReason, null);
     }
 
-    protected void doDelete(MbWithdrawalReason withdrawalReason, final DeleteOption<MbWithdrawalReasonCB> option) {
+    protected void doDelete(MbWithdrawalReason withdrawalReason, final DeleteOption<MbWithdrawalReasonCB> op) {
         assertObjectNotNull("withdrawalReason", withdrawalReason);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(withdrawalReason, new InternalDeleteCallback<MbWithdrawalReason>() {
-            public int callbackDelegateDelete(MbWithdrawalReason entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(MbWithdrawalReason et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<MbWithdrawalReasonCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
-    }
-
-    @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void prepareDeleteOption(DeleteOption<MbWithdrawalReasonCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        doRemove(entity, option);
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
+    }
+
+    @Override
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        doRemove(et, op);
     }
 
     // ===================================================================================
@@ -695,26 +693,26 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<MbWithdrawalReason> withdrawalReasonList) {
-        InsertOption<MbWithdrawalReasonCB> option = createInsertUpdateOption();
-        return doBatchInsert(withdrawalReasonList, option);
+        InsertOption<MbWithdrawalReasonCB> op = createInsertUpdateOption();
+        return doBatchInsert(withdrawalReasonList, op);
     }
 
-    protected int[] doBatchInsert(List<MbWithdrawalReason> withdrawalReasonList, InsertOption<MbWithdrawalReasonCB> option) {
+    protected int[] doBatchInsert(List<MbWithdrawalReason> withdrawalReasonList, InsertOption<MbWithdrawalReasonCB> op) {
         assertObjectNotNull("withdrawalReasonList", withdrawalReasonList);
-        prepareBatchInsertOption(withdrawalReasonList, option);
-        return delegateBatchInsert(withdrawalReasonList, option);
+        prepareBatchInsertOption(withdrawalReasonList, op);
+        return delegateBatchInsert(withdrawalReasonList, op);
     }
 
-    protected void prepareBatchInsertOption(List<MbWithdrawalReason> withdrawalReasonList, InsertOption<MbWithdrawalReasonCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(withdrawalReasonList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<MbWithdrawalReason> withdrawalReasonList, InsertOption<MbWithdrawalReasonCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(withdrawalReasonList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -742,39 +740,39 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MbWithdrawalReason> withdrawalReasonList) {
-        UpdateOption<MbWithdrawalReasonCB> option = createPlainUpdateOption();
-        return doBatchUpdate(withdrawalReasonList, option);
+        UpdateOption<MbWithdrawalReasonCB> op = createPlainUpdateOption();
+        return doBatchUpdate(withdrawalReasonList, op);
     }
 
-    protected int[] doBatchUpdate(List<MbWithdrawalReason> withdrawalReasonList, UpdateOption<MbWithdrawalReasonCB> option) {
+    protected int[] doBatchUpdate(List<MbWithdrawalReason> withdrawalReasonList, UpdateOption<MbWithdrawalReasonCB> op) {
         assertObjectNotNull("withdrawalReasonList", withdrawalReasonList);
-        prepareBatchUpdateOption(withdrawalReasonList, option);
-        return delegateBatchUpdate(withdrawalReasonList, option);
+        prepareBatchUpdateOption(withdrawalReasonList, op);
+        return delegateBatchUpdate(withdrawalReasonList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<MbWithdrawalReason> withdrawalReasonList, UpdateOption<MbWithdrawalReasonCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(withdrawalReasonList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<MbWithdrawalReason> withdrawalReasonList, UpdateOption<MbWithdrawalReasonCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(withdrawalReasonList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * withdrawalReasonBhv.<span style="color: #FD4747">batchUpdate</span>(withdrawalReasonList, new SpecifyQuery<MbWithdrawalReasonCB>() {
      *     public void specify(MbWithdrawalReasonCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * withdrawalReasonBhv.<span style="color: #FD4747">batchUpdate</span>(withdrawalReasonList, new SpecifyQuery<MbWithdrawalReasonCB>() {
      *     public void specify(MbWithdrawalReasonCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -796,8 +794,8 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        return doLumpModify(ls, option);
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        return doLumpModify(ls, op);
     }
 
     /**
@@ -811,21 +809,21 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doBatchDelete(withdrawalReasonList, null);
     }
 
-    protected int[] doBatchDelete(List<MbWithdrawalReason> withdrawalReasonList, DeleteOption<MbWithdrawalReasonCB> option) {
+    protected int[] doBatchDelete(List<MbWithdrawalReason> withdrawalReasonList, DeleteOption<MbWithdrawalReasonCB> op) {
         assertObjectNotNull("withdrawalReasonList", withdrawalReasonList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(withdrawalReasonList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(withdrawalReasonList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        return doLumpRemove(ls, option);
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        return doLumpRemove(ls, op);
     }
 
     // ===================================================================================
@@ -838,7 +836,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *     public ConditionBean setup(withdrawalReason entity, MbWithdrawalReasonCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
-     * 
+     *
      *         <span style="color: #3F7E5E">// mapping</span>
      *         intoCB.specify().columnMyName().mappedFrom(cb.specify().columnFooName());
      *         intoCB.specify().columnMyCount().mappedFrom(cb.specify().columnFooCount());
@@ -849,7 +847,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">//entity.set...;</span>
      *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
-     * 
+     *
      *         return cb;
      *     }
      * });
@@ -861,13 +859,12 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<MbWithdrawalReason, MbWithdrawalReasonCB> setupper, InsertOption<MbWithdrawalReasonCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        MbWithdrawalReason entity = new MbWithdrawalReason();
-        MbWithdrawalReasonCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<MbWithdrawalReason, MbWithdrawalReasonCB> sp, InsertOption<MbWithdrawalReasonCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        MbWithdrawalReason e = new MbWithdrawalReason();
+        MbWithdrawalReasonCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected MbWithdrawalReasonCB createCBForQueryInsert() {
@@ -908,16 +905,16 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(withdrawalReason, cb, null);
     }
 
-    protected int doQueryUpdate(MbWithdrawalReason withdrawalReason, MbWithdrawalReasonCB cb, UpdateOption<MbWithdrawalReasonCB> option) {
+    protected int doQueryUpdate(MbWithdrawalReason withdrawalReason, MbWithdrawalReasonCB cb, UpdateOption<MbWithdrawalReasonCB> op) {
         assertObjectNotNull("withdrawalReason", withdrawalReason); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(withdrawalReason, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(withdrawalReason, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (MbWithdrawalReasonCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (MbWithdrawalReasonCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (MbWithdrawalReasonCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (MbWithdrawalReasonCB)cb, downcast(op)); }
     }
 
     /**
@@ -935,16 +932,16 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(MbWithdrawalReasonCB cb, DeleteOption<MbWithdrawalReasonCB> option) {
+    protected int doQueryDelete(MbWithdrawalReasonCB cb, DeleteOption<MbWithdrawalReasonCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((MbWithdrawalReasonCB)cb); }
-        else { return varyingQueryDelete((MbWithdrawalReasonCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((MbWithdrawalReasonCB)cb); }
+        else { return varyingQueryDelete((MbWithdrawalReasonCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1090,7 +1087,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
-     * Other specifications are same as queryInsert(entity, setupper). 
+     * Other specifications are same as queryInsert(entity, setupper).
      * @param setupper The setup-per of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
@@ -1104,7 +1101,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br />
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br />
-     * Other specifications are same as queryUpdate(entity, cb). 
+     * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
      * MbWithdrawalReason withdrawalReason = new MbWithdrawalReason();
@@ -1161,27 +1158,27 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<MbWithdrawalReasonBhv> outsideSql() {
         return doOutsideSql();
@@ -1196,29 +1193,29 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     //                                                ------
     protected int delegateSelectCountUniquely(MbWithdrawalReasonCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(MbWithdrawalReasonCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends MbWithdrawalReason> void delegateSelectCursor(MbWithdrawalReasonCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends MbWithdrawalReason> List<ENTITY> delegateSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends MbWithdrawalReason> void delegateSelectCursor(MbWithdrawalReasonCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends MbWithdrawalReason> List<ENTITY> delegateSelectList(MbWithdrawalReasonCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(MbWithdrawalReason e, InsertOption<MbWithdrawalReasonCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(MbWithdrawalReason e, UpdateOption<MbWithdrawalReasonCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return delegateUpdateNonstrict(e, op); }
-    protected int delegateUpdateNonstrict(MbWithdrawalReason e, UpdateOption<MbWithdrawalReasonCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(MbWithdrawalReason e, DeleteOption<MbWithdrawalReasonCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return delegateDeleteNonstrict(e, op); }
-    protected int delegateDeleteNonstrict(MbWithdrawalReason e, DeleteOption<MbWithdrawalReasonCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(MbWithdrawalReason et, InsertOption<MbWithdrawalReasonCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(MbWithdrawalReason et, UpdateOption<MbWithdrawalReasonCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return delegateUpdateNonstrict(et, op); }
+    protected int delegateUpdateNonstrict(MbWithdrawalReason et, UpdateOption<MbWithdrawalReasonCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(MbWithdrawalReason et, DeleteOption<MbWithdrawalReasonCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return delegateDeleteNonstrict(et, op); }
+    protected int delegateDeleteNonstrict(MbWithdrawalReason et, DeleteOption<MbWithdrawalReasonCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<MbWithdrawalReason> ls, InsertOption<MbWithdrawalReasonCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1236,10 +1233,10 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(MbWithdrawalReason e, MbWithdrawalReasonCB inCB, ConditionBean resCB, InsertOption<MbWithdrawalReasonCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(MbWithdrawalReason e, MbWithdrawalReasonCB cb, UpdateOption<MbWithdrawalReasonCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(MbWithdrawalReason et, MbWithdrawalReasonCB inCB, ConditionBean resCB, InsertOption<MbWithdrawalReasonCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(MbWithdrawalReason et, MbWithdrawalReasonCB cb, UpdateOption<MbWithdrawalReasonCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(MbWithdrawalReasonCB cb, DeleteOption<MbWithdrawalReasonCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1250,7 +1247,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1258,15 +1255,15 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected MbWithdrawalReason downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, MbWithdrawalReason.class);
+    protected MbWithdrawalReason downcast(Entity et) {
+        return helpEntityDowncastInternally(et, MbWithdrawalReason.class);
     }
 
     protected MbWithdrawalReasonCB downcast(ConditionBean cb) {
@@ -1274,27 +1271,27 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<MbWithdrawalReason> downcast(List<? extends Entity> entityList) {
-        return (List<MbWithdrawalReason>)entityList;
+    protected List<MbWithdrawalReason> downcast(List<? extends Entity> ls) {
+        return (List<MbWithdrawalReason>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<MbWithdrawalReasonCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<MbWithdrawalReasonCB>)option;
+    protected InsertOption<MbWithdrawalReasonCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<MbWithdrawalReasonCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<MbWithdrawalReasonCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<MbWithdrawalReasonCB>)option;
+    protected UpdateOption<MbWithdrawalReasonCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<MbWithdrawalReasonCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<MbWithdrawalReasonCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<MbWithdrawalReasonCB>)option;
+    protected DeleteOption<MbWithdrawalReasonCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<MbWithdrawalReasonCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<MbWithdrawalReason, MbWithdrawalReasonCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<MbWithdrawalReason, MbWithdrawalReasonCB>)option;
+    protected QueryInsertSetupper<MbWithdrawalReason, MbWithdrawalReasonCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<MbWithdrawalReason, MbWithdrawalReasonCB>)sp;
     }
 }

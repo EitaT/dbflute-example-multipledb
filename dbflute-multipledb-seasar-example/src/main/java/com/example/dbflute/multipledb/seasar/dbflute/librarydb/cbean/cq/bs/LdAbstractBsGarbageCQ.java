@@ -184,8 +184,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      */
     public void setGarbageMemo_IsNotNull() { regGarbageMemo(CK_ISNN, DOBJ); }
 
-    protected void regGarbageMemo(ConditionKey k, Object v) { regQ(k, v, getCValueGarbageMemo(), "GARBAGE_MEMO"); }
-    abstract protected ConditionValue getCValueGarbageMemo();
+    protected void regGarbageMemo(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueGarbageMemo(), "GARBAGE_MEMO"); }
+    protected abstract ConditionValue getCValueGarbageMemo();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -250,7 +250,7 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of garbageTime. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setGarbageTime_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setGarbageTime_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueGarbageTime(), "GARBAGE_TIME", fromToOption);
     }
 
@@ -265,7 +265,7 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of garbageTime. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of garbageTime. (NullAllowed: if null, no to-condition)
      */
-    public void setGarbageTime_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setGarbageTime_DateFromTo(Date fromDate, Date toDate) {
         setGarbageTime_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -307,8 +307,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      */
     public void setGarbageTime_IsNotNull() { regGarbageTime(CK_ISNN, DOBJ); }
 
-    protected void regGarbageTime(ConditionKey k, Object v) { regQ(k, v, getCValueGarbageTime(), "GARBAGE_TIME"); }
-    abstract protected ConditionValue getCValueGarbageTime();
+    protected void regGarbageTime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueGarbageTime(), "GARBAGE_TIME"); }
+    protected abstract ConditionValue getCValueGarbageTime();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -423,8 +423,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      */
     public void setGarbageCount_IsNotNull() { regGarbageCount(CK_ISNN, DOBJ); }
 
-    protected void regGarbageCount(ConditionKey k, Object v) { regQ(k, v, getCValueGarbageCount(), "GARBAGE_COUNT"); }
-    abstract protected ConditionValue getCValueGarbageCount();
+    protected void regGarbageCount(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueGarbageCount(), "GARBAGE_COUNT"); }
+    protected abstract ConditionValue getCValueGarbageCount();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -563,8 +563,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      */
     public void setRUser_IsNotNull() { regRUser(CK_ISNN, DOBJ); }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -629,7 +629,7 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -644,7 +644,7 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -686,8 +686,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      */
     public void setRTimestamp_IsNotNull() { regRTimestamp(CK_ISNN, DOBJ); }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -826,8 +826,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      */
     public void setUUser_IsNotNull() { regUUser(CK_ISNN, DOBJ); }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -892,7 +892,7 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -907,7 +907,7 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -949,8 +949,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
      */
     public void setUTimestamp_IsNotNull() { regUTimestamp(CK_ISNN, DOBJ); }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                       Very Internal

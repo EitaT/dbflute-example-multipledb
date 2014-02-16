@@ -102,18 +102,18 @@ public class MbBsMemberLoginCQ extends MbAbstractBsMemberLoginCQ {
 
     protected Map<String, MbMemberCQ> _memberId_InScopeRelation_MemberMap;
     public Map<String, MbMemberCQ> getMemberId_InScopeRelation_Member() { return _memberId_InScopeRelation_MemberMap; }
-    public String keepMemberId_InScopeRelation_Member(MbMemberCQ subQuery) {
+    public String keepMemberId_InScopeRelation_Member(MbMemberCQ sq) {
         if (_memberId_InScopeRelation_MemberMap == null) { _memberId_InScopeRelation_MemberMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_memberId_InScopeRelation_MemberMap.size() + 1);
-        _memberId_InScopeRelation_MemberMap.put(key, subQuery); return "memberId_InScopeRelation_Member." + key;
+        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberMap.size() + 1);
+        _memberId_InScopeRelation_MemberMap.put(ky, sq); return "memberId_InScopeRelation_Member." + ky;
     }
 
     protected Map<String, MbMemberCQ> _memberId_NotInScopeRelation_MemberMap;
     public Map<String, MbMemberCQ> getMemberId_NotInScopeRelation_Member() { return _memberId_NotInScopeRelation_MemberMap; }
-    public String keepMemberId_NotInScopeRelation_Member(MbMemberCQ subQuery) {
+    public String keepMemberId_NotInScopeRelation_Member(MbMemberCQ sq) {
         if (_memberId_NotInScopeRelation_MemberMap == null) { _memberId_NotInScopeRelation_MemberMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberMap.put(key, subQuery); return "memberId_NotInScopeRelation_Member." + key;
+        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberMap.size() + 1);
+        _memberId_NotInScopeRelation_MemberMap.put(ky, sq); return "memberId_NotInScopeRelation_Member." + ky;
     }
 
     /** 
@@ -181,18 +181,18 @@ public class MbBsMemberLoginCQ extends MbAbstractBsMemberLoginCQ {
 
     protected Map<String, MbMemberStatusCQ> _loginMemberStatusCode_InScopeRelation_MemberStatusMap;
     public Map<String, MbMemberStatusCQ> getLoginMemberStatusCode_InScopeRelation_MemberStatus() { return _loginMemberStatusCode_InScopeRelation_MemberStatusMap; }
-    public String keepLoginMemberStatusCode_InScopeRelation_MemberStatus(MbMemberStatusCQ subQuery) {
+    public String keepLoginMemberStatusCode_InScopeRelation_MemberStatus(MbMemberStatusCQ sq) {
         if (_loginMemberStatusCode_InScopeRelation_MemberStatusMap == null) { _loginMemberStatusCode_InScopeRelation_MemberStatusMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_loginMemberStatusCode_InScopeRelation_MemberStatusMap.size() + 1);
-        _loginMemberStatusCode_InScopeRelation_MemberStatusMap.put(key, subQuery); return "loginMemberStatusCode_InScopeRelation_MemberStatus." + key;
+        String ky = "subQueryMapKey" + (_loginMemberStatusCode_InScopeRelation_MemberStatusMap.size() + 1);
+        _loginMemberStatusCode_InScopeRelation_MemberStatusMap.put(ky, sq); return "loginMemberStatusCode_InScopeRelation_MemberStatus." + ky;
     }
 
     protected Map<String, MbMemberStatusCQ> _loginMemberStatusCode_NotInScopeRelation_MemberStatusMap;
     public Map<String, MbMemberStatusCQ> getLoginMemberStatusCode_NotInScopeRelation_MemberStatus() { return _loginMemberStatusCode_NotInScopeRelation_MemberStatusMap; }
-    public String keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(MbMemberStatusCQ subQuery) {
+    public String keepLoginMemberStatusCode_NotInScopeRelation_MemberStatus(MbMemberStatusCQ sq) {
         if (_loginMemberStatusCode_NotInScopeRelation_MemberStatusMap == null) { _loginMemberStatusCode_NotInScopeRelation_MemberStatusMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_loginMemberStatusCode_NotInScopeRelation_MemberStatusMap.size() + 1);
-        _loginMemberStatusCode_NotInScopeRelation_MemberStatusMap.put(key, subQuery); return "loginMemberStatusCode_NotInScopeRelation_MemberStatus." + key;
+        String ky = "subQueryMapKey" + (_loginMemberStatusCode_NotInScopeRelation_MemberStatusMap.size() + 1);
+        _loginMemberStatusCode_NotInScopeRelation_MemberStatusMap.put(ky, sq); return "loginMemberStatusCode_NotInScopeRelation_MemberStatus." + ky;
     }
 
     /** 
@@ -249,14 +249,14 @@ public class MbBsMemberLoginCQ extends MbAbstractBsMemberLoginCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        MbMemberLoginCQ baseQuery = (MbMemberLoginCQ)baseQueryAsSuper;
-        MbMemberLoginCQ unionQuery = (MbMemberLoginCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryMember()) {
-            unionQuery.queryMember().reflectRelationOnUnionQuery(baseQuery.queryMember(), unionQuery.queryMember());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        MbMemberLoginCQ bq = (MbMemberLoginCQ)bqs;
+        MbMemberLoginCQ uq = (MbMemberLoginCQ)uqs;
+        if (bq.hasConditionQueryMember()) {
+            uq.queryMember().reflectRelationOnUnionQuery(bq.queryMember(), uq.queryMember());
         }
-        if (baseQuery.hasConditionQueryMemberStatus()) {
-            unionQuery.queryMemberStatus().reflectRelationOnUnionQuery(baseQuery.queryMemberStatus(), unionQuery.queryMemberStatus());
+        if (bq.hasConditionQueryMemberStatus()) {
+            uq.queryMemberStatus().reflectRelationOnUnionQuery(bq.queryMemberStatus(), uq.queryMemberStatus());
         }
     }
 
@@ -340,10 +340,10 @@ public class MbBsMemberLoginCQ extends MbAbstractBsMemberLoginCQ {
     //                                                                     ===============
     protected Map<String, MbMemberLoginCQ> _scalarConditionMap;
     public Map<String, MbMemberLoginCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(MbMemberLoginCQ subQuery) {
+    public String keepScalarCondition(MbMemberLoginCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -351,25 +351,25 @@ public class MbBsMemberLoginCQ extends MbAbstractBsMemberLoginCQ {
     //                                                                       =============
     protected Map<String, MbMemberLoginCQ> _specifyMyselfDerivedMap;
     public Map<String, MbMemberLoginCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(MbMemberLoginCQ subQuery) {
+    public String keepSpecifyMyselfDerived(MbMemberLoginCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, MbMemberLoginCQ> _queryMyselfDerivedMap;
     public Map<String, MbMemberLoginCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(MbMemberLoginCQ subQuery) {
+    public String keepQueryMyselfDerived(MbMemberLoginCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -377,10 +377,10 @@ public class MbBsMemberLoginCQ extends MbAbstractBsMemberLoginCQ {
     //                                                                        ============
     protected Map<String, MbMemberLoginCQ> _myselfExistsMap;
     public Map<String, MbMemberLoginCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(MbMemberLoginCQ subQuery) {
+    public String keepMyselfExists(MbMemberLoginCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -388,10 +388,10 @@ public class MbBsMemberLoginCQ extends MbAbstractBsMemberLoginCQ {
     //                                                                       =============
     protected Map<String, MbMemberLoginCQ> _myselfInScopeMap;
     public Map<String, MbMemberLoginCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(MbMemberLoginCQ subQuery) {
+    public String keepMyselfInScope(MbMemberLoginCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

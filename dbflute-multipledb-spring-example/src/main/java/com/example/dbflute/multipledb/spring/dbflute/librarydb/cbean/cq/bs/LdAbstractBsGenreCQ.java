@@ -180,12 +180,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BookList for 'exists'. (NotNull)
      */
     public void existsBookList(SubQuery<LdBookCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBookCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBookCB cb = new LdBookCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_ExistsReferrer_BookList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "bookList");
+        String pp = keepGenreCode_ExistsReferrer_BookList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "GENRE_CODE", "GENRE_CODE", pp, "bookList");
     }
-    public abstract String keepGenreCode_ExistsReferrer_BookList(LdBookCQ subQuery);
+    public abstract String keepGenreCode_ExistsReferrer_BookList(LdBookCQ sq);
 
     /**
      * Set up ExistsReferrer (co-related sub-query). <br />
@@ -201,12 +201,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of GenreSelfList for 'exists'. (NotNull)
      */
     public void existsGenreSelfList(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_ExistsReferrer_GenreSelfList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", subQueryPropertyName, "genreSelfList");
+        String pp = keepGenreCode_ExistsReferrer_GenreSelfList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", pp, "genreSelfList");
     }
-    public abstract String keepGenreCode_ExistsReferrer_GenreSelfList(LdGenreCQ subQuery);
+    public abstract String keepGenreCode_ExistsReferrer_GenreSelfList(LdGenreCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -222,12 +222,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of GenreCode_NotExistsReferrer_BookList for 'not exists'. (NotNull)
      */
     public void notExistsBookList(SubQuery<LdBookCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBookCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBookCB cb = new LdBookCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_NotExistsReferrer_BookList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "bookList");
+        String pp = keepGenreCode_NotExistsReferrer_BookList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "GENRE_CODE", "GENRE_CODE", pp, "bookList");
     }
-    public abstract String keepGenreCode_NotExistsReferrer_BookList(LdBookCQ subQuery);
+    public abstract String keepGenreCode_NotExistsReferrer_BookList(LdBookCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -243,12 +243,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of GenreCode_NotExistsReferrer_GenreSelfList for 'not exists'. (NotNull)
      */
     public void notExistsGenreSelfList(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_NotExistsReferrer_GenreSelfList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", subQueryPropertyName, "genreSelfList");
+        String pp = keepGenreCode_NotExistsReferrer_GenreSelfList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", pp, "genreSelfList");
     }
-    public abstract String keepGenreCode_NotExistsReferrer_GenreSelfList(LdGenreCQ subQuery);
+    public abstract String keepGenreCode_NotExistsReferrer_GenreSelfList(LdGenreCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -257,12 +257,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BookList for 'in-scope'. (NotNull)
      */
     public void inScopeBookList(SubQuery<LdBookCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBookCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBookCB cb = new LdBookCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_InScopeRelation_BookList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "bookList");
+        String pp = keepGenreCode_InScopeRelation_BookList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "GENRE_CODE", "GENRE_CODE", pp, "bookList");
     }
-    public abstract String keepGenreCode_InScopeRelation_BookList(LdBookCQ subQuery);
+    public abstract String keepGenreCode_InScopeRelation_BookList(LdBookCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -271,12 +271,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of GenreSelfList for 'in-scope'. (NotNull)
      */
     public void inScopeGenreSelfList(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_InScopeRelation_GenreSelfList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", subQueryPropertyName, "genreSelfList");
+        String pp = keepGenreCode_InScopeRelation_GenreSelfList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", pp, "genreSelfList");
     }
-    public abstract String keepGenreCode_InScopeRelation_GenreSelfList(LdGenreCQ subQuery);
+    public abstract String keepGenreCode_InScopeRelation_GenreSelfList(LdGenreCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -285,12 +285,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of BookList for 'not in-scope'. (NotNull)
      */
     public void notInScopeBookList(SubQuery<LdBookCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBookCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBookCB cb = new LdBookCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_NotInScopeRelation_BookList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "bookList");
+        String pp = keepGenreCode_NotInScopeRelation_BookList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "GENRE_CODE", "GENRE_CODE", pp, "bookList");
     }
-    public abstract String keepGenreCode_NotInScopeRelation_BookList(LdBookCQ subQuery);
+    public abstract String keepGenreCode_NotInScopeRelation_BookList(LdBookCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -299,28 +299,28 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of GenreSelfList for 'not in-scope'. (NotNull)
      */
     public void notInScopeGenreSelfList(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_NotInScopeRelation_GenreSelfList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", subQueryPropertyName, "genreSelfList");
+        String pp = keepGenreCode_NotInScopeRelation_GenreSelfList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", pp, "genreSelfList");
     }
-    public abstract String keepGenreCode_NotInScopeRelation_GenreSelfList(LdGenreCQ subQuery);
+    public abstract String keepGenreCode_NotInScopeRelation_GenreSelfList(LdGenreCQ sq);
 
-    public void xsderiveBookList(String function, SubQuery<LdBookCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBookCB>", subQuery);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_SpecifyDerivedReferrer_BookList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "bookList", aliasName, option);
+    public void xsderiveBookList(String fn, SubQuery<LdBookCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepGenreCode_SpecifyDerivedReferrer_BookList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "GENRE_CODE", "GENRE_CODE", pp, "bookList", al, op);
     }
-    public abstract String keepGenreCode_SpecifyDerivedReferrer_BookList(LdBookCQ subQuery);
+    public abstract String keepGenreCode_SpecifyDerivedReferrer_BookList(LdBookCQ sq);
 
-    public void xsderiveGenreSelfList(String function, SubQuery<LdGenreCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
-        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_SpecifyDerivedReferrer_GenreSelfList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", subQueryPropertyName, "genreSelfList", aliasName, option);
+    public void xsderiveGenreSelfList(String fn, SubQuery<LdGenreCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepGenreCode_SpecifyDerivedReferrer_GenreSelfList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", pp, "genreSelfList", al, op);
     }
-    public abstract String keepGenreCode_SpecifyDerivedReferrer_GenreSelfList(LdGenreCQ subQuery);
+    public abstract String keepGenreCode_SpecifyDerivedReferrer_GenreSelfList(LdGenreCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -341,20 +341,20 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<LdBookCB> xcreateQDRFunctionBookList() {
         return new HpQDRFunction<LdBookCB>(new HpQDRSetupper<LdBookCB>() {
-            public void setup(String function, SubQuery<LdBookCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveBookList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdBookCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveBookList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveBookList(String function, SubQuery<LdBookCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBookCB>", subQuery);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_QueryDerivedReferrer_BookList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepGenreCode_QueryDerivedReferrer_BookListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "bookList", operand, value, parameterPropertyName, option);
+    public void xqderiveBookList(String fn, SubQuery<LdBookCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepGenreCode_QueryDerivedReferrer_BookList(cb.query()); // for saving query-value.
+        String prpp = keepGenreCode_QueryDerivedReferrer_BookListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "GENRE_CODE", "GENRE_CODE", sqpp, "bookList", rd, vl, prpp, op);
     }
-    public abstract String keepGenreCode_QueryDerivedReferrer_BookList(LdBookCQ subQuery);
-    public abstract String keepGenreCode_QueryDerivedReferrer_BookListParameter(Object parameterValue);
+    public abstract String keepGenreCode_QueryDerivedReferrer_BookList(LdBookCQ sq);
+    public abstract String keepGenreCode_QueryDerivedReferrer_BookListParameter(Object vl);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -375,20 +375,20 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<LdGenreCB> xcreateQDRFunctionGenreSelfList() {
         return new HpQDRFunction<LdGenreCB>(new HpQDRSetupper<LdGenreCB>() {
-            public void setup(String function, SubQuery<LdGenreCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveGenreSelfList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdGenreCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveGenreSelfList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveGenreSelfList(String function, SubQuery<LdGenreCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
-        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepGenreCode_QueryDerivedReferrer_GenreSelfList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", subQueryPropertyName, "genreSelfList", operand, value, parameterPropertyName, option);
+    public void xqderiveGenreSelfList(String fn, SubQuery<LdGenreCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepGenreCode_QueryDerivedReferrer_GenreSelfList(cb.query()); // for saving query-value.
+        String prpp = keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "GENRE_CODE", "PARENT_GENRE_CODE", sqpp, "genreSelfList", rd, vl, prpp, op);
     }
-    public abstract String keepGenreCode_QueryDerivedReferrer_GenreSelfList(LdGenreCQ subQuery);
-    public abstract String keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(Object parameterValue);
+    public abstract String keepGenreCode_QueryDerivedReferrer_GenreSelfList(LdGenreCQ sq);
+    public abstract String keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -402,8 +402,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      */
     public void setGenreCode_IsNotNull() { regGenreCode(CK_ISNN, DOBJ); }
 
-    protected void regGenreCode(ConditionKey k, Object v) { regQ(k, v, getCValueGenreCode(), "GENRE_CODE"); }
-    abstract protected ConditionValue getCValueGenreCode();
+    protected void regGenreCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueGenreCode(), "GENRE_CODE"); }
+    protected abstract ConditionValue getCValueGenreCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -524,8 +524,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(genreName), getCValueGenreName(), "GENRE_NAME", likeSearchOption);
     }
 
-    protected void regGenreName(ConditionKey k, Object v) { regQ(k, v, getCValueGenreName(), "GENRE_NAME"); }
-    abstract protected ConditionValue getCValueGenreName();
+    protected void regGenreName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueGenreName(), "GENRE_NAME"); }
+    protected abstract ConditionValue getCValueGenreName();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -628,8 +628,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(hierarchyLevelList), getCValueHierarchyLevel(), "HIERARCHY_LEVEL");
     }
 
-    protected void regHierarchyLevel(ConditionKey k, Object v) { regQ(k, v, getCValueHierarchyLevel(), "HIERARCHY_LEVEL"); }
-    abstract protected ConditionValue getCValueHierarchyLevel();
+    protected void regHierarchyLevel(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueHierarchyLevel(), "HIERARCHY_LEVEL"); }
+    protected abstract ConditionValue getCValueHierarchyLevel();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -732,8 +732,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(hierarchyOrderList), getCValueHierarchyOrder(), "HIERARCHY_ORDER");
     }
 
-    protected void regHierarchyOrder(ConditionKey k, Object v) { regQ(k, v, getCValueHierarchyOrder(), "HIERARCHY_ORDER"); }
-    abstract protected ConditionValue getCValueHierarchyOrder();
+    protected void regHierarchyOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueHierarchyOrder(), "HIERARCHY_ORDER"); }
+    protected abstract ConditionValue getCValueHierarchyOrder();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -861,12 +861,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of GenreSelf for 'in-scope'. (NotNull)
      */
     public void inScopeGenreSelf(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepParentGenreCode_InScopeRelation_GenreSelf(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PARENT_GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "genreSelf");
+        String pp = keepParentGenreCode_InScopeRelation_GenreSelf(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PARENT_GENRE_CODE", "GENRE_CODE", pp, "genreSelf");
     }
-    public abstract String keepParentGenreCode_InScopeRelation_GenreSelf(LdGenreCQ subQuery);
+    public abstract String keepParentGenreCode_InScopeRelation_GenreSelf(LdGenreCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -875,12 +875,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The sub-query of GenreSelf for 'not in-scope'. (NotNull)
      */
     public void notInScopeGenreSelf(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepParentGenreCode_NotInScopeRelation_GenreSelf(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PARENT_GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "genreSelf");
+        String pp = keepParentGenreCode_NotInScopeRelation_GenreSelf(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PARENT_GENRE_CODE", "GENRE_CODE", pp, "genreSelf");
     }
-    public abstract String keepParentGenreCode_NotInScopeRelation_GenreSelf(LdGenreCQ subQuery);
+    public abstract String keepParentGenreCode_NotInScopeRelation_GenreSelf(LdGenreCQ sq);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -900,8 +900,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      */
     public void setParentGenreCode_IsNotNull() { regParentGenreCode(CK_ISNN, DOBJ); }
 
-    protected void regParentGenreCode(ConditionKey k, Object v) { regQ(k, v, getCValueParentGenreCode(), "PARENT_GENRE_CODE"); }
-    abstract protected ConditionValue getCValueParentGenreCode();
+    protected void regParentGenreCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueParentGenreCode(), "PARENT_GENRE_CODE"); }
+    protected abstract ConditionValue getCValueParentGenreCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1022,8 +1022,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rUser), getCValueRUser(), "R_USER", likeSearchOption);
     }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1144,8 +1144,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(rModule), getCValueRModule(), "R_MODULE", likeSearchOption);
     }
 
-    protected void regRModule(ConditionKey k, Object v) { regQ(k, v, getCValueRModule(), "R_MODULE"); }
-    abstract protected ConditionValue getCValueRModule();
+    protected void regRModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRModule(), "R_MODULE"); }
+    protected abstract ConditionValue getCValueRModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1210,7 +1210,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -1225,7 +1225,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1255,8 +1255,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(rTimestampList), getCValueRTimestamp(), "R_TIMESTAMP");
     }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1377,8 +1377,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uUser), getCValueUUser(), "U_USER", likeSearchOption);
     }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1499,8 +1499,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regLSQ(CK_NLS, fRES(uModule), getCValueUModule(), "U_MODULE", likeSearchOption);
     }
 
-    protected void regUModule(ConditionKey k, Object v) { regQ(k, v, getCValueUModule(), "U_MODULE"); }
-    abstract protected ConditionValue getCValueUModule();
+    protected void regUModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUModule(), "U_MODULE"); }
+    protected abstract ConditionValue getCValueUModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1565,7 +1565,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -1580,7 +1580,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1610,8 +1610,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(uTimestampList), getCValueUTimestamp(), "U_TIMESTAMP");
     }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1718,22 +1718,22 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<LdGenreCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<LdGenreCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<LdGenreCB>(new HpSSQSetupper<LdGenreCB>() {
-            public void setup(String function, SubQuery<LdGenreCB> subQuery, HpSSQOption<LdGenreCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<LdGenreCB> sq, HpSSQOption<LdGenreCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<LdGenreCB> subQuery, String operand, HpSSQOption<LdGenreCB> option) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
-        LdGenreCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<LdGenreCB> sq, String rd, HpSSQOption<LdGenreCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdGenreCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(LdGenreCQ subQuery);
+    public abstract String keepScalarCondition(LdGenreCQ sq);
 
     protected LdGenreCB xcreateScalarConditionCB() {
         LdGenreCB cb = new LdGenreCB();
@@ -1750,13 +1750,14 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<LdGenreCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
-        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<LdGenreCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "GENRE_CODE";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(LdGenreCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(LdGenreCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -1767,20 +1768,21 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     }
     protected HpQDRFunction<LdGenreCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<LdGenreCB>(new HpQDRSetupper<LdGenreCB>() {
-            public void setup(String function, SubQuery<LdGenreCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdGenreCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<LdGenreCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
-        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "GENRE_CODE", "GENRE_CODE", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<LdGenreCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdGenreCB cb = new LdGenreCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "GENRE_CODE";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(LdGenreCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(LdGenreCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1790,12 +1792,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(LdGenreCQ subQuery);
+    public abstract String keepMyselfExists(LdGenreCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1805,12 +1807,12 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdGenreCB> subQuery) {
-        assertObjectNotNull("subQuery<LdGenreCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdGenreCB cb = new LdGenreCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(LdGenreCQ subQuery);
+    public abstract String keepMyselfInScope(LdGenreCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

@@ -44,24 +44,24 @@ public class MbSummaryProductDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgProductId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbSummaryProduct)e).getProductId(); }
-        public void write(Entity e, Object v) { ((MbSummaryProduct)e).setProductId(cti(v)); }
+        public Object read(Entity et) { return ((MbSummaryProduct)et).getProductId(); }
+        public void write(Entity et, Object vl) { ((MbSummaryProduct)et).setProductId(cti(vl)); }
     }
     public static class EpgProductName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbSummaryProduct)e).getProductName(); }
-        public void write(Entity e, Object v) { ((MbSummaryProduct)e).setProductName((String)v); }
+        public Object read(Entity et) { return ((MbSummaryProduct)et).getProductName(); }
+        public void write(Entity et, Object vl) { ((MbSummaryProduct)et).setProductName((String)vl); }
     }
     public static class EpgProductHandleCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbSummaryProduct)e).getProductHandleCode(); }
-        public void write(Entity e, Object v) { ((MbSummaryProduct)e).setProductHandleCode((String)v); }
+        public Object read(Entity et) { return ((MbSummaryProduct)et).getProductHandleCode(); }
+        public void write(Entity et, Object vl) { ((MbSummaryProduct)et).setProductHandleCode((String)vl); }
     }
     public static class EpgProductStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbSummaryProduct)e).getProductStatusCode(); }
-        public void write(Entity e, Object v) { ((MbSummaryProduct)e).setProductStatusCode((String)v); }
+        public Object read(Entity et) { return ((MbSummaryProduct)et).getProductStatusCode(); }
+        public void write(Entity et, Object vl) { ((MbSummaryProduct)et).setProductStatusCode((String)vl); }
     }
     public static class EpgLatestPurchaseDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbSummaryProduct)e).getLatestPurchaseDatetime(); }
-        public void write(Entity e, Object v) { ((MbSummaryProduct)e).setLatestPurchaseDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbSummaryProduct)et).getLatestPurchaseDatetime(); }
+        public void write(Entity et, Object vl) { ((MbSummaryProduct)et).setLatestPurchaseDatetime((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -150,10 +150,10 @@ public class MbSummaryProductDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbSummaryProduct)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbSummaryProduct)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbSummaryProduct)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbSummaryProduct)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

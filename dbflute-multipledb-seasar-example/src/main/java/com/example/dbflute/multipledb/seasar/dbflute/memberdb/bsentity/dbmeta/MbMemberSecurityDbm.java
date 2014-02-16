@@ -49,44 +49,44 @@ public class MbMemberSecurityDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setMemberId(cti(vl)); }
     }
     public static class EpgLoginPassword implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getLoginPassword(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setLoginPassword((String)v); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getLoginPassword(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setLoginPassword((String)vl); }
     }
     public static class EpgReminderQuestion implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getReminderQuestion(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setReminderQuestion((String)v); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getReminderQuestion(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setReminderQuestion((String)vl); }
     }
     public static class EpgReminderAnswer implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getReminderAnswer(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setReminderAnswer((String)v); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getReminderAnswer(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setReminderAnswer((String)vl); }
     }
     public static class EpgReminderUseCount implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getReminderUseCount(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setReminderUseCount(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getReminderUseCount(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setReminderUseCount(cti(vl)); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setUpdateUser((String)vl); }
     }
     public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberSecurity)e).getVersionNo(); }
-        public void write(Entity e, Object v) { ((MbMemberSecurity)e).setVersionNo(ctl(v)); }
+        public Object read(Entity et) { return ((MbMemberSecurity)et).getVersionNo(); }
+        public void write(Entity et, Object vl) { ((MbMemberSecurity)et).setVersionNo(ctl(vl)); }
     }
 
     // ===================================================================================
@@ -159,8 +159,8 @@ public class MbMemberSecurityDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMember() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_SECURITY_MEMBER", "member", this, MbMemberDbm.getInstance(), map, 0, true, false, false, false, null, null, false, "memberSecurityAsOne");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_SECURITY_MEMBER", "member", this, MbMemberDbm.getInstance(), mp, 0, true, false, false, false, null, null, false, "memberSecurityAsOne");
     }
 
     // -----------------------------------------------------
@@ -201,10 +201,10 @@ public class MbMemberSecurityDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbMemberSecurity)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbMemberSecurity)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbMemberSecurity)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbMemberSecurity)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

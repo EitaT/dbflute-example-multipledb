@@ -357,8 +357,8 @@ public class LdBsLibraryTypeLookupCB extends AbstractConditionBean {
         public HpSDRFunction<LdLibraryCB, LdLibraryTypeLookupCQ> derivedLibraryList() {
             assertDerived("libraryList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdLibraryCB, LdLibraryTypeLookupCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdLibraryCB, LdLibraryTypeLookupCQ>() {
-                public void setup(String function, SubQuery<LdLibraryCB> subQuery, LdLibraryTypeLookupCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveLibraryList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdLibraryCB> sq, LdLibraryTypeLookupCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveLibraryList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -367,8 +367,8 @@ public class LdBsLibraryTypeLookupCB extends AbstractConditionBean {
         public HpSDRFunction<LdLibraryTypeLookupCB, LdLibraryTypeLookupCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdLibraryTypeLookupCB, LdLibraryTypeLookupCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdLibraryTypeLookupCB, LdLibraryTypeLookupCQ>() {
-                public void setup(String function, SubQuery<LdLibraryTypeLookupCB> subQuery, LdLibraryTypeLookupCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdLibraryTypeLookupCB> sq, LdLibraryTypeLookupCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

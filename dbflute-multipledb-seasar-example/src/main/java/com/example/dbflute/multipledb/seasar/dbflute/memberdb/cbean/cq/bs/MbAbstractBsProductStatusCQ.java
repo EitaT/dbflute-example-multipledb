@@ -129,12 +129,12 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductList for 'exists'. (NotNull)
      */
     public void existsProductList(SubQuery<MbProductCB> subQuery) {
-        assertObjectNotNull("subQuery<MbProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbProductCB cb = new MbProductCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_ExistsReferrer_ProductList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductStatusCode_ExistsReferrer_ProductList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productList");
     }
-    public abstract String keepProductStatusCode_ExistsReferrer_ProductList(MbProductCQ subQuery);
+    public abstract String keepProductStatusCode_ExistsReferrer_ProductList(MbProductCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -150,12 +150,12 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductStatusCode_NotExistsReferrer_ProductList for 'not exists'. (NotNull)
      */
     public void notExistsProductList(SubQuery<MbProductCB> subQuery) {
-        assertObjectNotNull("subQuery<MbProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbProductCB cb = new MbProductCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_NotExistsReferrer_ProductList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductStatusCode_NotExistsReferrer_ProductList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productList");
     }
-    public abstract String keepProductStatusCode_NotExistsReferrer_ProductList(MbProductCQ subQuery);
+    public abstract String keepProductStatusCode_NotExistsReferrer_ProductList(MbProductCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -164,12 +164,12 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductList for 'in-scope'. (NotNull)
      */
     public void inScopeProductList(SubQuery<MbProductCB> subQuery) {
-        assertObjectNotNull("subQuery<MbProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbProductCB cb = new MbProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_InScopeRelation_ProductList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductStatusCode_InScopeRelation_ProductList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productList");
     }
-    public abstract String keepProductStatusCode_InScopeRelation_ProductList(MbProductCQ subQuery);
+    public abstract String keepProductStatusCode_InScopeRelation_ProductList(MbProductCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -178,20 +178,20 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
      * @param subQuery The sub-query of ProductList for 'not in-scope'. (NotNull)
      */
     public void notInScopeProductList(SubQuery<MbProductCB> subQuery) {
-        assertObjectNotNull("subQuery<MbProductCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbProductCB cb = new MbProductCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_NotInScopeRelation_ProductList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productList");
+        String pp = keepProductStatusCode_NotInScopeRelation_ProductList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productList");
     }
-    public abstract String keepProductStatusCode_NotInScopeRelation_ProductList(MbProductCQ subQuery);
+    public abstract String keepProductStatusCode_NotInScopeRelation_ProductList(MbProductCQ sq);
 
-    public void xsderiveProductList(String function, SubQuery<MbProductCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MbProductCB>", subQuery);
-        MbProductCB cb = new MbProductCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_SpecifyDerivedReferrer_ProductList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productList", aliasName, option);
+    public void xsderiveProductList(String fn, SubQuery<MbProductCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MbProductCB cb = new MbProductCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepProductStatusCode_SpecifyDerivedReferrer_ProductList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", pp, "productList", al, op);
     }
-    public abstract String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(MbProductCQ subQuery);
+    public abstract String keepProductStatusCode_SpecifyDerivedReferrer_ProductList(MbProductCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -212,20 +212,20 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
     }
     protected HpQDRFunction<MbProductCB> xcreateQDRFunctionProductList() {
         return new HpQDRFunction<MbProductCB>(new HpQDRSetupper<MbProductCB>() {
-            public void setup(String function, SubQuery<MbProductCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveProductList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<MbProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveProductList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveProductList(String function, SubQuery<MbProductCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MbProductCB>", subQuery);
-        MbProductCB cb = new MbProductCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepProductStatusCode_QueryDerivedReferrer_ProductList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "productList", operand, value, parameterPropertyName, option);
+    public void xqderiveProductList(String fn, SubQuery<MbProductCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MbProductCB cb = new MbProductCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepProductStatusCode_QueryDerivedReferrer_ProductList(cb.query()); // for saving query-value.
+        String prpp = keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", sqpp, "productList", rd, vl, prpp, op);
     }
-    public abstract String keepProductStatusCode_QueryDerivedReferrer_ProductList(MbProductCQ subQuery);
-    public abstract String keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(Object parameterValue);
+    public abstract String keepProductStatusCode_QueryDerivedReferrer_ProductList(MbProductCQ sq);
+    public abstract String keepProductStatusCode_QueryDerivedReferrer_ProductListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -239,8 +239,8 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
      */
     public void setProductStatusCode_IsNotNull() { regProductStatusCode(CK_ISNN, DOBJ); }
 
-    protected void regProductStatusCode(ConditionKey k, Object v) { regQ(k, v, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
-    abstract protected ConditionValue getCValueProductStatusCode();
+    protected void regProductStatusCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusCode(), "PRODUCT_STATUS_CODE"); }
+    protected abstract ConditionValue getCValueProductStatusCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -312,8 +312,8 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
         regLSQ(CK_NLS, fRES(productStatusName), getCValueProductStatusName(), "PRODUCT_STATUS_NAME", likeSearchOption);
     }
 
-    protected void regProductStatusName(ConditionKey k, Object v) { regQ(k, v, getCValueProductStatusName(), "PRODUCT_STATUS_NAME"); }
-    abstract protected ConditionValue getCValueProductStatusName();
+    protected void regProductStatusName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueProductStatusName(), "PRODUCT_STATUS_NAME"); }
+    protected abstract ConditionValue getCValueProductStatusName();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -403,8 +403,8 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
         regINS(CK_INS, cTL(displayOrderList), getCValueDisplayOrder(), "DISPLAY_ORDER");
     }
 
-    protected void regDisplayOrder(ConditionKey k, Object v) { regQ(k, v, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
-    abstract protected ConditionValue getCValueDisplayOrder();
+    protected void regDisplayOrder(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueDisplayOrder(), "DISPLAY_ORDER"); }
+    protected abstract ConditionValue getCValueDisplayOrder();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -511,22 +511,22 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<MbProductStatusCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<MbProductStatusCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<MbProductStatusCB>(new HpSSQSetupper<MbProductStatusCB>() {
-            public void setup(String function, SubQuery<MbProductStatusCB> subQuery, HpSSQOption<MbProductStatusCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<MbProductStatusCB> sq, HpSSQOption<MbProductStatusCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<MbProductStatusCB> subQuery, String operand, HpSSQOption<MbProductStatusCB> option) {
-        assertObjectNotNull("subQuery<MbProductStatusCB>", subQuery);
-        MbProductStatusCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<MbProductStatusCB> sq, String rd, HpSSQOption<MbProductStatusCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        MbProductStatusCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(MbProductStatusCQ subQuery);
+    public abstract String keepScalarCondition(MbProductStatusCQ sq);
 
     protected MbProductStatusCB xcreateScalarConditionCB() {
         MbProductStatusCB cb = new MbProductStatusCB();
@@ -543,13 +543,14 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<MbProductStatusCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MbProductStatusCB>", subQuery);
-        MbProductStatusCB cb = new MbProductStatusCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<MbProductStatusCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MbProductStatusCB cb = new MbProductStatusCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "PRODUCT_STATUS_CODE";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(MbProductStatusCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(MbProductStatusCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -560,20 +561,21 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
     }
     protected HpQDRFunction<MbProductStatusCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<MbProductStatusCB>(new HpQDRSetupper<MbProductStatusCB>() {
-            public void setup(String function, SubQuery<MbProductStatusCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<MbProductStatusCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<MbProductStatusCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<MbProductStatusCB>", subQuery);
-        MbProductStatusCB cb = new MbProductStatusCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "PRODUCT_STATUS_CODE", "PRODUCT_STATUS_CODE", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<MbProductStatusCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        MbProductStatusCB cb = new MbProductStatusCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "PRODUCT_STATUS_CODE";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(MbProductStatusCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(MbProductStatusCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -583,12 +585,12 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<MbProductStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<MbProductStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbProductStatusCB cb = new MbProductStatusCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(MbProductStatusCQ subQuery);
+    public abstract String keepMyselfExists(MbProductStatusCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -598,12 +600,12 @@ public abstract class MbAbstractBsProductStatusCQ extends AbstractConditionQuery
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<MbProductStatusCB> subQuery) {
-        assertObjectNotNull("subQuery<MbProductStatusCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         MbProductStatusCB cb = new MbProductStatusCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(MbProductStatusCQ subQuery);
+    public abstract String keepMyselfInScope(MbProductStatusCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

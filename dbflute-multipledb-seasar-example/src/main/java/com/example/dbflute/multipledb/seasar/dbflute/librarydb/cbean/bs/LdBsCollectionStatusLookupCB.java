@@ -357,8 +357,8 @@ public class LdBsCollectionStatusLookupCB extends AbstractConditionBean {
         public HpSDRFunction<LdCollectionStatusCB, LdCollectionStatusLookupCQ> derivedCollectionStatusList() {
             assertDerived("collectionStatusList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdCollectionStatusCB, LdCollectionStatusLookupCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdCollectionStatusCB, LdCollectionStatusLookupCQ>() {
-                public void setup(String function, SubQuery<LdCollectionStatusCB> subQuery, LdCollectionStatusLookupCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveCollectionStatusList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdCollectionStatusCB> sq, LdCollectionStatusLookupCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveCollectionStatusList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -367,8 +367,8 @@ public class LdBsCollectionStatusLookupCB extends AbstractConditionBean {
         public HpSDRFunction<LdCollectionStatusLookupCB, LdCollectionStatusLookupCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdCollectionStatusLookupCB, LdCollectionStatusLookupCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdCollectionStatusLookupCB, LdCollectionStatusLookupCQ>() {
-                public void setup(String function, SubQuery<LdCollectionStatusLookupCB> subQuery, LdCollectionStatusLookupCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdCollectionStatusLookupCB> sq, LdCollectionStatusLookupCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

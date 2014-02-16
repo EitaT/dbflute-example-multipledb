@@ -125,18 +125,18 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
 
     protected Map<String, LdMyselfCQ> _myselfId_InScopeRelation_MyselfMap;
     public Map<String, LdMyselfCQ> getMyselfId_InScopeRelation_Myself() { return _myselfId_InScopeRelation_MyselfMap; }
-    public String keepMyselfId_InScopeRelation_Myself(LdMyselfCQ subQuery) {
+    public String keepMyselfId_InScopeRelation_Myself(LdMyselfCQ sq) {
         if (_myselfId_InScopeRelation_MyselfMap == null) { _myselfId_InScopeRelation_MyselfMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfId_InScopeRelation_MyselfMap.size() + 1);
-        _myselfId_InScopeRelation_MyselfMap.put(key, subQuery); return "myselfId_InScopeRelation_Myself." + key;
+        String ky = "subQueryMapKey" + (_myselfId_InScopeRelation_MyselfMap.size() + 1);
+        _myselfId_InScopeRelation_MyselfMap.put(ky, sq); return "myselfId_InScopeRelation_Myself." + ky;
     }
 
     protected Map<String, LdMyselfCQ> _myselfId_NotInScopeRelation_MyselfMap;
     public Map<String, LdMyselfCQ> getMyselfId_NotInScopeRelation_Myself() { return _myselfId_NotInScopeRelation_MyselfMap; }
-    public String keepMyselfId_NotInScopeRelation_Myself(LdMyselfCQ subQuery) {
+    public String keepMyselfId_NotInScopeRelation_Myself(LdMyselfCQ sq) {
         if (_myselfId_NotInScopeRelation_MyselfMap == null) { _myselfId_NotInScopeRelation_MyselfMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfId_NotInScopeRelation_MyselfMap.size() + 1);
-        _myselfId_NotInScopeRelation_MyselfMap.put(key, subQuery); return "myselfId_NotInScopeRelation_Myself." + key;
+        String ky = "subQueryMapKey" + (_myselfId_NotInScopeRelation_MyselfMap.size() + 1);
+        _myselfId_NotInScopeRelation_MyselfMap.put(ky, sq); return "myselfId_NotInScopeRelation_Myself." + ky;
     }
 
     /** 
@@ -193,11 +193,11 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdMyselfCheckCQ baseQuery = (LdMyselfCheckCQ)baseQueryAsSuper;
-        LdMyselfCheckCQ unionQuery = (LdMyselfCheckCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryMyself()) {
-            unionQuery.queryMyself().reflectRelationOnUnionQuery(baseQuery.queryMyself(), unionQuery.queryMyself());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdMyselfCheckCQ bq = (LdMyselfCheckCQ)bqs;
+        LdMyselfCheckCQ uq = (LdMyselfCheckCQ)uqs;
+        if (bq.hasConditionQueryMyself()) {
+            uq.queryMyself().reflectRelationOnUnionQuery(bq.queryMyself(), uq.queryMyself());
         }
     }
 
@@ -247,10 +247,10 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     //                                                                     ===============
     protected Map<String, LdMyselfCheckCQ> _scalarConditionMap;
     public Map<String, LdMyselfCheckCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdMyselfCheckCQ subQuery) {
+    public String keepScalarCondition(LdMyselfCheckCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -258,25 +258,25 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     //                                                                       =============
     protected Map<String, LdMyselfCheckCQ> _specifyMyselfDerivedMap;
     public Map<String, LdMyselfCheckCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdMyselfCheckCQ subQuery) {
+    public String keepSpecifyMyselfDerived(LdMyselfCheckCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, LdMyselfCheckCQ> _queryMyselfDerivedMap;
     public Map<String, LdMyselfCheckCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdMyselfCheckCQ subQuery) {
+    public String keepQueryMyselfDerived(LdMyselfCheckCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -284,10 +284,10 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     //                                                                        ============
     protected Map<String, LdMyselfCheckCQ> _myselfExistsMap;
     public Map<String, LdMyselfCheckCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdMyselfCheckCQ subQuery) {
+    public String keepMyselfExists(LdMyselfCheckCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -295,10 +295,10 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     //                                                                       =============
     protected Map<String, LdMyselfCheckCQ> _myselfInScopeMap;
     public Map<String, LdMyselfCheckCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdMyselfCheckCQ subQuery) {
+    public String keepMyselfInScope(LdMyselfCheckCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

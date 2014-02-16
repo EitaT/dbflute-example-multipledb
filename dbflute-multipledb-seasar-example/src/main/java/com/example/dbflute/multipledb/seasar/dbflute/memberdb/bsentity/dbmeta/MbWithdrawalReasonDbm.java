@@ -42,16 +42,16 @@ public class MbWithdrawalReasonDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgWithdrawalReasonCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbWithdrawalReason)e).getWithdrawalReasonCode(); }
-        public void write(Entity e, Object v) { ((MbWithdrawalReason)e).setWithdrawalReasonCode((String)v); }
+        public Object read(Entity et) { return ((MbWithdrawalReason)et).getWithdrawalReasonCode(); }
+        public void write(Entity et, Object vl) { ((MbWithdrawalReason)et).setWithdrawalReasonCode((String)vl); }
     }
     public static class EpgWithdrawalReasonText implements PropertyGateway {
-        public Object read(Entity e) { return ((MbWithdrawalReason)e).getWithdrawalReasonText(); }
-        public void write(Entity e, Object v) { ((MbWithdrawalReason)e).setWithdrawalReasonText((String)v); }
+        public Object read(Entity et) { return ((MbWithdrawalReason)et).getWithdrawalReasonText(); }
+        public void write(Entity et, Object vl) { ((MbWithdrawalReason)et).setWithdrawalReasonText((String)vl); }
     }
     public static class EpgDisplayOrder implements PropertyGateway {
-        public Object read(Entity e) { return ((MbWithdrawalReason)e).getDisplayOrder(); }
-        public void write(Entity e, Object v) { ((MbWithdrawalReason)e).setDisplayOrder(cti(v)); }
+        public Object read(Entity et) { return ((MbWithdrawalReason)et).getDisplayOrder(); }
+        public void write(Entity et, Object vl) { ((MbWithdrawalReason)et).setDisplayOrder(cti(vl)); }
     }
 
     // ===================================================================================
@@ -107,8 +107,8 @@ public class MbWithdrawalReasonDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerMemberWithdrawalList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnWithdrawalReasonCode(), MbMemberWithdrawalDbm.getInstance().columnWithdrawalReasonCode());
-        return cri("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "memberWithdrawalList", this, MbMemberWithdrawalDbm.getInstance(), map, false, "withdrawalReason");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnWithdrawalReasonCode(), MbMemberWithdrawalDbm.getInstance().columnWithdrawalReasonCode());
+        return cri("FK_MEMBER_WITHDRAWAL_WITHDRAWAL_REASON", "memberWithdrawalList", this, MbMemberWithdrawalDbm.getInstance(), mp, false, "withdrawalReason");
     }
 
     // ===================================================================================
@@ -136,10 +136,10 @@ public class MbWithdrawalReasonDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbWithdrawalReason)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbWithdrawalReason)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbWithdrawalReason)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbWithdrawalReason)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

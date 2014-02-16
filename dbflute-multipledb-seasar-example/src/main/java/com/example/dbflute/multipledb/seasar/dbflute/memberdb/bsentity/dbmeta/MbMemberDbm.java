@@ -50,48 +50,48 @@ public class MbMemberDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbMember)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setMemberId(cti(vl)); }
     }
     public static class EpgMemberName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getMemberName(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setMemberName((String)v); }
+        public Object read(Entity et) { return ((MbMember)et).getMemberName(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setMemberName((String)vl); }
     }
     public static class EpgMemberAccount implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getMemberAccount(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setMemberAccount((String)v); }
+        public Object read(Entity et) { return ((MbMember)et).getMemberAccount(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setMemberAccount((String)vl); }
     }
     public static class EpgMemberStatusCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getMemberStatusCode(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setMemberStatusCode((String)v); }
+        public Object read(Entity et) { return ((MbMember)et).getMemberStatusCode(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setMemberStatusCode((String)vl); }
     }
     public static class EpgFormalizedDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getFormalizedDatetime(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setFormalizedDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMember)et).getFormalizedDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setFormalizedDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgBirthdate implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getBirthdate(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setBirthdate((java.util.Date)v); }
+        public Object read(Entity et) { return ((MbMember)et).getBirthdate(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setBirthdate((java.util.Date)vl); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMember)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((MbMember)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMember)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((MbMember)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setUpdateUser((String)vl); }
     }
     public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMember)e).getVersionNo(); }
-        public void write(Entity e, Object v) { ((MbMember)e).setVersionNo(ctl(v)); }
+        public Object read(Entity et) { return ((MbMember)et).getVersionNo(); }
+        public void write(Entity et, Object vl) { ((MbMember)et).setVersionNo(ctl(vl)); }
     }
 
     // ===================================================================================
@@ -167,40 +167,40 @@ public class MbMemberDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMemberStatus() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberStatusCode(), MbMemberStatusDbm.getInstance().columnMemberStatusCode());
-        return cfi("FK_MEMBER_MEMBER_STATUS", "memberStatus", this, MbMemberStatusDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "memberList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberStatusCode(), MbMemberStatusDbm.getInstance().columnMemberStatusCode());
+        return cfi("FK_MEMBER_MEMBER_STATUS", "memberStatus", this, MbMemberStatusDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "memberList");
     }
     public ForeignInfo foreignMemberLoginAsLatest() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberLoginDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_MEMBER_LOGIN_LATEST", "memberLoginAsLatest", this, MbMemberLoginDbm.getInstance(), map, 1, true, true, false, true, "$$foreignAlias$$.LOGIN_DATETIME = (select max(LOGIN_DATETIME) from MEMBER_LOGIN where MEMBER_ID = $$localAlias$$.MEMBER_ID)", null, false, null);
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberLoginDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_MEMBER_LOGIN_LATEST", "memberLoginAsLatest", this, MbMemberLoginDbm.getInstance(), mp, 1, true, true, false, true, "$$foreignAlias$$.LOGIN_DATETIME = (select max(LOGIN_DATETIME) from MEMBER_LOGIN where MEMBER_ID = $$localAlias$$.MEMBER_ID)", null, false, null);
     }
     public ForeignInfo foreignMemberSecurityAsOne() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberSecurityDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_SECURITY_MEMBER", "memberSecurityAsOne", this, MbMemberSecurityDbm.getInstance(), map, 2, true, false, true, false, null, null, false, "member");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberSecurityDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_SECURITY_MEMBER", "memberSecurityAsOne", this, MbMemberSecurityDbm.getInstance(), mp, 2, true, false, true, false, null, null, false, "member");
     }
     public ForeignInfo foreignMemberServiceAsOne() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberServiceDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_SERVICE_MEMBER", "memberServiceAsOne", this, MbMemberServiceDbm.getInstance(), map, 3, true, false, true, false, null, null, false, "member");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberServiceDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_SERVICE_MEMBER", "memberServiceAsOne", this, MbMemberServiceDbm.getInstance(), mp, 3, true, false, true, false, null, null, false, "member");
     }
     public ForeignInfo foreignMemberWithdrawalAsOne() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberWithdrawalDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_WITHDRAWAL_MEMBER", "memberWithdrawalAsOne", this, MbMemberWithdrawalDbm.getInstance(), map, 4, true, false, true, false, null, null, false, "member");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberWithdrawalDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_WITHDRAWAL_MEMBER", "memberWithdrawalAsOne", this, MbMemberWithdrawalDbm.getInstance(), mp, 4, true, false, true, false, null, null, false, "member");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerMemberAddressList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberAddressDbm.getInstance().columnMemberId());
-        return cri("FK_MEMBER_ADDRESS_MEMBER", "memberAddressList", this, MbMemberAddressDbm.getInstance(), map, false, "member");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberAddressDbm.getInstance().columnMemberId());
+        return cri("FK_MEMBER_ADDRESS_MEMBER", "memberAddressList", this, MbMemberAddressDbm.getInstance(), mp, false, "member");
     }
     public ReferrerInfo referrerMemberLoginList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberLoginDbm.getInstance().columnMemberId());
-        return cri("FK_MEMBER_LOGIN_MEMBER", "memberLoginList", this, MbMemberLoginDbm.getInstance(), map, false, "member");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberLoginDbm.getInstance().columnMemberId());
+        return cri("FK_MEMBER_LOGIN_MEMBER", "memberLoginList", this, MbMemberLoginDbm.getInstance(), mp, false, "member");
     }
     public ReferrerInfo referrerPurchaseList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbPurchaseDbm.getInstance().columnMemberId());
-        return cri("FK_PURCHASE_MEMBER", "purchaseList", this, MbPurchaseDbm.getInstance(), map, false, "member");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbPurchaseDbm.getInstance().columnMemberId());
+        return cri("FK_PURCHASE_MEMBER", "purchaseList", this, MbPurchaseDbm.getInstance(), mp, false, "member");
     }
 
     // ===================================================================================
@@ -238,10 +238,10 @@ public class MbMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbMember)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbMember)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbMember)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbMember)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

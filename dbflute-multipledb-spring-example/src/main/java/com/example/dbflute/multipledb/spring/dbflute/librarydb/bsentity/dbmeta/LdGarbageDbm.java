@@ -48,32 +48,32 @@ public class LdGarbageDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgGarbageMemo implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbage)e).getGarbageMemo(); }
-        public void write(Entity e, Object v) { ((LdGarbage)e).setGarbageMemo((String)v); }
+        public Object read(Entity et) { return ((LdGarbage)et).getGarbageMemo(); }
+        public void write(Entity et, Object vl) { ((LdGarbage)et).setGarbageMemo((String)vl); }
     }
     public static class EpgGarbageTime implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbage)e).getGarbageTime(); }
-        public void write(Entity e, Object v) { ((LdGarbage)e).setGarbageTime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGarbage)et).getGarbageTime(); }
+        public void write(Entity et, Object vl) { ((LdGarbage)et).setGarbageTime((java.sql.Timestamp)vl); }
     }
     public static class EpgGarbageCount implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbage)e).getGarbageCount(); }
-        public void write(Entity e, Object v) { ((LdGarbage)e).setGarbageCount(cti(v)); }
+        public Object read(Entity et) { return ((LdGarbage)et).getGarbageCount(); }
+        public void write(Entity et, Object vl) { ((LdGarbage)et).setGarbageCount(cti(vl)); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbage)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdGarbage)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdGarbage)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdGarbage)et).setRUser((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbage)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdGarbage)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGarbage)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdGarbage)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbage)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdGarbage)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdGarbage)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdGarbage)et).setUUser((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGarbage)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdGarbage)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGarbage)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdGarbage)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -170,10 +170,10 @@ public class LdGarbageDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdGarbage)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdGarbage)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdGarbage)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdGarbage)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

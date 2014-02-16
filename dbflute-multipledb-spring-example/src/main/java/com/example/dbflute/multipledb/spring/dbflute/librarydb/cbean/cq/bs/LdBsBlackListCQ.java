@@ -83,57 +83,57 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
 
     protected Map<String, LdBlackActionCQ> _blackListId_ExistsReferrer_BlackActionListMap;
     public Map<String, LdBlackActionCQ> getBlackListId_ExistsReferrer_BlackActionList() { return _blackListId_ExistsReferrer_BlackActionListMap; }
-    public String keepBlackListId_ExistsReferrer_BlackActionList(LdBlackActionCQ subQuery) {
+    public String keepBlackListId_ExistsReferrer_BlackActionList(LdBlackActionCQ sq) {
         if (_blackListId_ExistsReferrer_BlackActionListMap == null) { _blackListId_ExistsReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_ExistsReferrer_BlackActionListMap.size() + 1);
-        _blackListId_ExistsReferrer_BlackActionListMap.put(key, subQuery); return "blackListId_ExistsReferrer_BlackActionList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_ExistsReferrer_BlackActionListMap.size() + 1);
+        _blackListId_ExistsReferrer_BlackActionListMap.put(ky, sq); return "blackListId_ExistsReferrer_BlackActionList." + ky;
     }
 
     protected Map<String, LdBlackActionCQ> _blackListId_NotExistsReferrer_BlackActionListMap;
     public Map<String, LdBlackActionCQ> getBlackListId_NotExistsReferrer_BlackActionList() { return _blackListId_NotExistsReferrer_BlackActionListMap; }
-    public String keepBlackListId_NotExistsReferrer_BlackActionList(LdBlackActionCQ subQuery) {
+    public String keepBlackListId_NotExistsReferrer_BlackActionList(LdBlackActionCQ sq) {
         if (_blackListId_NotExistsReferrer_BlackActionListMap == null) { _blackListId_NotExistsReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_NotExistsReferrer_BlackActionListMap.size() + 1);
-        _blackListId_NotExistsReferrer_BlackActionListMap.put(key, subQuery); return "blackListId_NotExistsReferrer_BlackActionList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_NotExistsReferrer_BlackActionListMap.size() + 1);
+        _blackListId_NotExistsReferrer_BlackActionListMap.put(ky, sq); return "blackListId_NotExistsReferrer_BlackActionList." + ky;
     }
 
     protected Map<String, LdBlackActionCQ> _blackListId_SpecifyDerivedReferrer_BlackActionListMap;
     public Map<String, LdBlackActionCQ> getBlackListId_SpecifyDerivedReferrer_BlackActionList() { return _blackListId_SpecifyDerivedReferrer_BlackActionListMap; }
-    public String keepBlackListId_SpecifyDerivedReferrer_BlackActionList(LdBlackActionCQ subQuery) {
+    public String keepBlackListId_SpecifyDerivedReferrer_BlackActionList(LdBlackActionCQ sq) {
         if (_blackListId_SpecifyDerivedReferrer_BlackActionListMap == null) { _blackListId_SpecifyDerivedReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_SpecifyDerivedReferrer_BlackActionListMap.size() + 1);
-        _blackListId_SpecifyDerivedReferrer_BlackActionListMap.put(key, subQuery); return "blackListId_SpecifyDerivedReferrer_BlackActionList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_SpecifyDerivedReferrer_BlackActionListMap.size() + 1);
+        _blackListId_SpecifyDerivedReferrer_BlackActionListMap.put(ky, sq); return "blackListId_SpecifyDerivedReferrer_BlackActionList." + ky;
     }
 
     protected Map<String, LdBlackActionCQ> _blackListId_InScopeRelation_BlackActionListMap;
     public Map<String, LdBlackActionCQ> getBlackListId_InScopeRelation_BlackActionList() { return _blackListId_InScopeRelation_BlackActionListMap; }
-    public String keepBlackListId_InScopeRelation_BlackActionList(LdBlackActionCQ subQuery) {
+    public String keepBlackListId_InScopeRelation_BlackActionList(LdBlackActionCQ sq) {
         if (_blackListId_InScopeRelation_BlackActionListMap == null) { _blackListId_InScopeRelation_BlackActionListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_InScopeRelation_BlackActionListMap.size() + 1);
-        _blackListId_InScopeRelation_BlackActionListMap.put(key, subQuery); return "blackListId_InScopeRelation_BlackActionList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_InScopeRelation_BlackActionListMap.size() + 1);
+        _blackListId_InScopeRelation_BlackActionListMap.put(ky, sq); return "blackListId_InScopeRelation_BlackActionList." + ky;
     }
 
     protected Map<String, LdBlackActionCQ> _blackListId_NotInScopeRelation_BlackActionListMap;
     public Map<String, LdBlackActionCQ> getBlackListId_NotInScopeRelation_BlackActionList() { return _blackListId_NotInScopeRelation_BlackActionListMap; }
-    public String keepBlackListId_NotInScopeRelation_BlackActionList(LdBlackActionCQ subQuery) {
+    public String keepBlackListId_NotInScopeRelation_BlackActionList(LdBlackActionCQ sq) {
         if (_blackListId_NotInScopeRelation_BlackActionListMap == null) { _blackListId_NotInScopeRelation_BlackActionListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_NotInScopeRelation_BlackActionListMap.size() + 1);
-        _blackListId_NotInScopeRelation_BlackActionListMap.put(key, subQuery); return "blackListId_NotInScopeRelation_BlackActionList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_NotInScopeRelation_BlackActionListMap.size() + 1);
+        _blackListId_NotInScopeRelation_BlackActionListMap.put(ky, sq); return "blackListId_NotInScopeRelation_BlackActionList." + ky;
     }
 
     protected Map<String, LdBlackActionCQ> _blackListId_QueryDerivedReferrer_BlackActionListMap;
     public Map<String, LdBlackActionCQ> getBlackListId_QueryDerivedReferrer_BlackActionList() { return _blackListId_QueryDerivedReferrer_BlackActionListMap; }
-    public String keepBlackListId_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ subQuery) {
+    public String keepBlackListId_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ sq) {
         if (_blackListId_QueryDerivedReferrer_BlackActionListMap == null) { _blackListId_QueryDerivedReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_blackListId_QueryDerivedReferrer_BlackActionListMap.size() + 1);
-        _blackListId_QueryDerivedReferrer_BlackActionListMap.put(key, subQuery); return "blackListId_QueryDerivedReferrer_BlackActionList." + key;
+        String ky = "subQueryMapKey" + (_blackListId_QueryDerivedReferrer_BlackActionListMap.size() + 1);
+        _blackListId_QueryDerivedReferrer_BlackActionListMap.put(ky, sq); return "blackListId_QueryDerivedReferrer_BlackActionList." + ky;
     }
     protected Map<String, Object> _blackListId_QueryDerivedReferrer_BlackActionListParameterMap;
     public Map<String, Object> getBlackListId_QueryDerivedReferrer_BlackActionListParameter() { return _blackListId_QueryDerivedReferrer_BlackActionListParameterMap; }
-    public String keepBlackListId_QueryDerivedReferrer_BlackActionListParameter(Object parameterValue) {
+    public String keepBlackListId_QueryDerivedReferrer_BlackActionListParameter(Object vl) {
         if (_blackListId_QueryDerivedReferrer_BlackActionListParameterMap == null) { _blackListId_QueryDerivedReferrer_BlackActionListParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_blackListId_QueryDerivedReferrer_BlackActionListParameterMap.size() + 1);
-        _blackListId_QueryDerivedReferrer_BlackActionListParameterMap.put(key, parameterValue); return "blackListId_QueryDerivedReferrer_BlackActionListParameter." + key;
+        String ky = "subQueryParameterKey" + (_blackListId_QueryDerivedReferrer_BlackActionListParameterMap.size() + 1);
+        _blackListId_QueryDerivedReferrer_BlackActionListParameterMap.put(ky, vl); return "blackListId_QueryDerivedReferrer_BlackActionListParameter." + ky;
     }
 
     /** 
@@ -159,18 +159,18 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
 
     protected Map<String, LdLbUserCQ> _lbUserId_InScopeRelation_LbUserMap;
     public Map<String, LdLbUserCQ> getLbUserId_InScopeRelation_LbUser() { return _lbUserId_InScopeRelation_LbUserMap; }
-    public String keepLbUserId_InScopeRelation_LbUser(LdLbUserCQ subQuery) {
+    public String keepLbUserId_InScopeRelation_LbUser(LdLbUserCQ sq) {
         if (_lbUserId_InScopeRelation_LbUserMap == null) { _lbUserId_InScopeRelation_LbUserMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_InScopeRelation_LbUserMap.size() + 1);
-        _lbUserId_InScopeRelation_LbUserMap.put(key, subQuery); return "lbUserId_InScopeRelation_LbUser." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_InScopeRelation_LbUserMap.size() + 1);
+        _lbUserId_InScopeRelation_LbUserMap.put(ky, sq); return "lbUserId_InScopeRelation_LbUser." + ky;
     }
 
     protected Map<String, LdLbUserCQ> _lbUserId_NotInScopeRelation_LbUserMap;
     public Map<String, LdLbUserCQ> getLbUserId_NotInScopeRelation_LbUser() { return _lbUserId_NotInScopeRelation_LbUserMap; }
-    public String keepLbUserId_NotInScopeRelation_LbUser(LdLbUserCQ subQuery) {
+    public String keepLbUserId_NotInScopeRelation_LbUser(LdLbUserCQ sq) {
         if (_lbUserId_NotInScopeRelation_LbUserMap == null) { _lbUserId_NotInScopeRelation_LbUserMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_lbUserId_NotInScopeRelation_LbUserMap.size() + 1);
-        _lbUserId_NotInScopeRelation_LbUserMap.put(key, subQuery); return "lbUserId_NotInScopeRelation_LbUser." + key;
+        String ky = "subQueryMapKey" + (_lbUserId_NotInScopeRelation_LbUserMap.size() + 1);
+        _lbUserId_NotInScopeRelation_LbUserMap.put(ky, sq); return "lbUserId_NotInScopeRelation_LbUser." + ky;
     }
 
     /** 
@@ -374,11 +374,11 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdBlackListCQ baseQuery = (LdBlackListCQ)baseQueryAsSuper;
-        LdBlackListCQ unionQuery = (LdBlackListCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryLbUser()) {
-            unionQuery.queryLbUser().reflectRelationOnUnionQuery(baseQuery.queryLbUser(), unionQuery.queryLbUser());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdBlackListCQ bq = (LdBlackListCQ)bqs;
+        LdBlackListCQ uq = (LdBlackListCQ)uqs;
+        if (bq.hasConditionQueryLbUser()) {
+            uq.queryLbUser().reflectRelationOnUnionQuery(bq.queryLbUser(), uq.queryLbUser());
         }
     }
 
@@ -428,10 +428,10 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     //                                                                     ===============
     protected Map<String, LdBlackListCQ> _scalarConditionMap;
     public Map<String, LdBlackListCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdBlackListCQ subQuery) {
+    public String keepScalarCondition(LdBlackListCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -439,25 +439,25 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     //                                                                       =============
     protected Map<String, LdBlackListCQ> _specifyMyselfDerivedMap;
     public Map<String, LdBlackListCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdBlackListCQ subQuery) {
+    public String keepSpecifyMyselfDerived(LdBlackListCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, LdBlackListCQ> _queryMyselfDerivedMap;
     public Map<String, LdBlackListCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdBlackListCQ subQuery) {
+    public String keepQueryMyselfDerived(LdBlackListCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -465,10 +465,10 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     //                                                                        ============
     protected Map<String, LdBlackListCQ> _myselfExistsMap;
     public Map<String, LdBlackListCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdBlackListCQ subQuery) {
+    public String keepMyselfExists(LdBlackListCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -476,10 +476,10 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     //                                                                       =============
     protected Map<String, LdBlackListCQ> _myselfInScopeMap;
     public Map<String, LdBlackListCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdBlackListCQ subQuery) {
+    public String keepMyselfInScope(LdBlackListCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

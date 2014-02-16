@@ -325,8 +325,8 @@ public class MbBsRegionCB extends AbstractConditionBean {
         public HpSDRFunction<MbMemberAddressCB, MbRegionCQ> derivedMemberAddressList() {
             assertDerived("memberAddressList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbMemberAddressCB, MbRegionCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbMemberAddressCB, MbRegionCQ>() {
-                public void setup(String function, SubQuery<MbMemberAddressCB> subQuery, MbRegionCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberAddressList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbMemberAddressCB> sq, MbRegionCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberAddressList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -335,8 +335,8 @@ public class MbBsRegionCB extends AbstractConditionBean {
         public HpSDRFunction<MbRegionCB, MbRegionCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbRegionCB, MbRegionCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbRegionCB, MbRegionCQ>() {
-                public void setup(String function, SubQuery<MbRegionCB> subQuery, MbRegionCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbRegionCB> sq, MbRegionCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

@@ -44,16 +44,16 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMyselfCheckId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdMyselfCheck)e).getMyselfCheckId(); }
-        public void write(Entity e, Object v) { ((LdMyselfCheck)e).setMyselfCheckId(cti(v)); }
+        public Object read(Entity et) { return ((LdMyselfCheck)et).getMyselfCheckId(); }
+        public void write(Entity et, Object vl) { ((LdMyselfCheck)et).setMyselfCheckId(cti(vl)); }
     }
     public static class EpgMyselfCheckName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdMyselfCheck)e).getMyselfCheckName(); }
-        public void write(Entity e, Object v) { ((LdMyselfCheck)e).setMyselfCheckName((String)v); }
+        public Object read(Entity et) { return ((LdMyselfCheck)et).getMyselfCheckName(); }
+        public void write(Entity et, Object vl) { ((LdMyselfCheck)et).setMyselfCheckName((String)vl); }
     }
     public static class EpgMyselfId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdMyselfCheck)e).getMyselfId(); }
-        public void write(Entity e, Object v) { ((LdMyselfCheck)e).setMyselfId(cti(v)); }
+        public Object read(Entity et) { return ((LdMyselfCheck)et).getMyselfId(); }
+        public void write(Entity et, Object vl) { ((LdMyselfCheck)et).setMyselfId(cti(vl)); }
     }
 
     // ===================================================================================
@@ -105,8 +105,8 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMyself() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMyselfId(), LdMyselfDbm.getInstance().columnMyselfId());
-        return cfi("FK_MYSELF_CHECK_SELF", "myself", this, LdMyselfDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "myselfCheckList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMyselfId(), LdMyselfDbm.getInstance().columnMyselfId());
+        return cfi("FK_MYSELF_CHECK_SELF", "myself", this, LdMyselfDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "myselfCheckList");
     }
 
     // -----------------------------------------------------
@@ -138,10 +138,10 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdMyselfCheck)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdMyselfCheck)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdMyselfCheck)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdMyselfCheck)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

@@ -162,12 +162,12 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
      * @param subQuery The sub-query of VendorConstraintNameAutoRefList for 'exists'. (NotNull)
      */
     public void existsVendorConstraintNameAutoRefList(SubQuery<LdVendorConstraintNameAutoRefCB> subQuery) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepConstraintNameAutoBarId_ExistsReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "vendorConstraintNameAutoRefList");
+        String pp = keepConstraintNameAutoBarId_ExistsReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", pp, "vendorConstraintNameAutoRefList");
     }
-    public abstract String keepConstraintNameAutoBarId_ExistsReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ subQuery);
+    public abstract String keepConstraintNameAutoBarId_ExistsReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -183,12 +183,12 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
      * @param subQuery The sub-query of ConstraintNameAutoBarId_NotExistsReferrer_VendorConstraintNameAutoRefList for 'not exists'. (NotNull)
      */
     public void notExistsVendorConstraintNameAutoRefList(SubQuery<LdVendorConstraintNameAutoRefCB> subQuery) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepConstraintNameAutoBarId_NotExistsReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "vendorConstraintNameAutoRefList");
+        String pp = keepConstraintNameAutoBarId_NotExistsReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", pp, "vendorConstraintNameAutoRefList");
     }
-    public abstract String keepConstraintNameAutoBarId_NotExistsReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ subQuery);
+    public abstract String keepConstraintNameAutoBarId_NotExistsReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -197,12 +197,12 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
      * @param subQuery The sub-query of VendorConstraintNameAutoRefList for 'in-scope'. (NotNull)
      */
     public void inScopeVendorConstraintNameAutoRefList(SubQuery<LdVendorConstraintNameAutoRefCB> subQuery) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "vendorConstraintNameAutoRefList");
+        String pp = keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", pp, "vendorConstraintNameAutoRefList");
     }
-    public abstract String keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ subQuery);
+    public abstract String keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -211,20 +211,20 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
      * @param subQuery The sub-query of VendorConstraintNameAutoRefList for 'not in-scope'. (NotNull)
      */
     public void notInScopeVendorConstraintNameAutoRefList(SubQuery<LdVendorConstraintNameAutoRefCB> subQuery) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoRefCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "vendorConstraintNameAutoRefList");
+        String pp = keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", pp, "vendorConstraintNameAutoRefList");
     }
-    public abstract String keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ subQuery);
+    public abstract String keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
 
-    public void xsderiveVendorConstraintNameAutoRefList(String function, SubQuery<LdVendorConstraintNameAutoRefCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoRefCB>", subQuery);
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepConstraintNameAutoBarId_SpecifyDerivedReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "vendorConstraintNameAutoRefList", aliasName, option);
+    public void xsderiveVendorConstraintNameAutoRefList(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepConstraintNameAutoBarId_SpecifyDerivedReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", pp, "vendorConstraintNameAutoRefList", al, op);
     }
-    public abstract String keepConstraintNameAutoBarId_SpecifyDerivedReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ subQuery);
+    public abstract String keepConstraintNameAutoBarId_SpecifyDerivedReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -245,20 +245,20 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
     }
     protected HpQDRFunction<LdVendorConstraintNameAutoRefCB> xcreateQDRFunctionVendorConstraintNameAutoRefList() {
         return new HpQDRFunction<LdVendorConstraintNameAutoRefCB>(new HpQDRSetupper<LdVendorConstraintNameAutoRefCB>() {
-            public void setup(String function, SubQuery<LdVendorConstraintNameAutoRefCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveVendorConstraintNameAutoRefList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveVendorConstraintNameAutoRefList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveVendorConstraintNameAutoRefList(String function, SubQuery<LdVendorConstraintNameAutoRefCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoRefCB>", subQuery);
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "vendorConstraintNameAutoRefList", operand, value, parameterPropertyName, option);
+    public void xqderiveVendorConstraintNameAutoRefList(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefList(cb.query()); // for saving query-value.
+        String prpp = keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", sqpp, "vendorConstraintNameAutoRefList", rd, vl, prpp, op);
     }
-    public abstract String keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ subQuery);
-    public abstract String keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefListParameter(Object parameterValue);
+    public abstract String keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
+    public abstract String keepConstraintNameAutoBarId_QueryDerivedReferrer_VendorConstraintNameAutoRefListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -272,8 +272,8 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
      */
     public void setConstraintNameAutoBarId_IsNotNull() { regConstraintNameAutoBarId(CK_ISNN, DOBJ); }
 
-    protected void regConstraintNameAutoBarId(ConditionKey k, Object v) { regQ(k, v, getCValueConstraintNameAutoBarId(), "CONSTRAINT_NAME_AUTO_BAR_ID"); }
-    abstract protected ConditionValue getCValueConstraintNameAutoBarId();
+    protected void regConstraintNameAutoBarId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueConstraintNameAutoBarId(), "CONSTRAINT_NAME_AUTO_BAR_ID"); }
+    protected abstract ConditionValue getCValueConstraintNameAutoBarId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -394,8 +394,8 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
         regLSQ(CK_NLS, fRES(constraintNameAutoBarName), getCValueConstraintNameAutoBarName(), "CONSTRAINT_NAME_AUTO_BAR_NAME", likeSearchOption);
     }
 
-    protected void regConstraintNameAutoBarName(ConditionKey k, Object v) { regQ(k, v, getCValueConstraintNameAutoBarName(), "CONSTRAINT_NAME_AUTO_BAR_NAME"); }
-    abstract protected ConditionValue getCValueConstraintNameAutoBarName();
+    protected void regConstraintNameAutoBarName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueConstraintNameAutoBarName(), "CONSTRAINT_NAME_AUTO_BAR_NAME"); }
+    protected abstract ConditionValue getCValueConstraintNameAutoBarName();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -502,22 +502,22 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<LdVendorConstraintNameAutoBarCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<LdVendorConstraintNameAutoBarCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<LdVendorConstraintNameAutoBarCB>(new HpSSQSetupper<LdVendorConstraintNameAutoBarCB>() {
-            public void setup(String function, SubQuery<LdVendorConstraintNameAutoBarCB> subQuery, HpSSQOption<LdVendorConstraintNameAutoBarCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<LdVendorConstraintNameAutoBarCB> sq, HpSSQOption<LdVendorConstraintNameAutoBarCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<LdVendorConstraintNameAutoBarCB> subQuery, String operand, HpSSQOption<LdVendorConstraintNameAutoBarCB> option) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoBarCB>", subQuery);
-        LdVendorConstraintNameAutoBarCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<LdVendorConstraintNameAutoBarCB> sq, String rd, HpSSQOption<LdVendorConstraintNameAutoBarCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdVendorConstraintNameAutoBarCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(LdVendorConstraintNameAutoBarCQ subQuery);
+    public abstract String keepScalarCondition(LdVendorConstraintNameAutoBarCQ sq);
 
     protected LdVendorConstraintNameAutoBarCB xcreateScalarConditionCB() {
         LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB();
@@ -534,13 +534,14 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<LdVendorConstraintNameAutoBarCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoBarCB>", subQuery);
-        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<LdVendorConstraintNameAutoBarCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "CONSTRAINT_NAME_AUTO_BAR_ID";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoBarCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoBarCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -551,20 +552,21 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
     }
     protected HpQDRFunction<LdVendorConstraintNameAutoBarCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<LdVendorConstraintNameAutoBarCB>(new HpQDRSetupper<LdVendorConstraintNameAutoBarCB>() {
-            public void setup(String function, SubQuery<LdVendorConstraintNameAutoBarCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdVendorConstraintNameAutoBarCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<LdVendorConstraintNameAutoBarCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoBarCB>", subQuery);
-        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<LdVendorConstraintNameAutoBarCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "CONSTRAINT_NAME_AUTO_BAR_ID";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(LdVendorConstraintNameAutoBarCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(LdVendorConstraintNameAutoBarCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -574,12 +576,12 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<LdVendorConstraintNameAutoBarCB> subQuery) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoBarCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(LdVendorConstraintNameAutoBarCQ subQuery);
+    public abstract String keepMyselfExists(LdVendorConstraintNameAutoBarCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -589,12 +591,12 @@ public abstract class LdAbstractBsVendorConstraintNameAutoBarCQ extends Abstract
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdVendorConstraintNameAutoBarCB> subQuery) {
-        assertObjectNotNull("subQuery<LdVendorConstraintNameAutoBarCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(LdVendorConstraintNameAutoBarCQ subQuery);
+    public abstract String keepMyselfInScope(LdVendorConstraintNameAutoBarCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

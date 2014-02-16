@@ -180,12 +180,12 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param subQuery The sub-query of BlackActionList for 'exists'. (NotNull)
      */
     public void existsBlackActionList(SubQuery<LdBlackActionCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_ExistsReferrer_BlackActionList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionList");
+        String pp = keepBlackActionCode_ExistsReferrer_BlackActionList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", pp, "blackActionList");
     }
-    public abstract String keepBlackActionCode_ExistsReferrer_BlackActionList(LdBlackActionCQ subQuery);
+    public abstract String keepBlackActionCode_ExistsReferrer_BlackActionList(LdBlackActionCQ sq);
 
     /**
      * Set up NotExistsReferrer (co-related sub-query). <br />
@@ -201,12 +201,12 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param subQuery The sub-query of BlackActionCode_NotExistsReferrer_BlackActionList for 'not exists'. (NotNull)
      */
     public void notExistsBlackActionList(SubQuery<LdBlackActionCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_NotExistsReferrer_BlackActionList(cb.query()); // for saving query-value.
-        registerNotExistsReferrer(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionList");
+        String pp = keepBlackActionCode_NotExistsReferrer_BlackActionList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", pp, "blackActionList");
     }
-    public abstract String keepBlackActionCode_NotExistsReferrer_BlackActionList(LdBlackActionCQ subQuery);
+    public abstract String keepBlackActionCode_NotExistsReferrer_BlackActionList(LdBlackActionCQ sq);
 
     /**
      * Set up InScopeRelation (sub-query). <br />
@@ -215,12 +215,12 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param subQuery The sub-query of BlackActionList for 'in-scope'. (NotNull)
      */
     public void inScopeBlackActionList(SubQuery<LdBlackActionCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_InScopeRelation_BlackActionList(cb.query()); // for saving query-value.
-        registerInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionList");
+        String pp = keepBlackActionCode_InScopeRelation_BlackActionList(cb.query()); // for saving query-value.
+        registerInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", pp, "blackActionList");
     }
-    public abstract String keepBlackActionCode_InScopeRelation_BlackActionList(LdBlackActionCQ subQuery);
+    public abstract String keepBlackActionCode_InScopeRelation_BlackActionList(LdBlackActionCQ sq);
 
     /**
      * Set up NotInScopeRelation (sub-query). <br />
@@ -229,20 +229,20 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param subQuery The sub-query of BlackActionList for 'not in-scope'. (NotNull)
      */
     public void notInScopeBlackActionList(SubQuery<LdBlackActionCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_NotInScopeRelation_BlackActionList(cb.query()); // for saving query-value.
-        registerNotInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionList");
+        String pp = keepBlackActionCode_NotInScopeRelation_BlackActionList(cb.query()); // for saving query-value.
+        registerNotInScopeRelation(cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", pp, "blackActionList");
     }
-    public abstract String keepBlackActionCode_NotInScopeRelation_BlackActionList(LdBlackActionCQ subQuery);
+    public abstract String keepBlackActionCode_NotInScopeRelation_BlackActionList(LdBlackActionCQ sq);
 
-    public void xsderiveBlackActionList(String function, SubQuery<LdBlackActionCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
-        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_SpecifyDerivedReferrer_BlackActionList(cb.query()); // for saving query-value.
-        registerSpecifyDerivedReferrer(function, cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionList", aliasName, option);
+    public void xsderiveBlackActionList(String fn, SubQuery<LdBlackActionCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepBlackActionCode_SpecifyDerivedReferrer_BlackActionList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", pp, "blackActionList", al, op);
     }
-    public abstract String keepBlackActionCode_SpecifyDerivedReferrer_BlackActionList(LdBlackActionCQ subQuery);
+    public abstract String keepBlackActionCode_SpecifyDerivedReferrer_BlackActionList(LdBlackActionCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer. <br />
@@ -263,20 +263,20 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     }
     protected HpQDRFunction<LdBlackActionCB> xcreateQDRFunctionBlackActionList() {
         return new HpQDRFunction<LdBlackActionCB>(new HpQDRSetupper<LdBlackActionCB>() {
-            public void setup(String function, SubQuery<LdBlackActionCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveBlackActionList(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdBlackActionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveBlackActionList(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveBlackActionList(String function, SubQuery<LdBlackActionCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBlackActionCB>", subQuery);
-        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepBlackActionCode_QueryDerivedReferrer_BlackActionList(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepBlackActionCode_QueryDerivedReferrer_BlackActionListParameter(value);
-        registerQueryDerivedReferrer(function, cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "blackActionList", operand, value, parameterPropertyName, option);
+    public void xqderiveBlackActionList(String fn, SubQuery<LdBlackActionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepBlackActionCode_QueryDerivedReferrer_BlackActionList(cb.query()); // for saving query-value.
+        String prpp = keepBlackActionCode_QueryDerivedReferrer_BlackActionListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", sqpp, "blackActionList", rd, vl, prpp, op);
     }
-    public abstract String keepBlackActionCode_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ subQuery);
-    public abstract String keepBlackActionCode_QueryDerivedReferrer_BlackActionListParameter(Object parameterValue);
+    public abstract String keepBlackActionCode_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ sq);
+    public abstract String keepBlackActionCode_QueryDerivedReferrer_BlackActionListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -290,8 +290,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      */
     public void setBlackActionCode_IsNotNull() { regBlackActionCode(CK_ISNN, DOBJ); }
 
-    protected void regBlackActionCode(ConditionKey k, Object v) { regQ(k, v, getCValueBlackActionCode(), "BLACK_ACTION_CODE"); }
-    abstract protected ConditionValue getCValueBlackActionCode();
+    protected void regBlackActionCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackActionCode(), "BLACK_ACTION_CODE"); }
+    protected abstract ConditionValue getCValueBlackActionCode();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -412,8 +412,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         regLSQ(CK_NLS, fRES(blackActionName), getCValueBlackActionName(), "BLACK_ACTION_NAME", likeSearchOption);
     }
 
-    protected void regBlackActionName(ConditionKey k, Object v) { regQ(k, v, getCValueBlackActionName(), "BLACK_ACTION_NAME"); }
-    abstract protected ConditionValue getCValueBlackActionName();
+    protected void regBlackActionName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackActionName(), "BLACK_ACTION_NAME"); }
+    protected abstract ConditionValue getCValueBlackActionName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -534,8 +534,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         regLSQ(CK_NLS, fRES(rUser), getCValueRUser(), "R_USER", likeSearchOption);
     }
 
-    protected void regRUser(ConditionKey k, Object v) { regQ(k, v, getCValueRUser(), "R_USER"); }
-    abstract protected ConditionValue getCValueRUser();
+    protected void regRUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRUser(), "R_USER"); }
+    protected abstract ConditionValue getCValueRUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -656,8 +656,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         regLSQ(CK_NLS, fRES(rModule), getCValueRModule(), "R_MODULE", likeSearchOption);
     }
 
-    protected void regRModule(ConditionKey k, Object v) { regQ(k, v, getCValueRModule(), "R_MODULE"); }
-    abstract protected ConditionValue getCValueRModule();
+    protected void regRModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRModule(), "R_MODULE"); }
+    protected abstract ConditionValue getCValueRModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -722,7 +722,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setRTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setRTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueRTimestamp(), "R_TIMESTAMP", fromToOption);
     }
 
@@ -737,7 +737,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setRTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setRTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setRTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -767,8 +767,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         regINS(CK_NINS, cTL(rTimestampList), getCValueRTimestamp(), "R_TIMESTAMP");
     }
 
-    protected void regRTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueRTimestamp(), "R_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueRTimestamp();
+    protected void regRTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueRTimestamp(), "R_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueRTimestamp();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -889,8 +889,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         regLSQ(CK_NLS, fRES(uUser), getCValueUUser(), "U_USER", likeSearchOption);
     }
 
-    protected void regUUser(ConditionKey k, Object v) { regQ(k, v, getCValueUUser(), "U_USER"); }
-    abstract protected ConditionValue getCValueUUser();
+    protected void regUUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUUser(), "U_USER"); }
+    protected abstract ConditionValue getCValueUUser();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -1011,8 +1011,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         regLSQ(CK_NLS, fRES(uModule), getCValueUModule(), "U_MODULE", likeSearchOption);
     }
 
-    protected void regUModule(ConditionKey k, Object v) { regQ(k, v, getCValueUModule(), "U_MODULE"); }
-    abstract protected ConditionValue getCValueUModule();
+    protected void regUModule(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUModule(), "U_MODULE"); }
+    protected abstract ConditionValue getCValueUModule();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1077,7 +1077,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setUTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setUTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueUTimestamp(), "U_TIMESTAMP", fromToOption);
     }
 
@@ -1092,7 +1092,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setUTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setUTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setUTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1122,8 +1122,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         regINS(CK_NINS, cTL(uTimestampList), getCValueUTimestamp(), "U_TIMESTAMP");
     }
 
-    protected void regUTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueUTimestamp(), "U_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueUTimestamp();
+    protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueUTimestamp();
 
     // ===================================================================================
     //                                                                     ScalarCondition
@@ -1230,22 +1230,22 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         return xcreateSSQFunction(CK_LE.getOperand());
     }
 
-    protected HpSSQFunction<LdBlackActionLookupCB> xcreateSSQFunction(final String operand) {
+    protected HpSSQFunction<LdBlackActionLookupCB> xcreateSSQFunction(final String rd) {
         return new HpSSQFunction<LdBlackActionLookupCB>(new HpSSQSetupper<LdBlackActionLookupCB>() {
-            public void setup(String function, SubQuery<LdBlackActionLookupCB> subQuery, HpSSQOption<LdBlackActionLookupCB> option) {
-                xscalarCondition(function, subQuery, operand, option);
+            public void setup(String fn, SubQuery<LdBlackActionLookupCB> sq, HpSSQOption<LdBlackActionLookupCB> op) {
+                xscalarCondition(fn, sq, rd, op);
             }
         });
     }
 
-    protected void xscalarCondition(String function, SubQuery<LdBlackActionLookupCB> subQuery, String operand, HpSSQOption<LdBlackActionLookupCB> option) {
-        assertObjectNotNull("subQuery<LdBlackActionLookupCB>", subQuery);
-        LdBlackActionLookupCB cb = xcreateScalarConditionCB(); subQuery.query(cb);
-        String subQueryPropertyName = keepScalarCondition(cb.query()); // for saving query-value
-        option.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
-        registerScalarCondition(function, cb.query(), subQueryPropertyName, operand, option);
+    protected void xscalarCondition(String fn, SubQuery<LdBlackActionLookupCB> sq, String rd, HpSSQOption<LdBlackActionLookupCB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionLookupCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
-    public abstract String keepScalarCondition(LdBlackActionLookupCQ subQuery);
+    public abstract String keepScalarCondition(LdBlackActionLookupCQ sq);
 
     protected LdBlackActionLookupCB xcreateScalarConditionCB() {
         LdBlackActionLookupCB cb = new LdBlackActionLookupCB();
@@ -1262,13 +1262,14 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String function, SubQuery<LdBlackActionLookupCB> subQuery, String aliasName, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBlackActionLookupCB>", subQuery);
-        LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
-        registerSpecifyMyselfDerived(function, cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "myselfDerived", aliasName, option);
+    public void xsmyselfDerive(String fn, SubQuery<LdBlackActionLookupCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "BLACK_ACTION_CODE";
+        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
+        registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(LdBlackActionLookupCQ subQuery);
+    public abstract String keepSpecifyMyselfDerived(LdBlackActionLookupCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (SubQuery).
@@ -1279,20 +1280,21 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     }
     protected HpQDRFunction<LdBlackActionLookupCB> xcreateQDRFunctionMyselfDerived() {
         return new HpQDRFunction<LdBlackActionLookupCB>(new HpQDRSetupper<LdBlackActionLookupCB>() {
-            public void setup(String function, SubQuery<LdBlackActionLookupCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-                xqderiveMyselfDerived(function, subQuery, operand, value, option);
+            public void setup(String fn, SubQuery<LdBlackActionLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveMyselfDerived(fn, sq, rd, vl, op);
             }
         });
     }
-    public void xqderiveMyselfDerived(String function, SubQuery<LdBlackActionLookupCB> subQuery, String operand, Object value, DerivedReferrerOption option) {
-        assertObjectNotNull("subQuery<LdBlackActionLookupCB>", subQuery);
-        LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForDerivedReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepQueryMyselfDerived(cb.query()); // for saving query-value.
-        String parameterPropertyName = keepQueryMyselfDerivedParameter(value);
-        registerQueryMyselfDerived(function, cb.query(), "BLACK_ACTION_CODE", "BLACK_ACTION_CODE", subQueryPropertyName, "myselfDerived", operand, value, parameterPropertyName, option);
+    public void xqderiveMyselfDerived(String fn, SubQuery<LdBlackActionLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pk = "BLACK_ACTION_CODE";
+        String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
+        String prpp = keepQueryMyselfDerivedParameter(vl);
+        registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(LdBlackActionLookupCQ subQuery);
-    public abstract String keepQueryMyselfDerivedParameter(Object parameterValue);
+    public abstract String keepQueryMyselfDerived(LdBlackActionLookupCQ sq);
+    public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
     //                                                                        MyselfExists
@@ -1302,12 +1304,12 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfExists(SubQuery<LdBlackActionLookupCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionLookupCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfExists(cb.query()); // for saving query-value.
-        registerMyselfExists(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(LdBlackActionLookupCQ subQuery);
+    public abstract String keepMyselfExists(LdBlackActionLookupCQ sq);
 
     // ===================================================================================
     //                                                                       MyselfInScope
@@ -1317,12 +1319,12 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @param subQuery The implementation of sub query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdBlackActionLookupCB> subQuery) {
-        assertObjectNotNull("subQuery<LdBlackActionLookupCB>", subQuery);
+        assertObjectNotNull("subQuery", subQuery);
         LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String subQueryPropertyName = keepMyselfInScope(cb.query()); // for saving query-value.
-        registerMyselfInScope(cb.query(), subQueryPropertyName);
+        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        registerMyselfInScope(cb.query(), pp);
     }
-    public abstract String keepMyselfInScope(LdBlackActionLookupCQ subQuery);
+    public abstract String keepMyselfInScope(LdBlackActionLookupCQ sq);
 
     // ===================================================================================
     //                                                                       Very Internal

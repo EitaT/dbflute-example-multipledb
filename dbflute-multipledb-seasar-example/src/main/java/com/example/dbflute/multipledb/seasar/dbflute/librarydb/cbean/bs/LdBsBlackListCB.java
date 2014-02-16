@@ -415,8 +415,8 @@ public class LdBsBlackListCB extends AbstractConditionBean {
         public HpSDRFunction<LdBlackActionCB, LdBlackListCQ> derivedBlackActionList() {
             assertDerived("blackActionList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdBlackActionCB, LdBlackListCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdBlackActionCB, LdBlackListCQ>() {
-                public void setup(String function, SubQuery<LdBlackActionCB> subQuery, LdBlackListCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveBlackActionList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdBlackActionCB> sq, LdBlackListCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveBlackActionList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -425,8 +425,8 @@ public class LdBsBlackListCB extends AbstractConditionBean {
         public HpSDRFunction<LdBlackListCB, LdBlackListCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdBlackListCB, LdBlackListCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdBlackListCB, LdBlackListCQ>() {
-                public void setup(String function, SubQuery<LdBlackListCB> subQuery, LdBlackListCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdBlackListCB> sq, LdBlackListCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

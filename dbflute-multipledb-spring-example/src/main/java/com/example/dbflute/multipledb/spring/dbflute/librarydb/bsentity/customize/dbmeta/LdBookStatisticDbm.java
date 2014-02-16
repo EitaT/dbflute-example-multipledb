@@ -51,44 +51,44 @@ public class LdBookStatisticDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgBookId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getBookId(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setBookId(cti(v)); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getBookId(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setBookId(cti(vl)); }
     }
     public static class EpgBookName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getBookName(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setBookName((String)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getBookName(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setBookName((String)vl); }
     }
     public static class EpgCollectionCount implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getCollectionCount(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setCollectionCount(cti(v)); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getCollectionCount(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setCollectionCount(cti(vl)); }
     }
     public static class EpgOutOfUserSelectYn implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getOutOfUserSelectYn(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setOutOfUserSelectYn((String)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getOutOfUserSelectYn(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setOutOfUserSelectYn((String)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdBookStatistic)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdBookStatistic)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdBookStatistic)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdBookStatistic)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -194,10 +194,10 @@ public class LdBookStatisticDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdBookStatistic)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdBookStatistic)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdBookStatistic)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdBookStatistic)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

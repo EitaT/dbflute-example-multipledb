@@ -335,8 +335,8 @@ public class MbBsMemberStatusCB extends AbstractConditionBean {
         public HpSDRFunction<MbMemberCB, MbMemberStatusCQ> derivedMemberList() {
             assertDerived("memberList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbMemberCB, MbMemberStatusCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbMemberCB, MbMemberStatusCQ>() {
-                public void setup(String function, SubQuery<MbMemberCB> subQuery, MbMemberStatusCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbMemberCB> sq, MbMemberStatusCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)DerivedReferrer. <br />
@@ -355,8 +355,8 @@ public class MbBsMemberStatusCB extends AbstractConditionBean {
         public HpSDRFunction<MbMemberLoginCB, MbMemberStatusCQ> derivedMemberLoginList() {
             assertDerived("memberLoginList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbMemberLoginCB, MbMemberStatusCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbMemberLoginCB, MbMemberStatusCQ>() {
-                public void setup(String function, SubQuery<MbMemberLoginCB> subQuery, MbMemberStatusCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveMemberLoginList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbMemberLoginCB> sq, MbMemberStatusCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveMemberLoginList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -365,8 +365,8 @@ public class MbBsMemberStatusCB extends AbstractConditionBean {
         public HpSDRFunction<MbMemberStatusCB, MbMemberStatusCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<MbMemberStatusCB, MbMemberStatusCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<MbMemberStatusCB, MbMemberStatusCQ>() {
-                public void setup(String function, SubQuery<MbMemberStatusCB> subQuery, MbMemberStatusCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<MbMemberStatusCB> sq, MbMemberStatusCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

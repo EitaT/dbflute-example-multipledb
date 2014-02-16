@@ -445,8 +445,8 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
         public HpSDRFunction<LdCollectionStatusCB, LdCollectionStatusCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdCollectionStatusCB, LdCollectionStatusCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdCollectionStatusCB, LdCollectionStatusCQ>() {
-                public void setup(String function, SubQuery<LdCollectionStatusCB> subQuery, LdCollectionStatusCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdCollectionStatusCB> sq, LdCollectionStatusCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

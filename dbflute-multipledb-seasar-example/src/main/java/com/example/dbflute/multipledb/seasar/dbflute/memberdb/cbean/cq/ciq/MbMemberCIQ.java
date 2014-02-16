@@ -126,15 +126,15 @@ public class MbMemberCIQ extends MbAbstractBsMemberCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepMemberId_QueryDerivedReferrer_MemberAddressList(MbMemberAddressCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepMemberId_QueryDerivedReferrer_MemberAddressListParameter(Object pv)
+    public String keepMemberId_QueryDerivedReferrer_MemberAddressListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepMemberId_QueryDerivedReferrer_MemberLoginList(MbMemberLoginCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepMemberId_QueryDerivedReferrer_MemberLoginListParameter(Object pv)
+    public String keepMemberId_QueryDerivedReferrer_MemberLoginListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepMemberId_QueryDerivedReferrer_PurchaseList(MbPurchaseCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepMemberId_QueryDerivedReferrer_PurchaseListParameter(Object pv)
+    public String keepMemberId_QueryDerivedReferrer_PurchaseListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueMemberName() { return _myCQ.getMemberName(); }
     protected ConditionValue getCValueMemberAccount() { return _myCQ.getMemberAccount(); }
@@ -150,18 +150,18 @@ public class MbMemberCIQ extends MbAbstractBsMemberCQ {
     protected ConditionValue getCValueUpdateDatetime() { return _myCQ.getUpdateDatetime(); }
     protected ConditionValue getCValueUpdateUser() { return _myCQ.getUpdateUser(); }
     protected ConditionValue getCValueVersionNo() { return _myCQ.getVersionNo(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(MbMemberCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MbMemberCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(MbMemberCQ subQuery)
+    public String keepSpecifyMyselfDerived(MbMemberCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(MbMemberCQ subQuery)
+    public String keepQueryMyselfDerived(MbMemberCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(MbMemberCQ subQuery)
+    public String keepMyselfExists(MbMemberCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(MbMemberCQ subQuery)
+    public String keepMyselfInScope(MbMemberCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

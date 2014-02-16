@@ -78,18 +78,18 @@ public class LdMyselfCheckCIQ extends LdAbstractBsMyselfCheckCQ {
     { return _myCQ.keepMyselfId_InScopeRelation_Myself(sq); }
     public String keepMyselfId_NotInScopeRelation_Myself(LdMyselfCQ sq)
     { return _myCQ.keepMyselfId_NotInScopeRelation_Myself(sq); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdMyselfCheckCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdMyselfCheckCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdMyselfCheckCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdMyselfCheckCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdMyselfCheckCQ subQuery)
+    public String keepQueryMyselfDerived(LdMyselfCheckCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdMyselfCheckCQ subQuery)
+    public String keepMyselfExists(LdMyselfCheckCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdMyselfCheckCQ subQuery)
+    public String keepMyselfInScope(LdMyselfCheckCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

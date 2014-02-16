@@ -84,7 +84,7 @@ public class LdCollectionStatusLookupCIQ extends LdAbstractBsCollectionStatusLoo
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusList(LdCollectionStatusCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusListParameter(Object pv)
+    public String keepCollectionStatusCode_QueryDerivedReferrer_CollectionStatusListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueCollectionStatusName() { return _myCQ.getCollectionStatusName(); }
     protected ConditionValue getCValueRUser() { return _myCQ.getRUser(); }
@@ -93,18 +93,18 @@ public class LdCollectionStatusLookupCIQ extends LdAbstractBsCollectionStatusLoo
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdCollectionStatusLookupCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdCollectionStatusLookupCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdCollectionStatusLookupCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdCollectionStatusLookupCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdCollectionStatusLookupCQ subQuery)
+    public String keepQueryMyselfDerived(LdCollectionStatusLookupCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdCollectionStatusLookupCQ subQuery)
+    public String keepMyselfExists(LdCollectionStatusLookupCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdCollectionStatusLookupCQ subQuery)
+    public String keepMyselfInScope(LdCollectionStatusLookupCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

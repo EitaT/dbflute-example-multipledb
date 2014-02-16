@@ -83,57 +83,57 @@ public class LdBsAuthorCQ extends LdAbstractBsAuthorCQ {
 
     protected Map<String, LdBookCQ> _authorId_ExistsReferrer_BookListMap;
     public Map<String, LdBookCQ> getAuthorId_ExistsReferrer_BookList() { return _authorId_ExistsReferrer_BookListMap; }
-    public String keepAuthorId_ExistsReferrer_BookList(LdBookCQ subQuery) {
+    public String keepAuthorId_ExistsReferrer_BookList(LdBookCQ sq) {
         if (_authorId_ExistsReferrer_BookListMap == null) { _authorId_ExistsReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_authorId_ExistsReferrer_BookListMap.size() + 1);
-        _authorId_ExistsReferrer_BookListMap.put(key, subQuery); return "authorId_ExistsReferrer_BookList." + key;
+        String ky = "subQueryMapKey" + (_authorId_ExistsReferrer_BookListMap.size() + 1);
+        _authorId_ExistsReferrer_BookListMap.put(ky, sq); return "authorId_ExistsReferrer_BookList." + ky;
     }
 
     protected Map<String, LdBookCQ> _authorId_NotExistsReferrer_BookListMap;
     public Map<String, LdBookCQ> getAuthorId_NotExistsReferrer_BookList() { return _authorId_NotExistsReferrer_BookListMap; }
-    public String keepAuthorId_NotExistsReferrer_BookList(LdBookCQ subQuery) {
+    public String keepAuthorId_NotExistsReferrer_BookList(LdBookCQ sq) {
         if (_authorId_NotExistsReferrer_BookListMap == null) { _authorId_NotExistsReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_authorId_NotExistsReferrer_BookListMap.size() + 1);
-        _authorId_NotExistsReferrer_BookListMap.put(key, subQuery); return "authorId_NotExistsReferrer_BookList." + key;
+        String ky = "subQueryMapKey" + (_authorId_NotExistsReferrer_BookListMap.size() + 1);
+        _authorId_NotExistsReferrer_BookListMap.put(ky, sq); return "authorId_NotExistsReferrer_BookList." + ky;
     }
 
     protected Map<String, LdBookCQ> _authorId_SpecifyDerivedReferrer_BookListMap;
     public Map<String, LdBookCQ> getAuthorId_SpecifyDerivedReferrer_BookList() { return _authorId_SpecifyDerivedReferrer_BookListMap; }
-    public String keepAuthorId_SpecifyDerivedReferrer_BookList(LdBookCQ subQuery) {
+    public String keepAuthorId_SpecifyDerivedReferrer_BookList(LdBookCQ sq) {
         if (_authorId_SpecifyDerivedReferrer_BookListMap == null) { _authorId_SpecifyDerivedReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_authorId_SpecifyDerivedReferrer_BookListMap.size() + 1);
-        _authorId_SpecifyDerivedReferrer_BookListMap.put(key, subQuery); return "authorId_SpecifyDerivedReferrer_BookList." + key;
+        String ky = "subQueryMapKey" + (_authorId_SpecifyDerivedReferrer_BookListMap.size() + 1);
+        _authorId_SpecifyDerivedReferrer_BookListMap.put(ky, sq); return "authorId_SpecifyDerivedReferrer_BookList." + ky;
     }
 
     protected Map<String, LdBookCQ> _authorId_InScopeRelation_BookListMap;
     public Map<String, LdBookCQ> getAuthorId_InScopeRelation_BookList() { return _authorId_InScopeRelation_BookListMap; }
-    public String keepAuthorId_InScopeRelation_BookList(LdBookCQ subQuery) {
+    public String keepAuthorId_InScopeRelation_BookList(LdBookCQ sq) {
         if (_authorId_InScopeRelation_BookListMap == null) { _authorId_InScopeRelation_BookListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_authorId_InScopeRelation_BookListMap.size() + 1);
-        _authorId_InScopeRelation_BookListMap.put(key, subQuery); return "authorId_InScopeRelation_BookList." + key;
+        String ky = "subQueryMapKey" + (_authorId_InScopeRelation_BookListMap.size() + 1);
+        _authorId_InScopeRelation_BookListMap.put(ky, sq); return "authorId_InScopeRelation_BookList." + ky;
     }
 
     protected Map<String, LdBookCQ> _authorId_NotInScopeRelation_BookListMap;
     public Map<String, LdBookCQ> getAuthorId_NotInScopeRelation_BookList() { return _authorId_NotInScopeRelation_BookListMap; }
-    public String keepAuthorId_NotInScopeRelation_BookList(LdBookCQ subQuery) {
+    public String keepAuthorId_NotInScopeRelation_BookList(LdBookCQ sq) {
         if (_authorId_NotInScopeRelation_BookListMap == null) { _authorId_NotInScopeRelation_BookListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_authorId_NotInScopeRelation_BookListMap.size() + 1);
-        _authorId_NotInScopeRelation_BookListMap.put(key, subQuery); return "authorId_NotInScopeRelation_BookList." + key;
+        String ky = "subQueryMapKey" + (_authorId_NotInScopeRelation_BookListMap.size() + 1);
+        _authorId_NotInScopeRelation_BookListMap.put(ky, sq); return "authorId_NotInScopeRelation_BookList." + ky;
     }
 
     protected Map<String, LdBookCQ> _authorId_QueryDerivedReferrer_BookListMap;
     public Map<String, LdBookCQ> getAuthorId_QueryDerivedReferrer_BookList() { return _authorId_QueryDerivedReferrer_BookListMap; }
-    public String keepAuthorId_QueryDerivedReferrer_BookList(LdBookCQ subQuery) {
+    public String keepAuthorId_QueryDerivedReferrer_BookList(LdBookCQ sq) {
         if (_authorId_QueryDerivedReferrer_BookListMap == null) { _authorId_QueryDerivedReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_authorId_QueryDerivedReferrer_BookListMap.size() + 1);
-        _authorId_QueryDerivedReferrer_BookListMap.put(key, subQuery); return "authorId_QueryDerivedReferrer_BookList." + key;
+        String ky = "subQueryMapKey" + (_authorId_QueryDerivedReferrer_BookListMap.size() + 1);
+        _authorId_QueryDerivedReferrer_BookListMap.put(ky, sq); return "authorId_QueryDerivedReferrer_BookList." + ky;
     }
     protected Map<String, Object> _authorId_QueryDerivedReferrer_BookListParameterMap;
     public Map<String, Object> getAuthorId_QueryDerivedReferrer_BookListParameter() { return _authorId_QueryDerivedReferrer_BookListParameterMap; }
-    public String keepAuthorId_QueryDerivedReferrer_BookListParameter(Object parameterValue) {
+    public String keepAuthorId_QueryDerivedReferrer_BookListParameter(Object vl) {
         if (_authorId_QueryDerivedReferrer_BookListParameterMap == null) { _authorId_QueryDerivedReferrer_BookListParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_authorId_QueryDerivedReferrer_BookListParameterMap.size() + 1);
-        _authorId_QueryDerivedReferrer_BookListParameterMap.put(key, parameterValue); return "authorId_QueryDerivedReferrer_BookListParameter." + key;
+        String ky = "subQueryParameterKey" + (_authorId_QueryDerivedReferrer_BookListParameterMap.size() + 1);
+        _authorId_QueryDerivedReferrer_BookListParameterMap.put(ky, vl); return "authorId_QueryDerivedReferrer_BookListParameter." + ky;
     }
 
     /** 
@@ -358,7 +358,7 @@ public class LdBsAuthorCQ extends LdAbstractBsAuthorCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
     }
 
     // ===================================================================================
@@ -373,10 +373,10 @@ public class LdBsAuthorCQ extends LdAbstractBsAuthorCQ {
     //                                                                     ===============
     protected Map<String, LdAuthorCQ> _scalarConditionMap;
     public Map<String, LdAuthorCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdAuthorCQ subQuery) {
+    public String keepScalarCondition(LdAuthorCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -384,25 +384,25 @@ public class LdBsAuthorCQ extends LdAbstractBsAuthorCQ {
     //                                                                       =============
     protected Map<String, LdAuthorCQ> _specifyMyselfDerivedMap;
     public Map<String, LdAuthorCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdAuthorCQ subQuery) {
+    public String keepSpecifyMyselfDerived(LdAuthorCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, LdAuthorCQ> _queryMyselfDerivedMap;
     public Map<String, LdAuthorCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdAuthorCQ subQuery) {
+    public String keepQueryMyselfDerived(LdAuthorCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -410,10 +410,10 @@ public class LdBsAuthorCQ extends LdAbstractBsAuthorCQ {
     //                                                                        ============
     protected Map<String, LdAuthorCQ> _myselfExistsMap;
     public Map<String, LdAuthorCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdAuthorCQ subQuery) {
+    public String keepMyselfExists(LdAuthorCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -421,10 +421,10 @@ public class LdBsAuthorCQ extends LdAbstractBsAuthorCQ {
     //                                                                       =============
     protected Map<String, LdAuthorCQ> _myselfInScopeMap;
     public Map<String, LdAuthorCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdAuthorCQ subQuery) {
+    public String keepMyselfInScope(LdAuthorCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

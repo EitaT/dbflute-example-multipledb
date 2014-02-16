@@ -52,48 +52,48 @@ public class LdGenreDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgGenreCode implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getGenreCode(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setGenreCode((String)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getGenreCode(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setGenreCode((String)vl); }
     }
     public static class EpgGenreName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getGenreName(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setGenreName((String)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getGenreName(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setGenreName((String)vl); }
     }
     public static class EpgHierarchyLevel implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getHierarchyLevel(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setHierarchyLevel(ctb(v)); }
+        public Object read(Entity et) { return ((LdGenre)et).getHierarchyLevel(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setHierarchyLevel(ctb(vl)); }
     }
     public static class EpgHierarchyOrder implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getHierarchyOrder(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setHierarchyOrder(ctb(v)); }
+        public Object read(Entity et) { return ((LdGenre)et).getHierarchyOrder(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setHierarchyOrder(ctb(vl)); }
     }
     public static class EpgParentGenreCode implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getParentGenreCode(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setParentGenreCode((String)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getParentGenreCode(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setParentGenreCode((String)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdGenre)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdGenre)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdGenre)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -169,20 +169,20 @@ public class LdGenreDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignGenreSelf() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnParentGenreCode(), LdGenreDbm.getInstance().columnGenreCode());
-        return cfi("FK_GENRE_GENRE", "genreSelf", this, LdGenreDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "genreSelfList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParentGenreCode(), LdGenreDbm.getInstance().columnGenreCode());
+        return cfi("FK_GENRE_GENRE", "genreSelf", this, LdGenreDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "genreSelfList");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerBookList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnGenreCode(), LdBookDbm.getInstance().columnGenreCode());
-        return cri("FK_BOOK_GENRE", "bookList", this, LdBookDbm.getInstance(), map, false, "genre");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGenreCode(), LdBookDbm.getInstance().columnGenreCode());
+        return cri("FK_BOOK_GENRE", "bookList", this, LdBookDbm.getInstance(), mp, false, "genre");
     }
     public ReferrerInfo referrerGenreSelfList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnGenreCode(), LdGenreDbm.getInstance().columnParentGenreCode());
-        return cri("FK_GENRE_GENRE", "genreSelfList", this, LdGenreDbm.getInstance(), map, false, "genreSelf");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGenreCode(), LdGenreDbm.getInstance().columnParentGenreCode());
+        return cri("FK_GENRE_GENRE", "genreSelfList", this, LdGenreDbm.getInstance(), mp, false, "genreSelf");
     }
 
     // ===================================================================================
@@ -219,10 +219,10 @@ public class LdGenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdGenre)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdGenre)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdGenre)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdGenre)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

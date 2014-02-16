@@ -425,8 +425,8 @@ public class LdBsGenreCB extends AbstractConditionBean {
         public HpSDRFunction<LdBookCB, LdGenreCQ> derivedBookList() {
             assertDerived("bookList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdBookCB, LdGenreCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdBookCB, LdGenreCQ>() {
-                public void setup(String function, SubQuery<LdBookCB> subQuery, LdGenreCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveBookList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdBookCB> sq, LdGenreCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveBookList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)DerivedReferrer. <br />
@@ -445,8 +445,8 @@ public class LdBsGenreCB extends AbstractConditionBean {
         public HpSDRFunction<LdGenreCB, LdGenreCQ> derivedGenreSelfList() {
             assertDerived("genreSelfList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdGenreCB, LdGenreCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdGenreCB, LdGenreCQ>() {
-                public void setup(String function, SubQuery<LdGenreCB> subQuery, LdGenreCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveGenreSelfList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdGenreCB> sq, LdGenreCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveGenreSelfList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -455,8 +455,8 @@ public class LdBsGenreCB extends AbstractConditionBean {
         public HpSDRFunction<LdGenreCB, LdGenreCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdGenreCB, LdGenreCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdGenreCB, LdGenreCQ>() {
-                public void setup(String function, SubQuery<LdGenreCB> subQuery, LdGenreCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdGenreCB> sq, LdGenreCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

@@ -83,18 +83,18 @@ public class LdBsCollectionStatusCQ extends LdAbstractBsCollectionStatusCQ {
 
     protected Map<String, LdCollectionCQ> _collectionId_InScopeRelation_CollectionMap;
     public Map<String, LdCollectionCQ> getCollectionId_InScopeRelation_Collection() { return _collectionId_InScopeRelation_CollectionMap; }
-    public String keepCollectionId_InScopeRelation_Collection(LdCollectionCQ subQuery) {
+    public String keepCollectionId_InScopeRelation_Collection(LdCollectionCQ sq) {
         if (_collectionId_InScopeRelation_CollectionMap == null) { _collectionId_InScopeRelation_CollectionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_collectionId_InScopeRelation_CollectionMap.size() + 1);
-        _collectionId_InScopeRelation_CollectionMap.put(key, subQuery); return "collectionId_InScopeRelation_Collection." + key;
+        String ky = "subQueryMapKey" + (_collectionId_InScopeRelation_CollectionMap.size() + 1);
+        _collectionId_InScopeRelation_CollectionMap.put(ky, sq); return "collectionId_InScopeRelation_Collection." + ky;
     }
 
     protected Map<String, LdCollectionCQ> _collectionId_NotInScopeRelation_CollectionMap;
     public Map<String, LdCollectionCQ> getCollectionId_NotInScopeRelation_Collection() { return _collectionId_NotInScopeRelation_CollectionMap; }
-    public String keepCollectionId_NotInScopeRelation_Collection(LdCollectionCQ subQuery) {
+    public String keepCollectionId_NotInScopeRelation_Collection(LdCollectionCQ sq) {
         if (_collectionId_NotInScopeRelation_CollectionMap == null) { _collectionId_NotInScopeRelation_CollectionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_collectionId_NotInScopeRelation_CollectionMap.size() + 1);
-        _collectionId_NotInScopeRelation_CollectionMap.put(key, subQuery); return "collectionId_NotInScopeRelation_Collection." + key;
+        String ky = "subQueryMapKey" + (_collectionId_NotInScopeRelation_CollectionMap.size() + 1);
+        _collectionId_NotInScopeRelation_CollectionMap.put(ky, sq); return "collectionId_NotInScopeRelation_Collection." + ky;
     }
 
     /** 
@@ -120,18 +120,18 @@ public class LdBsCollectionStatusCQ extends LdAbstractBsCollectionStatusCQ {
 
     protected Map<String, LdCollectionStatusLookupCQ> _collectionStatusCode_InScopeRelation_CollectionStatusLookupMap;
     public Map<String, LdCollectionStatusLookupCQ> getCollectionStatusCode_InScopeRelation_CollectionStatusLookup() { return _collectionStatusCode_InScopeRelation_CollectionStatusLookupMap; }
-    public String keepCollectionStatusCode_InScopeRelation_CollectionStatusLookup(LdCollectionStatusLookupCQ subQuery) {
+    public String keepCollectionStatusCode_InScopeRelation_CollectionStatusLookup(LdCollectionStatusLookupCQ sq) {
         if (_collectionStatusCode_InScopeRelation_CollectionStatusLookupMap == null) { _collectionStatusCode_InScopeRelation_CollectionStatusLookupMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_collectionStatusCode_InScopeRelation_CollectionStatusLookupMap.size() + 1);
-        _collectionStatusCode_InScopeRelation_CollectionStatusLookupMap.put(key, subQuery); return "collectionStatusCode_InScopeRelation_CollectionStatusLookup." + key;
+        String ky = "subQueryMapKey" + (_collectionStatusCode_InScopeRelation_CollectionStatusLookupMap.size() + 1);
+        _collectionStatusCode_InScopeRelation_CollectionStatusLookupMap.put(ky, sq); return "collectionStatusCode_InScopeRelation_CollectionStatusLookup." + ky;
     }
 
     protected Map<String, LdCollectionStatusLookupCQ> _collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap;
     public Map<String, LdCollectionStatusLookupCQ> getCollectionStatusCode_NotInScopeRelation_CollectionStatusLookup() { return _collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap; }
-    public String keepCollectionStatusCode_NotInScopeRelation_CollectionStatusLookup(LdCollectionStatusLookupCQ subQuery) {
+    public String keepCollectionStatusCode_NotInScopeRelation_CollectionStatusLookup(LdCollectionStatusLookupCQ sq) {
         if (_collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap == null) { _collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap.size() + 1);
-        _collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap.put(key, subQuery); return "collectionStatusCode_NotInScopeRelation_CollectionStatusLookup." + key;
+        String ky = "subQueryMapKey" + (_collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap.size() + 1);
+        _collectionStatusCode_NotInScopeRelation_CollectionStatusLookupMap.put(ky, sq); return "collectionStatusCode_NotInScopeRelation_CollectionStatusLookup." + ky;
     }
 
     /** 
@@ -314,14 +314,14 @@ public class LdBsCollectionStatusCQ extends LdAbstractBsCollectionStatusCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdCollectionStatusCQ baseQuery = (LdCollectionStatusCQ)baseQueryAsSuper;
-        LdCollectionStatusCQ unionQuery = (LdCollectionStatusCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryCollection()) {
-            unionQuery.queryCollection().reflectRelationOnUnionQuery(baseQuery.queryCollection(), unionQuery.queryCollection());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdCollectionStatusCQ bq = (LdCollectionStatusCQ)bqs;
+        LdCollectionStatusCQ uq = (LdCollectionStatusCQ)uqs;
+        if (bq.hasConditionQueryCollection()) {
+            uq.queryCollection().reflectRelationOnUnionQuery(bq.queryCollection(), uq.queryCollection());
         }
-        if (baseQuery.hasConditionQueryCollectionStatusLookup()) {
-            unionQuery.queryCollectionStatusLookup().reflectRelationOnUnionQuery(baseQuery.queryCollectionStatusLookup(), unionQuery.queryCollectionStatusLookup());
+        if (bq.hasConditionQueryCollectionStatusLookup()) {
+            uq.queryCollectionStatusLookup().reflectRelationOnUnionQuery(bq.queryCollectionStatusLookup(), uq.queryCollectionStatusLookup());
         }
     }
 
@@ -405,10 +405,10 @@ public class LdBsCollectionStatusCQ extends LdAbstractBsCollectionStatusCQ {
     //                                                                     ===============
     protected Map<String, LdCollectionStatusCQ> _scalarConditionMap;
     public Map<String, LdCollectionStatusCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdCollectionStatusCQ subQuery) {
+    public String keepScalarCondition(LdCollectionStatusCQ sq) {
         if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(key, subQuery); return "scalarCondition." + key;
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
     }
 
     // ===================================================================================
@@ -416,25 +416,25 @@ public class LdBsCollectionStatusCQ extends LdAbstractBsCollectionStatusCQ {
     //                                                                       =============
     protected Map<String, LdCollectionStatusCQ> _specifyMyselfDerivedMap;
     public Map<String, LdCollectionStatusCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdCollectionStatusCQ subQuery) {
+    public String keepSpecifyMyselfDerived(LdCollectionStatusCQ sq) {
         if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(key, subQuery); return "specifyMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
+        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
     }
 
     protected Map<String, LdCollectionStatusCQ> _queryMyselfDerivedMap;
     public Map<String, LdCollectionStatusCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdCollectionStatusCQ subQuery) {
+    public String keepQueryMyselfDerived(LdCollectionStatusCQ sq) {
         if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(key, subQuery); return "queryMyselfDerived." + key;
+        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
+        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
     }
     protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
     public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object parameterValue) {
+    public String keepQueryMyselfDerivedParameter(Object vl) {
         if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String key = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(key, parameterValue); return "queryMyselfDerivedParameter." + key;
+        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
+        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
     }
 
     // ===================================================================================
@@ -442,10 +442,10 @@ public class LdBsCollectionStatusCQ extends LdAbstractBsCollectionStatusCQ {
     //                                                                        ============
     protected Map<String, LdCollectionStatusCQ> _myselfExistsMap;
     public Map<String, LdCollectionStatusCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdCollectionStatusCQ subQuery) {
+    public String keepMyselfExists(LdCollectionStatusCQ sq) {
         if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(key, subQuery); return "myselfExists." + key;
+        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
+        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
     }
 
     // ===================================================================================
@@ -453,10 +453,10 @@ public class LdBsCollectionStatusCQ extends LdAbstractBsCollectionStatusCQ {
     //                                                                       =============
     protected Map<String, LdCollectionStatusCQ> _myselfInScopeMap;
     public Map<String, LdCollectionStatusCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdCollectionStatusCQ subQuery) {
+    public String keepMyselfInScope(LdCollectionStatusCQ sq) {
         if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(key, subQuery); return "myselfInScope." + key;
+        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
+        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
     }
 
     // ===================================================================================

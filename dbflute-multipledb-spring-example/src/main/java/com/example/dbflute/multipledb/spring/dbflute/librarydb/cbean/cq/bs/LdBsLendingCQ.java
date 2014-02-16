@@ -303,11 +303,11 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdLendingCQ baseQuery = (LdLendingCQ)baseQueryAsSuper;
-        LdLendingCQ unionQuery = (LdLendingCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryLibraryUser()) {
-            unionQuery.queryLibraryUser().reflectRelationOnUnionQuery(baseQuery.queryLibraryUser(), unionQuery.queryLibraryUser());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdLendingCQ bq = (LdLendingCQ)bqs;
+        LdLendingCQ uq = (LdLendingCQ)uqs;
+        if (bq.hasConditionQueryLibraryUser()) {
+            uq.queryLibraryUser().reflectRelationOnUnionQuery(bq.queryLibraryUser(), uq.queryLibraryUser());
         }
     }
 
@@ -364,15 +364,15 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public void existsLendingCollectionList(SubQuery<LdLendingCollectionCB> subQuery) {
         assertObjectNotNull("subQuery<LdLendingCollectionCB>", subQuery);
         LdLendingCollectionCB cb = new LdLendingCollectionCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String subQueryPropertyName = keepTwoOrMorePk_ExistsReferrer_LendingCollectionList(cb.query()); // for saving query-value.
-        registerExistsReferrer(cb.query(), "LIBRARY_ID, LB_USER_ID, LENDING_DATE", "LIBRARY_ID, LB_USER_ID, LENDING_DATE", subQueryPropertyName, "lendingCollectionList");
+        String pp = keepTwoOrMorePk_ExistsReferrer_LendingCollectionList(cb.query()); // for saving query-value.
+        registerExistsReferrer(cb.query(), "LIBRARY_ID, LB_USER_ID, LENDING_DATE", "LIBRARY_ID, LB_USER_ID, LENDING_DATE", pp, "lendingCollectionList");
     }
     protected Map<String, LdLendingCollectionCQ> _twoOrMorePk_ExistsReferrer_LendingCollectionListMap;
     public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_ExistsReferrer_LendingCollectionList() { return _twoOrMorePk_ExistsReferrer_LendingCollectionListMap; }
-    public String keepTwoOrMorePk_ExistsReferrer_LendingCollectionList(LdLendingCollectionCQ subQuery) {
+    public String keepTwoOrMorePk_ExistsReferrer_LendingCollectionList(LdLendingCollectionCQ sq) {
         if (_twoOrMorePk_ExistsReferrer_LendingCollectionListMap == null) { _twoOrMorePk_ExistsReferrer_LendingCollectionListMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_twoOrMorePk_ExistsReferrer_LendingCollectionListMap.size() + 1);
-        _twoOrMorePk_ExistsReferrer_LendingCollectionListMap.put(key, subQuery); return "twoOrMorePk_ExistsReferrer_LendingCollectionList." + key;
+        String ky = "subQueryMapKey" + (_twoOrMorePk_ExistsReferrer_LendingCollectionListMap.size() + 1);
+        _twoOrMorePk_ExistsReferrer_LendingCollectionListMap.put(ky, sq); return "twoOrMorePk_ExistsReferrer_LendingCollectionList." + ky;
     }
 
     // ===================================================================================

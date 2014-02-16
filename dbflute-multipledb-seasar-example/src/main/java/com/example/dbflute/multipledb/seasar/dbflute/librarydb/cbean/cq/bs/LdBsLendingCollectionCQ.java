@@ -146,18 +146,18 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
 
     protected Map<String, LdCollectionCQ> _collectionId_InScopeRelation_CollectionMap;
     public Map<String, LdCollectionCQ> getCollectionId_InScopeRelation_Collection() { return _collectionId_InScopeRelation_CollectionMap; }
-    public String keepCollectionId_InScopeRelation_Collection(LdCollectionCQ subQuery) {
+    public String keepCollectionId_InScopeRelation_Collection(LdCollectionCQ sq) {
         if (_collectionId_InScopeRelation_CollectionMap == null) { _collectionId_InScopeRelation_CollectionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_collectionId_InScopeRelation_CollectionMap.size() + 1);
-        _collectionId_InScopeRelation_CollectionMap.put(key, subQuery); return "collectionId_InScopeRelation_Collection." + key;
+        String ky = "subQueryMapKey" + (_collectionId_InScopeRelation_CollectionMap.size() + 1);
+        _collectionId_InScopeRelation_CollectionMap.put(ky, sq); return "collectionId_InScopeRelation_Collection." + ky;
     }
 
     protected Map<String, LdCollectionCQ> _collectionId_NotInScopeRelation_CollectionMap;
     public Map<String, LdCollectionCQ> getCollectionId_NotInScopeRelation_Collection() { return _collectionId_NotInScopeRelation_CollectionMap; }
-    public String keepCollectionId_NotInScopeRelation_Collection(LdCollectionCQ subQuery) {
+    public String keepCollectionId_NotInScopeRelation_Collection(LdCollectionCQ sq) {
         if (_collectionId_NotInScopeRelation_CollectionMap == null) { _collectionId_NotInScopeRelation_CollectionMap = newLinkedHashMapSized(4); }
-        String key = "subQueryMapKey" + (_collectionId_NotInScopeRelation_CollectionMap.size() + 1);
-        _collectionId_NotInScopeRelation_CollectionMap.put(key, subQuery); return "collectionId_NotInScopeRelation_Collection." + key;
+        String ky = "subQueryMapKey" + (_collectionId_NotInScopeRelation_CollectionMap.size() + 1);
+        _collectionId_NotInScopeRelation_CollectionMap.put(ky, sq); return "collectionId_NotInScopeRelation_Collection." + ky;
     }
 
     /** 
@@ -361,17 +361,17 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery baseQueryAsSuper, ConditionQuery unionQueryAsSuper) {
-        LdLendingCollectionCQ baseQuery = (LdLendingCollectionCQ)baseQueryAsSuper;
-        LdLendingCollectionCQ unionQuery = (LdLendingCollectionCQ)unionQueryAsSuper;
-        if (baseQuery.hasConditionQueryCollection()) {
-            unionQuery.queryCollection().reflectRelationOnUnionQuery(baseQuery.queryCollection(), unionQuery.queryCollection());
+    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        LdLendingCollectionCQ bq = (LdLendingCollectionCQ)bqs;
+        LdLendingCollectionCQ uq = (LdLendingCollectionCQ)uqs;
+        if (bq.hasConditionQueryCollection()) {
+            uq.queryCollection().reflectRelationOnUnionQuery(bq.queryCollection(), uq.queryCollection());
         }
-        if (baseQuery.hasConditionQueryLending()) {
-            unionQuery.queryLending().reflectRelationOnUnionQuery(baseQuery.queryLending(), unionQuery.queryLending());
+        if (bq.hasConditionQueryLending()) {
+            uq.queryLending().reflectRelationOnUnionQuery(bq.queryLending(), uq.queryLending());
         }
-        if (baseQuery.hasConditionQueryLibraryUser()) {
-            unionQuery.queryLibraryUser().reflectRelationOnUnionQuery(baseQuery.queryLibraryUser(), unionQuery.queryLibraryUser());
+        if (bq.hasConditionQueryLibraryUser()) {
+            uq.queryLibraryUser().reflectRelationOnUnionQuery(bq.queryLibraryUser(), uq.queryLibraryUser());
         }
     }
 

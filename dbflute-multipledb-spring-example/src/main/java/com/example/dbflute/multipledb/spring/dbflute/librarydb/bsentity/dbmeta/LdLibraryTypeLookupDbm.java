@@ -49,36 +49,36 @@ public class LdLibraryTypeLookupDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgLibraryTypeCode implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getLibraryTypeCode(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setLibraryTypeCode((String)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getLibraryTypeCode(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setLibraryTypeCode((String)vl); }
     }
     public static class EpgLibraryTypeName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getLibraryTypeName(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setLibraryTypeName((String)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getLibraryTypeName(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setLibraryTypeName((String)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLibraryTypeLookup)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdLibraryTypeLookup)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdLibraryTypeLookup)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdLibraryTypeLookup)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -149,8 +149,8 @@ public class LdLibraryTypeLookupDbm extends AbstractDBMeta {
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerLibraryList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnLibraryTypeCode(), LdLibraryDbm.getInstance().columnLibraryTypeCode());
-        return cri("FK_LIBRARY_LIBRARY_TYPE_LOOKUP", "libraryList", this, LdLibraryDbm.getInstance(), map, false, "libraryTypeLookup");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLibraryTypeCode(), LdLibraryDbm.getInstance().columnLibraryTypeCode());
+        return cri("FK_LIBRARY_LIBRARY_TYPE_LOOKUP", "libraryList", this, LdLibraryDbm.getInstance(), mp, false, "libraryTypeLookup");
     }
 
     // ===================================================================================
@@ -180,10 +180,10 @@ public class LdLibraryTypeLookupDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdLibraryTypeLookup)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdLibraryTypeLookup)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdLibraryTypeLookup)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdLibraryTypeLookup)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

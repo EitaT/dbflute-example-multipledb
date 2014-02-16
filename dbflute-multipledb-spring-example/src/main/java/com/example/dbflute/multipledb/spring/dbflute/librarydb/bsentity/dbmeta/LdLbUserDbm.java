@@ -50,40 +50,40 @@ public class LdLbUserDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgLbUserId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getLbUserId(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setLbUserId(cti(v)); }
+        public Object read(Entity et) { return ((LdLbUser)et).getLbUserId(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setLbUserId(cti(vl)); }
     }
     public static class EpgLbUserName implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getLbUserName(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setLbUserName((String)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getLbUserName(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setLbUserName((String)vl); }
     }
     public static class EpgUserPassword implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getUserPassword(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setUserPassword((String)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getUserPassword(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setUserPassword((String)vl); }
     }
     public static class EpgRUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getRUser(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setRUser((String)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getRUser(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setRUser((String)vl); }
     }
     public static class EpgRModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getRModule(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setRModule((String)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getRModule(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setRModule((String)vl); }
     }
     public static class EpgRTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getRTimestamp(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setRTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getRTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setRTimestamp((java.sql.Timestamp)vl); }
     }
     public static class EpgUUser implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getUUser(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setUUser((String)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getUUser(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setUUser((String)vl); }
     }
     public static class EpgUModule implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getUModule(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setUModule((String)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getUModule(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setUModule((String)vl); }
     }
     public static class EpgUTimestamp implements PropertyGateway {
-        public Object read(Entity e) { return ((LdLbUser)e).getUTimestamp(); }
-        public void write(Entity e, Object v) { ((LdLbUser)e).setUTimestamp((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((LdLbUser)et).getUTimestamp(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
 
     // ===================================================================================
@@ -153,16 +153,16 @@ public class LdLbUserDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignBlackListAsOne() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnLbUserId(), LdBlackListDbm.getInstance().columnLbUserId());
-        return cfi("FK_BLACK_LIST_LB_USER", "blackListAsOne", this, LdBlackListDbm.getInstance(), map, 0, true, false, true, false, null, null, false, "lbUser");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLbUserId(), LdBlackListDbm.getInstance().columnLbUserId());
+        return cfi("FK_BLACK_LIST_LB_USER", "blackListAsOne", this, LdBlackListDbm.getInstance(), mp, 0, true, false, true, false, null, null, false, "lbUser");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerLibraryUserList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnLbUserId(), LdLibraryUserDbm.getInstance().columnLbUserId());
-        return cri("FK_LIBRARY_USER_LB_USER", "libraryUserList", this, LdLibraryUserDbm.getInstance(), map, false, "lbUser");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLbUserId(), LdLibraryUserDbm.getInstance().columnLbUserId());
+        return cri("FK_LIBRARY_USER_LB_USER", "libraryUserList", this, LdLibraryUserDbm.getInstance(), mp, false, "lbUser");
     }
 
     // ===================================================================================
@@ -193,10 +193,10 @@ public class LdLbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdLbUser)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdLbUser)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdLbUser)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdLbUser)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

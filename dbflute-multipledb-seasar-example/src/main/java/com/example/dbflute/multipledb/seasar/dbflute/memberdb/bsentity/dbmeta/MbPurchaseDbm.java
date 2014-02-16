@@ -51,52 +51,52 @@ public class MbPurchaseDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgPurchaseId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getPurchaseId(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setPurchaseId(ctl(v)); }
+        public Object read(Entity et) { return ((MbPurchase)et).getPurchaseId(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setPurchaseId(ctl(vl)); }
     }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbPurchase)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setMemberId(cti(vl)); }
     }
     public static class EpgProductId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getProductId(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setProductId(cti(v)); }
+        public Object read(Entity et) { return ((MbPurchase)et).getProductId(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setProductId(cti(vl)); }
     }
     public static class EpgPurchaseDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getPurchaseDatetime(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setPurchaseDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbPurchase)et).getPurchaseDatetime(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setPurchaseDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgPurchaseCount implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getPurchaseCount(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setPurchaseCount(cti(v)); }
+        public Object read(Entity et) { return ((MbPurchase)et).getPurchaseCount(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setPurchaseCount(cti(vl)); }
     }
     public static class EpgPurchasePrice implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getPurchasePrice(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setPurchasePrice(cti(v)); }
+        public Object read(Entity et) { return ((MbPurchase)et).getPurchasePrice(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setPurchasePrice(cti(vl)); }
     }
     public static class EpgPaymentCompleteFlg implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getPaymentCompleteFlg(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setPaymentCompleteFlg(cti(v)); }
+        public Object read(Entity et) { return ((MbPurchase)et).getPaymentCompleteFlg(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setPaymentCompleteFlg(cti(vl)); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbPurchase)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((MbPurchase)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbPurchase)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((MbPurchase)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setUpdateUser((String)vl); }
     }
     public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity e) { return ((MbPurchase)e).getVersionNo(); }
-        public void write(Entity e, Object v) { ((MbPurchase)e).setVersionNo(ctl(v)); }
+        public Object read(Entity et) { return ((MbPurchase)et).getVersionNo(); }
+        public void write(Entity et, Object vl) { ((MbPurchase)et).setVersionNo(ctl(vl)); }
     }
 
     // ===================================================================================
@@ -175,12 +175,12 @@ public class MbPurchaseDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMember() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
-        return cfi("FK_PURCHASE_MEMBER", "member", this, MbMemberDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "purchaseList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
+        return cfi("FK_PURCHASE_MEMBER", "member", this, MbMemberDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "purchaseList");
     }
     public ForeignInfo foreignProduct() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductId(), MbProductDbm.getInstance().columnProductId());
-        return cfi("FK_PURCHASE_PRODUCT", "product", this, MbProductDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "purchaseList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductId(), MbProductDbm.getInstance().columnProductId());
+        return cfi("FK_PURCHASE_PRODUCT", "product", this, MbProductDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "purchaseList");
     }
 
     // -----------------------------------------------------
@@ -222,10 +222,10 @@ public class MbPurchaseDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbPurchase)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbPurchase)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbPurchase)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbPurchase)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

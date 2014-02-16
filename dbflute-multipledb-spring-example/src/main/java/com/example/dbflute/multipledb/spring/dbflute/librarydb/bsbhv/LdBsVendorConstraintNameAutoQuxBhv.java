@@ -19,28 +19,28 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
  * <pre>
  * [primary key]
  *     CONSTRAINT_NAME_AUTO_QUX_ID
- * 
+ *
  * [column]
  *     CONSTRAINT_NAME_AUTO_QUX_ID, CONSTRAINT_NAME_AUTO_QUX_NAME
- * 
+ *
  * [sequence]
  *     
- * 
+ *
  * [identity]
  *     
- * 
+ *
  * [version-no]
  *     
- * 
+ *
  * [foreign table]
  *     
- * 
+ *
  * [referrer table]
  *     VENDOR_CONSTRAINT_NAME_AUTO_REF
- * 
+ *
  * [foreign property]
  *     
- * 
+ *
  * [referrer property]
  *     vendorConstraintNameAutoRefList
  * </pre>
@@ -102,7 +102,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doSelectCountUniquely(cb);
     }
 
-    protected int doSelectCountUniquely(LdVendorConstraintNameAutoQuxCB cb) { // called by selectCount(cb) 
+    protected int doSelectCountUniquely(LdVendorConstraintNameAutoQuxCB cb) { // called by selectCount(cb)
         assertCBStateValid(cb);
         return delegateSelectCountUniquely(cb);
     }
@@ -141,10 +141,10 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doSelectEntity(cb, LdVendorConstraintNameAutoQux.class);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoQux> ENTITY doSelectEntity(final LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends LdVendorConstraintNameAutoQux> ENTITY doSelectEntity(final LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityInternally(cb, entityType, new InternalSelectEntityCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
-            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
+            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doSelectEntityWithDeletedCheck(cb, LdVendorConstraintNameAutoQux.class);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoQux> ENTITY doSelectEntityWithDeletedCheck(final LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) {
+    protected <ENTITY extends LdVendorConstraintNameAutoQux> ENTITY doSelectEntityWithDeletedCheck(final LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb);
-        return helpSelectEntityWithDeletedCheckInternally(cb, entityType, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
-            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
+            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
     }
 
     @Override
@@ -241,11 +241,11 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doSelectList(cb, LdVendorConstraintNameAutoQux.class);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoQux> ListResultBean<ENTITY> doSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        return helpSelectListInternally(cb, entityType, new InternalSelectListCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
-            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) { return delegateSelectList(cb, entityType); } });
+    protected <ENTITY extends LdVendorConstraintNameAutoQux> ListResultBean<ENTITY> doSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
+            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
     }
 
     @Override
@@ -282,11 +282,11 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doSelectPage(cb, LdVendorConstraintNameAutoQux.class);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoQux> PagingResultBean<ENTITY> doSelectPage(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", entityType);
-        return helpSelectPageInternally(cb, entityType, new InternalSelectPageCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
+    protected <ENTITY extends LdVendorConstraintNameAutoQux> PagingResultBean<ENTITY> doSelectPage(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
+        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
             public int callbackSelectCount(LdVendorConstraintNameAutoQuxCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -316,12 +316,12 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         doSelectCursor(cb, entityRowHandler, LdVendorConstraintNameAutoQux.class);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoQux> void doSelectCursor(LdVendorConstraintNameAutoQuxCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler<LdVendorConstraintNameAutoQux>", entityRowHandler); assertObjectNotNull("entityType", entityType);
-        assertSpecifyDerivedReferrerEntityProperty(cb, entityType);
-        helpSelectCursorInternally(cb, entityRowHandler, entityType, new InternalSelectCursorCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
-            public void callbackSelectCursor(LdVendorConstraintNameAutoQuxCB cb, EntityRowHandler<ENTITY> entityRowHandler, Class<ENTITY> entityType) { delegateSelectCursor(cb, entityRowHandler, entityType); }
-            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> entityType) { return doSelectList(cb, entityType); }
+    protected <ENTITY extends LdVendorConstraintNameAutoQux> void doSelectCursor(LdVendorConstraintNameAutoQuxCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
+        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
+        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdVendorConstraintNameAutoQuxCB>() {
+            public void callbackSelectCursor(LdVendorConstraintNameAutoQuxCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
+            public List<ENTITY> callbackSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
         });
     }
 
@@ -347,18 +347,18 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doScalarSelect(resultType, newMyConditionBean());
     }
 
-    protected <RESULT, CB extends LdVendorConstraintNameAutoQuxCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> resultType, CB cb) {
-        assertObjectNotNull("resultType", resultType); assertCBStateValid(cb);
+    protected <RESULT, CB extends LdVendorConstraintNameAutoQuxCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, resultType);
+        return createSLFunction(cb, tp);
     }
 
-    protected <RESULT, CB extends LdVendorConstraintNameAutoQuxCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> resultType) {
-        return new SLFunction<CB, RESULT>(cb, resultType);
+    protected <RESULT, CB extends LdVendorConstraintNameAutoQuxCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
+        return new SLFunction<CB, RESULT>(cb, tp);
     }
 
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
+        return doScalarSelect(tp, newMyConditionBean());
     }
 
     // ===================================================================================
@@ -429,17 +429,17 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         if (vendorConstraintNameAutoQuxList.isEmpty()) { return; }
         final LdVendorConstraintNameAutoRefBhv referrerBhv = xgetBSFLR().select(LdVendorConstraintNameAutoRefBhv.class);
         helpLoadReferrerInternally(vendorConstraintNameAutoQuxList, loadReferrerOption, new InternalLoadReferrerCallback<LdVendorConstraintNameAutoQux, java.math.BigDecimal, LdVendorConstraintNameAutoRefCB, LdVendorConstraintNameAutoRef>() {
-            public java.math.BigDecimal getPKVal(LdVendorConstraintNameAutoQux e)
-            { return e.getConstraintNameAutoQuxId(); }
-            public void setRfLs(LdVendorConstraintNameAutoQux e, List<LdVendorConstraintNameAutoRef> ls)
-            { e.setVendorConstraintNameAutoRefList(ls); }
+            public java.math.BigDecimal getPKVal(LdVendorConstraintNameAutoQux et)
+            { return et.getConstraintNameAutoQuxId(); }
+            public void setRfLs(LdVendorConstraintNameAutoQux et, List<LdVendorConstraintNameAutoRef> ls)
+            { et.setVendorConstraintNameAutoRefList(ls); }
             public LdVendorConstraintNameAutoRefCB newMyCB() { return referrerBhv.newMyConditionBean(); }
             public void qyFKIn(LdVendorConstraintNameAutoRefCB cb, List<java.math.BigDecimal> ls)
             { cb.query().setConstraintNameAutoQuxId_InScope(ls); }
             public void qyOdFKAsc(LdVendorConstraintNameAutoRefCB cb) { cb.query().addOrderBy_ConstraintNameAutoQuxId_Asc(); }
             public void spFKCol(LdVendorConstraintNameAutoRefCB cb) { cb.specify().columnConstraintNameAutoQuxId(); }
             public List<LdVendorConstraintNameAutoRef> selRfLs(LdVendorConstraintNameAutoRefCB cb) { return referrerBhv.selectList(cb); }
-            public java.math.BigDecimal getFKVal(LdVendorConstraintNameAutoRef e) { return e.getConstraintNameAutoQuxId(); }
+            public java.math.BigDecimal getFKVal(LdVendorConstraintNameAutoRef re) { return re.getConstraintNameAutoQuxId(); }
             public void setlcEt(LdVendorConstraintNameAutoRef re, LdVendorConstraintNameAutoQux le)
             { re.setVendorConstraintNameAutoQux(le); }
             public String getRfPrNm() { return "vendorConstraintNameAutoRefList"; }
@@ -460,7 +460,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      */
     public List<java.math.BigDecimal> extractConstraintNameAutoQuxIdList(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList) {
         return helpExtractListInternally(vendorConstraintNameAutoQuxList, new InternalExtractCallback<LdVendorConstraintNameAutoQux, java.math.BigDecimal>() {
-            public java.math.BigDecimal getCV(LdVendorConstraintNameAutoQux e) { return e.getConstraintNameAutoQuxId(); }
+            public java.math.BigDecimal getCV(LdVendorConstraintNameAutoQux et) { return et.getConstraintNameAutoQuxId(); }
         });
     }
 
@@ -471,7 +471,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      */
     public List<String> extractConstraintNameAutoQuxNameList(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList) {
         return helpExtractListInternally(vendorConstraintNameAutoQuxList, new InternalExtractCallback<LdVendorConstraintNameAutoQux, String>() {
-            public String getCV(LdVendorConstraintNameAutoQux e) { return e.getConstraintNameAutoQuxName(); }
+            public String getCV(LdVendorConstraintNameAutoQux et) { return et.getConstraintNameAutoQuxName(); }
         });
     }
 
@@ -499,24 +499,24 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         doInsert(vendorConstraintNameAutoQux, null);
     }
 
-    protected void doInsert(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, InsertOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected void doInsert(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, InsertOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertObjectNotNull("vendorConstraintNameAutoQux", vendorConstraintNameAutoQux);
-        prepareInsertOption(option);
-        delegateInsert(vendorConstraintNameAutoQux, option);
+        prepareInsertOption(op);
+        delegateInsert(vendorConstraintNameAutoQux, op);
     }
 
-    protected void prepareInsertOption(InsertOption<LdVendorConstraintNameAutoQuxCB> option) {
-        if (option == null) { return; }
-        assertInsertOptionStatus(option);
-        if (option.hasSpecifiedInsertColumn()) {
-            option.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
+    protected void prepareInsertOption(InsertOption<LdVendorConstraintNameAutoQuxCB> op) {
+        if (op == null) { return; }
+        assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) {
+            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
     @Override
-    protected void doCreate(Entity entity, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { insert(downcast(entity)); }
-        else { varyingInsert(downcast(entity), downcast(option)); }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { insert(downcast(et)); }
+        else { varyingInsert(downcast(et), downcast(op)); }
     }
 
     /**
@@ -534,7 +534,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      *     vendorConstraintNameAutoQuxBhv.<span style="color: #FD4747">update</span>(vendorConstraintNameAutoQux);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param vendorConstraintNameAutoQux The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -545,21 +545,21 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         doUpdate(vendorConstraintNameAutoQux, null);
     }
 
-    protected void doUpdate(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, final UpdateOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected void doUpdate(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, final UpdateOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertObjectNotNull("vendorConstraintNameAutoQux", vendorConstraintNameAutoQux);
-        prepareUpdateOption(option);
+        prepareUpdateOption(op);
         helpUpdateInternally(vendorConstraintNameAutoQux, new InternalUpdateCallback<LdVendorConstraintNameAutoQux>() {
-            public int callbackDelegateUpdate(LdVendorConstraintNameAutoQux entity) { return delegateUpdate(entity, option); } });
+            public int callbackDelegateUpdate(LdVendorConstraintNameAutoQux et) { return delegateUpdate(et, op); } });
     }
 
-    protected void prepareUpdateOption(UpdateOption<LdVendorConstraintNameAutoQuxCB> option) {
-        if (option == null) { return; }
-        assertUpdateOptionStatus(option);
-        if (option.hasSelfSpecification()) {
-            option.resolveSelfSpecification(createCBForVaryingUpdate());
+    protected void prepareUpdateOption(UpdateOption<LdVendorConstraintNameAutoQuxCB> op) {
+        if (op == null) { return; }
+        assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) {
+            op.resolveSelfSpecification(createCBForVaryingUpdate());
         }
-        if (option.hasSpecifiedUpdateColumn()) {
-            option.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
+        if (op.hasSpecifiedUpdateColumn()) {
+            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
         }
     }
 
@@ -576,14 +576,14 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     }
 
     @Override
-    protected void doModify(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { update(downcast(entity)); }
-        else { varyingUpdate(downcast(entity), downcast(option)); }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { update(downcast(et)); }
+        else { varyingUpdate(downcast(et), downcast(op)); }
     }
 
     @Override
-    protected void doModifyNonstrict(Entity entity, UpdateOption<? extends ConditionBean> option) {
-        doModify(entity, option);
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
+        doModify(et, op);
     }
 
     /**
@@ -599,30 +599,28 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         doInesrtOrUpdate(vendorConstraintNameAutoQux, null, null);
     }
 
-    protected void doInesrtOrUpdate(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, final InsertOption<LdVendorConstraintNameAutoQuxCB> insertOption, final UpdateOption<LdVendorConstraintNameAutoQuxCB> updateOption) {
+    protected void doInesrtOrUpdate(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, final InsertOption<LdVendorConstraintNameAutoQuxCB> iop, final UpdateOption<LdVendorConstraintNameAutoQuxCB> uop) {
         helpInsertOrUpdateInternally(vendorConstraintNameAutoQux, new InternalInsertOrUpdateCallback<LdVendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB>() {
-            public void callbackInsert(LdVendorConstraintNameAutoQux entity) { doInsert(entity, insertOption); }
-            public void callbackUpdate(LdVendorConstraintNameAutoQux entity) { doUpdate(entity, updateOption); }
+            public void callbackInsert(LdVendorConstraintNameAutoQux et) { doInsert(et, iop); }
+            public void callbackUpdate(LdVendorConstraintNameAutoQux et) { doUpdate(et, uop); }
             public LdVendorConstraintNameAutoQuxCB callbackNewMyConditionBean() { return newMyConditionBean(); }
             public int callbackSelectCount(LdVendorConstraintNameAutoQuxCB cb) { return selectCount(cb); }
         });
     }
 
     @Override
-    protected void doCreateOrModify(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        if (insertOption == null && updateOption == null) { insertOrUpdate(downcast(entity)); }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
         else {
-            insertOption = insertOption == null ? new InsertOption<LdVendorConstraintNameAutoQuxCB>() : insertOption;
-            updateOption = updateOption == null ? new UpdateOption<LdVendorConstraintNameAutoQuxCB>() : updateOption;
-            varyingInsertOrUpdate(downcast(entity), downcast(insertOption), downcast(updateOption));
+            iop = iop != null ? iop : new InsertOption<LdVendorConstraintNameAutoQuxCB>();
+            uop = uop != null ? uop : new UpdateOption<LdVendorConstraintNameAutoQuxCB>();
+            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
         }
     }
 
     @Override
-    protected void doCreateOrModifyNonstrict(Entity entity, InsertOption<? extends ConditionBean> insertOption,
-            UpdateOption<? extends ConditionBean> updateOption) {
-        doCreateOrModify(entity, insertOption, updateOption);
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
+        doCreateOrModify(et, iop, uop);
     }
 
     /**
@@ -636,7 +634,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      *     vendorConstraintNameAutoQuxBhv.<span style="color: #FD4747">delete</span>(vendorConstraintNameAutoQux);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
-     * } 
+     * }
      * </pre>
      * @param vendorConstraintNameAutoQux The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -646,27 +644,27 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         doDelete(vendorConstraintNameAutoQux, null);
     }
 
-    protected void doDelete(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, final DeleteOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected void doDelete(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, final DeleteOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertObjectNotNull("vendorConstraintNameAutoQux", vendorConstraintNameAutoQux);
-        prepareDeleteOption(option);
+        prepareDeleteOption(op);
         helpDeleteInternally(vendorConstraintNameAutoQux, new InternalDeleteCallback<LdVendorConstraintNameAutoQux>() {
-            public int callbackDelegateDelete(LdVendorConstraintNameAutoQux entity) { return delegateDelete(entity, option); } });
+            public int callbackDelegateDelete(LdVendorConstraintNameAutoQux et) { return delegateDelete(et, op); } });
     }
 
-    protected void prepareDeleteOption(DeleteOption<LdVendorConstraintNameAutoQuxCB> option) {
-        if (option == null) { return; }
-        assertDeleteOptionStatus(option);
-    }
-
-    @Override
-    protected void doRemove(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { delete(downcast(entity)); }
-        else { varyingDelete(downcast(entity), downcast(option)); }
+    protected void prepareDeleteOption(DeleteOption<LdVendorConstraintNameAutoQuxCB> op) {
+        if (op == null) { return; }
+        assertDeleteOptionStatus(op);
     }
 
     @Override
-    protected void doRemoveNonstrict(Entity entity, DeleteOption<? extends ConditionBean> option) {
-        doRemove(entity, option);
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { delete(downcast(et)); }
+        else { varyingDelete(downcast(et), downcast(op)); }
+    }
+
+    @Override
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
+        doRemove(et, op);
     }
 
     // ===================================================================================
@@ -697,26 +695,26 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList) {
-        InsertOption<LdVendorConstraintNameAutoQuxCB> option = createInsertUpdateOption();
-        return doBatchInsert(vendorConstraintNameAutoQuxList, option);
+        InsertOption<LdVendorConstraintNameAutoQuxCB> op = createInsertUpdateOption();
+        return doBatchInsert(vendorConstraintNameAutoQuxList, op);
     }
 
-    protected int[] doBatchInsert(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, InsertOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected int[] doBatchInsert(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, InsertOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertObjectNotNull("vendorConstraintNameAutoQuxList", vendorConstraintNameAutoQuxList);
-        prepareBatchInsertOption(vendorConstraintNameAutoQuxList, option);
-        return delegateBatchInsert(vendorConstraintNameAutoQuxList, option);
+        prepareBatchInsertOption(vendorConstraintNameAutoQuxList, op);
+        return delegateBatchInsert(vendorConstraintNameAutoQuxList, op);
     }
 
-    protected void prepareBatchInsertOption(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, InsertOption<LdVendorConstraintNameAutoQuxCB> option) {
-        option.xallowInsertColumnModifiedPropertiesFragmented();
-        option.xacceptInsertColumnModifiedPropertiesIfNeeds(vendorConstraintNameAutoQuxList);
-        prepareInsertOption(option);
+    protected void prepareBatchInsertOption(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, InsertOption<LdVendorConstraintNameAutoQuxCB> op) {
+        op.xallowInsertColumnModifiedPropertiesFragmented();
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(vendorConstraintNameAutoQuxList);
+        prepareInsertOption(op);
     }
 
     @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(option)); }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
+        if (op == null) { return batchInsert(downcast(ls)); }
+        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
     }
 
     /**
@@ -744,39 +742,39 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList) {
-        UpdateOption<LdVendorConstraintNameAutoQuxCB> option = createPlainUpdateOption();
-        return doBatchUpdate(vendorConstraintNameAutoQuxList, option);
+        UpdateOption<LdVendorConstraintNameAutoQuxCB> op = createPlainUpdateOption();
+        return doBatchUpdate(vendorConstraintNameAutoQuxList, op);
     }
 
-    protected int[] doBatchUpdate(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, UpdateOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected int[] doBatchUpdate(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, UpdateOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertObjectNotNull("vendorConstraintNameAutoQuxList", vendorConstraintNameAutoQuxList);
-        prepareBatchUpdateOption(vendorConstraintNameAutoQuxList, option);
-        return delegateBatchUpdate(vendorConstraintNameAutoQuxList, option);
+        prepareBatchUpdateOption(vendorConstraintNameAutoQuxList, op);
+        return delegateBatchUpdate(vendorConstraintNameAutoQuxList, op);
     }
 
-    protected void prepareBatchUpdateOption(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, UpdateOption<LdVendorConstraintNameAutoQuxCB> option) {
-        option.xacceptUpdateColumnModifiedPropertiesIfNeeds(vendorConstraintNameAutoQuxList);
-        prepareUpdateOption(option);
+    protected void prepareBatchUpdateOption(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, UpdateOption<LdVendorConstraintNameAutoQuxCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(vendorConstraintNameAutoQuxList);
+        prepareUpdateOption(op);
     }
 
     @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(option)); }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return batchUpdate(downcast(ls)); }
+        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
     }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
-     * <span style="color: #3F7E5E">// e.g. update two columns only</span> 
+     * <span style="color: #3F7E5E">// e.g. update two columns only</span>
      * vendorConstraintNameAutoQuxBhv.<span style="color: #FD4747">batchUpdate</span>(vendorConstraintNameAutoQuxList, new SpecifyQuery<LdVendorConstraintNameAutoQuxCB>() {
      *     public void specify(LdVendorConstraintNameAutoQuxCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
      *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
-     * <span style="color: #3F7E5E">// e.g. update every column in the table</span> 
+     * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
      * vendorConstraintNameAutoQuxBhv.<span style="color: #FD4747">batchUpdate</span>(vendorConstraintNameAutoQuxList, new SpecifyQuery<LdVendorConstraintNameAutoQuxCB>() {
      *     public void specify(LdVendorConstraintNameAutoQuxCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
      *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
@@ -798,8 +796,8 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> option) {
-        return doLumpModify(ls, option);
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
+        return doLumpModify(ls, op);
     }
 
     /**
@@ -813,21 +811,21 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doBatchDelete(vendorConstraintNameAutoQuxList, null);
     }
 
-    protected int[] doBatchDelete(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, DeleteOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected int[] doBatchDelete(List<LdVendorConstraintNameAutoQux> vendorConstraintNameAutoQuxList, DeleteOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertObjectNotNull("vendorConstraintNameAutoQuxList", vendorConstraintNameAutoQuxList);
-        prepareDeleteOption(option);
-        return delegateBatchDelete(vendorConstraintNameAutoQuxList, option);
+        prepareDeleteOption(op);
+        return delegateBatchDelete(vendorConstraintNameAutoQuxList, op);
     }
 
     @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(option)); }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return batchDelete(downcast(ls)); }
+        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
     }
 
     @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> option) {
-        return doLumpRemove(ls, option);
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
+        return doLumpRemove(ls, op);
     }
 
     // ===================================================================================
@@ -840,7 +838,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      *     public ConditionBean setup(vendorConstraintNameAutoQux entity, LdVendorConstraintNameAutoQuxCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
-     * 
+     *
      *         <span style="color: #3F7E5E">// mapping</span>
      *         intoCB.specify().columnMyName().mappedFrom(cb.specify().columnFooName());
      *         intoCB.specify().columnMyCount().mappedFrom(cb.specify().columnFooCount());
@@ -851,7 +849,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      *         <span style="color: #3F7E5E">//entity.set...;</span>
      *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
-     * 
+     *
      *         return cb;
      *     }
      * });
@@ -863,13 +861,12 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doQueryInsert(setupper, null);
     }
 
-    protected int doQueryInsert(QueryInsertSetupper<LdVendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB> setupper, InsertOption<LdVendorConstraintNameAutoQuxCB> option) {
-        assertObjectNotNull("setupper", setupper);
-        prepareInsertOption(option);
-        LdVendorConstraintNameAutoQux entity = new LdVendorConstraintNameAutoQux();
-        LdVendorConstraintNameAutoQuxCB intoCB = createCBForQueryInsert();
-        ConditionBean resourceCB = setupper.setup(entity, intoCB);
-        return delegateQueryInsert(entity, intoCB, resourceCB, option);
+    protected int doQueryInsert(QueryInsertSetupper<LdVendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB> sp, InsertOption<LdVendorConstraintNameAutoQuxCB> op) {
+        assertObjectNotNull("setupper", sp);
+        prepareInsertOption(op);
+        LdVendorConstraintNameAutoQux e = new LdVendorConstraintNameAutoQux();
+        LdVendorConstraintNameAutoQuxCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
     }
 
     protected LdVendorConstraintNameAutoQuxCB createCBForQueryInsert() {
@@ -910,16 +907,16 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doQueryUpdate(vendorConstraintNameAutoQux, cb, null);
     }
 
-    protected int doQueryUpdate(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB cb, UpdateOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected int doQueryUpdate(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB cb, UpdateOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertObjectNotNull("vendorConstraintNameAutoQux", vendorConstraintNameAutoQux); assertCBStateValid(cb);
-        prepareUpdateOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(vendorConstraintNameAutoQux, cb, option) : 0;
+        prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(vendorConstraintNameAutoQux, cb, op) : 0;
     }
 
     @Override
-    protected int doRangeModify(Entity entity, ConditionBean cb, UpdateOption<? extends ConditionBean> option) {
-        if (option == null) { return queryUpdate(downcast(entity), (LdVendorConstraintNameAutoQuxCB)cb); }
-        else { return varyingQueryUpdate(downcast(entity), (LdVendorConstraintNameAutoQuxCB)cb, downcast(option)); }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
+        if (op == null) { return queryUpdate(downcast(et), (LdVendorConstraintNameAutoQuxCB)cb); }
+        else { return varyingQueryUpdate(downcast(et), (LdVendorConstraintNameAutoQuxCB)cb, downcast(op)); }
     }
 
     /**
@@ -937,16 +934,16 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
         return doQueryDelete(cb, null);
     }
 
-    protected int doQueryDelete(LdVendorConstraintNameAutoQuxCB cb, DeleteOption<LdVendorConstraintNameAutoQuxCB> option) {
+    protected int doQueryDelete(LdVendorConstraintNameAutoQuxCB cb, DeleteOption<LdVendorConstraintNameAutoQuxCB> op) {
         assertCBStateValid(cb);
-        prepareDeleteOption(option);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, option) : 0;
+        prepareDeleteOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
     @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> option) {
-        if (option == null) { return queryDelete((LdVendorConstraintNameAutoQuxCB)cb); }
-        else { return varyingQueryDelete((LdVendorConstraintNameAutoQuxCB)cb, downcast(option)); }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
+        if (op == null) { return queryDelete((LdVendorConstraintNameAutoQuxCB)cb); }
+        else { return varyingQueryDelete((LdVendorConstraintNameAutoQuxCB)cb, downcast(op)); }
     }
 
     // ===================================================================================
@@ -1092,7 +1089,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     /**
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
-     * Other specifications are same as queryInsert(entity, setupper). 
+     * Other specifications are same as queryInsert(entity, setupper).
      * @param setupper The setup-per of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
@@ -1106,7 +1103,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      * Update the several entities by query with varying requests non-strictly modified-only. {NonExclusiveControl} <br />
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), allowNonQueryUpdate(). <br />
-     * Other specifications are same as queryUpdate(entity, cb). 
+     * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
      * LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux = new LdVendorConstraintNameAutoQux();
@@ -1163,27 +1160,27 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      *   o selectList()
      *   o execute()
      *   o call()
-     * 
+     *
      * {Entity}
      *   o entityHandling().selectEntity()
      *   o entityHandling().selectEntityWithDeletedCheck()
-     * 
+     *
      * {Paging}
      *   o autoPaging().selectList()
      *   o autoPaging().selectPage()
      *   o manualPaging().selectList()
      *   o manualPaging().selectPage()
-     * 
+     *
      * {Cursor}
      *   o cursorHandling().selectCursor()
-     * 
+     *
      * {Option}
      *   o dynamicBinding().selectList()
      *   o removeBlockComment().selectList()
      *   o removeLineComment().selectList()
      *   o formatSql().selectList()
      * </pre>
-     * @return The basic executor of outside-SQL. (NotNull) 
+     * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdVendorConstraintNameAutoQuxBhv> outsideSql() {
         return doOutsideSql();
@@ -1198,29 +1195,29 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     //                                                ------
     protected int delegateSelectCountUniquely(LdVendorConstraintNameAutoQuxCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
     protected int delegateSelectCountPlainly(LdVendorConstraintNameAutoQuxCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdVendorConstraintNameAutoQux> void delegateSelectCursor(LdVendorConstraintNameAutoQuxCB cb, EntityRowHandler<ENTITY> erh, Class<ENTITY> et)
-    { invoke(createSelectCursorCBCommand(cb, erh, et)); }
-    protected <ENTITY extends LdVendorConstraintNameAutoQux> List<ENTITY> delegateSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> et)
-    { return invoke(createSelectListCBCommand(cb, et)); }
+    protected <ENTITY extends LdVendorConstraintNameAutoQux> void delegateSelectCursor(LdVendorConstraintNameAutoQuxCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
+    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
+    protected <ENTITY extends LdVendorConstraintNameAutoQux> List<ENTITY> delegateSelectList(LdVendorConstraintNameAutoQuxCB cb, Class<ENTITY> tp)
+    { return invoke(createSelectListCBCommand(cb, tp)); }
 
     // -----------------------------------------------------
     //                                                Update
     //                                                ------
-    protected int delegateInsert(LdVendorConstraintNameAutoQux e, InsertOption<LdVendorConstraintNameAutoQuxCB> op)
-    { if (!processBeforeInsert(e, op)) { return 0; }
-      return invoke(createInsertEntityCommand(e, op)); }
-    protected int delegateUpdate(LdVendorConstraintNameAutoQux e, UpdateOption<LdVendorConstraintNameAutoQuxCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return delegateUpdateNonstrict(e, op); }
-    protected int delegateUpdateNonstrict(LdVendorConstraintNameAutoQux e, UpdateOption<LdVendorConstraintNameAutoQuxCB> op)
-    { if (!processBeforeUpdate(e, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(e, op)); }
-    protected int delegateDelete(LdVendorConstraintNameAutoQux e, DeleteOption<LdVendorConstraintNameAutoQuxCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return delegateDeleteNonstrict(e, op); }
-    protected int delegateDeleteNonstrict(LdVendorConstraintNameAutoQux e, DeleteOption<LdVendorConstraintNameAutoQuxCB> op)
-    { if (!processBeforeDelete(e, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(e, op)); }
+    protected int delegateInsert(LdVendorConstraintNameAutoQux et, InsertOption<LdVendorConstraintNameAutoQuxCB> op)
+    { if (!processBeforeInsert(et, op)) { return 0; }
+      return invoke(createInsertEntityCommand(et, op)); }
+    protected int delegateUpdate(LdVendorConstraintNameAutoQux et, UpdateOption<LdVendorConstraintNameAutoQuxCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return delegateUpdateNonstrict(et, op); }
+    protected int delegateUpdateNonstrict(LdVendorConstraintNameAutoQux et, UpdateOption<LdVendorConstraintNameAutoQuxCB> op)
+    { if (!processBeforeUpdate(et, op)) { return 0; }
+      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
+    protected int delegateDelete(LdVendorConstraintNameAutoQux et, DeleteOption<LdVendorConstraintNameAutoQuxCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return delegateDeleteNonstrict(et, op); }
+    protected int delegateDeleteNonstrict(LdVendorConstraintNameAutoQux et, DeleteOption<LdVendorConstraintNameAutoQuxCB> op)
+    { if (!processBeforeDelete(et, op)) { return 0; }
+      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
 
     protected int[] delegateBatchInsert(List<LdVendorConstraintNameAutoQux> ls, InsertOption<LdVendorConstraintNameAutoQuxCB> op)
     { if (ls.isEmpty()) { return new int[]{}; }
@@ -1238,10 +1235,10 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     { if (ls.isEmpty()) { return new int[]{}; }
       return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
 
-    protected int delegateQueryInsert(LdVendorConstraintNameAutoQux e, LdVendorConstraintNameAutoQuxCB inCB, ConditionBean resCB, InsertOption<LdVendorConstraintNameAutoQuxCB> op)
-    { if (!processBeforeQueryInsert(e, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(e, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(LdVendorConstraintNameAutoQux e, LdVendorConstraintNameAutoQuxCB cb, UpdateOption<LdVendorConstraintNameAutoQuxCB> op)
-    { if (!processBeforeQueryUpdate(e, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(e, cb, op));  }
+    protected int delegateQueryInsert(LdVendorConstraintNameAutoQux et, LdVendorConstraintNameAutoQuxCB inCB, ConditionBean resCB, InsertOption<LdVendorConstraintNameAutoQuxCB> op)
+    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
+    protected int delegateQueryUpdate(LdVendorConstraintNameAutoQux et, LdVendorConstraintNameAutoQuxCB cb, UpdateOption<LdVendorConstraintNameAutoQuxCB> op)
+    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
     protected int delegateQueryDelete(LdVendorConstraintNameAutoQuxCB cb, DeleteOption<LdVendorConstraintNameAutoQuxCB> op)
     { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
 
@@ -1252,7 +1249,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasVersionNoValue(Entity entity) {
+    protected boolean hasVersionNoValue(Entity et) {
         return false;
     }
 
@@ -1260,15 +1257,15 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
      * {@inheritDoc}
      */
     @Override
-    protected boolean hasUpdateDateValue(Entity entity) {
+    protected boolean hasUpdateDateValue(Entity et) {
         return false;
     }
 
     // ===================================================================================
     //                                                                     Downcast Helper
     //                                                                     ===============
-    protected LdVendorConstraintNameAutoQux downcast(Entity entity) {
-        return helpEntityDowncastInternally(entity, LdVendorConstraintNameAutoQux.class);
+    protected LdVendorConstraintNameAutoQux downcast(Entity et) {
+        return helpEntityDowncastInternally(et, LdVendorConstraintNameAutoQux.class);
     }
 
     protected LdVendorConstraintNameAutoQuxCB downcast(ConditionBean cb) {
@@ -1276,27 +1273,27 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     }
 
     @SuppressWarnings("unchecked")
-    protected List<LdVendorConstraintNameAutoQux> downcast(List<? extends Entity> entityList) {
-        return (List<LdVendorConstraintNameAutoQux>)entityList;
+    protected List<LdVendorConstraintNameAutoQux> downcast(List<? extends Entity> ls) {
+        return (List<LdVendorConstraintNameAutoQux>)ls;
     }
 
     @SuppressWarnings("unchecked")
-    protected InsertOption<LdVendorConstraintNameAutoQuxCB> downcast(InsertOption<? extends ConditionBean> option) {
-        return (InsertOption<LdVendorConstraintNameAutoQuxCB>)option;
+    protected InsertOption<LdVendorConstraintNameAutoQuxCB> downcast(InsertOption<? extends ConditionBean> op) {
+        return (InsertOption<LdVendorConstraintNameAutoQuxCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected UpdateOption<LdVendorConstraintNameAutoQuxCB> downcast(UpdateOption<? extends ConditionBean> option) {
-        return (UpdateOption<LdVendorConstraintNameAutoQuxCB>)option;
+    protected UpdateOption<LdVendorConstraintNameAutoQuxCB> downcast(UpdateOption<? extends ConditionBean> op) {
+        return (UpdateOption<LdVendorConstraintNameAutoQuxCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected DeleteOption<LdVendorConstraintNameAutoQuxCB> downcast(DeleteOption<? extends ConditionBean> option) {
-        return (DeleteOption<LdVendorConstraintNameAutoQuxCB>)option;
+    protected DeleteOption<LdVendorConstraintNameAutoQuxCB> downcast(DeleteOption<? extends ConditionBean> op) {
+        return (DeleteOption<LdVendorConstraintNameAutoQuxCB>)op;
     }
 
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdVendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> option) {
-        return (QueryInsertSetupper<LdVendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB>)option;
+    protected QueryInsertSetupper<LdVendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
+        return (QueryInsertSetupper<LdVendorConstraintNameAutoQux, LdVendorConstraintNameAutoQuxCB>)sp;
     }
 }

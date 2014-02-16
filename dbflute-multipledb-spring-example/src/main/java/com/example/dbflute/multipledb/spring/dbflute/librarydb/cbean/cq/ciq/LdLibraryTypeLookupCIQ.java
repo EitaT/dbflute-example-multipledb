@@ -84,7 +84,7 @@ public class LdLibraryTypeLookupCIQ extends LdAbstractBsLibraryTypeLookupCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepLibraryTypeCode_QueryDerivedReferrer_LibraryList(LdLibraryCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepLibraryTypeCode_QueryDerivedReferrer_LibraryListParameter(Object pv)
+    public String keepLibraryTypeCode_QueryDerivedReferrer_LibraryListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueLibraryTypeName() { return _myCQ.getLibraryTypeName(); }
     protected ConditionValue getCValueRUser() { return _myCQ.getRUser(); }
@@ -93,18 +93,18 @@ public class LdLibraryTypeLookupCIQ extends LdAbstractBsLibraryTypeLookupCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdLibraryTypeLookupCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdLibraryTypeLookupCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdLibraryTypeLookupCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdLibraryTypeLookupCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdLibraryTypeLookupCQ subQuery)
+    public String keepQueryMyselfDerived(LdLibraryTypeLookupCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdLibraryTypeLookupCQ subQuery)
+    public String keepMyselfExists(LdLibraryTypeLookupCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdLibraryTypeLookupCQ subQuery)
+    public String keepMyselfInScope(LdLibraryTypeLookupCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

@@ -84,7 +84,7 @@ public class LdBlackActionLookupCIQ extends LdAbstractBsBlackActionLookupCQ {
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepBlackActionCode_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepBlackActionCode_QueryDerivedReferrer_BlackActionListParameter(Object pv)
+    public String keepBlackActionCode_QueryDerivedReferrer_BlackActionListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue getCValueBlackActionName() { return _myCQ.getBlackActionName(); }
     protected ConditionValue getCValueRUser() { return _myCQ.getRUser(); }
@@ -93,18 +93,18 @@ public class LdBlackActionLookupCIQ extends LdAbstractBsBlackActionLookupCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
-    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) { return null; }
-    public String keepScalarCondition(LdBlackActionLookupCQ subQuery)
+    protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdBlackActionLookupCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(LdBlackActionLookupCQ subQuery)
+    public String keepSpecifyMyselfDerived(LdBlackActionLookupCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(LdBlackActionLookupCQ subQuery)
+    public String keepQueryMyselfDerived(LdBlackActionLookupCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerivedParameter(Object parameterValue)
+    public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(LdBlackActionLookupCQ subQuery)
+    public String keepMyselfExists(LdBlackActionLookupCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
-    public String keepMyselfInScope(LdBlackActionLookupCQ subQuery)
+    public String keepMyselfInScope(LdBlackActionLookupCQ sq)
     { throwIICBOE("MyselfInScope"); return null;}
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()

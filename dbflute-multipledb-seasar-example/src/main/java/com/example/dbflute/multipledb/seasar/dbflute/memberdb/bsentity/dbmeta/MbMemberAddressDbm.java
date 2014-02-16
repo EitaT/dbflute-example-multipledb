@@ -50,48 +50,48 @@ public class MbMemberAddressDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMemberAddressId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getMemberAddressId(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setMemberAddressId(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getMemberAddressId(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setMemberAddressId(cti(vl)); }
     }
     public static class EpgMemberId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getMemberId(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setMemberId(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getMemberId(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setMemberId(cti(vl)); }
     }
     public static class EpgValidBeginDate implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getValidBeginDate(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setValidBeginDate((java.util.Date)v); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getValidBeginDate(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setValidBeginDate((java.util.Date)vl); }
     }
     public static class EpgValidEndDate implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getValidEndDate(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setValidEndDate((java.util.Date)v); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getValidEndDate(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setValidEndDate((java.util.Date)vl); }
     }
     public static class EpgAddress implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getAddress(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setAddress((String)v); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getAddress(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setAddress((String)vl); }
     }
     public static class EpgRegionId implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getRegionId(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setRegionId(cti(v)); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getRegionId(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setRegionId(cti(vl)); }
     }
     public static class EpgRegisterDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getRegisterDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setRegisterDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getRegisterDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setRegisterDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgRegisterUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getRegisterUser(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setRegisterUser((String)v); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getRegisterUser(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setRegisterUser((String)vl); }
     }
     public static class EpgUpdateDatetime implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getUpdateDatetime(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setUpdateDatetime((java.sql.Timestamp)v); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getUpdateDatetime(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setUpdateDatetime((java.sql.Timestamp)vl); }
     }
     public static class EpgUpdateUser implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getUpdateUser(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setUpdateUser((String)v); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getUpdateUser(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setUpdateUser((String)vl); }
     }
     public static class EpgVersionNo implements PropertyGateway {
-        public Object read(Entity e) { return ((MbMemberAddress)e).getVersionNo(); }
-        public void write(Entity e, Object v) { ((MbMemberAddress)e).setVersionNo(ctl(v)); }
+        public Object read(Entity et) { return ((MbMemberAddress)et).getVersionNo(); }
+        public void write(Entity et, Object vl) { ((MbMemberAddress)et).setVersionNo(ctl(vl)); }
     }
 
     // ===================================================================================
@@ -167,12 +167,12 @@ public class MbMemberAddressDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignMember() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
-        return cfi("FK_MEMBER_ADDRESS_MEMBER", "member", this, MbMemberDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "memberAddressList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMemberId(), MbMemberDbm.getInstance().columnMemberId());
+        return cfi("FK_MEMBER_ADDRESS_MEMBER", "member", this, MbMemberDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "memberAddressList");
     }
     public ForeignInfo foreignRegion() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnRegionId(), MbRegionDbm.getInstance().columnRegionId());
-        return cfi("FK_MEMBER_ADDRESS_REGION", "region", this, MbRegionDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "memberAddressList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRegionId(), MbRegionDbm.getInstance().columnRegionId());
+        return cfi("FK_MEMBER_ADDRESS_REGION", "region", this, MbRegionDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "memberAddressList");
     }
 
     // -----------------------------------------------------
@@ -214,10 +214,10 @@ public class MbMemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbMemberAddress)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbMemberAddress)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbMemberAddress)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbMemberAddress)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

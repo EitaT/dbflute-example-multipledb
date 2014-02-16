@@ -357,8 +357,8 @@ public class LdBsBlackActionLookupCB extends AbstractConditionBean {
         public HpSDRFunction<LdBlackActionCB, LdBlackActionLookupCQ> derivedBlackActionList() {
             assertDerived("blackActionList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdBlackActionCB, LdBlackActionLookupCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdBlackActionCB, LdBlackActionLookupCQ>() {
-                public void setup(String function, SubQuery<LdBlackActionCB> subQuery, LdBlackActionLookupCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsderiveBlackActionList(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdBlackActionCB> sq, LdBlackActionLookupCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveBlackActionList(fn, sq, al, op); } }, _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
@@ -367,8 +367,8 @@ public class LdBsBlackActionLookupCB extends AbstractConditionBean {
         public HpSDRFunction<LdBlackActionLookupCB, LdBlackActionLookupCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return new HpSDRFunction<LdBlackActionLookupCB, LdBlackActionLookupCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdBlackActionLookupCB, LdBlackActionLookupCQ>() {
-                public void setup(String function, SubQuery<LdBlackActionLookupCB> subQuery, LdBlackActionLookupCQ cq, String aliasName, DerivedReferrerOption option) {
-                    cq.xsmyselfDerive(function, subQuery, aliasName, option); } }, _dbmetaProvider);
+                public void setup(String fn, SubQuery<LdBlackActionLookupCB> sq, LdBlackActionLookupCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsmyselfDerive(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

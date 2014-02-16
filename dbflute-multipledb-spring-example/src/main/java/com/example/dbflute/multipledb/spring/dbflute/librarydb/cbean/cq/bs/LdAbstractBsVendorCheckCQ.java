@@ -148,8 +148,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(vendorCheckIdList), getCValueVendorCheckId(), "VENDOR_CHECK_ID");
     }
 
-    protected void regVendorCheckId(ConditionKey k, Object v) { regQ(k, v, getCValueVendorCheckId(), "VENDOR_CHECK_ID"); }
-    abstract protected ConditionValue getCValueVendorCheckId();
+    protected void regVendorCheckId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueVendorCheckId(), "VENDOR_CHECK_ID"); }
+    protected abstract ConditionValue getCValueVendorCheckId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -288,8 +288,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfChar_IsNotNull() { regTypeOfChar(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfChar(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfChar(), "TYPE_OF_CHAR"); }
-    abstract protected ConditionValue getCValueTypeOfChar();
+    protected void regTypeOfChar(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfChar(), "TYPE_OF_CHAR"); }
+    protected abstract ConditionValue getCValueTypeOfChar();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -428,8 +428,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfVarchar_IsNotNull() { regTypeOfVarchar(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfVarchar(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfVarchar(), "TYPE_OF_VARCHAR"); }
-    abstract protected ConditionValue getCValueTypeOfVarchar();
+    protected void regTypeOfVarchar(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfVarchar(), "TYPE_OF_VARCHAR"); }
+    protected abstract ConditionValue getCValueTypeOfVarchar();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -568,8 +568,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfLongVarchar_IsNotNull() { regTypeOfLongVarchar(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfLongVarchar(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfLongVarchar(), "TYPE_OF_LONG_VARCHAR"); }
-    abstract protected ConditionValue getCValueTypeOfLongVarchar();
+    protected void regTypeOfLongVarchar(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfLongVarchar(), "TYPE_OF_LONG_VARCHAR"); }
+    protected abstract ConditionValue getCValueTypeOfLongVarchar();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
@@ -702,8 +702,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfClob_IsNotNull() { regTypeOfClob(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfClob(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfClob(), "TYPE_OF_CLOB"); }
-    abstract protected ConditionValue getCValueTypeOfClob();
+    protected void regTypeOfClob(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfClob(), "TYPE_OF_CLOB"); }
+    protected abstract ConditionValue getCValueTypeOfClob();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -818,8 +818,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfDecimalInteger_IsNotNull() { regTypeOfDecimalInteger(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfDecimalInteger(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfDecimalInteger(), "TYPE_OF_DECIMAL_INTEGER"); }
-    abstract protected ConditionValue getCValueTypeOfDecimalInteger();
+    protected void regTypeOfDecimalInteger(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfDecimalInteger(), "TYPE_OF_DECIMAL_INTEGER"); }
+    protected abstract ConditionValue getCValueTypeOfDecimalInteger();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -934,8 +934,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfDecimalBigint_IsNotNull() { regTypeOfDecimalBigint(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfDecimalBigint(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfDecimalBigint(), "TYPE_OF_DECIMAL_BIGINT"); }
-    abstract protected ConditionValue getCValueTypeOfDecimalBigint();
+    protected void regTypeOfDecimalBigint(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfDecimalBigint(), "TYPE_OF_DECIMAL_BIGINT"); }
+    protected abstract ConditionValue getCValueTypeOfDecimalBigint();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1050,8 +1050,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfDecimalDecimal_IsNotNull() { regTypeOfDecimalDecimal(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfDecimalDecimal(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfDecimalDecimal(), "TYPE_OF_DECIMAL_DECIMAL"); }
-    abstract protected ConditionValue getCValueTypeOfDecimalDecimal();
+    protected void regTypeOfDecimalDecimal(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfDecimalDecimal(), "TYPE_OF_DECIMAL_DECIMAL"); }
+    protected abstract ConditionValue getCValueTypeOfDecimalDecimal();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1166,8 +1166,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfBigint_IsNotNull() { regTypeOfBigint(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfBigint(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfBigint(), "TYPE_OF_BIGINT"); }
-    abstract protected ConditionValue getCValueTypeOfBigint();
+    protected void regTypeOfBigint(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfBigint(), "TYPE_OF_BIGINT"); }
+    protected abstract ConditionValue getCValueTypeOfBigint();
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1282,8 +1282,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfInteger_IsNotNull() { regTypeOfInteger(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfInteger(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfInteger(), "TYPE_OF_INTEGER"); }
-    abstract protected ConditionValue getCValueTypeOfInteger();
+    protected void regTypeOfInteger(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfInteger(), "TYPE_OF_INTEGER"); }
+    protected abstract ConditionValue getCValueTypeOfInteger();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1348,7 +1348,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfDate. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setTypeOfDate_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setTypeOfDate_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ(fCTPD(fromDatetime), fCTPD(toDatetime), getCValueTypeOfDate(), "TYPE_OF_DATE", fromToOption);
     }
 
@@ -1363,7 +1363,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of typeOfDate. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of typeOfDate. (NullAllowed: if null, no to-condition)
      */
-    public void setTypeOfDate_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setTypeOfDate_DateFromTo(Date fromDate, Date toDate) {
         setTypeOfDate_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1405,8 +1405,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfDate_IsNotNull() { regTypeOfDate(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfDate(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfDate(), "TYPE_OF_DATE"); }
-    abstract protected ConditionValue getCValueTypeOfDate();
+    protected void regTypeOfDate(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfDate(), "TYPE_OF_DATE"); }
+    protected abstract ConditionValue getCValueTypeOfDate();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1471,7 +1471,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of typeOfTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
      */
-    public void setTypeOfTimestamp_FromTo(java.util.Date fromDatetime, java.util.Date toDatetime, FromToOption fromToOption) {
+    public void setTypeOfTimestamp_FromTo(Date fromDatetime, Date toDatetime, FromToOption fromToOption) {
         regFTQ((fromDatetime != null ? new java.sql.Timestamp(fromDatetime.getTime()) : null), (toDatetime != null ? new java.sql.Timestamp(toDatetime.getTime()) : null), getCValueTypeOfTimestamp(), "TYPE_OF_TIMESTAMP", fromToOption);
     }
 
@@ -1486,7 +1486,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      * @param fromDate The from-date(yyyy/MM/dd) of typeOfTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of typeOfTimestamp. (NullAllowed: if null, no to-condition)
      */
-    public void setTypeOfTimestamp_DateFromTo(java.util.Date fromDate, java.util.Date toDate) {
+    public void setTypeOfTimestamp_DateFromTo(Date fromDate, Date toDate) {
         setTypeOfTimestamp_FromTo(fromDate, toDate, new FromToOption().compareAsDate());
     }
 
@@ -1528,8 +1528,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfTimestamp_IsNotNull() { regTypeOfTimestamp(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfTimestamp(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfTimestamp(), "TYPE_OF_TIMESTAMP"); }
-    abstract protected ConditionValue getCValueTypeOfTimestamp();
+    protected void regTypeOfTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfTimestamp(), "TYPE_OF_TIMESTAMP"); }
+    protected abstract ConditionValue getCValueTypeOfTimestamp();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
@@ -1623,8 +1623,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
      */
     public void setTypeOfTime_IsNotNull() { regTypeOfTime(CK_ISNN, DOBJ); }
 
-    protected void regTypeOfTime(ConditionKey k, Object v) { regQ(k, v, getCValueTypeOfTime(), "TYPE_OF_TIME"); }
-    abstract protected ConditionValue getCValueTypeOfTime();
+    protected void regTypeOfTime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfTime(), "TYPE_OF_TIME"); }
+    protected abstract ConditionValue getCValueTypeOfTime();
 
     // ===================================================================================
     //                                                                       Very Internal

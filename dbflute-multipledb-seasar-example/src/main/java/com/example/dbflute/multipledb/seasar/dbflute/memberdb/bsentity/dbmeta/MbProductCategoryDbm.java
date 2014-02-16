@@ -42,16 +42,16 @@ public class MbProductCategoryDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgProductCategoryCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProductCategory)e).getProductCategoryCode(); }
-        public void write(Entity e, Object v) { ((MbProductCategory)e).setProductCategoryCode((String)v); }
+        public Object read(Entity et) { return ((MbProductCategory)et).getProductCategoryCode(); }
+        public void write(Entity et, Object vl) { ((MbProductCategory)et).setProductCategoryCode((String)vl); }
     }
     public static class EpgProductCategoryName implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProductCategory)e).getProductCategoryName(); }
-        public void write(Entity e, Object v) { ((MbProductCategory)e).setProductCategoryName((String)v); }
+        public Object read(Entity et) { return ((MbProductCategory)et).getProductCategoryName(); }
+        public void write(Entity et, Object vl) { ((MbProductCategory)et).setProductCategoryName((String)vl); }
     }
     public static class EpgParentCategoryCode implements PropertyGateway {
-        public Object read(Entity e) { return ((MbProductCategory)e).getParentCategoryCode(); }
-        public void write(Entity e, Object v) { ((MbProductCategory)e).setParentCategoryCode((String)v); }
+        public Object read(Entity et) { return ((MbProductCategory)et).getParentCategoryCode(); }
+        public void write(Entity et, Object vl) { ((MbProductCategory)et).setParentCategoryCode((String)vl); }
     }
 
     // ===================================================================================
@@ -103,20 +103,20 @@ public class MbProductCategoryDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignProductCategorySelf() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnParentCategoryCode(), MbProductCategoryDbm.getInstance().columnProductCategoryCode());
-        return cfi("FK_PRODUCT_CATEGORY_PARENT", "productCategorySelf", this, MbProductCategoryDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "productCategorySelfList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParentCategoryCode(), MbProductCategoryDbm.getInstance().columnProductCategoryCode());
+        return cfi("FK_PRODUCT_CATEGORY_PARENT", "productCategorySelf", this, MbProductCategoryDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "productCategorySelfList");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
     public ReferrerInfo referrerProductList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductCategoryCode(), MbProductDbm.getInstance().columnProductCategoryCode());
-        return cri("FK_PRODUCT_PRODUCT_CATEGORY", "productList", this, MbProductDbm.getInstance(), map, false, "productCategory");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductCategoryCode(), MbProductDbm.getInstance().columnProductCategoryCode());
+        return cri("FK_PRODUCT_PRODUCT_CATEGORY", "productList", this, MbProductDbm.getInstance(), mp, false, "productCategory");
     }
     public ReferrerInfo referrerProductCategorySelfList() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnProductCategoryCode(), MbProductCategoryDbm.getInstance().columnParentCategoryCode());
-        return cri("FK_PRODUCT_CATEGORY_PARENT", "productCategorySelfList", this, MbProductCategoryDbm.getInstance(), map, false, "productCategorySelf");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnProductCategoryCode(), MbProductCategoryDbm.getInstance().columnParentCategoryCode());
+        return cri("FK_PRODUCT_CATEGORY_PARENT", "productCategorySelfList", this, MbProductCategoryDbm.getInstance(), mp, false, "productCategorySelf");
     }
 
     // ===================================================================================
@@ -144,10 +144,10 @@ public class MbProductCategoryDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((MbProductCategory)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((MbProductCategory)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((MbProductCategory)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((MbProductCategory)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

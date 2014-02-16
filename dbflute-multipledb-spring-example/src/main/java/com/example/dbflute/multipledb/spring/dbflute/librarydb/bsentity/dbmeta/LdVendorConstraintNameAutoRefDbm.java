@@ -46,24 +46,24 @@ public class LdVendorConstraintNameAutoRefDbm extends AbstractDBMeta {
     public PropertyGateway findPropertyGateway(String propertyName)
     { return doFindEpg(_epgMap, propertyName); }
     public static class EpgConstraintNameAutoRefId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorConstraintNameAutoRef)e).getConstraintNameAutoRefId(); }
-        public void write(Entity e, Object v) { ((LdVendorConstraintNameAutoRef)e).setConstraintNameAutoRefId(ctb(v)); }
+        public Object read(Entity et) { return ((LdVendorConstraintNameAutoRef)et).getConstraintNameAutoRefId(); }
+        public void write(Entity et, Object vl) { ((LdVendorConstraintNameAutoRef)et).setConstraintNameAutoRefId(ctb(vl)); }
     }
     public static class EpgConstraintNameAutoFooId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorConstraintNameAutoRef)e).getConstraintNameAutoFooId(); }
-        public void write(Entity e, Object v) { ((LdVendorConstraintNameAutoRef)e).setConstraintNameAutoFooId(ctb(v)); }
+        public Object read(Entity et) { return ((LdVendorConstraintNameAutoRef)et).getConstraintNameAutoFooId(); }
+        public void write(Entity et, Object vl) { ((LdVendorConstraintNameAutoRef)et).setConstraintNameAutoFooId(ctb(vl)); }
     }
     public static class EpgConstraintNameAutoBarId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorConstraintNameAutoRef)e).getConstraintNameAutoBarId(); }
-        public void write(Entity e, Object v) { ((LdVendorConstraintNameAutoRef)e).setConstraintNameAutoBarId(ctb(v)); }
+        public Object read(Entity et) { return ((LdVendorConstraintNameAutoRef)et).getConstraintNameAutoBarId(); }
+        public void write(Entity et, Object vl) { ((LdVendorConstraintNameAutoRef)et).setConstraintNameAutoBarId(ctb(vl)); }
     }
     public static class EpgConstraintNameAutoQuxId implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorConstraintNameAutoRef)e).getConstraintNameAutoQuxId(); }
-        public void write(Entity e, Object v) { ((LdVendorConstraintNameAutoRef)e).setConstraintNameAutoQuxId(ctb(v)); }
+        public Object read(Entity et) { return ((LdVendorConstraintNameAutoRef)et).getConstraintNameAutoQuxId(); }
+        public void write(Entity et, Object vl) { ((LdVendorConstraintNameAutoRef)et).setConstraintNameAutoQuxId(ctb(vl)); }
     }
     public static class EpgConstraintNameAutoUnique implements PropertyGateway {
-        public Object read(Entity e) { return ((LdVendorConstraintNameAutoRef)e).getConstraintNameAutoUnique(); }
-        public void write(Entity e, Object v) { ((LdVendorConstraintNameAutoRef)e).setConstraintNameAutoUnique((String)v); }
+        public Object read(Entity et) { return ((LdVendorConstraintNameAutoRef)et).getConstraintNameAutoUnique(); }
+        public void write(Entity et, Object vl) { ((LdVendorConstraintNameAutoRef)et).setConstraintNameAutoUnique((String)vl); }
     }
 
     // ===================================================================================
@@ -121,16 +121,16 @@ public class LdVendorConstraintNameAutoRefDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     public ForeignInfo foreignVendorConstraintNameAutoFoo() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnConstraintNameAutoFooId(), LdVendorConstraintNameAutoFooDbm.getInstance().columnConstraintNameAutoFooId());
-        return cfi("SQL111023215623821", "vendorConstraintNameAutoFoo", this, LdVendorConstraintNameAutoFooDbm.getInstance(), map, 0, false, false, false, false, null, null, false, "vendorConstraintNameAutoRefList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnConstraintNameAutoFooId(), LdVendorConstraintNameAutoFooDbm.getInstance().columnConstraintNameAutoFooId());
+        return cfi("SQL111023215623821", "vendorConstraintNameAutoFoo", this, LdVendorConstraintNameAutoFooDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "vendorConstraintNameAutoRefList");
     }
     public ForeignInfo foreignVendorConstraintNameAutoBar() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnConstraintNameAutoBarId(), LdVendorConstraintNameAutoBarDbm.getInstance().columnConstraintNameAutoBarId());
-        return cfi("SQL111023215623822", "vendorConstraintNameAutoBar", this, LdVendorConstraintNameAutoBarDbm.getInstance(), map, 1, false, false, false, false, null, null, false, "vendorConstraintNameAutoRefList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnConstraintNameAutoBarId(), LdVendorConstraintNameAutoBarDbm.getInstance().columnConstraintNameAutoBarId());
+        return cfi("SQL111023215623822", "vendorConstraintNameAutoBar", this, LdVendorConstraintNameAutoBarDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "vendorConstraintNameAutoRefList");
     }
     public ForeignInfo foreignVendorConstraintNameAutoQux() {
-        Map<ColumnInfo, ColumnInfo> map = newLinkedHashMap(columnConstraintNameAutoQuxId(), LdVendorConstraintNameAutoQuxDbm.getInstance().columnConstraintNameAutoQuxId());
-        return cfi("SQL111023215623823", "vendorConstraintNameAutoQux", this, LdVendorConstraintNameAutoQuxDbm.getInstance(), map, 2, false, false, false, false, null, null, false, "vendorConstraintNameAutoRefList");
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnConstraintNameAutoQuxId(), LdVendorConstraintNameAutoQuxDbm.getInstance().columnConstraintNameAutoQuxId());
+        return cfi("SQL111023215623823", "vendorConstraintNameAutoQux", this, LdVendorConstraintNameAutoQuxDbm.getInstance(), mp, 2, false, false, false, false, null, null, false, "vendorConstraintNameAutoRefList");
     }
 
     // -----------------------------------------------------
@@ -162,10 +162,10 @@ public class LdVendorConstraintNameAutoRefDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
-    public void acceptPrimaryKeyMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptPrimaryKeyMap((LdVendorConstraintNameAutoRef)e, m); }
-    public void acceptAllColumnMap(Entity e, Map<String, ? extends Object> m)
-    { doAcceptAllColumnMap((LdVendorConstraintNameAutoRef)e, m); }
-    public Map<String, Object> extractPrimaryKeyMap(Entity e) { return doExtractPrimaryKeyMap(e); }
-    public Map<String, Object> extractAllColumnMap(Entity e) { return doExtractAllColumnMap(e); }
+    public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptPrimaryKeyMap((LdVendorConstraintNameAutoRef)et, mp); }
+    public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
+    { doAcceptAllColumnMap((LdVendorConstraintNameAutoRef)et, mp); }
+    public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
+    public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }
