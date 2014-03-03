@@ -1142,7 +1142,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLibraryTypeLookupCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdLibraryTypeLookupCB.class);
     }
 
     /**
@@ -1159,7 +1159,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLibraryTypeLookupCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), LdLibraryTypeLookupCB.class);
     }
 
     /**
@@ -1176,7 +1176,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLibraryTypeLookupCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), LdLibraryTypeLookupCB.class);
     }
 
     /**
@@ -1193,7 +1193,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLibraryTypeLookupCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), LdLibraryTypeLookupCB.class);
     }
 
     /**
@@ -1210,7 +1210,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLibraryTypeLookupCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), LdLibraryTypeLookupCB.class);
     }
 
     /**
@@ -1227,36 +1227,25 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLibraryTypeLookupCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), LdLibraryTypeLookupCB.class);
     }
 
-    protected HpSSQFunction<LdLibraryTypeLookupCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<LdLibraryTypeLookupCB>(new HpSSQSetupper<LdLibraryTypeLookupCB>() {
-            public void setup(String fn, SubQuery<LdLibraryTypeLookupCB> sq, HpSSQOption<LdLibraryTypeLookupCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<LdLibraryTypeLookupCB> sq, String rd, HpSSQOption<LdLibraryTypeLookupCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        LdLibraryTypeLookupCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        LdLibraryTypeLookupCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(LdLibraryTypeLookupCQ sq);
 
     protected LdLibraryTypeLookupCB xcreateScalarConditionCB() {
-        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        LdLibraryTypeLookupCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected LdLibraryTypeLookupCB xcreateScalarConditionPartitionByCB() {
-        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        LdLibraryTypeLookupCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -1276,18 +1265,12 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdLibraryTypeLookupCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(LdLibraryTypeLookupCB.class);
     }
-    protected HpQDRFunction<LdLibraryTypeLookupCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<LdLibraryTypeLookupCB>(new HpQDRSetupper<LdLibraryTypeLookupCB>() {
-            public void setup(String fn, SubQuery<LdLibraryTypeLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<LdLibraryTypeLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "LIBRARY_TYPE_CODE";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -1329,8 +1312,10 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdLibraryTypeLookupCB newMyCB() {
+        return new LdLibraryTypeLookupCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdLibraryTypeLookupCB.class.getName(); }
     protected String xabCQ() { return LdLibraryTypeLookupCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

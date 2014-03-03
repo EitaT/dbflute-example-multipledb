@@ -1629,8 +1629,10 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdVendorCheckCB newMyCB() {
+        return new LdVendorCheckCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdVendorCheckCB.class.getName(); }
     protected String xabCQ() { return LdVendorCheckCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

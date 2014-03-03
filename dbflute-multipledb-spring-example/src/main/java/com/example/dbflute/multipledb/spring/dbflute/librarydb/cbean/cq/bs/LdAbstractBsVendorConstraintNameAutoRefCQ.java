@@ -698,7 +698,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdVendorConstraintNameAutoRefCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdVendorConstraintNameAutoRefCB.class);
     }
 
     /**
@@ -715,7 +715,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdVendorConstraintNameAutoRefCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), LdVendorConstraintNameAutoRefCB.class);
     }
 
     /**
@@ -732,7 +732,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdVendorConstraintNameAutoRefCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), LdVendorConstraintNameAutoRefCB.class);
     }
 
     /**
@@ -749,7 +749,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdVendorConstraintNameAutoRefCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), LdVendorConstraintNameAutoRefCB.class);
     }
 
     /**
@@ -766,7 +766,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdVendorConstraintNameAutoRefCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), LdVendorConstraintNameAutoRefCB.class);
     }
 
     /**
@@ -783,36 +783,25 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdVendorConstraintNameAutoRefCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), LdVendorConstraintNameAutoRefCB.class);
     }
 
-    protected HpSSQFunction<LdVendorConstraintNameAutoRefCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<LdVendorConstraintNameAutoRefCB>(new HpSSQSetupper<LdVendorConstraintNameAutoRefCB>() {
-            public void setup(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, HpSSQOption<LdVendorConstraintNameAutoRefCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, String rd, HpSSQOption<LdVendorConstraintNameAutoRefCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        LdVendorConstraintNameAutoRefCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        LdVendorConstraintNameAutoRefCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(LdVendorConstraintNameAutoRefCQ sq);
 
     protected LdVendorConstraintNameAutoRefCB xcreateScalarConditionCB() {
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        LdVendorConstraintNameAutoRefCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected LdVendorConstraintNameAutoRefCB xcreateScalarConditionPartitionByCB() {
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        LdVendorConstraintNameAutoRefCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -832,18 +821,12 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdVendorConstraintNameAutoRefCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(LdVendorConstraintNameAutoRefCB.class);
     }
-    protected HpQDRFunction<LdVendorConstraintNameAutoRefCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<LdVendorConstraintNameAutoRefCB>(new HpQDRSetupper<LdVendorConstraintNameAutoRefCB>() {
-            public void setup(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "CONSTRAINT_NAME_AUTO_REF_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -885,8 +868,10 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdVendorConstraintNameAutoRefCB newMyCB() {
+        return new LdVendorConstraintNameAutoRefCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdVendorConstraintNameAutoRefCB.class.getName(); }
     protected String xabCQ() { return LdVendorConstraintNameAutoRefCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

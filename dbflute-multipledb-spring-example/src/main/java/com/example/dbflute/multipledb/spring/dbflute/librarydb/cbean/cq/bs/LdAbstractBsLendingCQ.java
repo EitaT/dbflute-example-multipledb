@@ -1115,8 +1115,10 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdLendingCB newMyCB() {
+        return new LdLendingCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdLendingCB.class.getName(); }
     protected String xabCQ() { return LdLendingCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

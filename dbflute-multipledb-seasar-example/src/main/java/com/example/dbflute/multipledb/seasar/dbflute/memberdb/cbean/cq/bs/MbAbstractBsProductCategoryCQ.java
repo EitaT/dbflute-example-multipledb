@@ -563,7 +563,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbProductCategoryCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), MbProductCategoryCB.class);
     }
 
     /**
@@ -580,7 +580,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbProductCategoryCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), MbProductCategoryCB.class);
     }
 
     /**
@@ -597,7 +597,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbProductCategoryCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), MbProductCategoryCB.class);
     }
 
     /**
@@ -614,7 +614,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbProductCategoryCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), MbProductCategoryCB.class);
     }
 
     /**
@@ -631,7 +631,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbProductCategoryCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), MbProductCategoryCB.class);
     }
 
     /**
@@ -648,36 +648,25 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbProductCategoryCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), MbProductCategoryCB.class);
     }
 
-    protected HpSSQFunction<MbProductCategoryCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<MbProductCategoryCB>(new HpSSQSetupper<MbProductCategoryCB>() {
-            public void setup(String fn, SubQuery<MbProductCategoryCB> sq, HpSSQOption<MbProductCategoryCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<MbProductCategoryCB> sq, String rd, HpSSQOption<MbProductCategoryCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        MbProductCategoryCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        MbProductCategoryCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(MbProductCategoryCQ sq);
 
     protected MbProductCategoryCB xcreateScalarConditionCB() {
-        MbProductCategoryCB cb = new MbProductCategoryCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        MbProductCategoryCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected MbProductCategoryCB xcreateScalarConditionPartitionByCB() {
-        MbProductCategoryCB cb = new MbProductCategoryCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        MbProductCategoryCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -697,18 +686,12 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MbProductCategoryCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(MbProductCategoryCB.class);
     }
-    protected HpQDRFunction<MbProductCategoryCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<MbProductCategoryCB>(new HpQDRSetupper<MbProductCategoryCB>() {
-            public void setup(String fn, SubQuery<MbProductCategoryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<MbProductCategoryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        MbProductCategoryCB cb = new MbProductCategoryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        MbProductCategoryCB cb = new MbProductCategoryCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "PRODUCT_CATEGORY_CODE";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -750,8 +733,10 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected MbProductCategoryCB newMyCB() {
+        return new MbProductCategoryCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return MbProductCategoryCB.class.getName(); }
     protected String xabCQ() { return MbProductCategoryCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

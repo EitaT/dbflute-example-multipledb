@@ -691,7 +691,7 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbServiceRankCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), MbServiceRankCB.class);
     }
 
     /**
@@ -708,7 +708,7 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbServiceRankCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), MbServiceRankCB.class);
     }
 
     /**
@@ -725,7 +725,7 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbServiceRankCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), MbServiceRankCB.class);
     }
 
     /**
@@ -742,7 +742,7 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbServiceRankCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), MbServiceRankCB.class);
     }
 
     /**
@@ -759,7 +759,7 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbServiceRankCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), MbServiceRankCB.class);
     }
 
     /**
@@ -776,36 +776,25 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbServiceRankCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), MbServiceRankCB.class);
     }
 
-    protected HpSSQFunction<MbServiceRankCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<MbServiceRankCB>(new HpSSQSetupper<MbServiceRankCB>() {
-            public void setup(String fn, SubQuery<MbServiceRankCB> sq, HpSSQOption<MbServiceRankCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<MbServiceRankCB> sq, String rd, HpSSQOption<MbServiceRankCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        MbServiceRankCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        MbServiceRankCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(MbServiceRankCQ sq);
 
     protected MbServiceRankCB xcreateScalarConditionCB() {
-        MbServiceRankCB cb = new MbServiceRankCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        MbServiceRankCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected MbServiceRankCB xcreateScalarConditionPartitionByCB() {
-        MbServiceRankCB cb = new MbServiceRankCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        MbServiceRankCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -825,18 +814,12 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MbServiceRankCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(MbServiceRankCB.class);
     }
-    protected HpQDRFunction<MbServiceRankCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<MbServiceRankCB>(new HpQDRSetupper<MbServiceRankCB>() {
-            public void setup(String fn, SubQuery<MbServiceRankCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<MbServiceRankCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        MbServiceRankCB cb = new MbServiceRankCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        MbServiceRankCB cb = new MbServiceRankCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "SERVICE_RANK_CODE";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -878,8 +861,10 @@ public abstract class MbAbstractBsServiceRankCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected MbServiceRankCB newMyCB() {
+        return new MbServiceRankCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return MbServiceRankCB.class.getName(); }
     protected String xabCQ() { return MbServiceRankCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

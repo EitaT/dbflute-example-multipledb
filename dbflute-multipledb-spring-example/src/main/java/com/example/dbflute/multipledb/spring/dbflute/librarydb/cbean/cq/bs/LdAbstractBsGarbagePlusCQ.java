@@ -1139,8 +1139,10 @@ public abstract class LdAbstractBsGarbagePlusCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdGarbagePlusCB newMyCB() {
+        return new LdGarbagePlusCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdGarbagePlusCB.class.getName(); }
     protected String xabCQ() { return LdGarbagePlusCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

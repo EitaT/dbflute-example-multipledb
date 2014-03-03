@@ -350,7 +350,7 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbRegionCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), MbRegionCB.class);
     }
 
     /**
@@ -367,7 +367,7 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbRegionCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), MbRegionCB.class);
     }
 
     /**
@@ -384,7 +384,7 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbRegionCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), MbRegionCB.class);
     }
 
     /**
@@ -401,7 +401,7 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbRegionCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), MbRegionCB.class);
     }
 
     /**
@@ -418,7 +418,7 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbRegionCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), MbRegionCB.class);
     }
 
     /**
@@ -435,36 +435,25 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbRegionCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), MbRegionCB.class);
     }
 
-    protected HpSSQFunction<MbRegionCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<MbRegionCB>(new HpSSQSetupper<MbRegionCB>() {
-            public void setup(String fn, SubQuery<MbRegionCB> sq, HpSSQOption<MbRegionCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<MbRegionCB> sq, String rd, HpSSQOption<MbRegionCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        MbRegionCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        MbRegionCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(MbRegionCQ sq);
 
     protected MbRegionCB xcreateScalarConditionCB() {
-        MbRegionCB cb = new MbRegionCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        MbRegionCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected MbRegionCB xcreateScalarConditionPartitionByCB() {
-        MbRegionCB cb = new MbRegionCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        MbRegionCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -484,18 +473,12 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MbRegionCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(MbRegionCB.class);
     }
-    protected HpQDRFunction<MbRegionCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<MbRegionCB>(new HpQDRSetupper<MbRegionCB>() {
-            public void setup(String fn, SubQuery<MbRegionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<MbRegionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        MbRegionCB cb = new MbRegionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        MbRegionCB cb = new MbRegionCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "REGION_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -537,8 +520,10 @@ public abstract class MbAbstractBsRegionCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected MbRegionCB newMyCB() {
+        return new MbRegionCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return MbRegionCB.class.getName(); }
     protected String xabCQ() { return MbRegionCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

@@ -1152,7 +1152,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdBlackActionLookupCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdBlackActionLookupCB.class);
     }
 
     /**
@@ -1169,7 +1169,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdBlackActionLookupCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), LdBlackActionLookupCB.class);
     }
 
     /**
@@ -1186,7 +1186,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdBlackActionLookupCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), LdBlackActionLookupCB.class);
     }
 
     /**
@@ -1203,7 +1203,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdBlackActionLookupCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), LdBlackActionLookupCB.class);
     }
 
     /**
@@ -1220,7 +1220,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdBlackActionLookupCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), LdBlackActionLookupCB.class);
     }
 
     /**
@@ -1237,36 +1237,25 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdBlackActionLookupCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), LdBlackActionLookupCB.class);
     }
 
-    protected HpSSQFunction<LdBlackActionLookupCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<LdBlackActionLookupCB>(new HpSSQSetupper<LdBlackActionLookupCB>() {
-            public void setup(String fn, SubQuery<LdBlackActionLookupCB> sq, HpSSQOption<LdBlackActionLookupCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<LdBlackActionLookupCB> sq, String rd, HpSSQOption<LdBlackActionLookupCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        LdBlackActionLookupCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        LdBlackActionLookupCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(LdBlackActionLookupCQ sq);
 
     protected LdBlackActionLookupCB xcreateScalarConditionCB() {
-        LdBlackActionLookupCB cb = new LdBlackActionLookupCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        LdBlackActionLookupCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected LdBlackActionLookupCB xcreateScalarConditionPartitionByCB() {
-        LdBlackActionLookupCB cb = new LdBlackActionLookupCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        LdBlackActionLookupCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -1286,18 +1275,12 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdBlackActionLookupCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(LdBlackActionLookupCB.class);
     }
-    protected HpQDRFunction<LdBlackActionLookupCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<LdBlackActionLookupCB>(new HpQDRSetupper<LdBlackActionLookupCB>() {
-            public void setup(String fn, SubQuery<LdBlackActionLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<LdBlackActionLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdBlackActionLookupCB cb = new LdBlackActionLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "BLACK_ACTION_CODE";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -1339,8 +1322,10 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdBlackActionLookupCB newMyCB() {
+        return new LdBlackActionLookupCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdBlackActionLookupCB.class.getName(); }
     protected String xabCQ() { return LdBlackActionLookupCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

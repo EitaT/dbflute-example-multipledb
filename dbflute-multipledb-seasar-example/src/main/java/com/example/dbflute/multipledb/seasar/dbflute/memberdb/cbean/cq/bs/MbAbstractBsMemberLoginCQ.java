@@ -591,7 +591,7 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbMemberLoginCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), MbMemberLoginCB.class);
     }
 
     /**
@@ -608,7 +608,7 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbMemberLoginCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), MbMemberLoginCB.class);
     }
 
     /**
@@ -625,7 +625,7 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbMemberLoginCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), MbMemberLoginCB.class);
     }
 
     /**
@@ -642,7 +642,7 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbMemberLoginCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), MbMemberLoginCB.class);
     }
 
     /**
@@ -659,7 +659,7 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbMemberLoginCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), MbMemberLoginCB.class);
     }
 
     /**
@@ -676,36 +676,25 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<MbMemberLoginCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), MbMemberLoginCB.class);
     }
 
-    protected HpSSQFunction<MbMemberLoginCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<MbMemberLoginCB>(new HpSSQSetupper<MbMemberLoginCB>() {
-            public void setup(String fn, SubQuery<MbMemberLoginCB> sq, HpSSQOption<MbMemberLoginCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<MbMemberLoginCB> sq, String rd, HpSSQOption<MbMemberLoginCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        MbMemberLoginCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        MbMemberLoginCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(MbMemberLoginCQ sq);
 
     protected MbMemberLoginCB xcreateScalarConditionCB() {
-        MbMemberLoginCB cb = new MbMemberLoginCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        MbMemberLoginCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected MbMemberLoginCB xcreateScalarConditionPartitionByCB() {
-        MbMemberLoginCB cb = new MbMemberLoginCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        MbMemberLoginCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -725,18 +714,12 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MbMemberLoginCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(MbMemberLoginCB.class);
     }
-    protected HpQDRFunction<MbMemberLoginCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<MbMemberLoginCB>(new HpQDRSetupper<MbMemberLoginCB>() {
-            public void setup(String fn, SubQuery<MbMemberLoginCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<MbMemberLoginCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        MbMemberLoginCB cb = new MbMemberLoginCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        MbMemberLoginCB cb = new MbMemberLoginCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "MEMBER_LOGIN_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -778,8 +761,10 @@ public abstract class MbAbstractBsMemberLoginCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected MbMemberLoginCB newMyCB() {
+        return new MbMemberLoginCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return MbMemberLoginCB.class.getName(); }
     protected String xabCQ() { return MbMemberLoginCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

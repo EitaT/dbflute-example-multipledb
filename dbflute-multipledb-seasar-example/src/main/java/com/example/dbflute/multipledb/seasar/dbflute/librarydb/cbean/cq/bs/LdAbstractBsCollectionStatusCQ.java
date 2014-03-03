@@ -1099,7 +1099,7 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdCollectionStatusCB.class);
     }
 
     /**
@@ -1116,7 +1116,7 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), LdCollectionStatusCB.class);
     }
 
     /**
@@ -1133,7 +1133,7 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), LdCollectionStatusCB.class);
     }
 
     /**
@@ -1150,7 +1150,7 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), LdCollectionStatusCB.class);
     }
 
     /**
@@ -1167,7 +1167,7 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), LdCollectionStatusCB.class);
     }
 
     /**
@@ -1184,36 +1184,25 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), LdCollectionStatusCB.class);
     }
 
-    protected HpSSQFunction<LdCollectionStatusCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<LdCollectionStatusCB>(new HpSSQSetupper<LdCollectionStatusCB>() {
-            public void setup(String fn, SubQuery<LdCollectionStatusCB> sq, HpSSQOption<LdCollectionStatusCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<LdCollectionStatusCB> sq, String rd, HpSSQOption<LdCollectionStatusCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        LdCollectionStatusCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        LdCollectionStatusCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(LdCollectionStatusCQ sq);
 
     protected LdCollectionStatusCB xcreateScalarConditionCB() {
-        LdCollectionStatusCB cb = new LdCollectionStatusCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        LdCollectionStatusCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected LdCollectionStatusCB xcreateScalarConditionPartitionByCB() {
-        LdCollectionStatusCB cb = new LdCollectionStatusCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        LdCollectionStatusCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -1233,18 +1222,12 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdCollectionStatusCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(LdCollectionStatusCB.class);
     }
-    protected HpQDRFunction<LdCollectionStatusCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<LdCollectionStatusCB>(new HpQDRSetupper<LdCollectionStatusCB>() {
-            public void setup(String fn, SubQuery<LdCollectionStatusCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<LdCollectionStatusCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "COLLECTION_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -1286,8 +1269,10 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdCollectionStatusCB newMyCB() {
+        return new LdCollectionStatusCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdCollectionStatusCB.class.getName(); }
     protected String xabCQ() { return LdCollectionStatusCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

@@ -1326,7 +1326,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLbUserCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdLbUserCB.class);
     }
 
     /**
@@ -1343,7 +1343,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLbUserCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), LdLbUserCB.class);
     }
 
     /**
@@ -1360,7 +1360,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLbUserCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), LdLbUserCB.class);
     }
 
     /**
@@ -1377,7 +1377,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLbUserCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), LdLbUserCB.class);
     }
 
     /**
@@ -1394,7 +1394,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLbUserCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), LdLbUserCB.class);
     }
 
     /**
@@ -1411,36 +1411,25 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdLbUserCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), LdLbUserCB.class);
     }
 
-    protected HpSSQFunction<LdLbUserCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<LdLbUserCB>(new HpSSQSetupper<LdLbUserCB>() {
-            public void setup(String fn, SubQuery<LdLbUserCB> sq, HpSSQOption<LdLbUserCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<LdLbUserCB> sq, String rd, HpSSQOption<LdLbUserCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        LdLbUserCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        LdLbUserCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(LdLbUserCQ sq);
 
     protected LdLbUserCB xcreateScalarConditionCB() {
-        LdLbUserCB cb = new LdLbUserCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        LdLbUserCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected LdLbUserCB xcreateScalarConditionPartitionByCB() {
-        LdLbUserCB cb = new LdLbUserCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        LdLbUserCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -1460,18 +1449,12 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdLbUserCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(LdLbUserCB.class);
     }
-    protected HpQDRFunction<LdLbUserCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<LdLbUserCB>(new HpQDRSetupper<LdLbUserCB>() {
-            public void setup(String fn, SubQuery<LdLbUserCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<LdLbUserCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "LB_USER_ID";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -1513,8 +1496,10 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdLbUserCB newMyCB() {
+        return new LdLbUserCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdLbUserCB.class.getName(); }
     protected String xabCQ() { return LdLbUserCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

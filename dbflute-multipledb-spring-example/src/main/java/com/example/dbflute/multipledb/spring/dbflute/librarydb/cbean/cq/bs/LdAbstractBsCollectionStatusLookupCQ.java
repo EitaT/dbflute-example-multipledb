@@ -1163,7 +1163,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusLookupCB> scalar_Equal() {
-        return xcreateSSQFunction(CK_EQ.getOperand());
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdCollectionStatusLookupCB.class);
     }
 
     /**
@@ -1180,7 +1180,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusLookupCB> scalar_NotEqual() {
-        return xcreateSSQFunction(CK_NES.getOperand());
+        return xcreateSSQFunction(CK_NES.getOperand(), LdCollectionStatusLookupCB.class);
     }
 
     /**
@@ -1197,7 +1197,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusLookupCB> scalar_GreaterThan() {
-        return xcreateSSQFunction(CK_GT.getOperand());
+        return xcreateSSQFunction(CK_GT.getOperand(), LdCollectionStatusLookupCB.class);
     }
 
     /**
@@ -1214,7 +1214,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusLookupCB> scalar_LessThan() {
-        return xcreateSSQFunction(CK_LT.getOperand());
+        return xcreateSSQFunction(CK_LT.getOperand(), LdCollectionStatusLookupCB.class);
     }
 
     /**
@@ -1231,7 +1231,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusLookupCB> scalar_GreaterEqual() {
-        return xcreateSSQFunction(CK_GE.getOperand());
+        return xcreateSSQFunction(CK_GE.getOperand(), LdCollectionStatusLookupCB.class);
     }
 
     /**
@@ -1248,36 +1248,25 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @return The object to set up a function. (NotNull)
      */
     public HpSSQFunction<LdCollectionStatusLookupCB> scalar_LessEqual() {
-        return xcreateSSQFunction(CK_LE.getOperand());
+        return xcreateSSQFunction(CK_LE.getOperand(), LdCollectionStatusLookupCB.class);
     }
 
-    protected HpSSQFunction<LdCollectionStatusLookupCB> xcreateSSQFunction(final String rd) {
-        return new HpSSQFunction<LdCollectionStatusLookupCB>(new HpSSQSetupper<LdCollectionStatusLookupCB>() {
-            public void setup(String fn, SubQuery<LdCollectionStatusLookupCB> sq, HpSSQOption<LdCollectionStatusLookupCB> op) {
-                xscalarCondition(fn, sq, rd, op);
-            }
-        });
-    }
-
-    protected void xscalarCondition(String fn, SubQuery<LdCollectionStatusLookupCB> sq, String rd, HpSSQOption<LdCollectionStatusLookupCB> op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
         assertObjectNotNull("subQuery", sq);
-        LdCollectionStatusLookupCB cb = xcreateScalarConditionCB(); sq.query(cb);
+        LdCollectionStatusLookupCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
-        op.setPartitionByCBean(xcreateScalarConditionPartitionByCB()); // for using partition-by
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, op);
     }
     public abstract String keepScalarCondition(LdCollectionStatusLookupCQ sq);
 
     protected LdCollectionStatusLookupCB xcreateScalarConditionCB() {
-        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB();
-        cb.xsetupForScalarCondition(this);
-        return cb;
+        LdCollectionStatusLookupCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
     protected LdCollectionStatusLookupCB xcreateScalarConditionPartitionByCB() {
-        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB();
-        cb.xsetupForScalarConditionPartitionBy(this);
-        return cb;
+        LdCollectionStatusLookupCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
@@ -1297,18 +1286,12 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdCollectionStatusLookupCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived();
+        return xcreateQDRFunctionMyselfDerived(LdCollectionStatusLookupCB.class);
     }
-    protected HpQDRFunction<LdCollectionStatusLookupCB> xcreateQDRFunctionMyselfDerived() {
-        return new HpQDRFunction<LdCollectionStatusLookupCB>(new HpQDRSetupper<LdCollectionStatusLookupCB>() {
-            public void setup(String fn, SubQuery<LdCollectionStatusLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-                xqderiveMyselfDerived(fn, sq, rd, vl, op);
-            }
-        });
-    }
-    public void xqderiveMyselfDerived(String fn, SubQuery<LdCollectionStatusLookupCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
         String pk = "COLLECTION_STATUS_CODE";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
@@ -1350,8 +1333,10 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdCollectionStatusLookupCB newMyCB() {
+        return new LdCollectionStatusLookupCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdCollectionStatusLookupCB.class.getName(); }
     protected String xabCQ() { return LdCollectionStatusLookupCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

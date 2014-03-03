@@ -1048,8 +1048,10 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
+    protected LdLibraryUserCB newMyCB() {
+        return new LdLibraryUserCB();
+    }
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xabCB() { return LdLibraryUserCB.class.getName(); }
     protected String xabCQ() { return LdLibraryUserCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }
