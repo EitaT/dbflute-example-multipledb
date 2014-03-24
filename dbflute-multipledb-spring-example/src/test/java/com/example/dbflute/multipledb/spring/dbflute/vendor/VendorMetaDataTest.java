@@ -11,12 +11,12 @@ import javax.sql.DataSource;
 
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.bsentity.dbmeta.LdBookDbm;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.bsentity.dbmeta.LdLibraryUserDbm;
-import com.example.dbflute.multipledb.spring.unit.AppContainerTestCase;
+import com.example.dbflute.multipledb.spring.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  */
-public class VendorMetaDataTest extends AppContainerTestCase {
+public class VendorMetaDataTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                    DatabaseMetaData

@@ -10,13 +10,13 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBCur
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.LdBookCB;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdBookBhv;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.LdBook;
-import com.example.dbflute.multipledb.spring.unit.AppContainerTestCase;
+import com.example.dbflute.multipledb.spring.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  * @since 0.9.6.6 (2010/03/11 Thursday)
  */
-public class VendorCheckTest extends AppContainerTestCase {
+public class VendorCheckTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute

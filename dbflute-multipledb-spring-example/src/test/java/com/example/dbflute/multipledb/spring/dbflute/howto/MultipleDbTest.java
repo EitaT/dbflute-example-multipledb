@@ -26,13 +26,13 @@ import com.example.dbflute.multipledb.spring.dbflute.memberdb.exbhv.MemberBhv;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.exbhv.pmbean.SimpleMemberPmb;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.exentity.Member;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.exentity.customize.SimpleMember;
-import com.example.dbflute.multipledb.spring.unit.AppContainerTestCase;
+import com.example.dbflute.multipledb.spring.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  * @since 0.9.5.1 (2009/06/01 Thursday)
  */
-public class MultipleDbTest extends AppContainerTestCase {
+public class MultipleDbTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute

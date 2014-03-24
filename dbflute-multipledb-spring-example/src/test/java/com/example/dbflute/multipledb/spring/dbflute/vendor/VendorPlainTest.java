@@ -9,12 +9,12 @@ import org.seasar.dbflute.util.DfTypeUtil;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.LdLibraryCB;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdLibraryBhv;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.LdLibrary;
-import com.example.dbflute.multipledb.spring.unit.AppContainerTestCase;
+import com.example.dbflute.multipledb.spring.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  */
-public class VendorPlainTest extends AppContainerTestCase {
+public class VendorPlainTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute

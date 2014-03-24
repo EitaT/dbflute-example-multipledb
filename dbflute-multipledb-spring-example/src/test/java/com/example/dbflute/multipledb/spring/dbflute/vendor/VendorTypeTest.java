@@ -9,13 +9,13 @@ import org.seasar.dbflute.util.DfTypeUtil;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.LdVendorCheckCB;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.LdVendorCheckBhv;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.LdVendorCheck;
-import com.example.dbflute.multipledb.spring.unit.AppContainerTestCase;
+import com.example.dbflute.multipledb.spring.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  * @since 0.9.6.6 (2010/03/11 Thursday)
  */
-public class VendorTypeTest extends AppContainerTestCase {
+public class VendorTypeTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
