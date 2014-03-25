@@ -10,12 +10,12 @@ import org.seasar.dbflute.cbean.UnionQuery;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.LdGarbageCB;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdGarbageBhv;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.LdGarbage;
-import com.example.dbflute.multipledb.seasar.unit.ContainerTestCase;
+import com.example.dbflute.multipledb.seasar.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  */
-public class WxNoPrimaryKeyBasicTest extends ContainerTestCase {
+public class WxNoPrimaryKeyBasicTest extends UnitContainerTestCase {
     
     protected LdGarbageBhv ldGarbageBhv;
 

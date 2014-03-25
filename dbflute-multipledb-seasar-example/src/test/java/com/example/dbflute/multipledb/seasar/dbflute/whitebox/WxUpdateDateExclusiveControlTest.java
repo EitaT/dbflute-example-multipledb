@@ -4,12 +4,12 @@ import org.seasar.dbflute.exception.EntityAlreadyUpdatedException;
 
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.LdBookBhv;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.LdBook;
-import com.example.dbflute.multipledb.seasar.unit.ContainerTestCase;
+import com.example.dbflute.multipledb.seasar.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  */
-public class WxUpdateDateExclusiveControlTest extends ContainerTestCase {
+public class WxUpdateDateExclusiveControlTest extends UnitContainerTestCase {
 
     protected LdBookBhv ldBookBhv;
 

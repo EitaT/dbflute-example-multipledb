@@ -8,12 +8,12 @@ import com.example.dbflute.multipledb.seasar.dbflute.memberdb.cbean.MbMemberCB;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.cbean.MbPurchaseCB;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberBhv;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.MbMember;
-import com.example.dbflute.multipledb.seasar.unit.ContainerTestCase;
+import com.example.dbflute.multipledb.seasar.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  */
-public class WxTableSqlNameFilterTest extends ContainerTestCase {
+public class WxTableSqlNameFilterTest extends UnitContainerTestCase {
 
     protected MbMemberBhv mbMemberBhv;
 

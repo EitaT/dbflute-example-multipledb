@@ -24,13 +24,13 @@ import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.LdLendin
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.LdLibrary;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.LdLibraryUser;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.LdNextLibrary;
-import com.example.dbflute.multipledb.seasar.unit.ContainerTestCase;
+import com.example.dbflute.multipledb.seasar.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  * @since 0.9.5.1 (2009/06/01 Thursday)
  */
-public class WxCompoundPKSupplementTest extends ContainerTestCase {
+public class WxCompoundPKSupplementTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -259,7 +259,7 @@ public class WxCompoundPKSupplementTest extends ContainerTestCase {
             fail();
         } catch (IllegalConditionBeanOperationException e) {
             // OK
-            log(getLineSeparator() + e.getMessage());
+            log(ln() + e.getMessage());
         }
     }
 
@@ -284,7 +284,7 @@ public class WxCompoundPKSupplementTest extends ContainerTestCase {
             fail();
         } catch (IllegalConditionBeanOperationException e) {
             // OK
-            log(getLineSeparator() + e.getMessage());
+            log(ln() + e.getMessage());
         }
     }
 
@@ -317,7 +317,7 @@ public class WxCompoundPKSupplementTest extends ContainerTestCase {
             fail();
         } catch (IllegalConditionBeanOperationException e) {
             // OK
-            log(getLineSeparator() + e.getMessage());
+            log(ln() + e.getMessage());
         }
     }
 
@@ -338,7 +338,7 @@ public class WxCompoundPKSupplementTest extends ContainerTestCase {
             fail();
         } catch (IllegalConditionBeanOperationException e) {
             // OK
-            log(getLineSeparator() + e.getMessage());
+            log(ln() + e.getMessage());
         }
     }
 }

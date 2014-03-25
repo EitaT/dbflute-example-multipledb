@@ -14,7 +14,8 @@
 		<seasar.version>2.4.46</seasar.version>
 		<dbflute.version>1.0.5C</dbflute.version>
 		<derby.jdbc.version>10.7.1.1</derby.jdbc.version>
-		<h2.jdbc.version>1.3.158</h2.jdbc.version>
+		<h2.jdbc.version>1.3.175</h2.jdbc.version>
+		<utflute.version>0.4.0</utflute.version>
 	</properties>
 
 	<url>http://dbflute.sandbox.seasar.org/</url>
@@ -160,7 +161,9 @@
 	</repositories>
 
 	<dependencies>
-        <!-- for Compile -->
+		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+		<!--                                                                Main Framework -->
+		<!--                                                                 = = = = = = = -->
 		<dependency>
 			<groupId>org.seasar.container</groupId>
 			<artifactId>s2-tiger</artifactId>
@@ -178,7 +181,6 @@
 			<version>${dbflute.version}</version>
 		</dependency>
 
-        <!-- for Runtime -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -222,13 +224,20 @@
 	    	<scope>runtime</scope>
 		</dependency>
   
-        <!-- for Test -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.2</version>
-            <type>jar</type>
-            <scope>test</scope>
-        </dependency>
+		<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+		<!--                                                                       Testing -->
+		<!--                                                                       = = = = -->
+		<dependency>
+			<groupId>org.seasar.dbflute</groupId>
+			<artifactId>utflute-seasar</artifactId>
+			<version>${utflute.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

@@ -27,13 +27,13 @@ import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.MbMemberBhv;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.pmbean.MbSimpleMemberPmb;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.MbMember;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.customize.MbSimpleMember;
-import com.example.dbflute.multipledb.seasar.unit.ContainerTestCase;
+import com.example.dbflute.multipledb.seasar.unit.UnitContainerTestCase;
 
 /**
  * @author jflute
  * @since 0.9.5.1 (2009/06/01 Thursday)
  */
-public class MultipleDbTest extends ContainerTestCase {
+public class MultipleDbTest extends UnitContainerTestCase {
 
     // ===================================================================================
     //                                                                           Attribute
