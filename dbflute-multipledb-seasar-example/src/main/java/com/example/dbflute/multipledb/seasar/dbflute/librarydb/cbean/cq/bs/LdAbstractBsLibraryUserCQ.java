@@ -49,7 +49,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as equal. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_Equal(Integer libraryId) {
@@ -62,7 +62,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_NotEqual(Integer libraryId) {
@@ -75,7 +75,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterThan(Integer libraryId) {
@@ -84,7 +84,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessThan(Integer libraryId) {
@@ -93,7 +93,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterEqual(Integer libraryId) {
@@ -102,7 +102,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessEqual(Integer libraryId) {
@@ -113,7 +113,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param minNumber The min number of libraryId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of libraryId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -124,7 +124,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryIdList The collection of libraryId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_InScope(Collection<Integer> libraryIdList) {
@@ -137,7 +137,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryIdList The collection of libraryId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_NotInScope(Collection<Integer> libraryIdList) {
@@ -178,13 +178,13 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      */
     public void setLibraryId_IsNull() { regLibraryId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      */
     public void setLibraryId_IsNotNull() { regLibraryId(CK_ISNN, DOBJ); }
 
@@ -193,7 +193,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserId The value of lbUserId as equal. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_Equal(Integer lbUserId) {
@@ -206,7 +206,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserId The value of lbUserId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_NotEqual(Integer lbUserId) {
@@ -219,7 +219,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserId The value of lbUserId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_GreaterThan(Integer lbUserId) {
@@ -228,7 +228,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserId The value of lbUserId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_LessThan(Integer lbUserId) {
@@ -237,7 +237,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserId The value of lbUserId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_GreaterEqual(Integer lbUserId) {
@@ -246,7 +246,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserId The value of lbUserId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_LessEqual(Integer lbUserId) {
@@ -257,7 +257,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param minNumber The min number of lbUserId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of lbUserId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -268,7 +268,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserIdList The collection of lbUserId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLbUserId_InScope(Collection<Integer> lbUserIdList) {
@@ -281,7 +281,7 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @param lbUserIdList The collection of lbUserId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLbUserId_NotInScope(Collection<Integer> lbUserIdList) {
@@ -322,13 +322,13 @@ public abstract class LdAbstractBsLibraryUserCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      */
     public void setLbUserId_IsNull() { regLbUserId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      */
     public void setLbUserId_IsNotNull() { regLbUserId(CK_ISNN, DOBJ); }
 

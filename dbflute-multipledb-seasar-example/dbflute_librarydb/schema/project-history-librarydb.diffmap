@@ -1,0 +1,37 @@
+map:{
+    ; 2014/04/19 13:37:08 = map:{
+        ; diffDate = 2014/04/19 13:37:08
+        ; tableDiff = map:{
+            ; LENDING = map:{
+                ; tableName = LENDING
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; SQL100521215407231(new) = map:{
+                        ; constraintName = SQL100521215407231(new)
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; LENDING_COLLECTION = map:{
+                ; tableName = LENDING_COLLECTION
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; SQL100521215407240(new) = map:{
+                        ; constraintName = SQL100521215407240(new)
+                        ; diffType = ADD
+                    }
+                }
+            }
+            ; LIBRARY_USER = map:{
+                ; tableName = LIBRARY_USER
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; SQL100521215407280(new) = map:{
+                        ; constraintName = SQL100521215407280(new)
+                        ; diffType = ADD
+                    }
+                }
+            }
+        }
+    }
+}

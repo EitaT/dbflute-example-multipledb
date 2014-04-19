@@ -80,13 +80,13 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     // -----------------------------------------------------
     //                                                Column
     //                                                ------
-    /** LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} */
+    /** LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} */
     protected Integer _libraryId;
 
-    /** LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} */
+    /** LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} */
     protected Integer _lbUserId;
 
-    /** LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)} */
+    /** LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)} */
     protected java.sql.Timestamp _lendingDate;
 
     /** R_USER: {NotNull, VARCHAR(100), default=[default-user]} */
@@ -376,7 +376,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
+     * [get] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
      * @return The value of the column 'LIBRARY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLibraryId() {
@@ -384,7 +384,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [set] LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
+     * [set] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
      * @param libraryId The value of the column 'LIBRARY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryId(Integer libraryId) {
@@ -393,7 +393,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [get] LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
+     * [get] LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
      * @return The value of the column 'LB_USER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLbUserId() {
@@ -401,7 +401,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [set] LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
+     * [set] LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
      * @param lbUserId The value of the column 'LB_USER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLbUserId(Integer lbUserId) {
@@ -410,7 +410,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [get] LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)} <br />
+     * [get] LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)} <br />
      * @return The value of the column 'LENDING_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getLendingDate() {
@@ -418,7 +418,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * [set] LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)} <br />
+     * [set] LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)} <br />
      * @param lendingDate The value of the column 'LENDING_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setLendingDate(java.sql.Timestamp lendingDate) {

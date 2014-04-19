@@ -149,7 +149,7 @@ public abstract class LdAbstractBsBookCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select BOOK_ID from COLLECTION where ...)} <br />
      * COLLECTION by BOOK_ID, named 'collectionAsOne'.
      * <pre>
@@ -170,7 +170,7 @@ public abstract class LdAbstractBsBookCQ extends AbstractConditionQuery {
     public abstract String keepBookId_ExistsReferrer_CollectionList(LdCollectionCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select BOOK_ID from COLLECTION where ...)} <br />
      * COLLECTION by BOOK_ID, named 'collectionAsOne'.
      * <pre>

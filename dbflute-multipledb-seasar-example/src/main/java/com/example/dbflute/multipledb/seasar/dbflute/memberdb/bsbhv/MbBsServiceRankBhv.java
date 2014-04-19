@@ -139,10 +139,10 @@ public abstract class MbBsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, MbServiceRank.class);
     }
 
-    protected <ENTITY extends MbServiceRank> ENTITY doSelectEntity(final MbServiceRankCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends MbServiceRank> ENTITY doSelectEntity(MbServiceRankCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, MbServiceRankCB>() {
-            public List<ENTITY> callbackSelectList(MbServiceRankCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(MbServiceRankCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -168,10 +168,10 @@ public abstract class MbBsServiceRankBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, MbServiceRank.class);
     }
 
-    protected <ENTITY extends MbServiceRank> ENTITY doSelectEntityWithDeletedCheck(final MbServiceRankCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends MbServiceRank> ENTITY doSelectEntityWithDeletedCheck(MbServiceRankCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, MbServiceRankCB>() {
-            public List<ENTITY> callbackSelectList(MbServiceRankCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(MbServiceRankCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -243,7 +243,7 @@ public abstract class MbBsServiceRankBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, MbServiceRankCB>() {
-            public List<ENTITY> callbackSelectList(MbServiceRankCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(MbServiceRankCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

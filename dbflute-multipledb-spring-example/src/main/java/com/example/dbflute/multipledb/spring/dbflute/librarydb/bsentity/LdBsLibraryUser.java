@@ -78,10 +78,10 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     // -----------------------------------------------------
     //                                                Column
     //                                                ------
-    /** LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY} */
+    /** LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY} */
     protected Integer _libraryId;
 
-    /** LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER} */
+    /** LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER} */
     protected Integer _lbUserId;
 
     /** R_USER: {NotNull, VARCHAR(100), default=[default-user]} */
@@ -413,7 +413,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
+     * [get] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
      * @return The value of the column 'LIBRARY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLibraryId() {
@@ -421,7 +421,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     }
 
     /**
-     * [set] LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
+     * [set] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
      * @param libraryId The value of the column 'LIBRARY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryId(Integer libraryId) {
@@ -430,7 +430,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     }
 
     /**
-     * [get] LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER} <br />
+     * [get] LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER} <br />
      * @return The value of the column 'LB_USER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLbUserId() {
@@ -438,7 +438,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     }
 
     /**
-     * [set] LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER} <br />
+     * [set] LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER} <br />
      * @param lbUserId The value of the column 'LB_USER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLbUserId(Integer lbUserId) {

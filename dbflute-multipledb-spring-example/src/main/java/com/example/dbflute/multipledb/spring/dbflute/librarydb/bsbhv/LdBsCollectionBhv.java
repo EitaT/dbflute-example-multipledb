@@ -141,10 +141,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, LdCollection.class);
     }
 
-    protected <ENTITY extends LdCollection> ENTITY doSelectEntity(final LdCollectionCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdCollection> ENTITY doSelectEntity(LdCollectionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdCollectionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, LdCollection.class);
     }
 
-    protected <ENTITY extends LdCollection> ENTITY doSelectEntityWithDeletedCheck(final LdCollectionCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdCollection> ENTITY doSelectEntityWithDeletedCheck(LdCollectionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdCollectionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -245,7 +245,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdCollectionCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

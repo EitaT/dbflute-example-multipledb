@@ -141,10 +141,10 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doSelectEntity(cb, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntity(final LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntity(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doSelectEntityWithDeletedCheck(cb, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntityWithDeletedCheck(final LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntityWithDeletedCheck(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -245,7 +245,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

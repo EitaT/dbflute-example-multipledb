@@ -167,7 +167,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select BLACK_ACTION_CODE from BLACK_ACTION where ...)} <br />
      * BLACK_ACTION by BLACK_ACTION_CODE, named 'blackActionAsOne'.
      * <pre>
@@ -188,7 +188,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     public abstract String keepBlackActionCode_ExistsReferrer_BlackActionList(LdBlackActionCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select BLACK_ACTION_CODE from BLACK_ACTION where ...)} <br />
      * BLACK_ACTION by BLACK_ACTION_CODE, named 'blackActionAsOne'.
      * <pre>

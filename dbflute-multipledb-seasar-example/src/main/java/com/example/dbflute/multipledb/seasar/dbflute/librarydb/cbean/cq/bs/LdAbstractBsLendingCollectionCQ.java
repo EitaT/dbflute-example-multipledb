@@ -49,7 +49,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryId The value of libraryId as equal. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_Equal(Integer libraryId) {
@@ -62,7 +62,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryId The value of libraryId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_NotEqual(Integer libraryId) {
@@ -75,7 +75,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryId The value of libraryId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterThan(Integer libraryId) {
@@ -84,7 +84,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryId The value of libraryId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessThan(Integer libraryId) {
@@ -93,7 +93,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryId The value of libraryId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterEqual(Integer libraryId) {
@@ -102,7 +102,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryId The value of libraryId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessEqual(Integer libraryId) {
@@ -113,7 +113,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param minNumber The min number of libraryId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of libraryId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -124,7 +124,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryIdList The collection of libraryId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_InScope(Collection<Integer> libraryIdList) {
@@ -137,7 +137,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      * @param libraryIdList The collection of libraryId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_NotInScope(Collection<Integer> libraryIdList) {
@@ -150,13 +150,13 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      */
     public void setLibraryId_IsNull() { regLibraryId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
      */
     public void setLibraryId_IsNotNull() { regLibraryId(CK_ISNN, DOBJ); }
 
@@ -165,7 +165,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserId The value of lbUserId as equal. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_Equal(Integer lbUserId) {
@@ -178,7 +178,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserId The value of lbUserId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_NotEqual(Integer lbUserId) {
@@ -191,7 +191,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserId The value of lbUserId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_GreaterThan(Integer lbUserId) {
@@ -200,7 +200,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserId The value of lbUserId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_LessThan(Integer lbUserId) {
@@ -209,7 +209,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserId The value of lbUserId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_GreaterEqual(Integer lbUserId) {
@@ -218,7 +218,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserId The value of lbUserId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_LessEqual(Integer lbUserId) {
@@ -229,7 +229,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param minNumber The min number of lbUserId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of lbUserId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -240,7 +240,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserIdList The collection of lbUserId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLbUserId_InScope(Collection<Integer> lbUserIdList) {
@@ -253,7 +253,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      * @param lbUserIdList The collection of lbUserId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLbUserId_NotInScope(Collection<Integer> lbUserIdList) {
@@ -266,13 +266,13 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      */
     public void setLbUserId_IsNull() { regLbUserId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
      */
     public void setLbUserId_IsNotNull() { regLbUserId(CK_ISNN, DOBJ); }
 
@@ -281,7 +281,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDate The value of lendingDate as equal. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_Equal(java.sql.Timestamp lendingDate) {
@@ -290,7 +290,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDate The value of lendingDate as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_NotEqual(java.sql.Timestamp lendingDate) {
@@ -299,7 +299,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDate The value of lendingDate as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_GreaterThan(java.sql.Timestamp lendingDate) {
@@ -308,7 +308,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDate The value of lendingDate as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_LessThan(java.sql.Timestamp lendingDate) {
@@ -317,7 +317,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDate The value of lendingDate as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_GreaterEqual(java.sql.Timestamp lendingDate) {
@@ -326,7 +326,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDate The value of lendingDate as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_LessEqual(java.sql.Timestamp lendingDate) {
@@ -336,7 +336,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * <pre>e.g. setLendingDate_FromTo(fromDate, toDate, new <span style="color: #FD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of lendingDate. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of lendingDate. (NullAllowed: if null, no to-condition)
@@ -349,7 +349,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
     /**
      * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
      *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #FD4747">&lt; '2007/04/17 00:00:00'</span>
@@ -363,7 +363,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * InScope {in ('1965-03-03', '1966-09-15')}. And NullOrEmptyIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDateList The collection of lendingDate as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLendingDate_InScope(Collection<java.sql.Timestamp> lendingDateList) {
@@ -376,7 +376,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotInScope {not in ('1965-03-03', '1966-09-15')}. And NullOrEmptyIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @param lendingDateList The collection of lendingDate as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLendingDate_NotInScope(Collection<java.sql.Timestamp> lendingDateList) {
@@ -389,13 +389,13 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      */
     public void setLendingDate_IsNull() { regLendingDate(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      */
     public void setLendingDate_IsNotNull() { regLendingDate(CK_ISNN, DOBJ); }
 
@@ -404,7 +404,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionId The value of collectionId as equal. (NullAllowed: if null, no condition)
      */
     public void setCollectionId_Equal(Integer collectionId) {
@@ -417,7 +417,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionId The value of collectionId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setCollectionId_NotEqual(Integer collectionId) {
@@ -430,7 +430,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionId The value of collectionId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setCollectionId_GreaterThan(Integer collectionId) {
@@ -439,7 +439,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionId The value of collectionId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setCollectionId_LessThan(Integer collectionId) {
@@ -448,7 +448,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionId The value of collectionId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setCollectionId_GreaterEqual(Integer collectionId) {
@@ -457,7 +457,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionId The value of collectionId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setCollectionId_LessEqual(Integer collectionId) {
@@ -468,7 +468,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param minNumber The min number of collectionId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of collectionId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -479,7 +479,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionIdList The collection of collectionId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setCollectionId_InScope(Collection<Integer> collectionIdList) {
@@ -492,7 +492,7 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @param collectionIdList The collection of collectionId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setCollectionId_NotInScope(Collection<Integer> collectionIdList) {
@@ -533,13 +533,13 @@ public abstract class LdAbstractBsLendingCollectionCQ extends AbstractConditionQ
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      */
     public void setCollectionId_IsNull() { regCollectionId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
      */
     public void setCollectionId_IsNotNull() { regCollectionId(CK_ISNN, DOBJ); }
 

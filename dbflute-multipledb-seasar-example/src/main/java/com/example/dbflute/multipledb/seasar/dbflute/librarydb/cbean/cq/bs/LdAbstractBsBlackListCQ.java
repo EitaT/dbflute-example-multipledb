@@ -149,7 +149,7 @@ public abstract class LdAbstractBsBlackListCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select BLACK_LIST_ID from BLACK_ACTION where ...)} <br />
      * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionAsOne'.
      * <pre>
@@ -170,7 +170,7 @@ public abstract class LdAbstractBsBlackListCQ extends AbstractConditionQuery {
     public abstract String keepBlackListId_ExistsReferrer_BlackActionList(LdBlackActionCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select BLACK_LIST_ID from BLACK_ACTION where ...)} <br />
      * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionAsOne'.
      * <pre>

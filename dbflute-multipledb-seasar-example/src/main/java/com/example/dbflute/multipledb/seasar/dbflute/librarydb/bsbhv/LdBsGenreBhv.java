@@ -141,10 +141,10 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, LdGenre.class);
     }
 
-    protected <ENTITY extends LdGenre> ENTITY doSelectEntity(final LdGenreCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdGenre> ENTITY doSelectEntity(LdGenreCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdGenreCB>() {
-            public List<ENTITY> callbackSelectList(LdGenreCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdGenreCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, LdGenre.class);
     }
 
-    protected <ENTITY extends LdGenre> ENTITY doSelectEntityWithDeletedCheck(final LdGenreCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdGenre> ENTITY doSelectEntityWithDeletedCheck(LdGenreCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdGenreCB>() {
-            public List<ENTITY> callbackSelectList(LdGenreCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdGenreCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -245,7 +245,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdGenreCB>() {
-            public List<ENTITY> callbackSelectList(LdGenreCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdGenreCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

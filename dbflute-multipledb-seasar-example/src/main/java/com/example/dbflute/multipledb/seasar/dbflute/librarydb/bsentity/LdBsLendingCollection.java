@@ -86,16 +86,16 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     // -----------------------------------------------------
     //                                                Column
     //                                                ------
-    /** LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING} */
+    /** LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING} */
     protected Integer _libraryId;
 
-    /** LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING} */
+    /** LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING} */
     protected Integer _lbUserId;
 
-    /** LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING} */
+    /** LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING} */
     protected java.sql.Timestamp _lendingDate;
 
-    /** COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION} */
+    /** COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION} */
     protected Integer _collectionId;
 
     /** RETURN_LIMIT_DATE: {NotNull, TIMESTAMP(26, 6)} */
@@ -588,7 +588,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING} <br />
+     * [get] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING} <br />
      * @return The value of the column 'LIBRARY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLibraryId() {
@@ -596,7 +596,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     }
 
     /**
-     * [set] LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING} <br />
+     * [set] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING} <br />
      * @param libraryId The value of the column 'LIBRARY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryId(Integer libraryId) {
@@ -605,7 +605,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     }
 
     /**
-     * [get] LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING} <br />
+     * [get] LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING} <br />
      * @return The value of the column 'LB_USER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLbUserId() {
@@ -613,7 +613,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     }
 
     /**
-     * [set] LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING} <br />
+     * [set] LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING} <br />
      * @param lbUserId The value of the column 'LB_USER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLbUserId(Integer lbUserId) {
@@ -622,7 +622,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     }
 
     /**
-     * [get] LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING} <br />
+     * [get] LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING} <br />
      * @return The value of the column 'LENDING_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getLendingDate() {
@@ -630,7 +630,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     }
 
     /**
-     * [set] LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING} <br />
+     * [set] LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING} <br />
      * @param lendingDate The value of the column 'LENDING_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setLendingDate(java.sql.Timestamp lendingDate) {
@@ -639,7 +639,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     }
 
     /**
-     * [get] COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION} <br />
+     * [get] COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION} <br />
      * @return The value of the column 'COLLECTION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getCollectionId() {
@@ -647,7 +647,7 @@ public abstract class LdBsLendingCollection implements LdEntityDefinedCommonColu
     }
 
     /**
-     * [set] COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION} <br />
+     * [set] COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION} <br />
      * @param collectionId The value of the column 'COLLECTION_ID'. (basically NotNull if update: for the constraint)
      */
     public void setCollectionId(Integer collectionId) {

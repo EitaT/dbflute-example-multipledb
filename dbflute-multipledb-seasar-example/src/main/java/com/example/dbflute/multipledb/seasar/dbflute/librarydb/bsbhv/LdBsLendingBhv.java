@@ -141,10 +141,10 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, LdLending.class);
     }
 
-    protected <ENTITY extends LdLending> ENTITY doSelectEntity(final LdLendingCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdLending> ENTITY doSelectEntity(LdLendingCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdLendingCB>() {
-            public List<ENTITY> callbackSelectList(LdLendingCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdLendingCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doSelectEntityWithDeletedCheck(cb, LdLending.class);
     }
 
-    protected <ENTITY extends LdLending> ENTITY doSelectEntityWithDeletedCheck(final LdLendingCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdLending> ENTITY doSelectEntityWithDeletedCheck(LdLendingCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdLendingCB>() {
-            public List<ENTITY> callbackSelectList(LdLendingCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdLendingCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -249,7 +249,7 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdLendingCB>() {
-            public List<ENTITY> callbackSelectList(LdLendingCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdLendingCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

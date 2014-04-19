@@ -5,6 +5,8 @@
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -99,14 +101,14 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LibraryId_Asc() { regOBA("LIBRARY_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LibraryId_Desc() { regOBD("LIBRARY_ID"); return this; }
@@ -136,14 +138,14 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LbUserId_Asc() { regOBA("LB_USER_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LbUserId_Desc() { regOBD("LB_USER_ID"); return this; }
@@ -401,10 +403,10 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     }
 
     // ===================================================================================
-    //                                                       Compound PK's Exists Referrer
-    //                                                       =============================
+    //                                                      ExistsReferrer for Compound PK
+    //                                                      ==============================
     /**
-     * Set up 'exists-referrer' (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select ... from LENDING where ...)}
      * @param subQuery The sub-query of LendingList for 'exists'. (NotNull)
      */
@@ -423,7 +425,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     }
 
     /**
-     * Set up 'exists-referrer' (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select ... from LENDING_COLLECTION where ...)}
      * @param subQuery The sub-query of LendingCollectionList for 'exists'. (NotNull)
      */
@@ -439,6 +441,170 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
         if (_twoOrMorePk_ExistsReferrer_LendingCollectionListMap == null) { _twoOrMorePk_ExistsReferrer_LendingCollectionListMap = newLinkedHashMapSized(4); }
         String ky = "subQueryMapKey" + (_twoOrMorePk_ExistsReferrer_LendingCollectionListMap.size() + 1);
         _twoOrMorePk_ExistsReferrer_LendingCollectionListMap.put(ky, sq); return "twoOrMorePk_ExistsReferrer_LendingCollectionList." + ky;
+    }
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br />
+     * {not exists (select ... from LENDING where ...)}
+     * @param subQuery The sub-query of LendingList for 'not exists'. (NotNull)
+     */
+    public void notExistsLendingList(SubQuery<LdLendingCB> subQuery) {
+        assertObjectNotNull("subQuery<LdLendingCB>", subQuery);
+        LdLendingCB cb = new LdLendingCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
+        String pp = keepTwoOrMorePk_NotExistsReferrer_LendingList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "LIBRARY_ID, LB_USER_ID", "LIBRARY_ID, LB_USER_ID", pp, "lendingList");
+    }
+    protected Map<String, LdLendingCQ> _twoOrMorePk_NotExistsReferrer_LendingListMap;
+    public Map<String, LdLendingCQ> getTwoOrMorePk_NotExistsReferrer_LendingList() { return _twoOrMorePk_NotExistsReferrer_LendingListMap; }
+    public String keepTwoOrMorePk_NotExistsReferrer_LendingList(LdLendingCQ sq) {
+        if (_twoOrMorePk_NotExistsReferrer_LendingListMap == null) { _twoOrMorePk_NotExistsReferrer_LendingListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_twoOrMorePk_NotExistsReferrer_LendingListMap.size() + 1);
+        _twoOrMorePk_NotExistsReferrer_LendingListMap.put(ky, sq); return "twoOrMorePk_NotExistsReferrer_LendingList." + ky;
+    }
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br />
+     * {not exists (select ... from LENDING_COLLECTION where ...)}
+     * @param subQuery The sub-query of LendingCollectionList for 'not exists'. (NotNull)
+     */
+    public void notExistsLendingCollectionList(SubQuery<LdLendingCollectionCB> subQuery) {
+        assertObjectNotNull("subQuery<LdLendingCollectionCB>", subQuery);
+        LdLendingCollectionCB cb = new LdLendingCollectionCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
+        String pp = keepTwoOrMorePk_NotExistsReferrer_LendingCollectionList(cb.query()); // for saving query-value.
+        registerNotExistsReferrer(cb.query(), "LIBRARY_ID, LB_USER_ID", "LIBRARY_ID, LB_USER_ID", pp, "lendingCollectionList");
+    }
+    protected Map<String, LdLendingCollectionCQ> _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap;
+    public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_NotExistsReferrer_LendingCollectionList() { return _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap; }
+    public String keepTwoOrMorePk_NotExistsReferrer_LendingCollectionList(LdLendingCollectionCQ sq) {
+        if (_twoOrMorePk_NotExistsReferrer_LendingCollectionListMap == null) { _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_twoOrMorePk_NotExistsReferrer_LendingCollectionListMap.size() + 1);
+        _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap.put(ky, sq); return "twoOrMorePk_NotExistsReferrer_LendingCollectionList." + ky;
+    }
+
+    // ===================================================================================
+    //                                            (Specify)DerivedReferrer for Compound PK
+    //                                            ========================================
+    public void xsderiveLendingList(String fn, SubQuery<LdLendingCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLendingCB cb = new LdLendingCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepTwoOrMorePk_SpecifyDerivedReferrer_LendingList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "LIBRARY_ID, LB_USER_ID", "LIBRARY_ID, LB_USER_ID", pp, "lendingList", al, op);
+    }
+    protected Map<String, LdLendingCQ> _twoOrMorePk_SpecifyDerivedReferrer_LendingListMap;
+    public Map<String, LdLendingCQ> getTwoOrMorePk_SpecifyDerivedReferrer_LendingList() { return _twoOrMorePk_SpecifyDerivedReferrer_LendingListMap; }
+    public String keepTwoOrMorePk_SpecifyDerivedReferrer_LendingList(LdLendingCQ sq) {
+        if (_twoOrMorePk_SpecifyDerivedReferrer_LendingListMap == null) { _twoOrMorePk_SpecifyDerivedReferrer_LendingListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_twoOrMorePk_SpecifyDerivedReferrer_LendingListMap.size() + 1);
+        _twoOrMorePk_SpecifyDerivedReferrer_LendingListMap.put(ky, sq); return "twoOrMorePk_SpecifyDerivedReferrer_LendingList." + ky;
+    }
+
+    public void xsderiveLendingCollectionList(String fn, SubQuery<LdLendingCollectionCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLendingCollectionCB cb = new LdLendingCollectionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String pp = keepTwoOrMorePk_SpecifyDerivedReferrer_LendingCollectionList(cb.query()); // for saving query-value.
+        registerSpecifyDerivedReferrer(fn, cb.query(), "LIBRARY_ID, LB_USER_ID", "LIBRARY_ID, LB_USER_ID", pp, "lendingCollectionList", al, op);
+    }
+    protected Map<String, LdLendingCollectionCQ> _twoOrMorePk_SpecifyDerivedReferrer_LendingCollectionListMap;
+    public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_SpecifyDerivedReferrer_LendingCollectionList() { return _twoOrMorePk_SpecifyDerivedReferrer_LendingCollectionListMap; }
+    public String keepTwoOrMorePk_SpecifyDerivedReferrer_LendingCollectionList(LdLendingCollectionCQ sq) {
+        if (_twoOrMorePk_SpecifyDerivedReferrer_LendingCollectionListMap == null) { _twoOrMorePk_SpecifyDerivedReferrer_LendingCollectionListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_twoOrMorePk_SpecifyDerivedReferrer_LendingCollectionListMap.size() + 1);
+        _twoOrMorePk_SpecifyDerivedReferrer_LendingCollectionListMap.put(ky, sq); return "twoOrMorePk_SpecifyDerivedReferrer_LendingCollectionList." + ky;
+    }
+
+    // ===================================================================================
+    //                                              (Query)DerivedReferrer for Compound PK
+    //                                              ======================================
+    /**
+     * Prepare for (Query)DerivedReferrer. <br />
+     * {FOO &lt;= (select max(BAR) from LENDING where ...)} <br />
+     * LENDING by LIBRARY_ID, LB_USER_ID, named 'lendingAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #FD4747">derivedLendingList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdLendingCB&gt;() {
+     *     public void query(LdLendingCB subCB) {
+     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     *     }
+     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<LdLendingCB> derivedLendingList() {
+        return xcreateQDRFunctionLendingList();
+    }
+    protected HpQDRFunction<LdLendingCB> xcreateQDRFunctionLendingList() {
+        return new HpQDRFunction<LdLendingCB>(new HpQDRSetupper<LdLendingCB>() {
+            public void setup(String fn, SubQuery<LdLendingCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveLendingList(fn, sq, rd, vl, op);
+            }
+        });
+    }
+    public void xqderiveLendingList(String fn, SubQuery<LdLendingCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLendingCB cb = new LdLendingCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepTwoOrMorePk_QueryDerivedReferrer_LendingList(cb.query()); // for saving query-value.
+        String prpp = keepTwoOrMorePk_QueryDerivedReferrer_LendingListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "LIBRARY_ID, LB_USER_ID", "LIBRARY_ID, LB_USER_ID", sqpp, "lendingList", rd, vl, prpp, op);
+    }
+    protected Map<String, LdLendingCQ> _twoOrMorePk_QueryDerivedReferrer_LendingListMap;
+    public Map<String, LdLendingCQ> getTwoOrMorePk_QueryDerivedReferrer_LendingList() { return _twoOrMorePk_QueryDerivedReferrer_LendingListMap; }
+    public String keepTwoOrMorePk_QueryDerivedReferrer_LendingList(LdLendingCQ sq) {
+        if (_twoOrMorePk_QueryDerivedReferrer_LendingListMap == null) { _twoOrMorePk_QueryDerivedReferrer_LendingListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_twoOrMorePk_QueryDerivedReferrer_LendingListMap.size() + 1);
+        _twoOrMorePk_QueryDerivedReferrer_LendingListMap.put(ky, sq); return "twoOrMorePk_QueryDerivedReferrer_LendingList." + ky;
+    }
+    protected Map<String, Object> _twoOrMorePk_QueryDerivedReferrer_LendingListParameterMap;
+    public Map<String, Object> getTwoOrMorePk_QueryDerivedReferrer_LendingListParameter() { return _twoOrMorePk_QueryDerivedReferrer_LendingListParameterMap; }
+    public String keepTwoOrMorePk_QueryDerivedReferrer_LendingListParameter(Object vl) {
+        if (_twoOrMorePk_QueryDerivedReferrer_LendingListParameterMap == null) { _twoOrMorePk_QueryDerivedReferrer_LendingListParameterMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryParameterKey" + (_twoOrMorePk_QueryDerivedReferrer_LendingListParameterMap.size() + 1);
+        _twoOrMorePk_QueryDerivedReferrer_LendingListParameterMap.put(ky, vl); return "twoOrMorePk_QueryDerivedReferrer_LendingListParameter." + ky;
+    }
+
+    /**
+     * Prepare for (Query)DerivedReferrer. <br />
+     * {FOO &lt;= (select max(BAR) from LENDING_COLLECTION where ...)} <br />
+     * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, named 'lendingCollectionAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #FD4747">derivedLendingCollectionList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdLendingCollectionCB&gt;() {
+     *     public void query(LdLendingCollectionCB subCB) {
+     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     *     }
+     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<LdLendingCollectionCB> derivedLendingCollectionList() {
+        return xcreateQDRFunctionLendingCollectionList();
+    }
+    protected HpQDRFunction<LdLendingCollectionCB> xcreateQDRFunctionLendingCollectionList() {
+        return new HpQDRFunction<LdLendingCollectionCB>(new HpQDRSetupper<LdLendingCollectionCB>() {
+            public void setup(String fn, SubQuery<LdLendingCollectionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+                xqderiveLendingCollectionList(fn, sq, rd, vl, op);
+            }
+        });
+    }
+    public void xqderiveLendingCollectionList(String fn, SubQuery<LdLendingCollectionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLendingCollectionCB cb = new LdLendingCollectionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        String sqpp = keepTwoOrMorePk_QueryDerivedReferrer_LendingCollectionList(cb.query()); // for saving query-value.
+        String prpp = keepTwoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "LIBRARY_ID, LB_USER_ID", "LIBRARY_ID, LB_USER_ID", sqpp, "lendingCollectionList", rd, vl, prpp, op);
+    }
+    protected Map<String, LdLendingCollectionCQ> _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListMap;
+    public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_QueryDerivedReferrer_LendingCollectionList() { return _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListMap; }
+    public String keepTwoOrMorePk_QueryDerivedReferrer_LendingCollectionList(LdLendingCollectionCQ sq) {
+        if (_twoOrMorePk_QueryDerivedReferrer_LendingCollectionListMap == null) { _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_twoOrMorePk_QueryDerivedReferrer_LendingCollectionListMap.size() + 1);
+        _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListMap.put(ky, sq); return "twoOrMorePk_QueryDerivedReferrer_LendingCollectionList." + ky;
+    }
+    protected Map<String, Object> _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameterMap;
+    public Map<String, Object> getTwoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameter() { return _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameterMap; }
+    public String keepTwoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameter(Object vl) {
+        if (_twoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameterMap == null) { _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameterMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryParameterKey" + (_twoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameterMap.size() + 1);
+        _twoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameterMap.put(ky, vl); return "twoOrMorePk_QueryDerivedReferrer_LendingCollectionListParameter." + ky;
     }
 
     // ===================================================================================

@@ -167,7 +167,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select GENRE_CODE from BOOK where ...)} <br />
      * BOOK by GENRE_CODE, named 'bookAsOne'.
      * <pre>
@@ -188,7 +188,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     public abstract String keepGenreCode_ExistsReferrer_BookList(LdBookCQ sq);
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select PARENT_GENRE_CODE from GENRE where ...)} <br />
      * GENRE by PARENT_GENRE_CODE, named 'genreSelfAsOne'.
      * <pre>
@@ -209,7 +209,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     public abstract String keepGenreCode_ExistsReferrer_GenreSelfList(LdGenreCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select GENRE_CODE from BOOK where ...)} <br />
      * BOOK by GENRE_CODE, named 'bookAsOne'.
      * <pre>
@@ -230,7 +230,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     public abstract String keepGenreCode_NotExistsReferrer_BookList(LdBookCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select PARENT_GENRE_CODE from GENRE where ...)} <br />
      * GENRE by PARENT_GENRE_CODE, named 'genreSelfAsOne'.
      * <pre>

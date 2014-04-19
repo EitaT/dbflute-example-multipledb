@@ -141,10 +141,10 @@ public abstract class LdBsGarbagePlusBhv extends AbstractBehaviorReadable {
         return doSelectEntity(cb, LdGarbagePlus.class);
     }
 
-    protected <ENTITY extends LdGarbagePlus> ENTITY doSelectEntity(final LdGarbagePlusCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdGarbagePlus> ENTITY doSelectEntity(LdGarbagePlusCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdGarbagePlusCB>() {
-            public List<ENTITY> callbackSelectList(LdGarbagePlusCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdGarbagePlusCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsGarbagePlusBhv extends AbstractBehaviorReadable {
         return doSelectEntityWithDeletedCheck(cb, LdGarbagePlus.class);
     }
 
-    protected <ENTITY extends LdGarbagePlus> ENTITY doSelectEntityWithDeletedCheck(final LdGarbagePlusCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdGarbagePlus> ENTITY doSelectEntityWithDeletedCheck(LdGarbagePlusCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdGarbagePlusCB>() {
-            public List<ENTITY> callbackSelectList(LdGarbagePlusCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdGarbagePlusCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -207,7 +207,7 @@ public abstract class LdBsGarbagePlusBhv extends AbstractBehaviorReadable {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdGarbagePlusCB>() {
-            public List<ENTITY> callbackSelectList(LdGarbagePlusCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdGarbagePlusCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

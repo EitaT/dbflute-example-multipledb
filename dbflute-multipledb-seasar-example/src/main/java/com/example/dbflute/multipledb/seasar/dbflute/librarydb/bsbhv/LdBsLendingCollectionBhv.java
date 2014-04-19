@@ -141,10 +141,10 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
         return doSelectEntity(cb, LdLendingCollection.class);
     }
 
-    protected <ENTITY extends LdLendingCollection> ENTITY doSelectEntity(final LdLendingCollectionCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdLendingCollection> ENTITY doSelectEntity(LdLendingCollectionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdLendingCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdLendingCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdLendingCollectionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
         return doSelectEntityWithDeletedCheck(cb, LdLendingCollection.class);
     }
 
-    protected <ENTITY extends LdLendingCollection> ENTITY doSelectEntityWithDeletedCheck(final LdLendingCollectionCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb);
+    protected <ENTITY extends LdLendingCollection> ENTITY doSelectEntityWithDeletedCheck(LdLendingCollectionCB cb, Class<ENTITY> tp) {
+        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdLendingCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdLendingCollectionCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdLendingCollectionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
     @Override
@@ -251,7 +251,7 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
         return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdLendingCollectionCB>() {
-            public List<ENTITY> callbackSelectList(LdLendingCollectionCB cb, Class<ENTITY> tp) { return delegateSelectList(cb, tp); } });
+            public List<ENTITY> callbackSelectList(LdLendingCollectionCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
     }
 
     @Override

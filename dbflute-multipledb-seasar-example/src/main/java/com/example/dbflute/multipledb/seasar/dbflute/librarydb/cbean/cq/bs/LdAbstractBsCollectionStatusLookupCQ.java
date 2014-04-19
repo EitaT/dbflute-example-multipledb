@@ -188,7 +188,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select COLLECTION_STATUS_CODE from COLLECTION_STATUS where ...)} <br />
      * COLLECTION_STATUS by COLLECTION_STATUS_CODE, named 'collectionStatusAsOne'.
      * <pre>
@@ -209,7 +209,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     public abstract String keepCollectionStatusCode_ExistsReferrer_CollectionStatusList(LdCollectionStatusCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select COLLECTION_STATUS_CODE from COLLECTION_STATUS where ...)} <br />
      * COLLECTION_STATUS by COLLECTION_STATUS_CODE, named 'collectionStatusAsOne'.
      * <pre>

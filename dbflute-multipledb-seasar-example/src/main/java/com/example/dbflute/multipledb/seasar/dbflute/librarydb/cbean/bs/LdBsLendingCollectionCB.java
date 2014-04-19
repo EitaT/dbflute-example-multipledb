@@ -132,7 +132,7 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * cb.query().setBirthdate_IsNull();    <span style="color: #3F7E5E">// is null</span>
      * cb.query().setBirthdate_IsNotNull(); <span style="color: #3F7E5E">// is not null</span>
      * 
-     * <span style="color: #3F7E5E">// ExistsReferrer: (co-related sub-query)</span>
+     * <span style="color: #3F7E5E">// ExistsReferrer: (correlated sub-query)</span>
      * <span style="color: #3F7E5E">// {where exists (select PURCHASE_ID from PURCHASE where ...)}</span>
      * cb.query().existsPurchaseList(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
@@ -150,7 +150,7 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * });
      * cb.query().notInScopeMemberStatus...
      * 
-     * <span style="color: #3F7E5E">// (Query)DerivedReferrer: (co-related sub-query)</span>
+     * <span style="color: #3F7E5E">// (Query)DerivedReferrer: (correlated sub-query)</span>
      * cb.query().derivedPurchaseList().max(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.specify().columnPurchasePrice(); <span style="color: #3F7E5E">// derived column for function</span>
@@ -372,22 +372,22 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
         { super(baseCB, qyCall, purpose, dbmetaProvider); }
         /**
-         * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LENDING}
+         * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLibraryId() { return doColumn("LIBRARY_ID"); }
         /**
-         * LB_USER_ID: {PK, IX+, NotNull, INTEGER(10), FK to LENDING}
+         * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLbUserId() { return doColumn("LB_USER_ID"); }
         /**
-         * LENDING_DATE: {PK, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+         * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLendingDate() { return doColumn("LENDING_DATE"); }
         /**
-         * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+         * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnCollectionId() { return doColumn("COLLECTION_ID"); }

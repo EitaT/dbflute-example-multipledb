@@ -149,7 +149,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select COLLECTION_ID from COLLECTION_STATUS where ...)} <br />
      * COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.
      * <pre>
@@ -170,7 +170,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     public abstract String keepCollectionId_ExistsReferrer_CollectionStatusAsOne(LdCollectionStatusCQ sq);
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select COLLECTION_ID from LENDING_COLLECTION where ...)} <br />
      * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionAsOne'.
      * <pre>
@@ -191,7 +191,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     public abstract String keepCollectionId_ExistsReferrer_LendingCollectionList(LdLendingCollectionCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select COLLECTION_ID from COLLECTION_STATUS where ...)} <br />
      * COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.
      * <pre>
@@ -212,7 +212,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     public abstract String keepCollectionId_NotExistsReferrer_CollectionStatusAsOne(LdCollectionStatusCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select COLLECTION_ID from LENDING_COLLECTION where ...)} <br />
      * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionAsOne'.
      * <pre>

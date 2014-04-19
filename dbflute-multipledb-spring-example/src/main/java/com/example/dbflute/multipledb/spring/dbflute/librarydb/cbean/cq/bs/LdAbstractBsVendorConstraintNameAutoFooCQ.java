@@ -149,7 +149,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoFooCQ extends Abstract
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select CONSTRAINT_NAME_AUTO_FOO_ID from VENDOR_CONSTRAINT_NAME_AUTO_REF where ...)} <br />
      * VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefAsOne'.
      * <pre>
@@ -170,7 +170,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoFooCQ extends Abstract
     public abstract String keepConstraintNameAutoFooId_ExistsReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select CONSTRAINT_NAME_AUTO_FOO_ID from VENDOR_CONSTRAINT_NAME_AUTO_REF where ...)} <br />
      * VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefAsOne'.
      * <pre>

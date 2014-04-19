@@ -128,7 +128,7 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
      * cb.query().setBirthdate_IsNull();    <span style="color: #3F7E5E">// is null</span>
      * cb.query().setBirthdate_IsNotNull(); <span style="color: #3F7E5E">// is not null</span>
      * 
-     * <span style="color: #3F7E5E">// ExistsReferrer: (co-related sub-query)</span>
+     * <span style="color: #3F7E5E">// ExistsReferrer: (correlated sub-query)</span>
      * <span style="color: #3F7E5E">// {where exists (select PURCHASE_ID from PURCHASE where ...)}</span>
      * cb.query().existsPurchaseList(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
@@ -146,7 +146,7 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
      * });
      * cb.query().notInScopeMemberStatus...
      * 
-     * <span style="color: #3F7E5E">// (Query)DerivedReferrer: (co-related sub-query)</span>
+     * <span style="color: #3F7E5E">// (Query)DerivedReferrer: (correlated sub-query)</span>
      * cb.query().derivedPurchaseList().max(new SubQuery&lt;PurchaseCB&gt;() {
      *     public void query(PurchaseCB subCB) {
      *         subCB.specify().columnPurchasePrice(); <span style="color: #3F7E5E">// derived column for function</span>
@@ -344,12 +344,12 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
         { super(baseCB, qyCall, purpose, dbmetaProvider); }
         /**
-         * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+         * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLibraryId() { return doColumn("LIBRARY_ID"); }
         /**
-         * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
+         * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLbUserId() { return doColumn("LB_USER_ID"); }
@@ -433,6 +433,46 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
                 }
             }
             return _library;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br />
+         * {select max(FOO) from LENDING where ...) as FOO_MAX} <br />
+         * LENDING by LIBRARY_ID, LB_USER_ID, named 'lendingList'.
+         * <pre>
+         * cb.specify().<span style="color: #FD4747">derivedLendingList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdLendingCB&gt;() {
+         *     public void query(LdLendingCB subCB) {
+         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+         *     }
+         * }, LdLending.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<LdLendingCB, LdLibraryUserCQ> derivedLendingList() {
+            assertDerived("lendingList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return new HpSDRFunction<LdLendingCB, LdLibraryUserCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdLendingCB, LdLibraryUserCQ>() {
+                public void setup(String fn, SubQuery<LdLendingCB> sq, LdLibraryUserCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveLendingList(fn, sq, al, op); } }, _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br />
+         * {select max(FOO) from LENDING_COLLECTION where ...) as FOO_MAX} <br />
+         * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, named 'lendingCollectionList'.
+         * <pre>
+         * cb.specify().<span style="color: #FD4747">derivedLendingCollectionList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdLendingCollectionCB&gt;() {
+         *     public void query(LdLendingCollectionCB subCB) {
+         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+         *     }
+         * }, LdLendingCollection.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<LdLendingCollectionCB, LdLibraryUserCQ> derivedLendingCollectionList() {
+            assertDerived("lendingCollectionList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return new HpSDRFunction<LdLendingCollectionCB, LdLibraryUserCQ>(_baseCB, _qyCall.qy(), new HpSDRSetupper<LdLendingCollectionCB, LdLibraryUserCQ>() {
+                public void setup(String fn, SubQuery<LdLendingCollectionCB> sq, LdLibraryUserCQ cq, String al, DerivedReferrerOption op) {
+                    cq.xsderiveLendingCollectionList(fn, sq, al, op); } }, _dbmetaProvider);
         }
     }
 

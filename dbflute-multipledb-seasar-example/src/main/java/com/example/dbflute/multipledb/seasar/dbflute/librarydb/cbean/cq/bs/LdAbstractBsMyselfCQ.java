@@ -149,7 +149,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select MYSELF_ID from MYSELF_CHECK where ...)} <br />
      * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckAsOne'.
      * <pre>
@@ -170,7 +170,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
     public abstract String keepMyselfId_ExistsReferrer_MyselfCheckList(LdMyselfCheckCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select MYSELF_ID from MYSELF_CHECK where ...)} <br />
      * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckAsOne'.
      * <pre>

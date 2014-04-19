@@ -167,7 +167,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select LIBRARY_TYPE_CODE from LIBRARY where ...)} <br />
      * LIBRARY by LIBRARY_TYPE_CODE, named 'libraryAsOne'.
      * <pre>
@@ -188,7 +188,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     public abstract String keepLibraryTypeCode_ExistsReferrer_LibraryList(LdLibraryCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select LIBRARY_TYPE_CODE from LIBRARY where ...)} <br />
      * LIBRARY by LIBRARY_TYPE_CODE, named 'libraryAsOne'.
      * <pre>

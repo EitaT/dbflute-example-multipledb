@@ -116,7 +116,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select PRODUCT_CATEGORY_CODE from PRODUCT where ...)} <br />
      * PRODUCT by PRODUCT_CATEGORY_CODE, named 'productAsOne'.
      * <pre>
@@ -137,7 +137,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     public abstract String keepProductCategoryCode_ExistsReferrer_ProductList(MbProductCQ sq);
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select PARENT_CATEGORY_CODE from PRODUCT_CATEGORY where ...)} <br />
      * PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfAsOne'.
      * <pre>
@@ -158,7 +158,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     public abstract String keepProductCategoryCode_ExistsReferrer_ProductCategorySelfList(MbProductCategoryCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select PRODUCT_CATEGORY_CODE from PRODUCT where ...)} <br />
      * PRODUCT by PRODUCT_CATEGORY_CODE, named 'productAsOne'.
      * <pre>
@@ -179,7 +179,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     public abstract String keepProductCategoryCode_NotExistsReferrer_ProductList(MbProductCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select PARENT_CATEGORY_CODE from PRODUCT_CATEGORY where ...)} <br />
      * PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfAsOne'.
      * <pre>

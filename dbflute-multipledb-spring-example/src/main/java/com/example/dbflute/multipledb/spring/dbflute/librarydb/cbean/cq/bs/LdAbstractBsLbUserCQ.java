@@ -149,7 +149,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select LB_USER_ID from BLACK_LIST where ...)} <br />
      * BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
      * <pre>
@@ -170,7 +170,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     public abstract String keepLbUserId_ExistsReferrer_BlackListAsOne(LdBlackListCQ sq);
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select LB_USER_ID from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LB_USER_ID, named 'libraryUserAsOne'.
      * <pre>
@@ -191,7 +191,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     public abstract String keepLbUserId_ExistsReferrer_LibraryUserList(LdLibraryUserCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select LB_USER_ID from BLACK_LIST where ...)} <br />
      * BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
      * <pre>
@@ -212,7 +212,7 @@ public abstract class LdAbstractBsLbUserCQ extends AbstractConditionQuery {
     public abstract String keepLbUserId_NotExistsReferrer_BlackListAsOne(LdBlackListCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select LB_USER_ID from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LB_USER_ID, named 'libraryUserAsOne'.
      * <pre>

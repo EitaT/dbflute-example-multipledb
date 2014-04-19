@@ -149,7 +149,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     }
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select LIBRARY_ID from COLLECTION where ...)} <br />
      * COLLECTION by LIBRARY_ID, named 'collectionAsOne'.
      * <pre>
@@ -170,7 +170,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_ExistsReferrer_CollectionList(LdCollectionCQ sq);
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select LIBRARY_ID from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LIBRARY_ID, named 'libraryUserAsOne'.
      * <pre>
@@ -191,7 +191,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_ExistsReferrer_LibraryUserList(LdLibraryUserCQ sq);
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdAsOne'.
      * <pre>
@@ -212,7 +212,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_ExistsReferrer_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
 
     /**
-     * Set up ExistsReferrer (co-related sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query). <br />
      * {exists (select NEXT_LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdAsOne'.
      * <pre>
@@ -233,7 +233,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_ExistsReferrer_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select LIBRARY_ID from COLLECTION where ...)} <br />
      * COLLECTION by LIBRARY_ID, named 'collectionAsOne'.
      * <pre>
@@ -254,7 +254,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_NotExistsReferrer_CollectionList(LdCollectionCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select LIBRARY_ID from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LIBRARY_ID, named 'libraryUserAsOne'.
      * <pre>
@@ -275,7 +275,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_NotExistsReferrer_LibraryUserList(LdLibraryUserCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdAsOne'.
      * <pre>
@@ -296,7 +296,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_NotExistsReferrer_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
 
     /**
-     * Set up NotExistsReferrer (co-related sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query). <br />
      * {not exists (select NEXT_LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdAsOne'.
      * <pre>
