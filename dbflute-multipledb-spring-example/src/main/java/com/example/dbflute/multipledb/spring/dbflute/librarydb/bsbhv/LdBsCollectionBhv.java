@@ -8,6 +8,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
@@ -93,7 +95,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
-     * int count = collectionBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = collectionBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -121,12 +123,14 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
-     * LdCollection collection = collectionBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (collection != null) {
+     * LdCollection collection = collectionBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (collection != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = collection.get...();
      * } else {
      *     ...
@@ -134,8 +138,8 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollection selectEntity(LdCollectionCB cb) {
         return doSelectEntity(cb, LdCollection.class);
@@ -147,24 +151,29 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(LdCollectionCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends LdCollection> OptionalEntity<ENTITY> doSelectOptionalEntity(LdCollectionCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
-     * LdCollection collection = collectionBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * LdCollection collection = collectionBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = collection.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollection selectEntityWithDeletedCheck(LdCollectionCB cb) {
         return doSelectEntityWithDeletedCheck(cb, LdCollection.class);
@@ -185,8 +194,8 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param collectionId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollection selectByPKValue(Integer collectionId) {
         return doSelectByPKValue(collectionId, LdCollection.class);
@@ -200,9 +209,9 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param collectionId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollection selectByPKValueWithDeletedCheck(Integer collectionId) {
         return doSelectByPKValueWithDeletedCheck(collectionId, LdCollection.class);
@@ -228,14 +237,14 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;LdCollection&gt; collectionList = collectionBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;LdCollection&gt; collectionList = collectionBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (LdCollection collection : collectionList) {
      *     ... = collection.get...();
      * }
      * </pre>
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdCollection> selectList(LdCollectionCB cb) {
         return doSelectList(cb, LdCollection.class);
@@ -263,8 +272,8 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;LdCollection&gt; page = collectionBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;LdCollection&gt; page = collectionBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -276,7 +285,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdCollection> selectPage(LdCollectionCB cb) {
         return doSelectPage(cb, LdCollection.class);
@@ -303,7 +312,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
-     * collectionBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdCollection&gt;() {
+     * collectionBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdCollection&gt;() {
      *     public void handle(LdCollection entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -332,9 +341,9 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * collectionBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * collectionBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(LdCollectionCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -374,61 +383,96 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param collection The entity of collection. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadLendingCollectionList(LdCollection collection, ConditionBeanSetupper<LdLendingCollectionCB> conditionBeanSetupper) {
-        xassLRArg(collection, conditionBeanSetupper);
-        loadLendingCollectionList(xnewLRLs(collection), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of lendingCollectionList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of lendingCollectionList by the set-upper of referrer. <br />
      * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionList'.
      * <pre>
-     * collectionBhv.<span style="color: #FD4747">loadLendingCollectionList</span>(collectionList, new ConditionBeanSetupper&lt;LdLendingCollectionCB&gt;() {
+     * collectionBhv.<span style="color: #DD4747">loadLendingCollectionList</span>(collectionList, new ConditionBeanSetupper&lt;LdLendingCollectionCB&gt;() {
      *     public void setup(LdLendingCollectionCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (LdCollection collection : collectionList) {
-     *     ... = collection.<span style="color: #FD4747">getLendingCollectionList()</span>;
+     *     ... = collection.<span style="color: #DD4747">getLendingCollectionList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setCollectionId_InScope(pkList);
      * cb.query().addOrderBy_CollectionId_Asc();
      * </pre>
      * @param collectionList The entity list of collection. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadLendingCollectionList(List<LdCollection> collectionList, ConditionBeanSetupper<LdLendingCollectionCB> conditionBeanSetupper) {
-        xassLRArg(collectionList, conditionBeanSetupper);
-        loadLendingCollectionList(collectionList, new LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<LdLendingCollection> loadLendingCollectionList(List<LdCollection> collectionList, ConditionBeanSetupper<LdLendingCollectionCB> setupper) {
+        xassLRArg(collectionList, setupper);
+        return doLoadLendingCollectionList(collectionList, new LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of lendingCollectionList by the set-upper of referrer. <br />
+     * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionList'.
+     * <pre>
+     * collectionBhv.<span style="color: #DD4747">loadLendingCollectionList</span>(collectionList, new ConditionBeanSetupper&lt;LdLendingCollectionCB&gt;() {
+     *     public void setup(LdLendingCollectionCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = collection.<span style="color: #DD4747">getLendingCollectionList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setCollectionId_InScope(pkList);
+     * cb.query().addOrderBy_CollectionId_Asc();
+     * </pre>
+     * @param collection The entity of collection. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<LdLendingCollection> loadLendingCollectionList(LdCollection collection, ConditionBeanSetupper<LdLendingCollectionCB> setupper) {
+        xassLRArg(collection, setupper);
+        return doLoadLendingCollectionList(xnewLRLs(collection), new LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param collection The entity of collection. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadLendingCollectionList(LdCollection collection, LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection> loadReferrerOption) {
+    public NestedReferrerLoader<LdLendingCollection> loadLendingCollectionList(LdCollection collection, LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection> loadReferrerOption) {
         xassLRArg(collection, loadReferrerOption);
-        loadLendingCollectionList(xnewLRLs(collection), loadReferrerOption);
+        return loadLendingCollectionList(xnewLRLs(collection), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param collectionList The entity list of collection. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadLendingCollectionList(List<LdCollection> collectionList, LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<LdLendingCollection> loadLendingCollectionList(List<LdCollection> collectionList, LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection> loadReferrerOption) {
         xassLRArg(collectionList, loadReferrerOption);
-        if (collectionList.isEmpty()) { return; }
+        if (collectionList.isEmpty()) { return (NestedReferrerLoader<LdLendingCollection>)EMPTY_LOADER; }
+        return doLoadLendingCollectionList(collectionList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<LdLendingCollection> doLoadLendingCollectionList(List<LdCollection> collectionList, LoadReferrerOption<LdLendingCollectionCB, LdLendingCollection> option) {
         final LdLendingCollectionBhv referrerBhv = xgetBSFLR().select(LdLendingCollectionBhv.class);
-        helpLoadReferrerInternally(collectionList, loadReferrerOption, new InternalLoadReferrerCallback<LdCollection, Integer, LdLendingCollectionCB, LdLendingCollection>() {
+        return helpLoadReferrerInternally(collectionList, option, new InternalLoadReferrerCallback<LdCollection, Integer, LdLendingCollectionCB, LdLendingCollection>() {
             public Integer getPKVal(LdCollection et)
             { return et.getCollectionId(); }
             public void setRfLs(LdCollection et, List<LdLendingCollection> ls)
@@ -516,12 +560,12 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//collection.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//collection.set...;</span>
-     * collectionBhv.<span style="color: #FD4747">insert</span>(collection);
+     * collectionBhv.<span style="color: #DD4747">insert</span>(collection);
      * ... = collection.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param collection The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdCollection collection) {
         doInsert(collection, null);
@@ -557,17 +601,17 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//collection.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//collection.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * collection.<span style="color: #FD4747">setVersionNo</span>(value);
+     * collection.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     collectionBhv.<span style="color: #FD4747">update</span>(collection);
+     *     collectionBhv.<span style="color: #DD4747">update</span>(collection);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param collection The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final LdCollection collection) {
         doUpdate(collection, null);
@@ -621,12 +665,12 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collection.setVersionNo(value);</span>
-     * collectionBhv.<span style="color: #FD4747">updateNonstrict</span>(collection);
+     * collectionBhv.<span style="color: #DD4747">updateNonstrict</span>(collection);
      * </pre>
      * @param collection The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final LdCollection collection) {
         doUpdateNonstrict(collection, null);
@@ -648,11 +692,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param collection The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdCollection collection) {
         doInesrtOrUpdate(collection, null, null);
@@ -680,11 +724,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param collection The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdCollection collection) {
         doInesrtOrUpdateNonstrict(collection, null, null);
@@ -713,16 +757,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * LdCollection collection = new LdCollection();
      * collection.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * collection.<span style="color: #FD4747">setVersionNo</span>(value);
+     * collection.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     collectionBhv.<span style="color: #FD4747">delete</span>(collection);
+     *     collectionBhv.<span style="color: #DD4747">delete</span>(collection);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param collection The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(LdCollection collection) {
         doDelete(collection, null);
@@ -754,11 +798,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collection.setVersionNo(value);</span>
-     * collectionBhv.<span style="color: #FD4747">deleteNonstrict</span>(collection);
+     * collectionBhv.<span style="color: #DD4747">deleteNonstrict</span>(collection);
      * </pre>
      * @param collection The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(LdCollection collection) {
         doDeleteNonstrict(collection, null);
@@ -779,11 +823,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collection.setVersionNo(value);</span>
-     * collectionBhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(collection);
+     * collectionBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(collection);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param collection The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdCollection collection) {
         doDeleteNonstrictIgnoreDeleted(collection, null);
@@ -808,7 +852,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     LdCollection collection = new LdCollection();
@@ -821,7 +865,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     collectionList.add(collection);
      * }
-     * collectionBhv.<span style="color: #FD4747">batchInsert</span>(collectionList);
+     * collectionBhv.<span style="color: #DD4747">batchInsert</span>(collectionList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -855,7 +899,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdCollection collection = new LdCollection();
@@ -870,11 +914,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     collectionList.add(collection);
      * }
-     * collectionBhv.<span style="color: #FD4747">batchUpdate</span>(collectionList);
+     * collectionBhv.<span style="color: #DD4747">batchUpdate</span>(collectionList);
      * </pre>
      * @param collectionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdCollection> collectionList) {
         UpdateOption<LdCollectionCB> op = createPlainUpdateOption();
@@ -903,16 +947,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * collectionBhv.<span style="color: #FD4747">batchUpdate</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
+     * collectionBhv.<span style="color: #DD4747">batchUpdate</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * collectionBhv.<span style="color: #FD4747">batchUpdate</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
+     * collectionBhv.<span style="color: #DD4747">batchUpdate</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -924,7 +968,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * @param collectionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdCollection> collectionList, SpecifyQuery<LdCollectionCB> updateColumnSpec) {
         return doBatchUpdate(collectionList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -933,7 +977,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdCollection collection = new LdCollection();
@@ -948,11 +992,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     collectionList.add(collection);
      * }
-     * collectionBhv.<span style="color: #FD4747">batchUpdate</span>(collectionList);
+     * collectionBhv.<span style="color: #DD4747">batchUpdate</span>(collectionList);
      * </pre>
      * @param collectionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdCollection> collectionList) {
         UpdateOption<LdCollectionCB> option = createPlainUpdateOption();
@@ -970,16 +1014,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * collectionBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
+     * collectionBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * collectionBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
+     * collectionBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(collectionList, new SpecifyQuery<LdCollectionCB>() {
      *     public void specify(LdCollectionCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -990,7 +1034,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * @param collectionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdCollection> collectionList, SpecifyQuery<LdCollectionCB> updateColumnSpec) {
         return doBatchUpdateNonstrict(collectionList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -1007,7 +1051,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param collectionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<LdCollection> collectionList) {
         return doBatchDelete(collectionList, null);
@@ -1030,7 +1074,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param collectionList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<LdCollection> collectionList) {
         return doBatchDeleteNonstrict(collectionList, null);
@@ -1054,7 +1098,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * collectionBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdCollection, LdCollectionCB&gt;() {
+     * collectionBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdCollection, LdCollectionCB&gt;() {
      *     public ConditionBean setup(collection entity, LdCollectionCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1116,12 +1160,12 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//collection.setVersionNo(value);</span>
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
-     * collectionBhv.<span style="color: #FD4747">queryUpdate</span>(collection, cb);
+     * collectionBhv.<span style="color: #DD4747">queryUpdate</span>(collection, cb);
      * </pre>
      * @param collection The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(LdCollection collection, LdCollectionCB cb) {
         return doQueryUpdate(collection, cb, null);
@@ -1144,11 +1188,11 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdCollectionCB cb = new LdCollectionCB();
      * cb.query().setFoo...(value);
-     * collectionBhv.<span style="color: #FD4747">queryDelete</span>(collection, cb);
+     * collectionBhv.<span style="color: #DD4747">queryDelete</span>(collection, cb);
      * </pre>
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(LdCollectionCB cb) {
         return doQueryDelete(cb, null);
@@ -1184,12 +1228,12 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * InsertOption<LdCollectionCB> option = new InsertOption<LdCollectionCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * collectionBhv.<span style="color: #FD4747">varyingInsert</span>(collection, option);
+     * collectionBhv.<span style="color: #DD4747">varyingInsert</span>(collection, option);
      * ... = collection.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param collection The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(LdCollection collection, InsertOption<LdCollectionCB> option) {
         assertInsertOptionNotNull(option);
@@ -1205,25 +1249,25 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * collection.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * collection.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * collection.<span style="color: #FD4747">setVersionNo</span>(value);
+     * collection.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;LdCollectionCB&gt; option = new UpdateOption&lt;LdCollectionCB&gt;();
      *     option.self(new SpecifyQuery&lt;LdCollectionCB&gt;() {
      *         public void specify(LdCollectionCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     collectionBhv.<span style="color: #FD4747">varyingUpdate</span>(collection, option);
+     *     collectionBhv.<span style="color: #DD4747">varyingUpdate</span>(collection, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param collection The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(LdCollection collection, UpdateOption<LdCollectionCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1245,16 +1289,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdCollectionCB&gt; option = new UpdateOption&lt;LdCollectionCB&gt;();
      * option.self(new SpecifyQuery&lt;LdCollectionCB&gt;() {
      *     public void specify(LdCollectionCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * collectionBhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(collection, option);
+     * collectionBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(collection, option);
      * </pre>
      * @param collection The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(LdCollection collection, UpdateOption<LdCollectionCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1267,9 +1311,9 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * @param collection The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(LdCollection collection, InsertOption<LdCollectionCB> insertOption, UpdateOption<LdCollectionCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1282,9 +1326,9 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * @param collection The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(LdCollection collection, InsertOption<LdCollectionCB> insertOption, UpdateOption<LdCollectionCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1297,8 +1341,8 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param collection The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(LdCollection collection, DeleteOption<LdCollectionCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1311,8 +1355,8 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * Other specifications are same as deleteNonstrict(entity).
      * @param collection The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(LdCollection collection, DeleteOption<LdCollectionCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1425,16 +1469,16 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdCollectionCB&gt; option = new UpdateOption&lt;LdCollectionCB&gt;();
      * option.self(new SpecifyQuery&lt;LdCollectionCB&gt;() {
      *     public void specify(LdCollectionCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * collectionBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(collection, cb, option);
+     * collectionBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(collection, cb, option);
      * </pre>
      * @param collection The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(LdCollection collection, LdCollectionCB cb, UpdateOption<LdCollectionCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1448,7 +1492,7 @@ public abstract class LdBsCollectionBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of LdCollection. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(LdCollectionCB cb, DeleteOption<LdCollectionCB> option) {
         assertDeleteOptionNotNull(option);

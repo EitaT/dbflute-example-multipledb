@@ -235,29 +235,29 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof LdBsVendorCheck)) { return false; }
-        LdBsVendorCheck otherEntity = (LdBsVendorCheck)other;
-        if (!xSV(getVendorCheckId(), otherEntity.getVendorCheckId())) { return false; }
-        if (!xSV(getTypeOfChar(), otherEntity.getTypeOfChar())) { return false; }
-        if (!xSV(getTypeOfVarchar(), otherEntity.getTypeOfVarchar())) { return false; }
-        if (!xSV(getTypeOfLongVarchar(), otherEntity.getTypeOfLongVarchar())) { return false; }
-        if (!xSV(getTypeOfClob(), otherEntity.getTypeOfClob())) { return false; }
-        if (!xSV(getTypeOfDecimalInteger(), otherEntity.getTypeOfDecimalInteger())) { return false; }
-        if (!xSV(getTypeOfDecimalBigint(), otherEntity.getTypeOfDecimalBigint())) { return false; }
-        if (!xSV(getTypeOfDecimalDecimal(), otherEntity.getTypeOfDecimalDecimal())) { return false; }
-        if (!xSV(getTypeOfBigint(), otherEntity.getTypeOfBigint())) { return false; }
-        if (!xSV(getTypeOfInteger(), otherEntity.getTypeOfInteger())) { return false; }
-        if (!xSV(getTypeOfDate(), otherEntity.getTypeOfDate())) { return false; }
-        if (!xSV(getTypeOfTimestamp(), otherEntity.getTypeOfTimestamp())) { return false; }
-        if (!xSV(getTypeOfTime(), otherEntity.getTypeOfTime())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof LdBsVendorCheck)) { return false; }
+        LdBsVendorCheck other = (LdBsVendorCheck)obj;
+        if (!xSV(getVendorCheckId(), other.getVendorCheckId())) { return false; }
+        if (!xSV(getTypeOfChar(), other.getTypeOfChar())) { return false; }
+        if (!xSV(getTypeOfVarchar(), other.getTypeOfVarchar())) { return false; }
+        if (!xSV(getTypeOfLongVarchar(), other.getTypeOfLongVarchar())) { return false; }
+        if (!xSV(getTypeOfClob(), other.getTypeOfClob())) { return false; }
+        if (!xSV(getTypeOfDecimalInteger(), other.getTypeOfDecimalInteger())) { return false; }
+        if (!xSV(getTypeOfDecimalBigint(), other.getTypeOfDecimalBigint())) { return false; }
+        if (!xSV(getTypeOfDecimalDecimal(), other.getTypeOfDecimalDecimal())) { return false; }
+        if (!xSV(getTypeOfBigint(), other.getTypeOfBigint())) { return false; }
+        if (!xSV(getTypeOfInteger(), other.getTypeOfInteger())) { return false; }
+        if (!xSV(getTypeOfDate(), other.getTypeOfDate())) { return false; }
+        if (!xSV(getTypeOfTimestamp(), other.getTypeOfTimestamp())) { return false; }
+        if (!xSV(getTypeOfTime(), other.getTypeOfTime())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -282,8 +282,8 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
         result = xCH(result, getTypeOfTime());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -298,7 +298,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**
@@ -344,7 +344,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
         return sb.toString();
     }
     protected String xfUD(Date date) { // formatUtilDate()
-        return InternalUtil.toString(date, xgDP());
+        return FunCustodial.toString(date, xgDP());
     }
     protected String xgDP() { // getDatePattern
         return "yyyy-MM-dd";

@@ -211,7 +211,7 @@ public class LdBsBookCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;LdBookCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -220,8 +220,8 @@ public class LdBsBookCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<LdBookCB> unionQuery) {
-        final LdBookCB cb = new LdBookCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdBookCB cb = new LdBookCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdBookCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -230,7 +230,7 @@ public class LdBsBookCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;LdBookCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -239,8 +239,8 @@ public class LdBsBookCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<LdBookCB> unionQuery) {
-        final LdBookCB cb = new LdBookCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdBookCB cb = new LdBookCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdBookCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -257,14 +257,15 @@ public class LdBsBookCB extends AbstractConditionBean {
      * AUTHOR by my AUTHOR_ID, named 'author'.
      * <pre>
      * LdBookCB cb = new LdBookCB();
-     * cb.<span style="color: #FD4747">setupSelect_Author()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Author()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdBook book = bookBhv.selectEntityWithDeletedCheck(cb);
-     * ... = book.<span style="color: #FD4747">getAuthor()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = book.<span style="color: #DD4747">getAuthor()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdAuthorNss setupSelect_Author() {
+        assertSetupSelectPurpose("author");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnAuthorId();
         }
@@ -283,14 +284,15 @@ public class LdBsBookCB extends AbstractConditionBean {
      * GENRE by my GENRE_CODE, named 'genre'.
      * <pre>
      * LdBookCB cb = new LdBookCB();
-     * cb.<span style="color: #FD4747">setupSelect_Genre()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Genre()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdBook book = bookBhv.selectEntityWithDeletedCheck(cb);
-     * ... = book.<span style="color: #FD4747">getGenre()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = book.<span style="color: #DD4747">getGenre()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdGenreNss setupSelect_Genre() {
+        assertSetupSelectPurpose("genre");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnGenreCode();
         }
@@ -309,14 +311,15 @@ public class LdBsBookCB extends AbstractConditionBean {
      * PUBLISHER by my PUBLISHER_ID, named 'publisher'.
      * <pre>
      * LdBookCB cb = new LdBookCB();
-     * cb.<span style="color: #FD4747">setupSelect_Publisher()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Publisher()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdBook book = bookBhv.selectEntityWithDeletedCheck(cb);
-     * ... = book.<span style="color: #FD4747">getPublisher()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = book.<span style="color: #DD4747">getPublisher()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdPublisherNss setupSelect_Publisher() {
+        assertSetupSelectPurpose("publisher");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnPublisherId();
         }
@@ -335,14 +338,15 @@ public class LdBsBookCB extends AbstractConditionBean {
      * COLLECTION_STATUS_LOOKUP by my GENRE_CODE, named 'collectionStatusLookupAsNonExist'.
      * <pre>
      * LdBookCB cb = new LdBookCB();
-     * cb.<span style="color: #FD4747">setupSelect_CollectionStatusLookupAsNonExist()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_CollectionStatusLookupAsNonExist()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdBook book = bookBhv.selectEntityWithDeletedCheck(cb);
-     * ... = book.<span style="color: #FD4747">getCollectionStatusLookupAsNonExist()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = book.<span style="color: #DD4747">getCollectionStatusLookupAsNonExist()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdCollectionStatusLookupNss setupSelect_CollectionStatusLookupAsNonExist() {
+        assertSetupSelectPurpose("collectionStatusLookupAsNonExist");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnGenreCode();
         }
@@ -594,12 +598,12 @@ public class LdBsBookCB extends AbstractConditionBean {
          * {select max(FOO) from COLLECTION where ...) as FOO_MAX} <br />
          * COLLECTION by BOOK_ID, named 'collectionList'.
          * <pre>
-         * cb.specify().<span style="color: #FD4747">derivedCollectionList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdCollectionCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedCollectionList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdCollectionCB&gt;() {
          *     public void query(LdCollectionCB subCB) {
-         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
          *     }
-         * }, LdCollection.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * }, LdCollection.<span style="color: #DD4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -623,19 +627,19 @@ public class LdBsBookCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;LdBookCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -676,14 +680,14 @@ public class LdBsBookCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdBookCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -701,10 +705,10 @@ public class LdBsBookCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdBookCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdBookCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdBookCB&gt;() {
      *             public void query(LdBookCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

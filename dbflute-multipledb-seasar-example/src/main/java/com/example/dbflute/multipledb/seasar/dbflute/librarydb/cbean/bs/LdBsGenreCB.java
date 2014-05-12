@@ -211,7 +211,7 @@ public class LdBsGenreCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;LdGenreCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;LdGenreCB&gt;() {
      *     public void query(LdGenreCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -220,8 +220,8 @@ public class LdBsGenreCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<LdGenreCB> unionQuery) {
-        final LdGenreCB cb = new LdGenreCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdGenreCB cb = new LdGenreCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdGenreCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -230,7 +230,7 @@ public class LdBsGenreCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;LdGenreCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;LdGenreCB&gt;() {
      *     public void query(LdGenreCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -239,8 +239,8 @@ public class LdBsGenreCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<LdGenreCB> unionQuery) {
-        final LdGenreCB cb = new LdGenreCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdGenreCB cb = new LdGenreCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdGenreCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -257,14 +257,15 @@ public class LdBsGenreCB extends AbstractConditionBean {
      * GENRE by my PARENT_GENRE_CODE, named 'genreSelf'.
      * <pre>
      * LdGenreCB cb = new LdGenreCB();
-     * cb.<span style="color: #FD4747">setupSelect_GenreSelf()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_GenreSelf()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdGenre genre = genreBhv.selectEntityWithDeletedCheck(cb);
-     * ... = genre.<span style="color: #FD4747">getGenreSelf()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = genre.<span style="color: #DD4747">getGenreSelf()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdGenreNss setupSelect_GenreSelf() {
+        assertSetupSelectPurpose("genreSelf");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnParentGenreCode();
         }
@@ -413,12 +414,12 @@ public class LdBsGenreCB extends AbstractConditionBean {
          * {select max(FOO) from BOOK where ...) as FOO_MAX} <br />
          * BOOK by GENRE_CODE, named 'bookList'.
          * <pre>
-         * cb.specify().<span style="color: #FD4747">derivedBookList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdBookCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedBookList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdBookCB&gt;() {
          *     public void query(LdBookCB subCB) {
-         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
          *     }
-         * }, LdBook.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * }, LdBook.<span style="color: #DD4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -433,12 +434,12 @@ public class LdBsGenreCB extends AbstractConditionBean {
          * {select max(FOO) from GENRE where ...) as FOO_MAX} <br />
          * GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
          * <pre>
-         * cb.specify().<span style="color: #FD4747">derivedGenreSelfList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdGenreCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedGenreSelfList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdGenreCB&gt;() {
          *     public void query(LdGenreCB subCB) {
-         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
          *     }
-         * }, LdGenre.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * }, LdGenre.<span style="color: #DD4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -462,19 +463,19 @@ public class LdBsGenreCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;LdGenreCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;LdGenreCB&gt;() {
      *     public void query(LdGenreCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;LdGenreCB&gt;() {
      *     public void query(LdGenreCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -515,14 +516,14 @@ public class LdBsGenreCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdGenreCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdGenreCB&gt;() {
      *     public void query(LdGenreCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -540,10 +541,10 @@ public class LdBsGenreCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdGenreCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdGenreCB&gt;() {
      *     public void query(LdGenreCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdGenreCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdGenreCB&gt;() {
      *             public void query(LdGenreCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

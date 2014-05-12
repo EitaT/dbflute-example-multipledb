@@ -204,23 +204,23 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof LdBsGarbage)) { return false; }
-        LdBsGarbage otherEntity = (LdBsGarbage)other;
-        if (!xSV(getGarbageMemo(), otherEntity.getGarbageMemo())) { return false; }
-        if (!xSV(getGarbageTime(), otherEntity.getGarbageTime())) { return false; }
-        if (!xSV(getGarbageCount(), otherEntity.getGarbageCount())) { return false; }
-        if (!xSV(getRUser(), otherEntity.getRUser())) { return false; }
-        if (!xSV(getRTimestamp(), otherEntity.getRTimestamp())) { return false; }
-        if (!xSV(getUUser(), otherEntity.getUUser())) { return false; }
-        if (!xSV(getUTimestamp(), otherEntity.getUTimestamp())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof LdBsGarbage)) { return false; }
+        LdBsGarbage other = (LdBsGarbage)obj;
+        if (!xSV(getGarbageMemo(), other.getGarbageMemo())) { return false; }
+        if (!xSV(getGarbageTime(), other.getGarbageTime())) { return false; }
+        if (!xSV(getGarbageCount(), other.getGarbageCount())) { return false; }
+        if (!xSV(getRUser(), other.getRUser())) { return false; }
+        if (!xSV(getRTimestamp(), other.getRTimestamp())) { return false; }
+        if (!xSV(getUUser(), other.getUUser())) { return false; }
+        if (!xSV(getUTimestamp(), other.getUTimestamp())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -239,8 +239,8 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
         result = xCH(result, getUTimestamp());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -255,7 +255,7 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**

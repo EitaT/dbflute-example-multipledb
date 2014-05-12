@@ -272,8 +272,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void inScopeVendorConstraintNameAutoFoo(SubQuery<LdVendorConstraintNameAutoFooCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoFooCB cb = new LdVendorConstraintNameAutoFooCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepConstraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoFooCB cb = new LdVendorConstraintNameAutoFooCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepConstraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo(cb.query());
         registerInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_FOO_ID", "CONSTRAINT_NAME_AUTO_FOO_ID", pp, "vendorConstraintNameAutoFoo");
     }
     public abstract String keepConstraintNameAutoFooId_InScopeRelation_VendorConstraintNameAutoFoo(LdVendorConstraintNameAutoFooCQ sq);
@@ -286,8 +287,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void notInScopeVendorConstraintNameAutoFoo(SubQuery<LdVendorConstraintNameAutoFooCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoFooCB cb = new LdVendorConstraintNameAutoFooCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepConstraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoFooCB cb = new LdVendorConstraintNameAutoFooCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepConstraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo(cb.query());
         registerNotInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_FOO_ID", "CONSTRAINT_NAME_AUTO_FOO_ID", pp, "vendorConstraintNameAutoFoo");
     }
     public abstract String keepConstraintNameAutoFooId_NotInScopeRelation_VendorConstraintNameAutoFoo(LdVendorConstraintNameAutoFooCQ sq);
@@ -404,8 +406,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void inScopeVendorConstraintNameAutoBar(SubQuery<LdVendorConstraintNameAutoBarCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar(cb.query());
         registerInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", pp, "vendorConstraintNameAutoBar");
     }
     public abstract String keepConstraintNameAutoBarId_InScopeRelation_VendorConstraintNameAutoBar(LdVendorConstraintNameAutoBarCQ sq);
@@ -418,8 +421,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void notInScopeVendorConstraintNameAutoBar(SubQuery<LdVendorConstraintNameAutoBarCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoBarCB cb = new LdVendorConstraintNameAutoBarCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar(cb.query());
         registerNotInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_BAR_ID", "CONSTRAINT_NAME_AUTO_BAR_ID", pp, "vendorConstraintNameAutoBar");
     }
     public abstract String keepConstraintNameAutoBarId_NotInScopeRelation_VendorConstraintNameAutoBar(LdVendorConstraintNameAutoBarCQ sq);
@@ -536,8 +540,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void inScopeVendorConstraintNameAutoQux(SubQuery<LdVendorConstraintNameAutoQuxCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoQuxCB cb = new LdVendorConstraintNameAutoQuxCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepConstraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoQuxCB cb = new LdVendorConstraintNameAutoQuxCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepConstraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux(cb.query());
         registerInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_QUX_ID", "CONSTRAINT_NAME_AUTO_QUX_ID", pp, "vendorConstraintNameAutoQux");
     }
     public abstract String keepConstraintNameAutoQuxId_InScopeRelation_VendorConstraintNameAutoQux(LdVendorConstraintNameAutoQuxCQ sq);
@@ -550,8 +555,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void notInScopeVendorConstraintNameAutoQux(SubQuery<LdVendorConstraintNameAutoQuxCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoQuxCB cb = new LdVendorConstraintNameAutoQuxCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoQuxCB cb = new LdVendorConstraintNameAutoQuxCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux(cb.query());
         registerNotInScopeRelation(cb.query(), "CONSTRAINT_NAME_AUTO_QUX_ID", "CONSTRAINT_NAME_AUTO_QUX_ID", pp, "vendorConstraintNameAutoQux");
     }
     public abstract String keepConstraintNameAutoQuxId_NotInScopeRelation_VendorConstraintNameAutoQux(LdVendorConstraintNameAutoQuxCQ sq);
@@ -659,7 +665,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * CONSTRAINT_NAME_AUTO_UNIQUE: {UQ, NotNull, VARCHAR(50)} <br />
-     * <pre>e.g. setConstraintNameAutoUnique_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setConstraintNameAutoUnique_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param constraintNameAutoUnique The value of constraintNameAutoUnique as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -688,7 +694,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * Prepare ScalarCondition as equal. <br />
      * {where FOO = (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -705,7 +711,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * Prepare ScalarCondition as equal. <br />
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -722,7 +728,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * Prepare ScalarCondition as greaterThan. <br />
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -739,7 +745,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * Prepare ScalarCondition as lessThan. <br />
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -756,7 +762,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * Prepare ScalarCondition as greaterEqual. <br />
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -773,7 +779,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      * Prepare ScalarCondition as lessEqual. <br />
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -809,9 +815,10 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<LdVendorConstraintNameAutoRefCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "CONSTRAINT_NAME_AUTO_REF_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoRefCQ sq);
@@ -844,8 +851,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void myselfExists(SubQuery<LdVendorConstraintNameAutoRefCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(LdVendorConstraintNameAutoRefCQ sq);
@@ -859,11 +867,43 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
      */
     public void myselfInScope(SubQuery<LdVendorConstraintNameAutoRefCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(LdVendorConstraintNameAutoRefCQ sq);
+
+    // ===================================================================================
+    //                                                                          Compatible
+    //                                                                          ==========
+    /**
+     * Order along the list of manual values. #beforejava8 <br />
+     * This function with Union is unsupported! <br />
+     * The order values are bound (treated as bind parameter).
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
+     * orderValueList.add(CDef.MemberStatus.Withdrawal);
+     * orderValueList.add(CDef.MemberStatus.Formalized);
+     * orderValueList.add(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'FML' then 1</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'PRV' then 2</span>
+     * <span style="color: #3F7E5E">//     else 3</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     * </pre>
+     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     */
+    public void withManualOrder(List<? extends Object> orderValueList) { // is user public!
+        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
+        final ManualOrderBean manualOrderBean = new ManualOrderBean();
+        manualOrderBean.acceptOrderValueList(orderValueList);
+        withManualOrder(manualOrderBean);
+    }
 
     // ===================================================================================
     //                                                                       Very Internal

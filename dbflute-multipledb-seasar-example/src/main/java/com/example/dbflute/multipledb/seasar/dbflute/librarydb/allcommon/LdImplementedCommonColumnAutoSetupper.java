@@ -54,6 +54,10 @@ public class LdImplementedCommonColumnAutoSetupper implements CommonColumnAutoSe
         if (isInternalDebugEnabled()) {
             logSettingUp(entity, "INSERT");
         }
+        doHandleCommonColumnOfInsertIfNeeds(entity);
+    }
+
+    protected void doHandleCommonColumnOfInsertIfNeeds(LdEntityDefinedCommonColumn entity) {
 
         final String rUser = entity.getTableDbName() + "-" + org.seasar.dbflute.AccessContext.getAccessUserOnThread();
         entity.setRUser(rUser);
@@ -80,6 +84,10 @@ public class LdImplementedCommonColumnAutoSetupper implements CommonColumnAutoSe
         if (isInternalDebugEnabled()) {
             logSettingUp(entity, "UPDATE");
         }
+        doHandleCommonColumnOfUpdateIfNeeds(entity);
+    }
+
+    protected void doHandleCommonColumnOfUpdateIfNeeds(LdEntityDefinedCommonColumn entity) {
 
         final String uUser = org.seasar.dbflute.AccessContext.getAccessUserOnThread();
         entity.setUUser(uUser);

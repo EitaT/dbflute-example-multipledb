@@ -217,7 +217,7 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;LdLendingCollectionCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;LdLendingCollectionCB&gt;() {
      *     public void query(LdLendingCollectionCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -226,8 +226,8 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<LdLendingCollectionCB> unionQuery) {
-        final LdLendingCollectionCB cb = new LdLendingCollectionCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdLendingCollectionCB cb = new LdLendingCollectionCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdLendingCollectionCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -236,7 +236,7 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;LdLendingCollectionCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;LdLendingCollectionCB&gt;() {
      *     public void query(LdLendingCollectionCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -245,8 +245,8 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<LdLendingCollectionCB> unionQuery) {
-        final LdLendingCollectionCB cb = new LdLendingCollectionCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdLendingCollectionCB cb = new LdLendingCollectionCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdLendingCollectionCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -263,14 +263,15 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * COLLECTION by my COLLECTION_ID, named 'collection'.
      * <pre>
      * LdLendingCollectionCB cb = new LdLendingCollectionCB();
-     * cb.<span style="color: #FD4747">setupSelect_Collection()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Collection()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdLendingCollection lendingCollection = lendingCollectionBhv.selectEntityWithDeletedCheck(cb);
-     * ... = lendingCollection.<span style="color: #FD4747">getCollection()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = lendingCollection.<span style="color: #DD4747">getCollection()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdCollectionNss setupSelect_Collection() {
+        assertSetupSelectPurpose("collection");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryCollection(); } });
         if (_nssCollection == null || !_nssCollection.hasConditionQuery())
         { _nssCollection = new LdCollectionNss(query().queryCollection()); }
@@ -286,14 +287,15 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * LENDING by my LIBRARY_ID, LB_USER_ID, LENDING_DATE, named 'lending'.
      * <pre>
      * LdLendingCollectionCB cb = new LdLendingCollectionCB();
-     * cb.<span style="color: #FD4747">setupSelect_Lending()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Lending()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdLendingCollection lendingCollection = lendingCollectionBhv.selectEntityWithDeletedCheck(cb);
-     * ... = lendingCollection.<span style="color: #FD4747">getLending()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = lendingCollection.<span style="color: #DD4747">getLending()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdLendingNss setupSelect_Lending() {
+        assertSetupSelectPurpose("lending");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryLending(); } });
         if (_nssLending == null || !_nssLending.hasConditionQuery())
         { _nssLending = new LdLendingNss(query().queryLending()); }
@@ -309,14 +311,15 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * LIBRARY_USER by my LIBRARY_ID, LB_USER_ID, named 'libraryUser'.
      * <pre>
      * LdLendingCollectionCB cb = new LdLendingCollectionCB();
-     * cb.<span style="color: #FD4747">setupSelect_LibraryUser()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_LibraryUser()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdLendingCollection lendingCollection = lendingCollectionBhv.selectEntityWithDeletedCheck(cb);
-     * ... = lendingCollection.<span style="color: #FD4747">getLibraryUser()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = lendingCollection.<span style="color: #DD4747">getLibraryUser()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdLibraryUserNss setupSelect_LibraryUser() {
+        assertSetupSelectPurpose("libraryUser");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryLibraryUser(); } });
         if (_nssLibraryUser == null || !_nssLibraryUser.hasConditionQuery())
         { _nssLibraryUser = new LdLibraryUserNss(query().queryLibraryUser()); }
@@ -504,19 +507,19 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;LdLendingCollectionCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;LdLendingCollectionCB&gt;() {
      *     public void query(LdLendingCollectionCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;LdLendingCollectionCB&gt;() {
      *     public void query(LdLendingCollectionCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -557,14 +560,14 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdLendingCollectionCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdLendingCollectionCB&gt;() {
      *     public void query(LdLendingCollectionCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -582,10 +585,10 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdLendingCollectionCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdLendingCollectionCB&gt;() {
      *     public void query(LdLendingCollectionCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdLendingCollectionCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdLendingCollectionCB&gt;() {
      *             public void query(LdLendingCollectionCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

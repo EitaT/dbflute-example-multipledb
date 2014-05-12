@@ -8,6 +8,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
@@ -93,7 +95,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <pre>
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
-     * int count = libraryTypeLookupBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = libraryTypeLookupBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -121,12 +123,14 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
-     * LdLibraryTypeLookup libraryTypeLookup = libraryTypeLookupBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (libraryTypeLookup != null) {
+     * LdLibraryTypeLookup libraryTypeLookup = libraryTypeLookupBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (libraryTypeLookup != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = libraryTypeLookup.get...();
      * } else {
      *     ...
@@ -134,8 +138,8 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * </pre>
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryTypeLookup selectEntity(LdLibraryTypeLookupCB cb) {
         return doSelectEntity(cb, LdLibraryTypeLookup.class);
@@ -147,24 +151,29 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
             public List<ENTITY> callbackSelectList(LdLibraryTypeLookupCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends LdLibraryTypeLookup> OptionalEntity<ENTITY> doSelectOptionalEntity(LdLibraryTypeLookupCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
-     * LdLibraryTypeLookup libraryTypeLookup = libraryTypeLookupBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * LdLibraryTypeLookup libraryTypeLookup = libraryTypeLookupBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = libraryTypeLookup.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryTypeLookup selectEntityWithDeletedCheck(LdLibraryTypeLookupCB cb) {
         return doSelectEntityWithDeletedCheck(cb, LdLibraryTypeLookup.class);
@@ -185,8 +194,8 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * Select the entity by the primary-key value.
      * @param libraryTypeCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryTypeLookup selectByPKValue(String libraryTypeCode) {
         return doSelectByPKValue(libraryTypeCode, LdLibraryTypeLookup.class);
@@ -200,9 +209,9 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * Select the entity by the primary-key value with deleted check.
      * @param libraryTypeCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryTypeLookup selectByPKValueWithDeletedCheck(String libraryTypeCode) {
         return doSelectByPKValueWithDeletedCheck(libraryTypeCode, LdLibraryTypeLookup.class);
@@ -228,14 +237,14 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;LdLibraryTypeLookup&gt; libraryTypeLookupList = libraryTypeLookupBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;LdLibraryTypeLookup&gt; libraryTypeLookupList = libraryTypeLookupBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (LdLibraryTypeLookup libraryTypeLookup : libraryTypeLookupList) {
      *     ... = libraryTypeLookup.get...();
      * }
      * </pre>
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdLibraryTypeLookup> selectList(LdLibraryTypeLookupCB cb) {
         return doSelectList(cb, LdLibraryTypeLookup.class);
@@ -263,8 +272,8 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;LdLibraryTypeLookup&gt; page = libraryTypeLookupBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;LdLibraryTypeLookup&gt; page = libraryTypeLookupBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -276,7 +285,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * </pre>
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdLibraryTypeLookup> selectPage(LdLibraryTypeLookupCB cb) {
         return doSelectPage(cb, LdLibraryTypeLookup.class);
@@ -303,7 +312,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <pre>
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
-     * libraryTypeLookupBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdLibraryTypeLookup&gt;() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdLibraryTypeLookup&gt;() {
      *     public void handle(LdLibraryTypeLookup entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -332,9 +341,9 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(LdLibraryTypeLookupCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -374,61 +383,96 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param libraryTypeLookup The entity of libraryTypeLookup. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadLibraryList(LdLibraryTypeLookup libraryTypeLookup, ConditionBeanSetupper<LdLibraryCB> conditionBeanSetupper) {
-        xassLRArg(libraryTypeLookup, conditionBeanSetupper);
-        loadLibraryList(xnewLRLs(libraryTypeLookup), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of libraryList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of libraryList by the set-upper of referrer. <br />
      * LIBRARY by LIBRARY_TYPE_CODE, named 'libraryList'.
      * <pre>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">loadLibraryList</span>(libraryTypeLookupList, new ConditionBeanSetupper&lt;LdLibraryCB&gt;() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">loadLibraryList</span>(libraryTypeLookupList, new ConditionBeanSetupper&lt;LdLibraryCB&gt;() {
      *     public void setup(LdLibraryCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (LdLibraryTypeLookup libraryTypeLookup : libraryTypeLookupList) {
-     *     ... = libraryTypeLookup.<span style="color: #FD4747">getLibraryList()</span>;
+     *     ... = libraryTypeLookup.<span style="color: #DD4747">getLibraryList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setLibraryTypeCode_InScope(pkList);
      * cb.query().addOrderBy_LibraryTypeCode_Asc();
      * </pre>
      * @param libraryTypeLookupList The entity list of libraryTypeLookup. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadLibraryList(List<LdLibraryTypeLookup> libraryTypeLookupList, ConditionBeanSetupper<LdLibraryCB> conditionBeanSetupper) {
-        xassLRArg(libraryTypeLookupList, conditionBeanSetupper);
-        loadLibraryList(libraryTypeLookupList, new LoadReferrerOption<LdLibraryCB, LdLibrary>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<LdLibrary> loadLibraryList(List<LdLibraryTypeLookup> libraryTypeLookupList, ConditionBeanSetupper<LdLibraryCB> setupper) {
+        xassLRArg(libraryTypeLookupList, setupper);
+        return doLoadLibraryList(libraryTypeLookupList, new LoadReferrerOption<LdLibraryCB, LdLibrary>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of libraryList by the set-upper of referrer. <br />
+     * LIBRARY by LIBRARY_TYPE_CODE, named 'libraryList'.
+     * <pre>
+     * libraryTypeLookupBhv.<span style="color: #DD4747">loadLibraryList</span>(libraryTypeLookupList, new ConditionBeanSetupper&lt;LdLibraryCB&gt;() {
+     *     public void setup(LdLibraryCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = libraryTypeLookup.<span style="color: #DD4747">getLibraryList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setLibraryTypeCode_InScope(pkList);
+     * cb.query().addOrderBy_LibraryTypeCode_Asc();
+     * </pre>
+     * @param libraryTypeLookup The entity of libraryTypeLookup. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<LdLibrary> loadLibraryList(LdLibraryTypeLookup libraryTypeLookup, ConditionBeanSetupper<LdLibraryCB> setupper) {
+        xassLRArg(libraryTypeLookup, setupper);
+        return doLoadLibraryList(xnewLRLs(libraryTypeLookup), new LoadReferrerOption<LdLibraryCB, LdLibrary>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param libraryTypeLookup The entity of libraryTypeLookup. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadLibraryList(LdLibraryTypeLookup libraryTypeLookup, LoadReferrerOption<LdLibraryCB, LdLibrary> loadReferrerOption) {
+    public NestedReferrerLoader<LdLibrary> loadLibraryList(LdLibraryTypeLookup libraryTypeLookup, LoadReferrerOption<LdLibraryCB, LdLibrary> loadReferrerOption) {
         xassLRArg(libraryTypeLookup, loadReferrerOption);
-        loadLibraryList(xnewLRLs(libraryTypeLookup), loadReferrerOption);
+        return loadLibraryList(xnewLRLs(libraryTypeLookup), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param libraryTypeLookupList The entity list of libraryTypeLookup. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadLibraryList(List<LdLibraryTypeLookup> libraryTypeLookupList, LoadReferrerOption<LdLibraryCB, LdLibrary> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<LdLibrary> loadLibraryList(List<LdLibraryTypeLookup> libraryTypeLookupList, LoadReferrerOption<LdLibraryCB, LdLibrary> loadReferrerOption) {
         xassLRArg(libraryTypeLookupList, loadReferrerOption);
-        if (libraryTypeLookupList.isEmpty()) { return; }
+        if (libraryTypeLookupList.isEmpty()) { return (NestedReferrerLoader<LdLibrary>)EMPTY_LOADER; }
+        return doLoadLibraryList(libraryTypeLookupList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<LdLibrary> doLoadLibraryList(List<LdLibraryTypeLookup> libraryTypeLookupList, LoadReferrerOption<LdLibraryCB, LdLibrary> option) {
         final LdLibraryBhv referrerBhv = xgetBSFLR().select(LdLibraryBhv.class);
-        helpLoadReferrerInternally(libraryTypeLookupList, loadReferrerOption, new InternalLoadReferrerCallback<LdLibraryTypeLookup, String, LdLibraryCB, LdLibrary>() {
+        return helpLoadReferrerInternally(libraryTypeLookupList, option, new InternalLoadReferrerCallback<LdLibraryTypeLookup, String, LdLibraryCB, LdLibrary>() {
             public String getPKVal(LdLibraryTypeLookup et)
             { return et.getLibraryTypeCode(); }
             public void setRfLs(LdLibraryTypeLookup et, List<LdLibrary> ls)
@@ -477,12 +521,12 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//libraryTypeLookup.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//libraryTypeLookup.set...;</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">insert</span>(libraryTypeLookup);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">insert</span>(libraryTypeLookup);
      * ... = libraryTypeLookup.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param libraryTypeLookup The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdLibraryTypeLookup libraryTypeLookup) {
         doInsert(libraryTypeLookup, null);
@@ -518,17 +562,17 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <span style="color: #3F7E5E">//libraryTypeLookup.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//libraryTypeLookup.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * libraryTypeLookup.<span style="color: #FD4747">setVersionNo</span>(value);
+     * libraryTypeLookup.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     libraryTypeLookupBhv.<span style="color: #FD4747">update</span>(libraryTypeLookup);
+     *     libraryTypeLookupBhv.<span style="color: #DD4747">update</span>(libraryTypeLookup);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param libraryTypeLookup The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final LdLibraryTypeLookup libraryTypeLookup) {
         doUpdate(libraryTypeLookup, null);
@@ -582,12 +626,12 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//libraryTypeLookup.setVersionNo(value);</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">updateNonstrict</span>(libraryTypeLookup);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">updateNonstrict</span>(libraryTypeLookup);
      * </pre>
      * @param libraryTypeLookup The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final LdLibraryTypeLookup libraryTypeLookup) {
         doUpdateNonstrict(libraryTypeLookup, null);
@@ -609,11 +653,11 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param libraryTypeLookup The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdLibraryTypeLookup libraryTypeLookup) {
         doInesrtOrUpdate(libraryTypeLookup, null, null);
@@ -641,11 +685,11 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param libraryTypeLookup The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdLibraryTypeLookup libraryTypeLookup) {
         doInesrtOrUpdateNonstrict(libraryTypeLookup, null, null);
@@ -674,16 +718,16 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * LdLibraryTypeLookup libraryTypeLookup = new LdLibraryTypeLookup();
      * libraryTypeLookup.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * libraryTypeLookup.<span style="color: #FD4747">setVersionNo</span>(value);
+     * libraryTypeLookup.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     libraryTypeLookupBhv.<span style="color: #FD4747">delete</span>(libraryTypeLookup);
+     *     libraryTypeLookupBhv.<span style="color: #DD4747">delete</span>(libraryTypeLookup);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param libraryTypeLookup The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(LdLibraryTypeLookup libraryTypeLookup) {
         doDelete(libraryTypeLookup, null);
@@ -715,11 +759,11 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//libraryTypeLookup.setVersionNo(value);</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">deleteNonstrict</span>(libraryTypeLookup);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">deleteNonstrict</span>(libraryTypeLookup);
      * </pre>
      * @param libraryTypeLookup The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(LdLibraryTypeLookup libraryTypeLookup) {
         doDeleteNonstrict(libraryTypeLookup, null);
@@ -740,11 +784,11 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//libraryTypeLookup.setVersionNo(value);</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(libraryTypeLookup);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(libraryTypeLookup);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param libraryTypeLookup The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdLibraryTypeLookup libraryTypeLookup) {
         doDeleteNonstrictIgnoreDeleted(libraryTypeLookup, null);
@@ -769,7 +813,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     LdLibraryTypeLookup libraryTypeLookup = new LdLibraryTypeLookup();
@@ -782,7 +826,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     libraryTypeLookupList.add(libraryTypeLookup);
      * }
-     * libraryTypeLookupBhv.<span style="color: #FD4747">batchInsert</span>(libraryTypeLookupList);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">batchInsert</span>(libraryTypeLookupList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -816,7 +860,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdLibraryTypeLookup libraryTypeLookup = new LdLibraryTypeLookup();
@@ -831,11 +875,11 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     libraryTypeLookupList.add(libraryTypeLookup);
      * }
-     * libraryTypeLookupBhv.<span style="color: #FD4747">batchUpdate</span>(libraryTypeLookupList);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">batchUpdate</span>(libraryTypeLookupList);
      * </pre>
      * @param libraryTypeLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdLibraryTypeLookup> libraryTypeLookupList) {
         UpdateOption<LdLibraryTypeLookupCB> op = createPlainUpdateOption();
@@ -864,16 +908,16 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">batchUpdate</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">batchUpdate</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
      *     public void specify(LdLibraryTypeLookupCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">batchUpdate</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">batchUpdate</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
      *     public void specify(LdLibraryTypeLookupCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -885,7 +929,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * @param libraryTypeLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdLibraryTypeLookup> libraryTypeLookupList, SpecifyQuery<LdLibraryTypeLookupCB> updateColumnSpec) {
         return doBatchUpdate(libraryTypeLookupList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -894,7 +938,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdLibraryTypeLookup libraryTypeLookup = new LdLibraryTypeLookup();
@@ -909,11 +953,11 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     libraryTypeLookupList.add(libraryTypeLookup);
      * }
-     * libraryTypeLookupBhv.<span style="color: #FD4747">batchUpdate</span>(libraryTypeLookupList);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">batchUpdate</span>(libraryTypeLookupList);
      * </pre>
      * @param libraryTypeLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdLibraryTypeLookup> libraryTypeLookupList) {
         UpdateOption<LdLibraryTypeLookupCB> option = createPlainUpdateOption();
@@ -931,16 +975,16 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
      *     public void specify(LdLibraryTypeLookupCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(libraryTypeLookupList, new SpecifyQuery<LdLibraryTypeLookupCB>() {
      *     public void specify(LdLibraryTypeLookupCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -951,7 +995,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * @param libraryTypeLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdLibraryTypeLookup> libraryTypeLookupList, SpecifyQuery<LdLibraryTypeLookupCB> updateColumnSpec) {
         return doBatchUpdateNonstrict(libraryTypeLookupList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -968,7 +1012,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param libraryTypeLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<LdLibraryTypeLookup> libraryTypeLookupList) {
         return doBatchDelete(libraryTypeLookupList, null);
@@ -991,7 +1035,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param libraryTypeLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<LdLibraryTypeLookup> libraryTypeLookupList) {
         return doBatchDeleteNonstrict(libraryTypeLookupList, null);
@@ -1015,7 +1059,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdLibraryTypeLookup, LdLibraryTypeLookupCB&gt;() {
+     * libraryTypeLookupBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdLibraryTypeLookup, LdLibraryTypeLookupCB&gt;() {
      *     public ConditionBean setup(libraryTypeLookup entity, LdLibraryTypeLookupCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1077,12 +1121,12 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <span style="color: #3F7E5E">//libraryTypeLookup.setVersionNo(value);</span>
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
-     * libraryTypeLookupBhv.<span style="color: #FD4747">queryUpdate</span>(libraryTypeLookup, cb);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">queryUpdate</span>(libraryTypeLookup, cb);
      * </pre>
      * @param libraryTypeLookup The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(LdLibraryTypeLookup libraryTypeLookup, LdLibraryTypeLookupCB cb) {
         return doQueryUpdate(libraryTypeLookup, cb, null);
@@ -1105,11 +1149,11 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * <pre>
      * LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB();
      * cb.query().setFoo...(value);
-     * libraryTypeLookupBhv.<span style="color: #FD4747">queryDelete</span>(libraryTypeLookup, cb);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">queryDelete</span>(libraryTypeLookup, cb);
      * </pre>
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(LdLibraryTypeLookupCB cb) {
         return doQueryDelete(cb, null);
@@ -1145,12 +1189,12 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * InsertOption<LdLibraryTypeLookupCB> option = new InsertOption<LdLibraryTypeLookupCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * libraryTypeLookupBhv.<span style="color: #FD4747">varyingInsert</span>(libraryTypeLookup, option);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">varyingInsert</span>(libraryTypeLookup, option);
      * ... = libraryTypeLookup.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param libraryTypeLookup The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(LdLibraryTypeLookup libraryTypeLookup, InsertOption<LdLibraryTypeLookupCB> option) {
         assertInsertOptionNotNull(option);
@@ -1166,25 +1210,25 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * libraryTypeLookup.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * libraryTypeLookup.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * libraryTypeLookup.<span style="color: #FD4747">setVersionNo</span>(value);
+     * libraryTypeLookup.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;LdLibraryTypeLookupCB&gt; option = new UpdateOption&lt;LdLibraryTypeLookupCB&gt;();
      *     option.self(new SpecifyQuery&lt;LdLibraryTypeLookupCB&gt;() {
      *         public void specify(LdLibraryTypeLookupCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     libraryTypeLookupBhv.<span style="color: #FD4747">varyingUpdate</span>(libraryTypeLookup, option);
+     *     libraryTypeLookupBhv.<span style="color: #DD4747">varyingUpdate</span>(libraryTypeLookup, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param libraryTypeLookup The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(LdLibraryTypeLookup libraryTypeLookup, UpdateOption<LdLibraryTypeLookupCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1206,16 +1250,16 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * UpdateOption&lt;LdLibraryTypeLookupCB&gt; option = new UpdateOption&lt;LdLibraryTypeLookupCB&gt;();
      * option.self(new SpecifyQuery&lt;LdLibraryTypeLookupCB&gt;() {
      *     public void specify(LdLibraryTypeLookupCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(libraryTypeLookup, option);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(libraryTypeLookup, option);
      * </pre>
      * @param libraryTypeLookup The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(LdLibraryTypeLookup libraryTypeLookup, UpdateOption<LdLibraryTypeLookupCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1228,9 +1272,9 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * @param libraryTypeLookup The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(LdLibraryTypeLookup libraryTypeLookup, InsertOption<LdLibraryTypeLookupCB> insertOption, UpdateOption<LdLibraryTypeLookupCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1243,9 +1287,9 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * @param libraryTypeLookup The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(LdLibraryTypeLookup libraryTypeLookup, InsertOption<LdLibraryTypeLookupCB> insertOption, UpdateOption<LdLibraryTypeLookupCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1258,8 +1302,8 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * Other specifications are same as delete(entity).
      * @param libraryTypeLookup The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(LdLibraryTypeLookup libraryTypeLookup, DeleteOption<LdLibraryTypeLookupCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1272,8 +1316,8 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * Other specifications are same as deleteNonstrict(entity).
      * @param libraryTypeLookup The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(LdLibraryTypeLookup libraryTypeLookup, DeleteOption<LdLibraryTypeLookupCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1386,16 +1430,16 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * UpdateOption&lt;LdLibraryTypeLookupCB&gt; option = new UpdateOption&lt;LdLibraryTypeLookupCB&gt;();
      * option.self(new SpecifyQuery&lt;LdLibraryTypeLookupCB&gt;() {
      *     public void specify(LdLibraryTypeLookupCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * libraryTypeLookupBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(libraryTypeLookup, cb, option);
+     * libraryTypeLookupBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(libraryTypeLookup, cb, option);
      * </pre>
      * @param libraryTypeLookup The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(LdLibraryTypeLookup libraryTypeLookup, LdLibraryTypeLookupCB cb, UpdateOption<LdLibraryTypeLookupCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1409,7 +1453,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(LdLibraryTypeLookupCB cb, DeleteOption<LdLibraryTypeLookupCB> option) {
         assertDeleteOptionNotNull(option);

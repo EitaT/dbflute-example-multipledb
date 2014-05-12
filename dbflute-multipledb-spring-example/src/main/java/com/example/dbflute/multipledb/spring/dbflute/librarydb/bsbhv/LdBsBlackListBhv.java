@@ -8,6 +8,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
@@ -93,7 +95,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
-     * int count = blackListBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = blackListBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -121,12 +123,14 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
-     * LdBlackList blackList = blackListBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (blackList != null) {
+     * LdBlackList blackList = blackListBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (blackList != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = blackList.get...();
      * } else {
      *     ...
@@ -134,8 +138,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectEntity(LdBlackListCB cb) {
         return doSelectEntity(cb, LdBlackList.class);
@@ -147,24 +151,29 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(LdBlackListCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectOptionalEntity(LdBlackListCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
-     * LdBlackList blackList = blackListBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * LdBlackList blackList = blackListBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = blackList.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectEntityWithDeletedCheck(LdBlackListCB cb) {
         return doSelectEntityWithDeletedCheck(cb, LdBlackList.class);
@@ -185,8 +194,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param blackListId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectByPKValue(Integer blackListId) {
         return doSelectByPKValue(blackListId, LdBlackList.class);
@@ -200,9 +209,9 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param blackListId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectByPKValueWithDeletedCheck(Integer blackListId) {
         return doSelectByPKValueWithDeletedCheck(blackListId, LdBlackList.class);
@@ -228,14 +237,14 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;LdBlackList&gt; blackListList = blackListBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;LdBlackList&gt; blackListList = blackListBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (LdBlackList blackList : blackListList) {
      *     ... = blackList.get...();
      * }
      * </pre>
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdBlackList> selectList(LdBlackListCB cb) {
         return doSelectList(cb, LdBlackList.class);
@@ -263,8 +272,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;LdBlackList&gt; page = blackListBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;LdBlackList&gt; page = blackListBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -276,7 +285,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdBlackList> selectPage(LdBlackListCB cb) {
         return doSelectPage(cb, LdBlackList.class);
@@ -303,7 +312,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
-     * blackListBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdBlackList&gt;() {
+     * blackListBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdBlackList&gt;() {
      *     public void handle(LdBlackList entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -332,9 +341,9 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * blackListBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * blackListBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(LdBlackListCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -374,61 +383,96 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param blackList The entity of blackList. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadBlackActionList(LdBlackList blackList, ConditionBeanSetupper<LdBlackActionCB> conditionBeanSetupper) {
-        xassLRArg(blackList, conditionBeanSetupper);
-        loadBlackActionList(xnewLRLs(blackList), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of blackActionList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of blackActionList by the set-upper of referrer. <br />
      * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionList'.
      * <pre>
-     * blackListBhv.<span style="color: #FD4747">loadBlackActionList</span>(blackListList, new ConditionBeanSetupper&lt;LdBlackActionCB&gt;() {
+     * blackListBhv.<span style="color: #DD4747">loadBlackActionList</span>(blackListList, new ConditionBeanSetupper&lt;LdBlackActionCB&gt;() {
      *     public void setup(LdBlackActionCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (LdBlackList blackList : blackListList) {
-     *     ... = blackList.<span style="color: #FD4747">getBlackActionList()</span>;
+     *     ... = blackList.<span style="color: #DD4747">getBlackActionList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setBlackListId_InScope(pkList);
      * cb.query().addOrderBy_BlackListId_Asc();
      * </pre>
      * @param blackListList The entity list of blackList. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBlackActionList(List<LdBlackList> blackListList, ConditionBeanSetupper<LdBlackActionCB> conditionBeanSetupper) {
-        xassLRArg(blackListList, conditionBeanSetupper);
-        loadBlackActionList(blackListList, new LoadReferrerOption<LdBlackActionCB, LdBlackAction>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(List<LdBlackList> blackListList, ConditionBeanSetupper<LdBlackActionCB> setupper) {
+        xassLRArg(blackListList, setupper);
+        return doLoadBlackActionList(blackListList, new LoadReferrerOption<LdBlackActionCB, LdBlackAction>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of blackActionList by the set-upper of referrer. <br />
+     * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionList'.
+     * <pre>
+     * blackListBhv.<span style="color: #DD4747">loadBlackActionList</span>(blackListList, new ConditionBeanSetupper&lt;LdBlackActionCB&gt;() {
+     *     public void setup(LdBlackActionCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = blackList.<span style="color: #DD4747">getBlackActionList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setBlackListId_InScope(pkList);
+     * cb.query().addOrderBy_BlackListId_Asc();
+     * </pre>
+     * @param blackList The entity of blackList. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(LdBlackList blackList, ConditionBeanSetupper<LdBlackActionCB> setupper) {
+        xassLRArg(blackList, setupper);
+        return doLoadBlackActionList(xnewLRLs(blackList), new LoadReferrerOption<LdBlackActionCB, LdBlackAction>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param blackList The entity of blackList. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBlackActionList(LdBlackList blackList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
+    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(LdBlackList blackList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
         xassLRArg(blackList, loadReferrerOption);
-        loadBlackActionList(xnewLRLs(blackList), loadReferrerOption);
+        return loadBlackActionList(xnewLRLs(blackList), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param blackListList The entity list of blackList. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBlackActionList(List<LdBlackList> blackListList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(List<LdBlackList> blackListList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
         xassLRArg(blackListList, loadReferrerOption);
-        if (blackListList.isEmpty()) { return; }
+        if (blackListList.isEmpty()) { return (NestedReferrerLoader<LdBlackAction>)EMPTY_LOADER; }
+        return doLoadBlackActionList(blackListList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<LdBlackAction> doLoadBlackActionList(List<LdBlackList> blackListList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> option) {
         final LdBlackActionBhv referrerBhv = xgetBSFLR().select(LdBlackActionBhv.class);
-        helpLoadReferrerInternally(blackListList, loadReferrerOption, new InternalLoadReferrerCallback<LdBlackList, Integer, LdBlackActionCB, LdBlackAction>() {
+        return helpLoadReferrerInternally(blackListList, option, new InternalLoadReferrerCallback<LdBlackList, Integer, LdBlackActionCB, LdBlackAction>() {
             public Integer getPKVal(LdBlackList et)
             { return et.getBlackListId(); }
             public void setRfLs(LdBlackList et, List<LdBlackAction> ls)
@@ -501,12 +545,12 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//blackList.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//blackList.set...;</span>
-     * blackListBhv.<span style="color: #FD4747">insert</span>(blackList);
+     * blackListBhv.<span style="color: #DD4747">insert</span>(blackList);
      * ... = blackList.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param blackList The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdBlackList blackList) {
         doInsert(blackList, null);
@@ -542,17 +586,17 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//blackList.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//blackList.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * blackList.<span style="color: #FD4747">setVersionNo</span>(value);
+     * blackList.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     blackListBhv.<span style="color: #FD4747">update</span>(blackList);
+     *     blackListBhv.<span style="color: #DD4747">update</span>(blackList);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final LdBlackList blackList) {
         doUpdate(blackList, null);
@@ -606,12 +650,12 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
-     * blackListBhv.<span style="color: #FD4747">updateNonstrict</span>(blackList);
+     * blackListBhv.<span style="color: #DD4747">updateNonstrict</span>(blackList);
      * </pre>
      * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final LdBlackList blackList) {
         doUpdateNonstrict(blackList, null);
@@ -633,11 +677,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param blackList The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdBlackList blackList) {
         doInesrtOrUpdate(blackList, null, null);
@@ -665,11 +709,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param blackList The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdBlackList blackList) {
         doInesrtOrUpdateNonstrict(blackList, null, null);
@@ -698,16 +742,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * LdBlackList blackList = new LdBlackList();
      * blackList.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * blackList.<span style="color: #FD4747">setVersionNo</span>(value);
+     * blackList.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     blackListBhv.<span style="color: #FD4747">delete</span>(blackList);
+     *     blackListBhv.<span style="color: #DD4747">delete</span>(blackList);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(LdBlackList blackList) {
         doDelete(blackList, null);
@@ -739,11 +783,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
-     * blackListBhv.<span style="color: #FD4747">deleteNonstrict</span>(blackList);
+     * blackListBhv.<span style="color: #DD4747">deleteNonstrict</span>(blackList);
      * </pre>
      * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(LdBlackList blackList) {
         doDeleteNonstrict(blackList, null);
@@ -764,11 +808,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
-     * blackListBhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(blackList);
+     * blackListBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(blackList);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdBlackList blackList) {
         doDeleteNonstrictIgnoreDeleted(blackList, null);
@@ -793,7 +837,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     LdBlackList blackList = new LdBlackList();
@@ -806,7 +850,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     blackListList.add(blackList);
      * }
-     * blackListBhv.<span style="color: #FD4747">batchInsert</span>(blackListList);
+     * blackListBhv.<span style="color: #DD4747">batchInsert</span>(blackListList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -840,7 +884,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdBlackList blackList = new LdBlackList();
@@ -855,11 +899,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     blackListList.add(blackList);
      * }
-     * blackListBhv.<span style="color: #FD4747">batchUpdate</span>(blackListList);
+     * blackListBhv.<span style="color: #DD4747">batchUpdate</span>(blackListList);
      * </pre>
      * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdBlackList> blackListList) {
         UpdateOption<LdBlackListCB> op = createPlainUpdateOption();
@@ -888,16 +932,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * blackListBhv.<span style="color: #FD4747">batchUpdate</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
+     * blackListBhv.<span style="color: #DD4747">batchUpdate</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
      *     public void specify(LdBlackListCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * blackListBhv.<span style="color: #FD4747">batchUpdate</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
+     * blackListBhv.<span style="color: #DD4747">batchUpdate</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
      *     public void specify(LdBlackListCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -909,7 +953,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdBlackList> blackListList, SpecifyQuery<LdBlackListCB> updateColumnSpec) {
         return doBatchUpdate(blackListList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -918,7 +962,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdBlackList blackList = new LdBlackList();
@@ -933,11 +977,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     blackListList.add(blackList);
      * }
-     * blackListBhv.<span style="color: #FD4747">batchUpdate</span>(blackListList);
+     * blackListBhv.<span style="color: #DD4747">batchUpdate</span>(blackListList);
      * </pre>
      * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdBlackList> blackListList) {
         UpdateOption<LdBlackListCB> option = createPlainUpdateOption();
@@ -955,16 +999,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * blackListBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
+     * blackListBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
      *     public void specify(LdBlackListCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * blackListBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
+     * blackListBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(blackListList, new SpecifyQuery<LdBlackListCB>() {
      *     public void specify(LdBlackListCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -975,7 +1019,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdBlackList> blackListList, SpecifyQuery<LdBlackListCB> updateColumnSpec) {
         return doBatchUpdateNonstrict(blackListList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -992,7 +1036,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<LdBlackList> blackListList) {
         return doBatchDelete(blackListList, null);
@@ -1015,7 +1059,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<LdBlackList> blackListList) {
         return doBatchDeleteNonstrict(blackListList, null);
@@ -1039,7 +1083,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * blackListBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdBlackList, LdBlackListCB&gt;() {
+     * blackListBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdBlackList, LdBlackListCB&gt;() {
      *     public ConditionBean setup(blackList entity, LdBlackListCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1101,12 +1145,12 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
-     * blackListBhv.<span style="color: #FD4747">queryUpdate</span>(blackList, cb);
+     * blackListBhv.<span style="color: #DD4747">queryUpdate</span>(blackList, cb);
      * </pre>
      * @param blackList The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(LdBlackList blackList, LdBlackListCB cb) {
         return doQueryUpdate(blackList, cb, null);
@@ -1129,11 +1173,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdBlackListCB cb = new LdBlackListCB();
      * cb.query().setFoo...(value);
-     * blackListBhv.<span style="color: #FD4747">queryDelete</span>(blackList, cb);
+     * blackListBhv.<span style="color: #DD4747">queryDelete</span>(blackList, cb);
      * </pre>
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(LdBlackListCB cb) {
         return doQueryDelete(cb, null);
@@ -1169,12 +1213,12 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * InsertOption<LdBlackListCB> option = new InsertOption<LdBlackListCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * blackListBhv.<span style="color: #FD4747">varyingInsert</span>(blackList, option);
+     * blackListBhv.<span style="color: #DD4747">varyingInsert</span>(blackList, option);
      * ... = blackList.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param blackList The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(LdBlackList blackList, InsertOption<LdBlackListCB> option) {
         assertInsertOptionNotNull(option);
@@ -1190,25 +1234,25 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * blackList.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * blackList.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * blackList.<span style="color: #FD4747">setVersionNo</span>(value);
+     * blackList.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;LdBlackListCB&gt; option = new UpdateOption&lt;LdBlackListCB&gt;();
      *     option.self(new SpecifyQuery&lt;LdBlackListCB&gt;() {
      *         public void specify(LdBlackListCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     blackListBhv.<span style="color: #FD4747">varyingUpdate</span>(blackList, option);
+     *     blackListBhv.<span style="color: #DD4747">varyingUpdate</span>(blackList, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(LdBlackList blackList, UpdateOption<LdBlackListCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1230,16 +1274,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdBlackListCB&gt; option = new UpdateOption&lt;LdBlackListCB&gt;();
      * option.self(new SpecifyQuery&lt;LdBlackListCB&gt;() {
      *     public void specify(LdBlackListCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * blackListBhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(blackList, option);
+     * blackListBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(blackList, option);
      * </pre>
      * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(LdBlackList blackList, UpdateOption<LdBlackListCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1252,9 +1296,9 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param blackList The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(LdBlackList blackList, InsertOption<LdBlackListCB> insertOption, UpdateOption<LdBlackListCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1267,9 +1311,9 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param blackList The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(LdBlackList blackList, InsertOption<LdBlackListCB> insertOption, UpdateOption<LdBlackListCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1282,8 +1326,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(LdBlackList blackList, DeleteOption<LdBlackListCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1296,8 +1340,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * Other specifications are same as deleteNonstrict(entity).
      * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(LdBlackList blackList, DeleteOption<LdBlackListCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1410,16 +1454,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdBlackListCB&gt; option = new UpdateOption&lt;LdBlackListCB&gt;();
      * option.self(new SpecifyQuery&lt;LdBlackListCB&gt;() {
      *     public void specify(LdBlackListCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * blackListBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(blackList, cb, option);
+     * blackListBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(blackList, cb, option);
      * </pre>
      * @param blackList The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(LdBlackList blackList, LdBlackListCB cb, UpdateOption<LdBlackListCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1433,7 +1477,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(LdBlackListCB cb, DeleteOption<LdBlackListCB> option) {
         assertDeleteOptionNotNull(option);

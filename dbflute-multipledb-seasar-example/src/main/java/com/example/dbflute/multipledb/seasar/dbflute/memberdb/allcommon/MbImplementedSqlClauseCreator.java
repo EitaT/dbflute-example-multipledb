@@ -142,6 +142,9 @@ public class MbImplementedSqlClauseCreator implements SqlClauseCreator {
         if (isInnerJoinAutoDetect()) {
             sqlClause.allowInnerJoinAutoDetect();
         }
+        if (isThatsBadTimingDetect()) {
+            sqlClause.allowThatsBadTimingDetect();
+        }
         if (isEmptyStringQueryAllowed()) {
             sqlClause.allowEmptyStringQuery();
         }
@@ -162,6 +165,10 @@ public class MbImplementedSqlClauseCreator implements SqlClauseCreator {
 
     protected boolean isInnerJoinAutoDetect() {
 	    return MbDBFluteConfig.getInstance().isInnerJoinAutoDetect();
+    }
+
+    protected boolean isThatsBadTimingDetect() {
+	    return MbDBFluteConfig.getInstance().isThatsBadTimingDetect();
     }
 
     protected boolean isEmptyStringQueryAllowed() {

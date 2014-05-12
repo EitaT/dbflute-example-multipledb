@@ -144,6 +144,9 @@ public class LdImplementedSqlClauseCreator implements SqlClauseCreator {
         if (isInnerJoinAutoDetect()) {
             sqlClause.allowInnerJoinAutoDetect();
         }
+        if (isThatsBadTimingDetect()) {
+            sqlClause.allowThatsBadTimingDetect();
+        }
         if (isEmptyStringQueryAllowed()) {
             sqlClause.allowEmptyStringQuery();
         }
@@ -164,6 +167,10 @@ public class LdImplementedSqlClauseCreator implements SqlClauseCreator {
 
     protected boolean isInnerJoinAutoDetect() {
 	    return LdDBFluteConfig.getInstance().isInnerJoinAutoDetect();
+    }
+
+    protected boolean isThatsBadTimingDetect() {
+	    return LdDBFluteConfig.getInstance().isThatsBadTimingDetect();
     }
 
     protected boolean isEmptyStringQueryAllowed() {

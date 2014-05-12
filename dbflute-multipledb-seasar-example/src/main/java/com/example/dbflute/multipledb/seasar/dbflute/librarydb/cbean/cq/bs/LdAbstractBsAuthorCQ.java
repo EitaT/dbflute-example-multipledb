@@ -153,7 +153,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * {exists (select AUTHOR_ID from BOOK where ...)} <br />
      * BOOK by AUTHOR_ID, named 'bookAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">existsBookList</span>(new SubQuery&lt;LdBookCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsBookList</span>(new SubQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -163,8 +163,9 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      */
     public void existsBookList(SubQuery<LdBookCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepAuthorId_ExistsReferrer_BookList(cb.query()); // for saving query-value.
+        LdBookCB cb = new LdBookCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepAuthorId_ExistsReferrer_BookList(cb.query());
         registerExistsReferrer(cb.query(), "AUTHOR_ID", "AUTHOR_ID", pp, "bookList");
     }
     public abstract String keepAuthorId_ExistsReferrer_BookList(LdBookCQ sq);
@@ -174,7 +175,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * {not exists (select AUTHOR_ID from BOOK where ...)} <br />
      * BOOK by AUTHOR_ID, named 'bookAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsBookList</span>(new SubQuery&lt;LdBookCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsBookList</span>(new SubQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -184,8 +185,9 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      */
     public void notExistsBookList(SubQuery<LdBookCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepAuthorId_NotExistsReferrer_BookList(cb.query()); // for saving query-value.
+        LdBookCB cb = new LdBookCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepAuthorId_NotExistsReferrer_BookList(cb.query());
         registerNotExistsReferrer(cb.query(), "AUTHOR_ID", "AUTHOR_ID", pp, "bookList");
     }
     public abstract String keepAuthorId_NotExistsReferrer_BookList(LdBookCQ sq);
@@ -198,8 +200,9 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      */
     public void inScopeBookList(SubQuery<LdBookCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepAuthorId_InScopeRelation_BookList(cb.query()); // for saving query-value.
+        LdBookCB cb = new LdBookCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepAuthorId_InScopeRelation_BookList(cb.query());
         registerInScopeRelation(cb.query(), "AUTHOR_ID", "AUTHOR_ID", pp, "bookList");
     }
     public abstract String keepAuthorId_InScopeRelation_BookList(LdBookCQ sq);
@@ -212,16 +215,18 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      */
     public void notInScopeBookList(SubQuery<LdBookCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepAuthorId_NotInScopeRelation_BookList(cb.query()); // for saving query-value.
+        LdBookCB cb = new LdBookCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepAuthorId_NotInScopeRelation_BookList(cb.query());
         registerNotInScopeRelation(cb.query(), "AUTHOR_ID", "AUTHOR_ID", pp, "bookList");
     }
     public abstract String keepAuthorId_NotInScopeRelation_BookList(LdBookCQ sq);
 
     public void xsderiveBookList(String fn, SubQuery<LdBookCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String pp = keepAuthorId_SpecifyDerivedReferrer_BookList(cb.query()); // for saving query-value.
+        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepAuthorId_SpecifyDerivedReferrer_BookList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "AUTHOR_ID", "AUTHOR_ID", pp, "bookList", al, op);
     }
     public abstract String keepAuthorId_SpecifyDerivedReferrer_BookList(LdBookCQ sq);
@@ -231,12 +236,12 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from BOOK where ...)} <br />
      * BOOK by AUTHOR_ID, named 'bookAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">derivedBookList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdBookCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedBookList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdBookCB&gt;() {
      *     public void query(LdBookCB subCB) {
-     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      *     }
-     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
@@ -252,9 +257,9 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     }
     public void xqderiveBookList(String fn, SubQuery<LdBookCB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String sqpp = keepAuthorId_QueryDerivedReferrer_BookList(cb.query()); // for saving query-value.
-        String prpp = keepAuthorId_QueryDerivedReferrer_BookListParameter(vl);
+        LdBookCB cb = new LdBookCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String sqpp = keepAuthorId_QueryDerivedReferrer_BookList(cb.query()); String prpp = keepAuthorId_QueryDerivedReferrer_BookListParameter(vl);
         registerQueryDerivedReferrer(fn, cb.query(), "AUTHOR_ID", "AUTHOR_ID", sqpp, "bookList", rd, vl, prpp, op);
     }
     public abstract String keepAuthorId_QueryDerivedReferrer_BookList(LdBookCQ sq);
@@ -375,7 +380,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * AUTHOR_NAME: {NotNull, VARCHAR(80)} <br />
-     * <pre>e.g. setAuthorName_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setAuthorName_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param authorName The value of authorName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -613,7 +618,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * R_USER: {NotNull, VARCHAR(100), default=[default-user]} <br />
-     * <pre>e.g. setRUser_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setRUser_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param rUser The value of rUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -820,7 +825,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
-     * <pre>e.g. setRTimestamp_FromTo(fromDate, toDate, new <span style="color: #FD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setRTimestamp_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
@@ -835,7 +840,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #FD4747">&lt; '2007/04/17 00:00:00'</span>
+     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
      * </pre>
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
@@ -973,7 +978,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * U_USER: {NotNull, VARCHAR(100), default=[default-user]} <br />
-     * <pre>e.g. setUUser_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setUUser_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param uUser The value of uUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -1180,7 +1185,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
-     * <pre>e.g. setUTimestamp_FromTo(fromDate, toDate, new <span style="color: #FD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setUTimestamp_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
@@ -1195,7 +1200,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #FD4747">&lt; '2007/04/17 00:00:00'</span>
+     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
      * </pre>
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
@@ -1240,7 +1245,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO = (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
      *     public void query(LdAuthorCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -1257,7 +1262,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
      *     public void query(LdAuthorCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -1274,7 +1279,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterThan. <br />
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
      *     public void query(LdAuthorCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1291,7 +1296,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessThan. <br />
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
      *     public void query(LdAuthorCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1308,7 +1313,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterEqual. <br />
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
      *     public void query(LdAuthorCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1325,7 +1330,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessEqual. <br />
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdAuthorCB&gt;() {
      *     public void query(LdAuthorCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1361,9 +1366,10 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<LdAuthorCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdAuthorCB cb = new LdAuthorCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdAuthorCB cb = new LdAuthorCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "AUTHOR_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(LdAuthorCQ sq);
@@ -1396,8 +1402,9 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      */
     public void myselfExists(SubQuery<LdAuthorCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdAuthorCB cb = new LdAuthorCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        LdAuthorCB cb = new LdAuthorCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(LdAuthorCQ sq);
@@ -1411,11 +1418,43 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
      */
     public void myselfInScope(SubQuery<LdAuthorCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdAuthorCB cb = new LdAuthorCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        LdAuthorCB cb = new LdAuthorCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(LdAuthorCQ sq);
+
+    // ===================================================================================
+    //                                                                          Compatible
+    //                                                                          ==========
+    /**
+     * Order along the list of manual values. #beforejava8 <br />
+     * This function with Union is unsupported! <br />
+     * The order values are bound (treated as bind parameter).
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
+     * orderValueList.add(CDef.MemberStatus.Withdrawal);
+     * orderValueList.add(CDef.MemberStatus.Formalized);
+     * orderValueList.add(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'FML' then 1</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'PRV' then 2</span>
+     * <span style="color: #3F7E5E">//     else 3</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     * </pre>
+     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     */
+    public void withManualOrder(List<? extends Object> orderValueList) { // is user public!
+        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
+        final ManualOrderBean manualOrderBean = new ManualOrderBean();
+        manualOrderBean.acceptOrderValueList(orderValueList);
+        withManualOrder(manualOrderBean);
+    }
 
     // ===================================================================================
     //                                                                       Very Internal

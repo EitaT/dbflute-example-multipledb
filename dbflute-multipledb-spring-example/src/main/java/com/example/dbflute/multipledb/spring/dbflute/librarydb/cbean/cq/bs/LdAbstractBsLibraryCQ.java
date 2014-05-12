@@ -153,7 +153,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {exists (select LIBRARY_ID from COLLECTION where ...)} <br />
      * COLLECTION by LIBRARY_ID, named 'collectionAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">existsCollectionList</span>(new SubQuery&lt;LdCollectionCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsCollectionList</span>(new SubQuery&lt;LdCollectionCB&gt;() {
      *     public void query(LdCollectionCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -163,8 +163,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void existsCollectionList(SubQuery<LdCollectionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_ExistsReferrer_CollectionList(cb.query()); // for saving query-value.
+        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_ExistsReferrer_CollectionList(cb.query());
         registerExistsReferrer(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "collectionList");
     }
     public abstract String keepLibraryId_ExistsReferrer_CollectionList(LdCollectionCQ sq);
@@ -174,7 +175,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {exists (select LIBRARY_ID from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LIBRARY_ID, named 'libraryUserAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">existsLibraryUserList</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsLibraryUserList</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
      *     public void query(LdLibraryUserCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -184,8 +185,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void existsLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_ExistsReferrer_LibraryUserList(cb.query()); // for saving query-value.
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_ExistsReferrer_LibraryUserList(cb.query());
         registerExistsReferrer(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "libraryUserList");
     }
     public abstract String keepLibraryId_ExistsReferrer_LibraryUserList(LdLibraryUserCQ sq);
@@ -195,7 +197,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {exists (select LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">existsNextLibraryByLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsNextLibraryByLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
      *     public void query(LdNextLibraryCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -205,8 +207,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void existsNextLibraryByLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_ExistsReferrer_NextLibraryByLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_ExistsReferrer_NextLibraryByLibraryIdList(cb.query());
         registerExistsReferrer(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "nextLibraryByLibraryIdList");
     }
     public abstract String keepLibraryId_ExistsReferrer_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
@@ -216,7 +219,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {exists (select NEXT_LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">existsNextLibraryByNextLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsNextLibraryByNextLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
      *     public void query(LdNextLibraryCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -226,8 +229,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void existsNextLibraryByNextLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_ExistsReferrer_NextLibraryByNextLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_ExistsReferrer_NextLibraryByNextLibraryIdList(cb.query());
         registerExistsReferrer(cb.query(), "LIBRARY_ID", "NEXT_LIBRARY_ID", pp, "nextLibraryByNextLibraryIdList");
     }
     public abstract String keepLibraryId_ExistsReferrer_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
@@ -237,7 +241,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {not exists (select LIBRARY_ID from COLLECTION where ...)} <br />
      * COLLECTION by LIBRARY_ID, named 'collectionAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsCollectionList</span>(new SubQuery&lt;LdCollectionCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsCollectionList</span>(new SubQuery&lt;LdCollectionCB&gt;() {
      *     public void query(LdCollectionCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -247,8 +251,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notExistsCollectionList(SubQuery<LdCollectionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotExistsReferrer_CollectionList(cb.query()); // for saving query-value.
+        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotExistsReferrer_CollectionList(cb.query());
         registerNotExistsReferrer(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "collectionList");
     }
     public abstract String keepLibraryId_NotExistsReferrer_CollectionList(LdCollectionCQ sq);
@@ -258,7 +263,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {not exists (select LIBRARY_ID from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LIBRARY_ID, named 'libraryUserAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsLibraryUserList</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsLibraryUserList</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
      *     public void query(LdLibraryUserCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -268,8 +273,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notExistsLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotExistsReferrer_LibraryUserList(cb.query()); // for saving query-value.
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotExistsReferrer_LibraryUserList(cb.query());
         registerNotExistsReferrer(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "libraryUserList");
     }
     public abstract String keepLibraryId_NotExistsReferrer_LibraryUserList(LdLibraryUserCQ sq);
@@ -279,7 +285,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {not exists (select LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsNextLibraryByLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsNextLibraryByLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
      *     public void query(LdNextLibraryCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -289,8 +295,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notExistsNextLibraryByLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotExistsReferrer_NextLibraryByLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotExistsReferrer_NextLibraryByLibraryIdList(cb.query());
         registerNotExistsReferrer(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "nextLibraryByLibraryIdList");
     }
     public abstract String keepLibraryId_NotExistsReferrer_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
@@ -300,7 +307,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {not exists (select NEXT_LIBRARY_ID from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsNextLibraryByNextLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsNextLibraryByNextLibraryIdList</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
      *     public void query(LdNextLibraryCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -310,8 +317,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notExistsNextLibraryByNextLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotExistsReferrer_NextLibraryByNextLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotExistsReferrer_NextLibraryByNextLibraryIdList(cb.query());
         registerNotExistsReferrer(cb.query(), "LIBRARY_ID", "NEXT_LIBRARY_ID", pp, "nextLibraryByNextLibraryIdList");
     }
     public abstract String keepLibraryId_NotExistsReferrer_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
@@ -324,8 +332,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void inScopeCollectionList(SubQuery<LdCollectionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_InScopeRelation_CollectionList(cb.query()); // for saving query-value.
+        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_InScopeRelation_CollectionList(cb.query());
         registerInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "collectionList");
     }
     public abstract String keepLibraryId_InScopeRelation_CollectionList(LdCollectionCQ sq);
@@ -338,8 +347,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void inScopeLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_InScopeRelation_LibraryUserList(cb.query()); // for saving query-value.
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_InScopeRelation_LibraryUserList(cb.query());
         registerInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "libraryUserList");
     }
     public abstract String keepLibraryId_InScopeRelation_LibraryUserList(LdLibraryUserCQ sq);
@@ -352,8 +362,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void inScopeNextLibraryByLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_InScopeRelation_NextLibraryByLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_InScopeRelation_NextLibraryByLibraryIdList(cb.query());
         registerInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "nextLibraryByLibraryIdList");
     }
     public abstract String keepLibraryId_InScopeRelation_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
@@ -366,8 +377,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void inScopeNextLibraryByNextLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_InScopeRelation_NextLibraryByNextLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_InScopeRelation_NextLibraryByNextLibraryIdList(cb.query());
         registerInScopeRelation(cb.query(), "LIBRARY_ID", "NEXT_LIBRARY_ID", pp, "nextLibraryByNextLibraryIdList");
     }
     public abstract String keepLibraryId_InScopeRelation_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
@@ -380,8 +392,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notInScopeCollectionList(SubQuery<LdCollectionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotInScopeRelation_CollectionList(cb.query()); // for saving query-value.
+        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotInScopeRelation_CollectionList(cb.query());
         registerNotInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "collectionList");
     }
     public abstract String keepLibraryId_NotInScopeRelation_CollectionList(LdCollectionCQ sq);
@@ -394,8 +407,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notInScopeLibraryUserList(SubQuery<LdLibraryUserCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotInScopeRelation_LibraryUserList(cb.query()); // for saving query-value.
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotInScopeRelation_LibraryUserList(cb.query());
         registerNotInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "libraryUserList");
     }
     public abstract String keepLibraryId_NotInScopeRelation_LibraryUserList(LdLibraryUserCQ sq);
@@ -408,8 +422,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notInScopeNextLibraryByLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotInScopeRelation_NextLibraryByLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotInScopeRelation_NextLibraryByLibraryIdList(cb.query());
         registerNotInScopeRelation(cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "nextLibraryByLibraryIdList");
     }
     public abstract String keepLibraryId_NotInScopeRelation_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
@@ -422,40 +437,45 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notInScopeNextLibraryByNextLibraryIdList(SubQuery<LdNextLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryId_NotInScopeRelation_NextLibraryByNextLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_NotInScopeRelation_NextLibraryByNextLibraryIdList(cb.query());
         registerNotInScopeRelation(cb.query(), "LIBRARY_ID", "NEXT_LIBRARY_ID", pp, "nextLibraryByNextLibraryIdList");
     }
     public abstract String keepLibraryId_NotInScopeRelation_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
 
     public void xsderiveCollectionList(String fn, SubQuery<LdCollectionCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String pp = keepLibraryId_SpecifyDerivedReferrer_CollectionList(cb.query()); // for saving query-value.
+        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_SpecifyDerivedReferrer_CollectionList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "collectionList", al, op);
     }
     public abstract String keepLibraryId_SpecifyDerivedReferrer_CollectionList(LdCollectionCQ sq);
 
     public void xsderiveLibraryUserList(String fn, SubQuery<LdLibraryUserCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String pp = keepLibraryId_SpecifyDerivedReferrer_LibraryUserList(cb.query()); // for saving query-value.
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_SpecifyDerivedReferrer_LibraryUserList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "libraryUserList", al, op);
     }
     public abstract String keepLibraryId_SpecifyDerivedReferrer_LibraryUserList(LdLibraryUserCQ sq);
 
     public void xsderiveNextLibraryByLibraryIdList(String fn, SubQuery<LdNextLibraryCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String pp = keepLibraryId_SpecifyDerivedReferrer_NextLibraryByLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_SpecifyDerivedReferrer_NextLibraryByLibraryIdList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "LIBRARY_ID", pp, "nextLibraryByLibraryIdList", al, op);
     }
     public abstract String keepLibraryId_SpecifyDerivedReferrer_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
 
     public void xsderiveNextLibraryByNextLibraryIdList(String fn, SubQuery<LdNextLibraryCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String pp = keepLibraryId_SpecifyDerivedReferrer_NextLibraryByNextLibraryIdList(cb.query()); // for saving query-value.
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepLibraryId_SpecifyDerivedReferrer_NextLibraryByNextLibraryIdList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "NEXT_LIBRARY_ID", pp, "nextLibraryByNextLibraryIdList", al, op);
     }
     public abstract String keepLibraryId_SpecifyDerivedReferrer_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
@@ -465,12 +485,12 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from COLLECTION where ...)} <br />
      * COLLECTION by LIBRARY_ID, named 'collectionAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">derivedCollectionList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdCollectionCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedCollectionList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdCollectionCB&gt;() {
      *     public void query(LdCollectionCB subCB) {
-     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      *     }
-     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
@@ -486,9 +506,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     }
     public void xqderiveCollectionList(String fn, SubQuery<LdCollectionCB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String sqpp = keepLibraryId_QueryDerivedReferrer_CollectionList(cb.query()); // for saving query-value.
-        String prpp = keepLibraryId_QueryDerivedReferrer_CollectionListParameter(vl);
+        LdCollectionCB cb = new LdCollectionCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String sqpp = keepLibraryId_QueryDerivedReferrer_CollectionList(cb.query()); String prpp = keepLibraryId_QueryDerivedReferrer_CollectionListParameter(vl);
         registerQueryDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "LIBRARY_ID", sqpp, "collectionList", rd, vl, prpp, op);
     }
     public abstract String keepLibraryId_QueryDerivedReferrer_CollectionList(LdCollectionCQ sq);
@@ -499,12 +519,12 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LIBRARY_ID, named 'libraryUserAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">derivedLibraryUserList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedLibraryUserList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
      *     public void query(LdLibraryUserCB subCB) {
-     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      *     }
-     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
@@ -520,9 +540,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     }
     public void xqderiveLibraryUserList(String fn, SubQuery<LdLibraryUserCB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String sqpp = keepLibraryId_QueryDerivedReferrer_LibraryUserList(cb.query()); // for saving query-value.
-        String prpp = keepLibraryId_QueryDerivedReferrer_LibraryUserListParameter(vl);
+        LdLibraryUserCB cb = new LdLibraryUserCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String sqpp = keepLibraryId_QueryDerivedReferrer_LibraryUserList(cb.query()); String prpp = keepLibraryId_QueryDerivedReferrer_LibraryUserListParameter(vl);
         registerQueryDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "LIBRARY_ID", sqpp, "libraryUserList", rd, vl, prpp, op);
     }
     public abstract String keepLibraryId_QueryDerivedReferrer_LibraryUserList(LdLibraryUserCQ sq);
@@ -533,12 +553,12 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">derivedNextLibraryByLibraryIdList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedNextLibraryByLibraryIdList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
      *     public void query(LdNextLibraryCB subCB) {
-     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      *     }
-     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
@@ -554,9 +574,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     }
     public void xqderiveNextLibraryByLibraryIdList(String fn, SubQuery<LdNextLibraryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String sqpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdList(cb.query()); // for saving query-value.
-        String prpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdListParameter(vl);
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String sqpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdList(cb.query()); String prpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdListParameter(vl);
         registerQueryDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "LIBRARY_ID", sqpp, "nextLibraryByLibraryIdList", rd, vl, prpp, op);
     }
     public abstract String keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdList(LdNextLibraryCQ sq);
@@ -567,12 +587,12 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">derivedNextLibraryByNextLibraryIdList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedNextLibraryByNextLibraryIdList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdNextLibraryCB&gt;() {
      *     public void query(LdNextLibraryCB subCB) {
-     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      *     }
-     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
@@ -588,9 +608,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     }
     public void xqderiveNextLibraryByNextLibraryIdList(String fn, SubQuery<LdNextLibraryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String sqpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdList(cb.query()); // for saving query-value.
-        String prpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdListParameter(vl);
+        LdNextLibraryCB cb = new LdNextLibraryCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String sqpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdList(cb.query()); String prpp = keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdListParameter(vl);
         registerQueryDerivedReferrer(fn, cb.query(), "LIBRARY_ID", "NEXT_LIBRARY_ID", sqpp, "nextLibraryByNextLibraryIdList", rd, vl, prpp, op);
     }
     public abstract String keepLibraryId_QueryDerivedReferrer_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
@@ -711,7 +731,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * LIBRARY_NAME: {UQ, NotNull, VARCHAR(80)} <br />
-     * <pre>e.g. setLibraryName_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setLibraryName_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param libraryName The value of libraryName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -833,7 +853,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * LIBRARY_TYPE_CODE: {IX, NotNull, CHAR(3), FK to LIBRARY_TYPE_LOOKUP} <br />
-     * <pre>e.g. setLibraryTypeCode_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setLibraryTypeCode_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param libraryTypeCode The value of libraryTypeCode as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -860,8 +880,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void inScopeLibraryTypeLookup(SubQuery<LdLibraryTypeLookupCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryTypeCode_InScopeRelation_LibraryTypeLookup(cb.query()); // for saving query-value.
+        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryTypeCode_InScopeRelation_LibraryTypeLookup(cb.query());
         registerInScopeRelation(cb.query(), "LIBRARY_TYPE_CODE", "LIBRARY_TYPE_CODE", pp, "libraryTypeLookup");
     }
     public abstract String keepLibraryTypeCode_InScopeRelation_LibraryTypeLookup(LdLibraryTypeLookupCQ sq);
@@ -874,8 +895,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void notInScopeLibraryTypeLookup(SubQuery<LdLibraryTypeLookupCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepLibraryTypeCode_NotInScopeRelation_LibraryTypeLookup(cb.query()); // for saving query-value.
+        LdLibraryTypeLookupCB cb = new LdLibraryTypeLookupCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepLibraryTypeCode_NotInScopeRelation_LibraryTypeLookup(cb.query());
         registerNotInScopeRelation(cb.query(), "LIBRARY_TYPE_CODE", "LIBRARY_TYPE_CODE", pp, "libraryTypeLookup");
     }
     public abstract String keepLibraryTypeCode_NotInScopeRelation_LibraryTypeLookup(LdLibraryTypeLookupCQ sq);
@@ -983,7 +1005,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * R_USER: {NotNull, VARCHAR(100), default=[default-user]} <br />
-     * <pre>e.g. setRUser_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setRUser_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param rUser The value of rUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -1105,7 +1127,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * R_MODULE: {NotNull, VARCHAR(100), default=[default-module]} <br />
-     * <pre>e.g. setRModule_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setRModule_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param rModule The value of rModule as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -1185,7 +1207,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
-     * <pre>e.g. setRTimestamp_FromTo(fromDate, toDate, new <span style="color: #FD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setRTimestamp_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of rTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
@@ -1200,7 +1222,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #FD4747">&lt; '2007/04/17 00:00:00'</span>
+     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
      * </pre>
      * @param fromDate The from-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of rTimestamp. (NullAllowed: if null, no to-condition)
@@ -1338,7 +1360,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * U_USER: {NotNull, VARCHAR(100), default=[default-user]} <br />
-     * <pre>e.g. setUUser_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setUUser_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param uUser The value of uUser as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -1460,7 +1482,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * U_MODULE: {NotNull, VARCHAR(100), default=[default-module]} <br />
-     * <pre>e.g. setUModule_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setUModule_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param uModule The value of uModule as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -1540,7 +1562,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
      * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
-     * <pre>e.g. setUTimestamp_FromTo(fromDate, toDate, new <span style="color: #FD4747">FromToOption</span>().compareAsDate());</pre>
+     * <pre>e.g. setUTimestamp_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of uTimestamp. (NullAllowed: if null, no to-condition)
      * @param fromToOption The option of from-to. (NotNull)
@@ -1555,7 +1577,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
-     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #FD4747">&lt; '2007/04/17 00:00:00'</span>
+     *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
      * </pre>
      * @param fromDate The from-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no from-condition)
      * @param toDate The to-date(yyyy/MM/dd) of uTimestamp. (NullAllowed: if null, no to-condition)
@@ -1600,7 +1622,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO = (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
      *     public void query(LdLibraryCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -1617,7 +1639,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
      *     public void query(LdLibraryCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -1634,7 +1656,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterThan. <br />
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
      *     public void query(LdLibraryCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1651,7 +1673,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessThan. <br />
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
      *     public void query(LdLibraryCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1668,7 +1690,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterEqual. <br />
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
      *     public void query(LdLibraryCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1685,7 +1707,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessEqual. <br />
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdLibraryCB&gt;() {
      *     public void query(LdLibraryCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -1721,9 +1743,10 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<LdLibraryCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "LIBRARY_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(LdLibraryCQ sq);
@@ -1756,8 +1779,9 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void myselfExists(SubQuery<LdLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(LdLibraryCQ sq);
@@ -1771,11 +1795,43 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
      */
     public void myselfInScope(SubQuery<LdLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        LdLibraryCB cb = new LdLibraryCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(LdLibraryCQ sq);
+
+    // ===================================================================================
+    //                                                                          Compatible
+    //                                                                          ==========
+    /**
+     * Order along the list of manual values. #beforejava8 <br />
+     * This function with Union is unsupported! <br />
+     * The order values are bound (treated as bind parameter).
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
+     * orderValueList.add(CDef.MemberStatus.Withdrawal);
+     * orderValueList.add(CDef.MemberStatus.Formalized);
+     * orderValueList.add(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'FML' then 1</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'PRV' then 2</span>
+     * <span style="color: #3F7E5E">//     else 3</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     * </pre>
+     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     */
+    public void withManualOrder(List<? extends Object> orderValueList) { // is user public!
+        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
+        final ManualOrderBean manualOrderBean = new ManualOrderBean();
+        manualOrderBean.acceptOrderValueList(orderValueList);
+        withManualOrder(manualOrderBean);
+    }
 
     // ===================================================================================
     //                                                                       Very Internal

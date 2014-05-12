@@ -209,7 +209,7 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;MbMemberCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;MbMemberCB&gt;() {
      *     public void query(MbMemberCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -218,8 +218,8 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<MbMemberCB> unionQuery) {
-        final MbMemberCB cb = new MbMemberCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MbMemberCB cb = new MbMemberCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MbMemberCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -228,7 +228,7 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;MbMemberCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;MbMemberCB&gt;() {
      *     public void query(MbMemberCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -237,8 +237,8 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<MbMemberCB> unionQuery) {
-        final MbMemberCB cb = new MbMemberCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final MbMemberCB cb = new MbMemberCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final MbMemberCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -255,14 +255,15 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
      * <pre>
      * MbMemberCB cb = new MbMemberCB();
-     * cb.<span style="color: #FD4747">setupSelect_MemberStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_MemberStatus()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MbMember member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * ... = member.<span style="color: #FD4747">getMemberStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = member.<span style="color: #DD4747">getMemberStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MbMemberStatusNss setupSelect_MemberStatus() {
+        assertSetupSelectPurpose("memberStatus");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnMemberStatusCode();
         }
@@ -281,14 +282,15 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * MEMBER_LOGIN by my MEMBER_ID, named 'memberLoginAsLatest'.
      * <pre>
      * MbMemberCB cb = new MbMemberCB();
-     * cb.<span style="color: #FD4747">setupSelect_MemberLoginAsLatest()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_MemberLoginAsLatest()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MbMember member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * ... = member.<span style="color: #FD4747">getMemberLoginAsLatest()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = member.<span style="color: #DD4747">getMemberLoginAsLatest()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MbMemberLoginNss setupSelect_MemberLoginAsLatest() {
+        assertSetupSelectPurpose("memberLoginAsLatest");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberLoginAsLatest(); } });
         if (_nssMemberLoginAsLatest == null || !_nssMemberLoginAsLatest.hasConditionQuery())
         { _nssMemberLoginAsLatest = new MbMemberLoginNss(query().queryMemberLoginAsLatest()); }
@@ -305,14 +307,15 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * <pre>
      * MbMemberCB cb = new MbMemberCB();
-     * cb.<span style="color: #FD4747">setupSelect_MemberSecurityAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_MemberSecurityAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MbMember member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * ... = member.<span style="color: #FD4747">getMemberSecurityAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = member.<span style="color: #DD4747">getMemberSecurityAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MbMemberSecurityNss setupSelect_MemberSecurityAsOne() {
+        assertSetupSelectPurpose("memberSecurityAsOne");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberSecurityAsOne(); } });
         if (_nssMemberSecurityAsOne == null || !_nssMemberSecurityAsOne.hasConditionQuery()) { _nssMemberSecurityAsOne = new MbMemberSecurityNss(query().queryMemberSecurityAsOne()); }
         return _nssMemberSecurityAsOne;
@@ -328,14 +331,15 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * <pre>
      * MbMemberCB cb = new MbMemberCB();
-     * cb.<span style="color: #FD4747">setupSelect_MemberServiceAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_MemberServiceAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MbMember member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * ... = member.<span style="color: #FD4747">getMemberServiceAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = member.<span style="color: #DD4747">getMemberServiceAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MbMemberServiceNss setupSelect_MemberServiceAsOne() {
+        assertSetupSelectPurpose("memberServiceAsOne");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberServiceAsOne(); } });
         if (_nssMemberServiceAsOne == null || !_nssMemberServiceAsOne.hasConditionQuery()) { _nssMemberServiceAsOne = new MbMemberServiceNss(query().queryMemberServiceAsOne()); }
         return _nssMemberServiceAsOne;
@@ -351,14 +355,15 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * <pre>
      * MbMemberCB cb = new MbMemberCB();
-     * cb.<span style="color: #FD4747">setupSelect_MemberWithdrawalAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_MemberWithdrawalAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * MbMember member = memberBhv.selectEntityWithDeletedCheck(cb);
-     * ... = member.<span style="color: #FD4747">getMemberWithdrawalAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = member.<span style="color: #DD4747">getMemberWithdrawalAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public MbMemberWithdrawalNss setupSelect_MemberWithdrawalAsOne() {
+        assertSetupSelectPurpose("memberWithdrawalAsOne");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberWithdrawalAsOne(); } });
         if (_nssMemberWithdrawalAsOne == null || !_nssMemberWithdrawalAsOne.hasConditionQuery()) { _nssMemberWithdrawalAsOne = new MbMemberWithdrawalNss(query().queryMemberWithdrawalAsOne()); }
         return _nssMemberWithdrawalAsOne;
@@ -591,12 +596,12 @@ public class MbBsMemberCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER_ADDRESS where ...) as FOO_MAX} <br />
          * MEMBER_ADDRESS by MEMBER_ID, named 'memberAddressList'.
          * <pre>
-         * cb.specify().<span style="color: #FD4747">derivedMemberAddressList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;MbMemberAddressCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedMemberAddressList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MbMemberAddressCB&gt;() {
          *     public void query(MbMemberAddressCB subCB) {
-         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
          *     }
-         * }, MbMemberAddress.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * }, MbMemberAddress.<span style="color: #DD4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -611,12 +616,12 @@ public class MbBsMemberCB extends AbstractConditionBean {
          * {select max(FOO) from MEMBER_LOGIN where ...) as FOO_MAX} <br />
          * MEMBER_LOGIN by MEMBER_ID, named 'memberLoginList'.
          * <pre>
-         * cb.specify().<span style="color: #FD4747">derivedMemberLoginList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;MbMemberLoginCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedMemberLoginList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MbMemberLoginCB&gt;() {
          *     public void query(MbMemberLoginCB subCB) {
-         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
          *     }
-         * }, MbMemberLogin.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * }, MbMemberLogin.<span style="color: #DD4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -631,12 +636,12 @@ public class MbBsMemberCB extends AbstractConditionBean {
          * {select max(FOO) from PURCHASE where ...) as FOO_MAX} <br />
          * PURCHASE by MEMBER_ID, named 'purchaseList'.
          * <pre>
-         * cb.specify().<span style="color: #FD4747">derivedPurchaseList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;MbPurchaseCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedPurchaseList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;MbPurchaseCB&gt;() {
          *     public void query(MbPurchaseCB subCB) {
-         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
          *     }
-         * }, MbPurchase.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * }, MbPurchase.<span style="color: #DD4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -660,19 +665,19 @@ public class MbBsMemberCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;MbMemberCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;MbMemberCB&gt;() {
      *     public void query(MbMemberCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;MbMemberCB&gt;() {
      *     public void query(MbMemberCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -713,14 +718,14 @@ public class MbBsMemberCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;MbMemberCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MbMemberCB&gt;() {
      *     public void query(MbMemberCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -738,10 +743,10 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;MbMemberCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;MbMemberCB&gt;() {
      *     public void query(MbMemberCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;MbMemberCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;MbMemberCB&gt;() {
      *             public void query(MbMemberCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

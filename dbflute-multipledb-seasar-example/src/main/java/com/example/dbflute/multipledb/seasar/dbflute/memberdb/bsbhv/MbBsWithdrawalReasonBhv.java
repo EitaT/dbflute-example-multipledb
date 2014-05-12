@@ -6,6 +6,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exbhv.*;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.*;
@@ -91,7 +93,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * <pre>
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
-     * int count = withdrawalReasonBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = withdrawalReasonBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -119,12 +121,14 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
-     * MbWithdrawalReason withdrawalReason = withdrawalReasonBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (withdrawalReason != null) {
+     * MbWithdrawalReason withdrawalReason = withdrawalReasonBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (withdrawalReason != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = withdrawalReason.get...();
      * } else {
      *     ...
@@ -132,8 +136,8 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbWithdrawalReason selectEntity(MbWithdrawalReasonCB cb) {
         return doSelectEntity(cb, MbWithdrawalReason.class);
@@ -145,24 +149,29 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(MbWithdrawalReasonCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends MbWithdrawalReason> OptionalEntity<ENTITY> doSelectOptionalEntity(MbWithdrawalReasonCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
-     * MbWithdrawalReason withdrawalReason = withdrawalReasonBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * MbWithdrawalReason withdrawalReason = withdrawalReasonBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = withdrawalReason.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbWithdrawalReason selectEntityWithDeletedCheck(MbWithdrawalReasonCB cb) {
         return doSelectEntityWithDeletedCheck(cb, MbWithdrawalReason.class);
@@ -183,8 +192,8 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param withdrawalReasonCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbWithdrawalReason selectByPKValue(String withdrawalReasonCode) {
         return doSelectByPKValue(withdrawalReasonCode, MbWithdrawalReason.class);
@@ -198,9 +207,9 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param withdrawalReasonCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbWithdrawalReason selectByPKValueWithDeletedCheck(String withdrawalReasonCode) {
         return doSelectByPKValueWithDeletedCheck(withdrawalReasonCode, MbWithdrawalReason.class);
@@ -226,14 +235,14 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;MbWithdrawalReason&gt; withdrawalReasonList = withdrawalReasonBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;MbWithdrawalReason&gt; withdrawalReasonList = withdrawalReasonBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (MbWithdrawalReason withdrawalReason : withdrawalReasonList) {
      *     ... = withdrawalReason.get...();
      * }
      * </pre>
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<MbWithdrawalReason> selectList(MbWithdrawalReasonCB cb) {
         return doSelectList(cb, MbWithdrawalReason.class);
@@ -261,8 +270,8 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;MbWithdrawalReason&gt; page = withdrawalReasonBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;MbWithdrawalReason&gt; page = withdrawalReasonBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -274,7 +283,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<MbWithdrawalReason> selectPage(MbWithdrawalReasonCB cb) {
         return doSelectPage(cb, MbWithdrawalReason.class);
@@ -301,7 +310,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * <pre>
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
-     * withdrawalReasonBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;MbWithdrawalReason&gt;() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;MbWithdrawalReason&gt;() {
      *     public void handle(MbWithdrawalReason entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -330,9 +339,9 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * withdrawalReasonBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(MbWithdrawalReasonCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -372,61 +381,96 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param withdrawalReason The entity of withdrawalReason. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadMemberWithdrawalList(MbWithdrawalReason withdrawalReason, ConditionBeanSetupper<MbMemberWithdrawalCB> conditionBeanSetupper) {
-        xassLRArg(withdrawalReason, conditionBeanSetupper);
-        loadMemberWithdrawalList(xnewLRLs(withdrawalReason), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of memberWithdrawalList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of memberWithdrawalList by the set-upper of referrer. <br />
      * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
      * <pre>
-     * withdrawalReasonBhv.<span style="color: #FD4747">loadMemberWithdrawalList</span>(withdrawalReasonList, new ConditionBeanSetupper&lt;MbMemberWithdrawalCB&gt;() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawalList</span>(withdrawalReasonList, new ConditionBeanSetupper&lt;MbMemberWithdrawalCB&gt;() {
      *     public void setup(MbMemberWithdrawalCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (MbWithdrawalReason withdrawalReason : withdrawalReasonList) {
-     *     ... = withdrawalReason.<span style="color: #FD4747">getMemberWithdrawalList()</span>;
+     *     ... = withdrawalReason.<span style="color: #DD4747">getMemberWithdrawalList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setWithdrawalReasonCode_InScope(pkList);
      * cb.query().addOrderBy_WithdrawalReasonCode_Asc();
      * </pre>
      * @param withdrawalReasonList The entity list of withdrawalReason. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberWithdrawalList(List<MbWithdrawalReason> withdrawalReasonList, ConditionBeanSetupper<MbMemberWithdrawalCB> conditionBeanSetupper) {
-        xassLRArg(withdrawalReasonList, conditionBeanSetupper);
-        loadMemberWithdrawalList(withdrawalReasonList, new LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<MbMemberWithdrawal> loadMemberWithdrawalList(List<MbWithdrawalReason> withdrawalReasonList, ConditionBeanSetupper<MbMemberWithdrawalCB> setupper) {
+        xassLRArg(withdrawalReasonList, setupper);
+        return doLoadMemberWithdrawalList(withdrawalReasonList, new LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of memberWithdrawalList by the set-upper of referrer. <br />
+     * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalList'.
+     * <pre>
+     * withdrawalReasonBhv.<span style="color: #DD4747">loadMemberWithdrawalList</span>(withdrawalReasonList, new ConditionBeanSetupper&lt;MbMemberWithdrawalCB&gt;() {
+     *     public void setup(MbMemberWithdrawalCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = withdrawalReason.<span style="color: #DD4747">getMemberWithdrawalList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setWithdrawalReasonCode_InScope(pkList);
+     * cb.query().addOrderBy_WithdrawalReasonCode_Asc();
+     * </pre>
+     * @param withdrawalReason The entity of withdrawalReason. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<MbMemberWithdrawal> loadMemberWithdrawalList(MbWithdrawalReason withdrawalReason, ConditionBeanSetupper<MbMemberWithdrawalCB> setupper) {
+        xassLRArg(withdrawalReason, setupper);
+        return doLoadMemberWithdrawalList(xnewLRLs(withdrawalReason), new LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param withdrawalReason The entity of withdrawalReason. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberWithdrawalList(MbWithdrawalReason withdrawalReason, LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal> loadReferrerOption) {
+    public NestedReferrerLoader<MbMemberWithdrawal> loadMemberWithdrawalList(MbWithdrawalReason withdrawalReason, LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal> loadReferrerOption) {
         xassLRArg(withdrawalReason, loadReferrerOption);
-        loadMemberWithdrawalList(xnewLRLs(withdrawalReason), loadReferrerOption);
+        return loadMemberWithdrawalList(xnewLRLs(withdrawalReason), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param withdrawalReasonList The entity list of withdrawalReason. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadMemberWithdrawalList(List<MbWithdrawalReason> withdrawalReasonList, LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<MbMemberWithdrawal> loadMemberWithdrawalList(List<MbWithdrawalReason> withdrawalReasonList, LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal> loadReferrerOption) {
         xassLRArg(withdrawalReasonList, loadReferrerOption);
-        if (withdrawalReasonList.isEmpty()) { return; }
+        if (withdrawalReasonList.isEmpty()) { return (NestedReferrerLoader<MbMemberWithdrawal>)EMPTY_LOADER; }
+        return doLoadMemberWithdrawalList(withdrawalReasonList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<MbMemberWithdrawal> doLoadMemberWithdrawalList(List<MbWithdrawalReason> withdrawalReasonList, LoadReferrerOption<MbMemberWithdrawalCB, MbMemberWithdrawal> option) {
         final MbMemberWithdrawalBhv referrerBhv = xgetBSFLR().select(MbMemberWithdrawalBhv.class);
-        helpLoadReferrerInternally(withdrawalReasonList, loadReferrerOption, new InternalLoadReferrerCallback<MbWithdrawalReason, String, MbMemberWithdrawalCB, MbMemberWithdrawal>() {
+        return helpLoadReferrerInternally(withdrawalReasonList, option, new InternalLoadReferrerCallback<MbWithdrawalReason, String, MbMemberWithdrawalCB, MbMemberWithdrawal>() {
             public String getPKVal(MbWithdrawalReason et)
             { return et.getWithdrawalReasonCode(); }
             public void setRfLs(MbWithdrawalReason et, List<MbMemberWithdrawal> ls)
@@ -486,12 +530,12 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//withdrawalReason.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//withdrawalReason.set...;</span>
-     * withdrawalReasonBhv.<span style="color: #FD4747">insert</span>(withdrawalReason);
+     * withdrawalReasonBhv.<span style="color: #DD4747">insert</span>(withdrawalReason);
      * ... = withdrawalReason.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param withdrawalReason The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(MbWithdrawalReason withdrawalReason) {
         doInsert(withdrawalReason, null);
@@ -527,17 +571,17 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//withdrawalReason.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//withdrawalReason.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * withdrawalReason.<span style="color: #FD4747">setVersionNo</span>(value);
+     * withdrawalReason.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     withdrawalReasonBhv.<span style="color: #FD4747">update</span>(withdrawalReason);
+     *     withdrawalReasonBhv.<span style="color: #DD4747">update</span>(withdrawalReason);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param withdrawalReason The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final MbWithdrawalReason withdrawalReason) {
         doUpdate(withdrawalReason, null);
@@ -587,11 +631,11 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param withdrawalReason The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(MbWithdrawalReason withdrawalReason) {
         doInesrtOrUpdate(withdrawalReason, null, null);
@@ -627,16 +671,16 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * MbWithdrawalReason withdrawalReason = new MbWithdrawalReason();
      * withdrawalReason.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * withdrawalReason.<span style="color: #FD4747">setVersionNo</span>(value);
+     * withdrawalReason.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     withdrawalReasonBhv.<span style="color: #FD4747">delete</span>(withdrawalReason);
+     *     withdrawalReasonBhv.<span style="color: #DD4747">delete</span>(withdrawalReason);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param withdrawalReason The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(MbWithdrawalReason withdrawalReason) {
         doDelete(withdrawalReason, null);
@@ -671,7 +715,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     MbWithdrawalReason withdrawalReason = new MbWithdrawalReason();
@@ -684,7 +728,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     withdrawalReasonList.add(withdrawalReason);
      * }
-     * withdrawalReasonBhv.<span style="color: #FD4747">batchInsert</span>(withdrawalReasonList);
+     * withdrawalReasonBhv.<span style="color: #DD4747">batchInsert</span>(withdrawalReasonList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -718,7 +762,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     MbWithdrawalReason withdrawalReason = new MbWithdrawalReason();
@@ -733,11 +777,11 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     withdrawalReasonList.add(withdrawalReason);
      * }
-     * withdrawalReasonBhv.<span style="color: #FD4747">batchUpdate</span>(withdrawalReasonList);
+     * withdrawalReasonBhv.<span style="color: #DD4747">batchUpdate</span>(withdrawalReasonList);
      * </pre>
      * @param withdrawalReasonList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MbWithdrawalReason> withdrawalReasonList) {
         UpdateOption<MbWithdrawalReasonCB> op = createPlainUpdateOption();
@@ -766,16 +810,16 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * withdrawalReasonBhv.<span style="color: #FD4747">batchUpdate</span>(withdrawalReasonList, new SpecifyQuery<MbWithdrawalReasonCB>() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">batchUpdate</span>(withdrawalReasonList, new SpecifyQuery<MbWithdrawalReasonCB>() {
      *     public void specify(MbWithdrawalReasonCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * withdrawalReasonBhv.<span style="color: #FD4747">batchUpdate</span>(withdrawalReasonList, new SpecifyQuery<MbWithdrawalReasonCB>() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">batchUpdate</span>(withdrawalReasonList, new SpecifyQuery<MbWithdrawalReasonCB>() {
      *     public void specify(MbWithdrawalReasonCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -787,7 +831,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * @param withdrawalReasonList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdate(List<MbWithdrawalReason> withdrawalReasonList, SpecifyQuery<MbWithdrawalReasonCB> updateColumnSpec) {
         return doBatchUpdate(withdrawalReasonList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -803,7 +847,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param withdrawalReasonList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDelete(List<MbWithdrawalReason> withdrawalReasonList) {
         return doBatchDelete(withdrawalReasonList, null);
@@ -832,7 +876,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * withdrawalReasonBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;MbWithdrawalReason, MbWithdrawalReasonCB&gt;() {
+     * withdrawalReasonBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;MbWithdrawalReason, MbWithdrawalReasonCB&gt;() {
      *     public ConditionBean setup(withdrawalReason entity, MbWithdrawalReasonCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -894,12 +938,12 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//withdrawalReason.setVersionNo(value);</span>
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
-     * withdrawalReasonBhv.<span style="color: #FD4747">queryUpdate</span>(withdrawalReason, cb);
+     * withdrawalReasonBhv.<span style="color: #DD4747">queryUpdate</span>(withdrawalReason, cb);
      * </pre>
      * @param withdrawalReason The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(MbWithdrawalReason withdrawalReason, MbWithdrawalReasonCB cb) {
         return doQueryUpdate(withdrawalReason, cb, null);
@@ -922,11 +966,11 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * <pre>
      * MbWithdrawalReasonCB cb = new MbWithdrawalReasonCB();
      * cb.query().setFoo...(value);
-     * withdrawalReasonBhv.<span style="color: #FD4747">queryDelete</span>(withdrawalReason, cb);
+     * withdrawalReasonBhv.<span style="color: #DD4747">queryDelete</span>(withdrawalReason, cb);
      * </pre>
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(MbWithdrawalReasonCB cb) {
         return doQueryDelete(cb, null);
@@ -962,12 +1006,12 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * InsertOption<MbWithdrawalReasonCB> option = new InsertOption<MbWithdrawalReasonCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * withdrawalReasonBhv.<span style="color: #FD4747">varyingInsert</span>(withdrawalReason, option);
+     * withdrawalReasonBhv.<span style="color: #DD4747">varyingInsert</span>(withdrawalReason, option);
      * ... = withdrawalReason.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param withdrawalReason The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(MbWithdrawalReason withdrawalReason, InsertOption<MbWithdrawalReasonCB> option) {
         assertInsertOptionNotNull(option);
@@ -983,25 +1027,25 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * withdrawalReason.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * withdrawalReason.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * withdrawalReason.<span style="color: #FD4747">setVersionNo</span>(value);
+     * withdrawalReason.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;MbWithdrawalReasonCB&gt; option = new UpdateOption&lt;MbWithdrawalReasonCB&gt;();
      *     option.self(new SpecifyQuery&lt;MbWithdrawalReasonCB&gt;() {
      *         public void specify(MbWithdrawalReasonCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     withdrawalReasonBhv.<span style="color: #FD4747">varyingUpdate</span>(withdrawalReason, option);
+     *     withdrawalReasonBhv.<span style="color: #DD4747">varyingUpdate</span>(withdrawalReason, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param withdrawalReason The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(MbWithdrawalReason withdrawalReason, UpdateOption<MbWithdrawalReasonCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1014,9 +1058,9 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * @param withdrawalReason The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(MbWithdrawalReason withdrawalReason, InsertOption<MbWithdrawalReasonCB> insertOption, UpdateOption<MbWithdrawalReasonCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1029,8 +1073,8 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param withdrawalReason The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(MbWithdrawalReason withdrawalReason, DeleteOption<MbWithdrawalReasonCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1116,16 +1160,16 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;MbWithdrawalReasonCB&gt; option = new UpdateOption&lt;MbWithdrawalReasonCB&gt;();
      * option.self(new SpecifyQuery&lt;MbWithdrawalReasonCB&gt;() {
      *     public void specify(MbWithdrawalReasonCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * withdrawalReasonBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(withdrawalReason, cb, option);
+     * withdrawalReasonBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(withdrawalReason, cb, option);
      * </pre>
      * @param withdrawalReason The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(MbWithdrawalReason withdrawalReason, MbWithdrawalReasonCB cb, UpdateOption<MbWithdrawalReasonCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1139,7 +1183,7 @@ public abstract class MbBsWithdrawalReasonBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of MbWithdrawalReason. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(MbWithdrawalReasonCB cb, DeleteOption<MbWithdrawalReasonCB> option) {
         assertDeleteOptionNotNull(option);

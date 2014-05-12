@@ -211,7 +211,7 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;LdBlackActionCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;LdBlackActionCB&gt;() {
      *     public void query(LdBlackActionCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -220,8 +220,8 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<LdBlackActionCB> unionQuery) {
-        final LdBlackActionCB cb = new LdBlackActionCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdBlackActionCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -230,7 +230,7 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;LdBlackActionCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;LdBlackActionCB&gt;() {
      *     public void query(LdBlackActionCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -239,8 +239,8 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<LdBlackActionCB> unionQuery) {
-        final LdBlackActionCB cb = new LdBlackActionCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdBlackActionCB cb = new LdBlackActionCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdBlackActionCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -257,14 +257,15 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * BLACK_LIST by my BLACK_LIST_ID, named 'blackList'.
      * <pre>
      * LdBlackActionCB cb = new LdBlackActionCB();
-     * cb.<span style="color: #FD4747">setupSelect_BlackList()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_BlackList()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdBlackAction blackAction = blackActionBhv.selectEntityWithDeletedCheck(cb);
-     * ... = blackAction.<span style="color: #FD4747">getBlackList()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = blackAction.<span style="color: #DD4747">getBlackList()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdBlackListNss setupSelect_BlackList() {
+        assertSetupSelectPurpose("blackList");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnBlackListId();
         }
@@ -283,14 +284,15 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * BLACK_ACTION_LOOKUP by my BLACK_ACTION_CODE, named 'blackActionLookup'.
      * <pre>
      * LdBlackActionCB cb = new LdBlackActionCB();
-     * cb.<span style="color: #FD4747">setupSelect_BlackActionLookup()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_BlackActionLookup()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdBlackAction blackAction = blackActionBhv.selectEntityWithDeletedCheck(cb);
-     * ... = blackAction.<span style="color: #FD4747">getBlackActionLookup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = blackAction.<span style="color: #DD4747">getBlackActionLookup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdBlackActionLookupNss setupSelect_BlackActionLookup() {
+        assertSetupSelectPurpose("blackActionLookup");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnBlackActionCode();
         }
@@ -479,19 +481,19 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;LdBlackActionCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;LdBlackActionCB&gt;() {
      *     public void query(LdBlackActionCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;LdBlackActionCB&gt;() {
      *     public void query(LdBlackActionCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -532,14 +534,14 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdBlackActionCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdBlackActionCB&gt;() {
      *     public void query(LdBlackActionCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -557,10 +559,10 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdBlackActionCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdBlackActionCB&gt;() {
      *     public void query(LdBlackActionCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdBlackActionCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdBlackActionCB&gt;() {
      *             public void query(LdBlackActionCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

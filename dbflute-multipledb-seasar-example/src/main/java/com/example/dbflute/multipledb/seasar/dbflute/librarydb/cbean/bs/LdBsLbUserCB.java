@@ -211,7 +211,7 @@ public class LdBsLbUserCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;LdLbUserCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;LdLbUserCB&gt;() {
      *     public void query(LdLbUserCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -220,8 +220,8 @@ public class LdBsLbUserCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<LdLbUserCB> unionQuery) {
-        final LdLbUserCB cb = new LdLbUserCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdLbUserCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -230,7 +230,7 @@ public class LdBsLbUserCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;LdLbUserCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;LdLbUserCB&gt;() {
      *     public void query(LdLbUserCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -239,8 +239,8 @@ public class LdBsLbUserCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<LdLbUserCB> unionQuery) {
-        final LdLbUserCB cb = new LdLbUserCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdLbUserCB cb = new LdLbUserCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdLbUserCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -258,14 +258,15 @@ public class LdBsLbUserCB extends AbstractConditionBean {
      * BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
      * <pre>
      * LdLbUserCB cb = new LdLbUserCB();
-     * cb.<span style="color: #FD4747">setupSelect_BlackListAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_BlackListAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdLbUser lbUser = lbUserBhv.selectEntityWithDeletedCheck(cb);
-     * ... = lbUser.<span style="color: #FD4747">getBlackListAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = lbUser.<span style="color: #DD4747">getBlackListAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdBlackListNss setupSelect_BlackListAsOne() {
+        assertSetupSelectPurpose("blackListAsOne");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryBlackListAsOne(); } });
         if (_nssBlackListAsOne == null || !_nssBlackListAsOne.hasConditionQuery()) { _nssBlackListAsOne = new LdBlackListNss(query().queryBlackListAsOne()); }
         return _nssBlackListAsOne;
@@ -396,12 +397,12 @@ public class LdBsLbUserCB extends AbstractConditionBean {
          * {select max(FOO) from LIBRARY_USER where ...) as FOO_MAX} <br />
          * LIBRARY_USER by LB_USER_ID, named 'libraryUserList'.
          * <pre>
-         * cb.specify().<span style="color: #FD4747">derivedLibraryUserList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
+         * cb.specify().<span style="color: #DD4747">derivedLibraryUserList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdLibraryUserCB&gt;() {
          *     public void query(LdLibraryUserCB subCB) {
-         *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
          *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
          *     }
-         * }, LdLibraryUser.<span style="color: #FD4747">ALIAS_foo...</span>);
+         * }, LdLibraryUser.<span style="color: #DD4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
@@ -425,19 +426,19 @@ public class LdBsLbUserCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;LdLbUserCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;LdLbUserCB&gt;() {
      *     public void query(LdLbUserCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;LdLbUserCB&gt;() {
      *     public void query(LdLbUserCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -478,14 +479,14 @@ public class LdBsLbUserCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdLbUserCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdLbUserCB&gt;() {
      *     public void query(LdLbUserCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -503,10 +504,10 @@ public class LdBsLbUserCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdLbUserCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdLbUserCB&gt;() {
      *     public void query(LdLbUserCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdLbUserCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdLbUserCB&gt;() {
      *             public void query(LdLbUserCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

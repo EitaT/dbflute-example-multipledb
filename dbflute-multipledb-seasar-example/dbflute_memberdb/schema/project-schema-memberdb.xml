@@ -5,7 +5,7 @@
     <table comment="会員: 会員登録時にInsertされる。&#xa;物理削除されることはない" name="MEMBER"
         schema="MEMBERDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="会員ID: 連番" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D988D266_C734_4FCF_87C8_54A6EBA1D1C1"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5D17752A_BE2A_417B_AE3D_C15FF35BF2F8"
             javaType="Integer" name="MEMBER_ID" pkName="CONSTRAINT_8"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column comment="会員名称: 会員の表示用の名称(姓名)" dbType="VARCHAR"
@@ -53,7 +53,7 @@
     <table comment="会員住所情報: 有効期間による履歴管理" name="MEMBER_ADDRESS"
         schema="MEMBERDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_1A3D7B5B_E682_429F_8A11_004DC8EF4804"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_81CD085E_3985_44BB_BE66_DC53711257FE"
             javaType="Integer" name="MEMBER_ADDRESS_ID"
             pkName="CONSTRAINT_B" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -101,7 +101,7 @@
     <table comment="会員ログイン: ログインの度にInsertされる" name="MEMBER_LOGIN"
         schema="MEMBERDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D008DD8D_4134_4D5D_805D_B0BF8A801942"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D95351CC_C95B_43BB_95A2_450539A9588C"
             javaType="Long" name="MEMBER_LOGIN_ID"
             pkName="CONSTRAINT_BD" primaryKey="true" required="true"
             size="19" type="BIGINT"/>
@@ -167,7 +167,7 @@
     </table>
     <table name="MEMBER_SERVICE" schema="MEMBERDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_645A273D_59D0_4F2C_8A32_64EEAC4F17AC"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_DB60297A_8CD9_4276_A9D2_1906B0149E4D"
             javaType="Integer" name="MEMBER_SERVICE_ID"
             pkName="CONSTRAINT_6F" primaryKey="true" required="true"
             size="10" type="INTEGER"/>
@@ -263,7 +263,7 @@
     </table>
     <table comment="商品: " name="PRODUCT" schema="MEMBERDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="INTEGER"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_95879D8B_2204_4792_A2E3_E31A446AAEB7"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_100F3430_FB11_4994_8184_A72D5CA1608A"
             javaType="Integer" name="PRODUCT_ID" pkName="CONSTRAINT_1"
             primaryKey="true" required="true" size="10" type="INTEGER"/>
         <column comment="" dbType="VARCHAR" javaType="String"
@@ -341,7 +341,7 @@
     <table comment="購入: 購入の度ににInsertされる" name="PURCHASE"
         schema="MEMBERDB.PUBLIC" type="TABLE">
         <column autoIncrement="true" comment="" dbType="BIGINT"
-            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5439AC01_FD57_4385_8438_98E2386B9ECA"
+            default="NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_C51745C0_53A3_403E_A38E_35A50DF56FDE"
             javaType="Long" name="PURCHASE_ID" pkName="CONSTRAINT_9"
             primaryKey="true" required="true" size="19" type="BIGINT"/>
         <column comment="" dbType="INTEGER" javaType="Integer"
@@ -454,16 +454,16 @@
     </table>
     <sequenceGroup>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_5439AC01_FD57_4385_8438_98E2386B9ECA" schema="MEMBERDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_C51745C0_53A3_403E_A38E_35A50DF56FDE" schema="MEMBERDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_D988D266_C734_4FCF_87C8_54A6EBA1D1C1" schema="MEMBERDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_DB60297A_8CD9_4276_A9D2_1906B0149E4D" schema="MEMBERDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_95879D8B_2204_4792_A2E3_E31A446AAEB7" schema="MEMBERDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_5D17752A_BE2A_417B_AE3D_C15FF35BF2F8" schema="MEMBERDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_1A3D7B5B_E682_429F_8A11_004DC8EF4804" schema="MEMBERDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_81CD085E_3985_44BB_BE66_DC53711257FE" schema="MEMBERDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_645A273D_59D0_4F2C_8A32_64EEAC4F17AC" schema="MEMBERDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_100F3430_FB11_4994_8184_A72D5CA1608A" schema="MEMBERDB.PUBLIC"/>
         <sequence incrementSize="1"
-            name="SYSTEM_SEQUENCE_D008DD8D_4134_4D5D_805D_B0BF8A801942" schema="MEMBERDB.PUBLIC"/>
+            name="SYSTEM_SEQUENCE_D95351CC_C95B_43BB_95A2_450539A9588C" schema="MEMBERDB.PUBLIC"/>
     </sequenceGroup>
 </database>

@@ -308,26 +308,26 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
     /**
      * Determine the object is equal with this. <br />
      * If primary-keys or columns of the other are same as this one, returns true.
-     * @param other The other entity. (NullAllowed: if null, returns false fixedly)
+     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
      * @return Comparing result.
      */
-    public boolean equals(Object other) {
-        if (other == null || !(other instanceof LdBsBookStatistic)) { return false; }
-        LdBsBookStatistic otherEntity = (LdBsBookStatistic)other;
-        if (!xSV(getBookId(), otherEntity.getBookId())) { return false; }
-        if (!xSV(getBookName(), otherEntity.getBookName())) { return false; }
-        if (!xSV(getCollectionCount(), otherEntity.getCollectionCount())) { return false; }
-        if (!xSV(getOutOfUserSelectYn(), otherEntity.getOutOfUserSelectYn())) { return false; }
-        if (!xSV(getRUser(), otherEntity.getRUser())) { return false; }
-        if (!xSV(getRModule(), otherEntity.getRModule())) { return false; }
-        if (!xSV(getRTimestamp(), otherEntity.getRTimestamp())) { return false; }
-        if (!xSV(getUUser(), otherEntity.getUUser())) { return false; }
-        if (!xSV(getUModule(), otherEntity.getUModule())) { return false; }
-        if (!xSV(getUTimestamp(), otherEntity.getUTimestamp())) { return false; }
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof LdBsBookStatistic)) { return false; }
+        LdBsBookStatistic other = (LdBsBookStatistic)obj;
+        if (!xSV(getBookId(), other.getBookId())) { return false; }
+        if (!xSV(getBookName(), other.getBookName())) { return false; }
+        if (!xSV(getCollectionCount(), other.getCollectionCount())) { return false; }
+        if (!xSV(getOutOfUserSelectYn(), other.getOutOfUserSelectYn())) { return false; }
+        if (!xSV(getRUser(), other.getRUser())) { return false; }
+        if (!xSV(getRModule(), other.getRModule())) { return false; }
+        if (!xSV(getRTimestamp(), other.getRTimestamp())) { return false; }
+        if (!xSV(getUUser(), other.getUUser())) { return false; }
+        if (!xSV(getUModule(), other.getUModule())) { return false; }
+        if (!xSV(getUTimestamp(), other.getUTimestamp())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) { // isSameValue()
-        return InternalUtil.isSameValue(value1, value2);
+    protected boolean xSV(Object value1, Object value2) {
+        return FunCustodial.isSameValue(value1, value2);
     }
 
     /**
@@ -349,8 +349,8 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
         result = xCH(result, getUTimestamp());
         return result;
     }
-    protected int xCH(int result, Object value) { // calculateHashcode()
-        return InternalUtil.calculateHashcode(result, value);
+    protected int xCH(int result, Object value) {
+        return FunCustodial.calculateHashcode(result, value);
     }
 
     /**
@@ -365,7 +365,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The display string of all columns and relation existences. (NotNull)
      */
     public String toString() {
-        return buildDisplayString(InternalUtil.toClassTitle(this), true, true);
+        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
     }
 
     /**

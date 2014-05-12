@@ -8,6 +8,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
@@ -93,7 +95,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
-     * int count = publisherBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = publisherBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -121,12 +123,14 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
-     * LdPublisher publisher = publisherBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (publisher != null) {
+     * LdPublisher publisher = publisherBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (publisher != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = publisher.get...();
      * } else {
      *     ...
@@ -134,8 +138,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectEntity(LdPublisherCB cb) {
         return doSelectEntity(cb, LdPublisher.class);
@@ -147,24 +151,29 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(LdPublisherCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends LdPublisher> OptionalEntity<ENTITY> doSelectOptionalEntity(LdPublisherCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
-     * LdPublisher publisher = publisherBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * LdPublisher publisher = publisherBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = publisher.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectEntityWithDeletedCheck(LdPublisherCB cb) {
         return doSelectEntityWithDeletedCheck(cb, LdPublisher.class);
@@ -185,8 +194,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param publisherId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectByPKValue(Integer publisherId) {
         return doSelectByPKValue(publisherId, LdPublisher.class);
@@ -200,9 +209,9 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param publisherId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectByPKValueWithDeletedCheck(Integer publisherId) {
         return doSelectByPKValueWithDeletedCheck(publisherId, LdPublisher.class);
@@ -228,14 +237,14 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;LdPublisher&gt; publisherList = publisherBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;LdPublisher&gt; publisherList = publisherBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (LdPublisher publisher : publisherList) {
      *     ... = publisher.get...();
      * }
      * </pre>
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdPublisher> selectList(LdPublisherCB cb) {
         return doSelectList(cb, LdPublisher.class);
@@ -263,8 +272,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;LdPublisher&gt; page = publisherBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;LdPublisher&gt; page = publisherBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -276,7 +285,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdPublisher> selectPage(LdPublisherCB cb) {
         return doSelectPage(cb, LdPublisher.class);
@@ -303,7 +312,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
-     * publisherBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdPublisher&gt;() {
+     * publisherBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdPublisher&gt;() {
      *     public void handle(LdPublisher entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -332,9 +341,9 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * publisherBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * publisherBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(LdPublisherCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -374,61 +383,96 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param publisher The entity of publisher. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadBookList(LdPublisher publisher, ConditionBeanSetupper<LdBookCB> conditionBeanSetupper) {
-        xassLRArg(publisher, conditionBeanSetupper);
-        loadBookList(xnewLRLs(publisher), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of bookList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of bookList by the set-upper of referrer. <br />
      * BOOK by PUBLISHER_ID, named 'bookList'.
      * <pre>
-     * publisherBhv.<span style="color: #FD4747">loadBookList</span>(publisherList, new ConditionBeanSetupper&lt;LdBookCB&gt;() {
+     * publisherBhv.<span style="color: #DD4747">loadBookList</span>(publisherList, new ConditionBeanSetupper&lt;LdBookCB&gt;() {
      *     public void setup(LdBookCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (LdPublisher publisher : publisherList) {
-     *     ... = publisher.<span style="color: #FD4747">getBookList()</span>;
+     *     ... = publisher.<span style="color: #DD4747">getBookList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setPublisherId_InScope(pkList);
      * cb.query().addOrderBy_PublisherId_Asc();
      * </pre>
      * @param publisherList The entity list of publisher. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBookList(List<LdPublisher> publisherList, ConditionBeanSetupper<LdBookCB> conditionBeanSetupper) {
-        xassLRArg(publisherList, conditionBeanSetupper);
-        loadBookList(publisherList, new LoadReferrerOption<LdBookCB, LdBook>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<LdBook> loadBookList(List<LdPublisher> publisherList, ConditionBeanSetupper<LdBookCB> setupper) {
+        xassLRArg(publisherList, setupper);
+        return doLoadBookList(publisherList, new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of bookList by the set-upper of referrer. <br />
+     * BOOK by PUBLISHER_ID, named 'bookList'.
+     * <pre>
+     * publisherBhv.<span style="color: #DD4747">loadBookList</span>(publisherList, new ConditionBeanSetupper&lt;LdBookCB&gt;() {
+     *     public void setup(LdBookCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = publisher.<span style="color: #DD4747">getBookList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setPublisherId_InScope(pkList);
+     * cb.query().addOrderBy_PublisherId_Asc();
+     * </pre>
+     * @param publisher The entity of publisher. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<LdBook> loadBookList(LdPublisher publisher, ConditionBeanSetupper<LdBookCB> setupper) {
+        xassLRArg(publisher, setupper);
+        return doLoadBookList(xnewLRLs(publisher), new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param publisher The entity of publisher. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBookList(LdPublisher publisher, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    public NestedReferrerLoader<LdBook> loadBookList(LdPublisher publisher, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(publisher, loadReferrerOption);
-        loadBookList(xnewLRLs(publisher), loadReferrerOption);
+        return loadBookList(xnewLRLs(publisher), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param publisherList The entity list of publisher. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBookList(List<LdPublisher> publisherList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<LdBook> loadBookList(List<LdPublisher> publisherList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(publisherList, loadReferrerOption);
-        if (publisherList.isEmpty()) { return; }
+        if (publisherList.isEmpty()) { return (NestedReferrerLoader<LdBook>)EMPTY_LOADER; }
+        return doLoadBookList(publisherList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<LdBook> doLoadBookList(List<LdPublisher> publisherList, LoadReferrerOption<LdBookCB, LdBook> option) {
         final LdBookBhv referrerBhv = xgetBSFLR().select(LdBookBhv.class);
-        helpLoadReferrerInternally(publisherList, loadReferrerOption, new InternalLoadReferrerCallback<LdPublisher, Integer, LdBookCB, LdBook>() {
+        return helpLoadReferrerInternally(publisherList, option, new InternalLoadReferrerCallback<LdPublisher, Integer, LdBookCB, LdBook>() {
             public Integer getPKVal(LdPublisher et)
             { return et.getPublisherId(); }
             public void setRfLs(LdPublisher et, List<LdBook> ls)
@@ -477,12 +521,12 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//publisher.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//publisher.set...;</span>
-     * publisherBhv.<span style="color: #FD4747">insert</span>(publisher);
+     * publisherBhv.<span style="color: #DD4747">insert</span>(publisher);
      * ... = publisher.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param publisher The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdPublisher publisher) {
         doInsert(publisher, null);
@@ -518,17 +562,17 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//publisher.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//publisher.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * publisher.<span style="color: #FD4747">setVersionNo</span>(value);
+     * publisher.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     publisherBhv.<span style="color: #FD4747">update</span>(publisher);
+     *     publisherBhv.<span style="color: #DD4747">update</span>(publisher);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final LdPublisher publisher) {
         doUpdate(publisher, null);
@@ -582,12 +626,12 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
-     * publisherBhv.<span style="color: #FD4747">updateNonstrict</span>(publisher);
+     * publisherBhv.<span style="color: #DD4747">updateNonstrict</span>(publisher);
      * </pre>
      * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final LdPublisher publisher) {
         doUpdateNonstrict(publisher, null);
@@ -609,11 +653,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param publisher The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdPublisher publisher) {
         doInesrtOrUpdate(publisher, null, null);
@@ -641,11 +685,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param publisher The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdPublisher publisher) {
         doInesrtOrUpdateNonstrict(publisher, null, null);
@@ -674,16 +718,16 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * LdPublisher publisher = new LdPublisher();
      * publisher.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * publisher.<span style="color: #FD4747">setVersionNo</span>(value);
+     * publisher.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     publisherBhv.<span style="color: #FD4747">delete</span>(publisher);
+     *     publisherBhv.<span style="color: #DD4747">delete</span>(publisher);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(LdPublisher publisher) {
         doDelete(publisher, null);
@@ -715,11 +759,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
-     * publisherBhv.<span style="color: #FD4747">deleteNonstrict</span>(publisher);
+     * publisherBhv.<span style="color: #DD4747">deleteNonstrict</span>(publisher);
      * </pre>
      * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(LdPublisher publisher) {
         doDeleteNonstrict(publisher, null);
@@ -740,11 +784,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
-     * publisherBhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(publisher);
+     * publisherBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(publisher);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdPublisher publisher) {
         doDeleteNonstrictIgnoreDeleted(publisher, null);
@@ -769,7 +813,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     LdPublisher publisher = new LdPublisher();
@@ -782,7 +826,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     publisherList.add(publisher);
      * }
-     * publisherBhv.<span style="color: #FD4747">batchInsert</span>(publisherList);
+     * publisherBhv.<span style="color: #DD4747">batchInsert</span>(publisherList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -816,7 +860,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdPublisher publisher = new LdPublisher();
@@ -831,11 +875,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     publisherList.add(publisher);
      * }
-     * publisherBhv.<span style="color: #FD4747">batchUpdate</span>(publisherList);
+     * publisherBhv.<span style="color: #DD4747">batchUpdate</span>(publisherList);
      * </pre>
      * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdPublisher> publisherList) {
         UpdateOption<LdPublisherCB> op = createPlainUpdateOption();
@@ -864,16 +908,16 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * publisherBhv.<span style="color: #FD4747">batchUpdate</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
+     * publisherBhv.<span style="color: #DD4747">batchUpdate</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
      *     public void specify(LdPublisherCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * publisherBhv.<span style="color: #FD4747">batchUpdate</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
+     * publisherBhv.<span style="color: #DD4747">batchUpdate</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
      *     public void specify(LdPublisherCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -885,7 +929,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdPublisher> publisherList, SpecifyQuery<LdPublisherCB> updateColumnSpec) {
         return doBatchUpdate(publisherList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -894,7 +938,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdPublisher publisher = new LdPublisher();
@@ -909,11 +953,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     publisherList.add(publisher);
      * }
-     * publisherBhv.<span style="color: #FD4747">batchUpdate</span>(publisherList);
+     * publisherBhv.<span style="color: #DD4747">batchUpdate</span>(publisherList);
      * </pre>
      * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdPublisher> publisherList) {
         UpdateOption<LdPublisherCB> option = createPlainUpdateOption();
@@ -931,16 +975,16 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * publisherBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
+     * publisherBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
      *     public void specify(LdPublisherCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * publisherBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
+     * publisherBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(publisherList, new SpecifyQuery<LdPublisherCB>() {
      *     public void specify(LdPublisherCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -951,7 +995,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdPublisher> publisherList, SpecifyQuery<LdPublisherCB> updateColumnSpec) {
         return doBatchUpdateNonstrict(publisherList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -968,7 +1012,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<LdPublisher> publisherList) {
         return doBatchDelete(publisherList, null);
@@ -991,7 +1035,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<LdPublisher> publisherList) {
         return doBatchDeleteNonstrict(publisherList, null);
@@ -1015,7 +1059,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * publisherBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdPublisher, LdPublisherCB&gt;() {
+     * publisherBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdPublisher, LdPublisherCB&gt;() {
      *     public ConditionBean setup(publisher entity, LdPublisherCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1077,12 +1121,12 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
-     * publisherBhv.<span style="color: #FD4747">queryUpdate</span>(publisher, cb);
+     * publisherBhv.<span style="color: #DD4747">queryUpdate</span>(publisher, cb);
      * </pre>
      * @param publisher The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(LdPublisher publisher, LdPublisherCB cb) {
         return doQueryUpdate(publisher, cb, null);
@@ -1105,11 +1149,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdPublisherCB cb = new LdPublisherCB();
      * cb.query().setFoo...(value);
-     * publisherBhv.<span style="color: #FD4747">queryDelete</span>(publisher, cb);
+     * publisherBhv.<span style="color: #DD4747">queryDelete</span>(publisher, cb);
      * </pre>
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(LdPublisherCB cb) {
         return doQueryDelete(cb, null);
@@ -1145,12 +1189,12 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * InsertOption<LdPublisherCB> option = new InsertOption<LdPublisherCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * publisherBhv.<span style="color: #FD4747">varyingInsert</span>(publisher, option);
+     * publisherBhv.<span style="color: #DD4747">varyingInsert</span>(publisher, option);
      * ... = publisher.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param publisher The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(LdPublisher publisher, InsertOption<LdPublisherCB> option) {
         assertInsertOptionNotNull(option);
@@ -1166,25 +1210,25 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * publisher.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * publisher.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * publisher.<span style="color: #FD4747">setVersionNo</span>(value);
+     * publisher.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;LdPublisherCB&gt; option = new UpdateOption&lt;LdPublisherCB&gt;();
      *     option.self(new SpecifyQuery&lt;LdPublisherCB&gt;() {
      *         public void specify(LdPublisherCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     publisherBhv.<span style="color: #FD4747">varyingUpdate</span>(publisher, option);
+     *     publisherBhv.<span style="color: #DD4747">varyingUpdate</span>(publisher, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(LdPublisher publisher, UpdateOption<LdPublisherCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1206,16 +1250,16 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdPublisherCB&gt; option = new UpdateOption&lt;LdPublisherCB&gt;();
      * option.self(new SpecifyQuery&lt;LdPublisherCB&gt;() {
      *     public void specify(LdPublisherCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * publisherBhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(publisher, option);
+     * publisherBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(publisher, option);
      * </pre>
      * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(LdPublisher publisher, UpdateOption<LdPublisherCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1228,9 +1272,9 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param publisher The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(LdPublisher publisher, InsertOption<LdPublisherCB> insertOption, UpdateOption<LdPublisherCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1243,9 +1287,9 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param publisher The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(LdPublisher publisher, InsertOption<LdPublisherCB> insertOption, UpdateOption<LdPublisherCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1258,8 +1302,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(LdPublisher publisher, DeleteOption<LdPublisherCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1272,8 +1316,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * Other specifications are same as deleteNonstrict(entity).
      * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(LdPublisher publisher, DeleteOption<LdPublisherCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1386,16 +1430,16 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdPublisherCB&gt; option = new UpdateOption&lt;LdPublisherCB&gt;();
      * option.self(new SpecifyQuery&lt;LdPublisherCB&gt;() {
      *     public void specify(LdPublisherCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * publisherBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(publisher, cb, option);
+     * publisherBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(publisher, cb, option);
      * </pre>
      * @param publisher The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(LdPublisher publisher, LdPublisherCB cb, UpdateOption<LdPublisherCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1409,7 +1453,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(LdPublisherCB cb, DeleteOption<LdPublisherCB> option) {
         assertDeleteOptionNotNull(option);

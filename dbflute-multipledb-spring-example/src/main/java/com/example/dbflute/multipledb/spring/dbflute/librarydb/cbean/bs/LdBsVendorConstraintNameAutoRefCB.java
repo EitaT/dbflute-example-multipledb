@@ -211,7 +211,7 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -220,8 +220,8 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<LdVendorConstraintNameAutoRefCB> unionQuery) {
-        final LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdVendorConstraintNameAutoRefCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -230,7 +230,7 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -239,8 +239,8 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<LdVendorConstraintNameAutoRefCB> unionQuery) {
-        final LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdVendorConstraintNameAutoRefCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -257,14 +257,15 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * VENDOR_CONSTRAINT_NAME_AUTO_FOO by my CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoFoo'.
      * <pre>
      * LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB();
-     * cb.<span style="color: #FD4747">setupSelect_VendorConstraintNameAutoFoo()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_VendorConstraintNameAutoFoo()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdVendorConstraintNameAutoRef vendorConstraintNameAutoRef = vendorConstraintNameAutoRefBhv.selectEntityWithDeletedCheck(cb);
-     * ... = vendorConstraintNameAutoRef.<span style="color: #FD4747">getVendorConstraintNameAutoFoo()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = vendorConstraintNameAutoRef.<span style="color: #DD4747">getVendorConstraintNameAutoFoo()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdVendorConstraintNameAutoFooNss setupSelect_VendorConstraintNameAutoFoo() {
+        assertSetupSelectPurpose("vendorConstraintNameAutoFoo");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnConstraintNameAutoFooId();
         }
@@ -283,14 +284,15 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * VENDOR_CONSTRAINT_NAME_AUTO_BAR by my CONSTRAINT_NAME_AUTO_BAR_ID, named 'vendorConstraintNameAutoBar'.
      * <pre>
      * LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB();
-     * cb.<span style="color: #FD4747">setupSelect_VendorConstraintNameAutoBar()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_VendorConstraintNameAutoBar()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdVendorConstraintNameAutoRef vendorConstraintNameAutoRef = vendorConstraintNameAutoRefBhv.selectEntityWithDeletedCheck(cb);
-     * ... = vendorConstraintNameAutoRef.<span style="color: #FD4747">getVendorConstraintNameAutoBar()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = vendorConstraintNameAutoRef.<span style="color: #DD4747">getVendorConstraintNameAutoBar()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdVendorConstraintNameAutoBarNss setupSelect_VendorConstraintNameAutoBar() {
+        assertSetupSelectPurpose("vendorConstraintNameAutoBar");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnConstraintNameAutoBarId();
         }
@@ -309,14 +311,15 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * VENDOR_CONSTRAINT_NAME_AUTO_QUX by my CONSTRAINT_NAME_AUTO_QUX_ID, named 'vendorConstraintNameAutoQux'.
      * <pre>
      * LdVendorConstraintNameAutoRefCB cb = new LdVendorConstraintNameAutoRefCB();
-     * cb.<span style="color: #FD4747">setupSelect_VendorConstraintNameAutoQux()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_VendorConstraintNameAutoQux()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdVendorConstraintNameAutoRef vendorConstraintNameAutoRef = vendorConstraintNameAutoRefBhv.selectEntityWithDeletedCheck(cb);
-     * ... = vendorConstraintNameAutoRef.<span style="color: #FD4747">getVendorConstraintNameAutoQux()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = vendorConstraintNameAutoRef.<span style="color: #DD4747">getVendorConstraintNameAutoQux()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdVendorConstraintNameAutoQuxNss setupSelect_VendorConstraintNameAutoQux() {
+        assertSetupSelectPurpose("vendorConstraintNameAutoQux");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnConstraintNameAutoQuxId();
         }
@@ -496,19 +499,19 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -549,14 +552,14 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -574,10 +577,10 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *     public void query(LdVendorConstraintNameAutoRefCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdVendorConstraintNameAutoRefCB&gt;() {
      *             public void query(LdVendorConstraintNameAutoRefCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

@@ -211,7 +211,7 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">union</span>(new UnionQuery&lt;LdCollectionStatusCB&gt;() {
+     * cb.query().<span style="color: #DD4747">union</span>(new UnionQuery&lt;LdCollectionStatusCB&gt;() {
      *     public void query(LdCollectionStatusCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -220,8 +220,8 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union'. (NotNull)
      */
     public void union(UnionQuery<LdCollectionStatusCB> unionQuery) {
-        final LdCollectionStatusCB cb = new LdCollectionStatusCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForUnion(this); xsyncUQ(cb); 
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdCollectionStatusCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
@@ -230,7 +230,7 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * You don't need to call SetupSelect in union-query,
      * because it inherits calls before. (Don't call SetupSelect after here)
      * <pre>
-     * cb.query().<span style="color: #FD4747">unionAll</span>(new UnionQuery&lt;LdCollectionStatusCB&gt;() {
+     * cb.query().<span style="color: #DD4747">unionAll</span>(new UnionQuery&lt;LdCollectionStatusCB&gt;() {
      *     public void query(LdCollectionStatusCB unionCB) {
      *         unionCB.query().setXxx...
      *     }
@@ -239,8 +239,8 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * @param unionQuery The query of 'union all'. (NotNull)
      */
     public void unionAll(UnionQuery<LdCollectionStatusCB> unionQuery) {
-        final LdCollectionStatusCB cb = new LdCollectionStatusCB();
-        cb.xsetupForUnion(this); xsyncUQ(cb); unionQuery.query(cb); xsaveUCB(cb);
+        final LdCollectionStatusCB cb = new LdCollectionStatusCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+        try { lock(); unionQuery.query(cb); } finally { unlock(); } xsaveUCB(cb);
         final LdCollectionStatusCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
@@ -257,14 +257,15 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * COLLECTION by my COLLECTION_ID, named 'collection'.
      * <pre>
      * LdCollectionStatusCB cb = new LdCollectionStatusCB();
-     * cb.<span style="color: #FD4747">setupSelect_Collection()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_Collection()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdCollectionStatus collectionStatus = collectionStatusBhv.selectEntityWithDeletedCheck(cb);
-     * ... = collectionStatus.<span style="color: #FD4747">getCollection()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = collectionStatus.<span style="color: #DD4747">getCollection()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdCollectionNss setupSelect_Collection() {
+        assertSetupSelectPurpose("collection");
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryCollection(); } });
         if (_nssCollection == null || !_nssCollection.hasConditionQuery())
         { _nssCollection = new LdCollectionNss(query().queryCollection()); }
@@ -280,14 +281,15 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
      * <pre>
      * LdCollectionStatusCB cb = new LdCollectionStatusCB();
-     * cb.<span style="color: #FD4747">setupSelect_CollectionStatusLookup()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * cb.<span style="color: #DD4747">setupSelect_CollectionStatusLookup()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      * cb.query().setFoo...(value);
      * LdCollectionStatus collectionStatus = collectionStatusBhv.selectEntityWithDeletedCheck(cb);
-     * ... = collectionStatus.<span style="color: #FD4747">getCollectionStatusLookup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * ... = collectionStatus.<span style="color: #DD4747">getCollectionStatusLookup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
     public LdCollectionStatusLookupNss setupSelect_CollectionStatusLookup() {
+        assertSetupSelectPurpose("collectionStatusLookup");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnCollectionStatusCode();
         }
@@ -452,19 +454,19 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.5.3]
     // ===================================================================================
-    //                                                                         ColumnQuery
-    //                                                                         ===========
+    //                                                                        Column Query
+    //                                                                        ============
     /**
      * Set up column-query. {column1 = column2}
      * <pre>
      * <span style="color: #3F7E5E">// where FOO &lt; BAR</span>
-     * cb.<span style="color: #FD4747">columnQuery</span>(new SpecifyQuery&lt;LdCollectionStatusCB&gt;() {
+     * cb.<span style="color: #DD4747">columnQuery</span>(new SpecifyQuery&lt;LdCollectionStatusCB&gt;() {
      *     public void query(LdCollectionStatusCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
+     *         cb.specify().<span style="color: #DD4747">columnFoo()</span>; <span style="color: #3F7E5E">// left column</span>
      *     }
      * }).lessThan(new SpecifyQuery&lt;LdCollectionStatusCB&gt;() {
      *     public void query(LdCollectionStatusCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
+     *         cb.specify().<span style="color: #DD4747">columnBar()</span>; <span style="color: #3F7E5E">// right column</span>
      *     }
      * }); <span style="color: #3F7E5E">// you can calculate for right column like '}).plus(3);'</span>
      * </pre>
@@ -505,14 +507,14 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
 
     // [DBFlute-0.9.6.3]
     // ===================================================================================
-    //                                                                        OrScopeQuery
-    //                                                                        ============
+    //                                                                       OrScope Query
+    //                                                                       =============
     /**
      * Set up the query for or-scope. <br />
      * (Same-column-and-same-condition-key conditions are allowed in or-scope)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or BAR = '...')</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdCollectionStatusCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdCollectionStatusCB&gt;() {
      *     public void query(LdCollectionStatusCB orCB) {
      *         orCB.query().setFOO_Equal...
      *         orCB.query().setBAR_Equal...
@@ -530,10 +532,10 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * (However nested or-scope query and as-or-split of like-search in and-part are unsupported)
      * <pre>
      * <span style="color: #3F7E5E">// where (FOO = '...' or (BAR = '...' and QUX = '...'))</span>
-     * cb.<span style="color: #FD4747">orScopeQuery</span>(new OrQuery&lt;LdCollectionStatusCB&gt;() {
+     * cb.<span style="color: #DD4747">orScopeQuery</span>(new OrQuery&lt;LdCollectionStatusCB&gt;() {
      *     public void query(LdCollectionStatusCB orCB) {
      *         orCB.query().setFOO_Equal...
-     *         orCB.<span style="color: #FD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdCollectionStatusCB&gt;() {
+     *         orCB.<span style="color: #DD4747">orScopeQueryAndPart</span>(new AndQuery&lt;LdCollectionStatusCB&gt;() {
      *             public void query(LdCollectionStatusCB andCB) {
      *                 andCB.query().setBar_...
      *                 andCB.query().setQux_...

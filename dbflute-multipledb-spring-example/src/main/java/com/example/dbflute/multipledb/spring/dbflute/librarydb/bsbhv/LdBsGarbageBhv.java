@@ -8,6 +8,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
@@ -93,7 +95,7 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * <pre>
      * LdGarbageCB cb = new LdGarbageCB();
      * cb.query().setFoo...(value);
-     * int count = garbageBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = garbageBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of LdGarbage. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -121,12 +123,14 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * LdGarbageCB cb = new LdGarbageCB();
      * cb.query().setFoo...(value);
-     * LdGarbage garbage = garbageBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (garbage != null) {
+     * LdGarbage garbage = garbageBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (garbage != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = garbage.get...();
      * } else {
      *     ...
@@ -134,8 +138,8 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * </pre>
      * @param cb The condition-bean of LdGarbage. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGarbage selectEntity(LdGarbageCB cb) {
         return doSelectEntity(cb, LdGarbage.class);
@@ -147,24 +151,29 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
             public List<ENTITY> callbackSelectList(LdGarbageCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends LdGarbage> OptionalEntity<ENTITY> doSelectOptionalEntity(LdGarbageCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * LdGarbageCB cb = new LdGarbageCB();
      * cb.query().setFoo...(value);
-     * LdGarbage garbage = garbageBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * LdGarbage garbage = garbageBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = garbage.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of LdGarbage. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGarbage selectEntityWithDeletedCheck(LdGarbageCB cb) {
         return doSelectEntityWithDeletedCheck(cb, LdGarbage.class);
@@ -190,14 +199,14 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * LdGarbageCB cb = new LdGarbageCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;LdGarbage&gt; garbageList = garbageBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;LdGarbage&gt; garbageList = garbageBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (LdGarbage garbage : garbageList) {
      *     ... = garbage.get...();
      * }
      * </pre>
      * @param cb The condition-bean of LdGarbage. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdGarbage> selectList(LdGarbageCB cb) {
         return doSelectList(cb, LdGarbage.class);
@@ -225,8 +234,8 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * LdGarbageCB cb = new LdGarbageCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;LdGarbage&gt; page = garbageBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;LdGarbage&gt; page = garbageBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -238,7 +247,7 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * </pre>
      * @param cb The condition-bean of LdGarbage. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdGarbage> selectPage(LdGarbageCB cb) {
         return doSelectPage(cb, LdGarbage.class);
@@ -265,7 +274,7 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * <pre>
      * LdGarbageCB cb = new LdGarbageCB();
      * cb.query().setFoo...(value);
-     * garbageBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdGarbage&gt;() {
+     * garbageBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdGarbage&gt;() {
      *     public void handle(LdGarbage entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -294,9 +303,9 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * garbageBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * garbageBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(LdGarbageCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -350,7 +359,7 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * LdGarbage garbage = new LdGarbage();
      * garbage.setFoo...(value);
      * garbage.setBar...(value);
-     * garbageBhv.<span style="color: #FD4747">insert</span>(garbage);
+     * garbageBhv.<span style="color: #DD4747">insert</span>(garbage);
      * </pre>
      * @param garbage The entity for insert. (NotNull)
      */

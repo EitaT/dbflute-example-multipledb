@@ -8,6 +8,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
@@ -97,7 +99,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
-     * int count = bookBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = bookBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -125,12 +127,14 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
-     * LdBook book = bookBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (book != null) {
+     * LdBook book = bookBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (book != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = book.get...();
      * } else {
      *     ...
@@ -138,8 +142,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBook selectEntity(LdBookCB cb) {
         return doSelectEntity(cb, LdBook.class);
@@ -151,24 +155,29 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(LdBookCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends LdBook> OptionalEntity<ENTITY> doSelectOptionalEntity(LdBookCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
-     * LdBook book = bookBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * LdBook book = bookBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = book.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBook selectEntityWithDeletedCheck(LdBookCB cb) {
         return doSelectEntityWithDeletedCheck(cb, LdBook.class);
@@ -189,8 +198,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param bookId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBook selectByPKValue(Integer bookId) {
         return doSelectByPKValue(bookId, LdBook.class);
@@ -204,9 +213,9 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param bookId The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBook selectByPKValueWithDeletedCheck(Integer bookId) {
         return doSelectByPKValueWithDeletedCheck(bookId, LdBook.class);
@@ -232,14 +241,14 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;LdBook&gt; bookList = bookBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;LdBook&gt; bookList = bookBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (LdBook book : bookList) {
      *     ... = book.get...();
      * }
      * </pre>
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdBook> selectList(LdBookCB cb) {
         return doSelectList(cb, LdBook.class);
@@ -267,8 +276,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;LdBook&gt; page = bookBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;LdBook&gt; page = bookBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -280,7 +289,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdBook> selectPage(LdBookCB cb) {
         return doSelectPage(cb, LdBook.class);
@@ -307,7 +316,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
-     * bookBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdBook&gt;() {
+     * bookBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdBook&gt;() {
      *     public void handle(LdBook entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -336,9 +345,9 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * bookBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * bookBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(LdBookCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -378,61 +387,96 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param book The entity of book. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadCollectionList(LdBook book, ConditionBeanSetupper<LdCollectionCB> conditionBeanSetupper) {
-        xassLRArg(book, conditionBeanSetupper);
-        loadCollectionList(xnewLRLs(book), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of collectionList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of collectionList by the set-upper of referrer. <br />
      * COLLECTION by BOOK_ID, named 'collectionList'.
      * <pre>
-     * bookBhv.<span style="color: #FD4747">loadCollectionList</span>(bookList, new ConditionBeanSetupper&lt;LdCollectionCB&gt;() {
+     * bookBhv.<span style="color: #DD4747">loadCollectionList</span>(bookList, new ConditionBeanSetupper&lt;LdCollectionCB&gt;() {
      *     public void setup(LdCollectionCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (LdBook book : bookList) {
-     *     ... = book.<span style="color: #FD4747">getCollectionList()</span>;
+     *     ... = book.<span style="color: #DD4747">getCollectionList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setBookId_InScope(pkList);
      * cb.query().addOrderBy_BookId_Asc();
      * </pre>
      * @param bookList The entity list of book. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadCollectionList(List<LdBook> bookList, ConditionBeanSetupper<LdCollectionCB> conditionBeanSetupper) {
-        xassLRArg(bookList, conditionBeanSetupper);
-        loadCollectionList(bookList, new LoadReferrerOption<LdCollectionCB, LdCollection>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<LdCollection> loadCollectionList(List<LdBook> bookList, ConditionBeanSetupper<LdCollectionCB> setupper) {
+        xassLRArg(bookList, setupper);
+        return doLoadCollectionList(bookList, new LoadReferrerOption<LdCollectionCB, LdCollection>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of collectionList by the set-upper of referrer. <br />
+     * COLLECTION by BOOK_ID, named 'collectionList'.
+     * <pre>
+     * bookBhv.<span style="color: #DD4747">loadCollectionList</span>(bookList, new ConditionBeanSetupper&lt;LdCollectionCB&gt;() {
+     *     public void setup(LdCollectionCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = book.<span style="color: #DD4747">getCollectionList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setBookId_InScope(pkList);
+     * cb.query().addOrderBy_BookId_Asc();
+     * </pre>
+     * @param book The entity of book. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<LdCollection> loadCollectionList(LdBook book, ConditionBeanSetupper<LdCollectionCB> setupper) {
+        xassLRArg(book, setupper);
+        return doLoadCollectionList(xnewLRLs(book), new LoadReferrerOption<LdCollectionCB, LdCollection>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param book The entity of book. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadCollectionList(LdBook book, LoadReferrerOption<LdCollectionCB, LdCollection> loadReferrerOption) {
+    public NestedReferrerLoader<LdCollection> loadCollectionList(LdBook book, LoadReferrerOption<LdCollectionCB, LdCollection> loadReferrerOption) {
         xassLRArg(book, loadReferrerOption);
-        loadCollectionList(xnewLRLs(book), loadReferrerOption);
+        return loadCollectionList(xnewLRLs(book), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param bookList The entity list of book. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadCollectionList(List<LdBook> bookList, LoadReferrerOption<LdCollectionCB, LdCollection> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<LdCollection> loadCollectionList(List<LdBook> bookList, LoadReferrerOption<LdCollectionCB, LdCollection> loadReferrerOption) {
         xassLRArg(bookList, loadReferrerOption);
-        if (bookList.isEmpty()) { return; }
+        if (bookList.isEmpty()) { return (NestedReferrerLoader<LdCollection>)EMPTY_LOADER; }
+        return doLoadCollectionList(bookList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<LdCollection> doLoadCollectionList(List<LdBook> bookList, LoadReferrerOption<LdCollectionCB, LdCollection> option) {
         final LdCollectionBhv referrerBhv = xgetBSFLR().select(LdCollectionBhv.class);
-        helpLoadReferrerInternally(bookList, loadReferrerOption, new InternalLoadReferrerCallback<LdBook, Integer, LdCollectionCB, LdCollection>() {
+        return helpLoadReferrerInternally(bookList, option, new InternalLoadReferrerCallback<LdBook, Integer, LdCollectionCB, LdCollection>() {
             public Integer getPKVal(LdBook et)
             { return et.getBookId(); }
             public void setRfLs(LdBook et, List<LdCollection> ls)
@@ -544,12 +588,12 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//book.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//book.set...;</span>
-     * bookBhv.<span style="color: #FD4747">insert</span>(book);
+     * bookBhv.<span style="color: #DD4747">insert</span>(book);
      * ... = book.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param book The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdBook book) {
         doInsert(book, null);
@@ -585,17 +629,17 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//book.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//book.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * book.<span style="color: #FD4747">setVersionNo</span>(value);
+     * book.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     bookBhv.<span style="color: #FD4747">update</span>(book);
+     *     bookBhv.<span style="color: #DD4747">update</span>(book);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param book The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final LdBook book) {
         doUpdate(book, null);
@@ -649,12 +693,12 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//book.setVersionNo(value);</span>
-     * bookBhv.<span style="color: #FD4747">updateNonstrict</span>(book);
+     * bookBhv.<span style="color: #DD4747">updateNonstrict</span>(book);
      * </pre>
      * @param book The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final LdBook book) {
         doUpdateNonstrict(book, null);
@@ -676,11 +720,11 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param book The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdBook book) {
         doInesrtOrUpdate(book, null, null);
@@ -708,11 +752,11 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param book The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdBook book) {
         doInesrtOrUpdateNonstrict(book, null, null);
@@ -741,16 +785,16 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * LdBook book = new LdBook();
      * book.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * book.<span style="color: #FD4747">setVersionNo</span>(value);
+     * book.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     bookBhv.<span style="color: #FD4747">delete</span>(book);
+     *     bookBhv.<span style="color: #DD4747">delete</span>(book);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param book The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(LdBook book) {
         doDelete(book, null);
@@ -782,11 +826,11 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//book.setVersionNo(value);</span>
-     * bookBhv.<span style="color: #FD4747">deleteNonstrict</span>(book);
+     * bookBhv.<span style="color: #DD4747">deleteNonstrict</span>(book);
      * </pre>
      * @param book The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(LdBook book) {
         doDeleteNonstrict(book, null);
@@ -807,11 +851,11 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//book.setVersionNo(value);</span>
-     * bookBhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(book);
+     * bookBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(book);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param book The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdBook book) {
         doDeleteNonstrictIgnoreDeleted(book, null);
@@ -836,7 +880,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     LdBook book = new LdBook();
@@ -849,7 +893,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     bookList.add(book);
      * }
-     * bookBhv.<span style="color: #FD4747">batchInsert</span>(bookList);
+     * bookBhv.<span style="color: #DD4747">batchInsert</span>(bookList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -883,7 +927,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdBook book = new LdBook();
@@ -898,11 +942,11 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     bookList.add(book);
      * }
-     * bookBhv.<span style="color: #FD4747">batchUpdate</span>(bookList);
+     * bookBhv.<span style="color: #DD4747">batchUpdate</span>(bookList);
      * </pre>
      * @param bookList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdBook> bookList) {
         UpdateOption<LdBookCB> op = createPlainUpdateOption();
@@ -931,16 +975,16 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * bookBhv.<span style="color: #FD4747">batchUpdate</span>(bookList, new SpecifyQuery<LdBookCB>() {
+     * bookBhv.<span style="color: #DD4747">batchUpdate</span>(bookList, new SpecifyQuery<LdBookCB>() {
      *     public void specify(LdBookCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * bookBhv.<span style="color: #FD4747">batchUpdate</span>(bookList, new SpecifyQuery<LdBookCB>() {
+     * bookBhv.<span style="color: #DD4747">batchUpdate</span>(bookList, new SpecifyQuery<LdBookCB>() {
      *     public void specify(LdBookCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -952,7 +996,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * @param bookList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdBook> bookList, SpecifyQuery<LdBookCB> updateColumnSpec) {
         return doBatchUpdate(bookList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -961,7 +1005,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdBook book = new LdBook();
@@ -976,11 +1020,11 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     bookList.add(book);
      * }
-     * bookBhv.<span style="color: #FD4747">batchUpdate</span>(bookList);
+     * bookBhv.<span style="color: #DD4747">batchUpdate</span>(bookList);
      * </pre>
      * @param bookList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdBook> bookList) {
         UpdateOption<LdBookCB> option = createPlainUpdateOption();
@@ -998,16 +1042,16 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * bookBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(bookList, new SpecifyQuery<LdBookCB>() {
+     * bookBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(bookList, new SpecifyQuery<LdBookCB>() {
      *     public void specify(LdBookCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * bookBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(bookList, new SpecifyQuery<LdBookCB>() {
+     * bookBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(bookList, new SpecifyQuery<LdBookCB>() {
      *     public void specify(LdBookCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -1018,7 +1062,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * @param bookList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdBook> bookList, SpecifyQuery<LdBookCB> updateColumnSpec) {
         return doBatchUpdateNonstrict(bookList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -1035,7 +1079,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param bookList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<LdBook> bookList) {
         return doBatchDelete(bookList, null);
@@ -1058,7 +1102,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param bookList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<LdBook> bookList) {
         return doBatchDeleteNonstrict(bookList, null);
@@ -1082,7 +1126,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * bookBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdBook, LdBookCB&gt;() {
+     * bookBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdBook, LdBookCB&gt;() {
      *     public ConditionBean setup(book entity, LdBookCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1144,12 +1188,12 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//book.setVersionNo(value);</span>
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
-     * bookBhv.<span style="color: #FD4747">queryUpdate</span>(book, cb);
+     * bookBhv.<span style="color: #DD4747">queryUpdate</span>(book, cb);
      * </pre>
      * @param book The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(LdBook book, LdBookCB cb) {
         return doQueryUpdate(book, cb, null);
@@ -1172,11 +1216,11 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdBookCB cb = new LdBookCB();
      * cb.query().setFoo...(value);
-     * bookBhv.<span style="color: #FD4747">queryDelete</span>(book, cb);
+     * bookBhv.<span style="color: #DD4747">queryDelete</span>(book, cb);
      * </pre>
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(LdBookCB cb) {
         return doQueryDelete(cb, null);
@@ -1212,12 +1256,12 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * InsertOption<LdBookCB> option = new InsertOption<LdBookCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * bookBhv.<span style="color: #FD4747">varyingInsert</span>(book, option);
+     * bookBhv.<span style="color: #DD4747">varyingInsert</span>(book, option);
      * ... = book.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param book The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(LdBook book, InsertOption<LdBookCB> option) {
         assertInsertOptionNotNull(option);
@@ -1233,25 +1277,25 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * book.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * book.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * book.<span style="color: #FD4747">setVersionNo</span>(value);
+     * book.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;LdBookCB&gt; option = new UpdateOption&lt;LdBookCB&gt;();
      *     option.self(new SpecifyQuery&lt;LdBookCB&gt;() {
      *         public void specify(LdBookCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     bookBhv.<span style="color: #FD4747">varyingUpdate</span>(book, option);
+     *     bookBhv.<span style="color: #DD4747">varyingUpdate</span>(book, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param book The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(LdBook book, UpdateOption<LdBookCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1273,16 +1317,16 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdBookCB&gt; option = new UpdateOption&lt;LdBookCB&gt;();
      * option.self(new SpecifyQuery&lt;LdBookCB&gt;() {
      *     public void specify(LdBookCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * bookBhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(book, option);
+     * bookBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(book, option);
      * </pre>
      * @param book The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(LdBook book, UpdateOption<LdBookCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1295,9 +1339,9 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * @param book The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(LdBook book, InsertOption<LdBookCB> insertOption, UpdateOption<LdBookCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1310,9 +1354,9 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * @param book The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(LdBook book, InsertOption<LdBookCB> insertOption, UpdateOption<LdBookCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1325,8 +1369,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param book The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(LdBook book, DeleteOption<LdBookCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1339,8 +1383,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * Other specifications are same as deleteNonstrict(entity).
      * @param book The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(LdBook book, DeleteOption<LdBookCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1453,16 +1497,16 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdBookCB&gt; option = new UpdateOption&lt;LdBookCB&gt;();
      * option.self(new SpecifyQuery&lt;LdBookCB&gt;() {
      *     public void specify(LdBookCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * bookBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(book, cb, option);
+     * bookBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(book, cb, option);
      * </pre>
      * @param book The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of LdBook. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(LdBook book, LdBookCB cb, UpdateOption<LdBookCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1476,7 +1520,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of LdBook. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(LdBookCB cb, DeleteOption<LdBookCB> option) {
         assertDeleteOptionNotNull(option);

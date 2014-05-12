@@ -153,7 +153,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * {exists (select MYSELF_ID from MYSELF_CHECK where ...)} <br />
      * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">existsMyselfCheckList</span>(new SubQuery&lt;LdMyselfCheckCB&gt;() {
+     * cb.query().<span style="color: #DD4747">existsMyselfCheckList</span>(new SubQuery&lt;LdMyselfCheckCB&gt;() {
      *     public void query(LdMyselfCheckCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -163,8 +163,9 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      */
     public void existsMyselfCheckList(SubQuery<LdMyselfCheckCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMyselfId_ExistsReferrer_MyselfCheckList(cb.query()); // for saving query-value.
+        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfId_ExistsReferrer_MyselfCheckList(cb.query());
         registerExistsReferrer(cb.query(), "MYSELF_ID", "MYSELF_ID", pp, "myselfCheckList");
     }
     public abstract String keepMyselfId_ExistsReferrer_MyselfCheckList(LdMyselfCheckCQ sq);
@@ -174,7 +175,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * {not exists (select MYSELF_ID from MYSELF_CHECK where ...)} <br />
      * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">notExistsMyselfCheckList</span>(new SubQuery&lt;LdMyselfCheckCB&gt;() {
+     * cb.query().<span style="color: #DD4747">notExistsMyselfCheckList</span>(new SubQuery&lt;LdMyselfCheckCB&gt;() {
      *     public void query(LdMyselfCheckCB subCB) {
      *         subCB.query().setXxx...
      *     }
@@ -184,8 +185,9 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      */
     public void notExistsMyselfCheckList(SubQuery<LdMyselfCheckCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForExistsReferrer(this); subQuery.query(cb);
-        String pp = keepMyselfId_NotExistsReferrer_MyselfCheckList(cb.query()); // for saving query-value.
+        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForExistsReferrer(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfId_NotExistsReferrer_MyselfCheckList(cb.query());
         registerNotExistsReferrer(cb.query(), "MYSELF_ID", "MYSELF_ID", pp, "myselfCheckList");
     }
     public abstract String keepMyselfId_NotExistsReferrer_MyselfCheckList(LdMyselfCheckCQ sq);
@@ -198,8 +200,9 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      */
     public void inScopeMyselfCheckList(SubQuery<LdMyselfCheckCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMyselfId_InScopeRelation_MyselfCheckList(cb.query()); // for saving query-value.
+        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfId_InScopeRelation_MyselfCheckList(cb.query());
         registerInScopeRelation(cb.query(), "MYSELF_ID", "MYSELF_ID", pp, "myselfCheckList");
     }
     public abstract String keepMyselfId_InScopeRelation_MyselfCheckList(LdMyselfCheckCQ sq);
@@ -212,16 +215,18 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      */
     public void notInScopeMyselfCheckList(SubQuery<LdMyselfCheckCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForInScopeRelation(this); subQuery.query(cb);
-        String pp = keepMyselfId_NotInScopeRelation_MyselfCheckList(cb.query()); // for saving query-value.
+        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForInScopeRelation(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfId_NotInScopeRelation_MyselfCheckList(cb.query());
         registerNotInScopeRelation(cb.query(), "MYSELF_ID", "MYSELF_ID", pp, "myselfCheckList");
     }
     public abstract String keepMyselfId_NotInScopeRelation_MyselfCheckList(LdMyselfCheckCQ sq);
 
     public void xsderiveMyselfCheckList(String fn, SubQuery<LdMyselfCheckCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String pp = keepMyselfId_SpecifyDerivedReferrer_MyselfCheckList(cb.query()); // for saving query-value.
+        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepMyselfId_SpecifyDerivedReferrer_MyselfCheckList(cb.query());
         registerSpecifyDerivedReferrer(fn, cb.query(), "MYSELF_ID", "MYSELF_ID", pp, "myselfCheckList", al, op);
     }
     public abstract String keepMyselfId_SpecifyDerivedReferrer_MyselfCheckList(LdMyselfCheckCQ sq);
@@ -231,12 +236,12 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * {FOO &lt;= (select max(BAR) from MYSELF_CHECK where ...)} <br />
      * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckAsOne'.
      * <pre>
-     * cb.query().<span style="color: #FD4747">derivedMyselfCheckList()</span>.<span style="color: #FD4747">max</span>(new SubQuery&lt;LdMyselfCheckCB&gt;() {
+     * cb.query().<span style="color: #DD4747">derivedMyselfCheckList()</span>.<span style="color: #DD4747">max</span>(new SubQuery&lt;LdMyselfCheckCB&gt;() {
      *     public void query(LdMyselfCheckCB subCB) {
-     *         subCB.specify().<span style="color: #FD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *         subCB.specify().<span style="color: #DD4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
      *         subCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
      *     }
-     * }).<span style="color: #FD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * }).<span style="color: #DD4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
      * </pre>
      * @return The object to set up a function for referrer table. (NotNull)
      */
@@ -252,9 +257,9 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
     }
     public void xqderiveMyselfCheckList(String fn, SubQuery<LdMyselfCheckCB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
-        String sqpp = keepMyselfId_QueryDerivedReferrer_MyselfCheckList(cb.query()); // for saving query-value.
-        String prpp = keepMyselfId_QueryDerivedReferrer_MyselfCheckListParameter(vl);
+        LdMyselfCheckCB cb = new LdMyselfCheckCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String sqpp = keepMyselfId_QueryDerivedReferrer_MyselfCheckList(cb.query()); String prpp = keepMyselfId_QueryDerivedReferrer_MyselfCheckListParameter(vl);
         registerQueryDerivedReferrer(fn, cb.query(), "MYSELF_ID", "MYSELF_ID", sqpp, "myselfCheckList", rd, vl, prpp, op);
     }
     public abstract String keepMyselfId_QueryDerivedReferrer_MyselfCheckList(LdMyselfCheckCQ sq);
@@ -375,7 +380,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br />
      * MYSELF_NAME: {NotNull, VARCHAR(80)} <br />
-     * <pre>e.g. setMyselfName_LikeSearch("xxx", new <span style="color: #FD4747">LikeSearchOption</span>().likeContain());</pre>
+     * <pre>e.g. setMyselfName_LikeSearch("xxx", new <span style="color: #DD4747">LikeSearchOption</span>().likeContain());</pre>
      * @param myselfName The value of myselfName as likeSearch. (NullAllowed: if null (or empty), no condition)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
@@ -404,7 +409,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO = (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
      *     public void query(LdMyselfCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -421,7 +426,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as equal. <br />
      * {where FOO &lt;&gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
      *     public void query(LdMyselfCB subCB) {
      *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setYyy...
@@ -438,7 +443,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterThan. <br />
      * {where FOO &gt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
      *     public void query(LdMyselfCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -455,7 +460,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessThan. <br />
      * {where FOO &lt; (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
      *     public void query(LdMyselfCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -472,7 +477,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as greaterEqual. <br />
      * {where FOO &gt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
      *     public void query(LdMyselfCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -489,7 +494,7 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      * Prepare ScalarCondition as lessEqual. <br />
      * {where FOO &lt;= (select max(BAR) from ...)
      * <pre>
-     * cb.query().<span style="color: #FD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
+     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdMyselfCB&gt;() {
      *     public void query(LdMyselfCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
@@ -525,9 +530,10 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
     //                                                                       =============
     public void xsmyselfDerive(String fn, SubQuery<LdMyselfCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        LdMyselfCB cb = new LdMyselfCB(); cb.xsetupForDerivedReferrer(this); sq.query(cb);
+        LdMyselfCB cb = new LdMyselfCB(); cb.xsetupForDerivedReferrer(this);
+        try { lock(); sq.query(cb); } finally { unlock(); }
+        String pp = keepSpecifyMyselfDerived(cb.query());
         String pk = "MYSELF_ID";
-        String pp = keepSpecifyMyselfDerived(cb.query()); // for saving query-value.
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(LdMyselfCQ sq);
@@ -560,8 +566,9 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      */
     public void myselfExists(SubQuery<LdMyselfCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdMyselfCB cb = new LdMyselfCB(); cb.xsetupForMyselfExists(this); subQuery.query(cb);
-        String pp = keepMyselfExists(cb.query()); // for saving query-value.
+        LdMyselfCB cb = new LdMyselfCB(); cb.xsetupForMyselfExists(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
     public abstract String keepMyselfExists(LdMyselfCQ sq);
@@ -575,11 +582,43 @@ public abstract class LdAbstractBsMyselfCQ extends AbstractConditionQuery {
      */
     public void myselfInScope(SubQuery<LdMyselfCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
-        LdMyselfCB cb = new LdMyselfCB(); cb.xsetupForMyselfInScope(this); subQuery.query(cb);
-        String pp = keepMyselfInScope(cb.query()); // for saving query-value.
+        LdMyselfCB cb = new LdMyselfCB(); cb.xsetupForMyselfInScope(this);
+        try { lock(); subQuery.query(cb); } finally { unlock(); }
+        String pp = keepMyselfInScope(cb.query());
         registerMyselfInScope(cb.query(), pp);
     }
     public abstract String keepMyselfInScope(LdMyselfCQ sq);
+
+    // ===================================================================================
+    //                                                                          Compatible
+    //                                                                          ==========
+    /**
+     * Order along the list of manual values. #beforejava8 <br />
+     * This function with Union is unsupported! <br />
+     * The order values are bound (treated as bind parameter).
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * List&lt;CDef.MemberStatus&gt; orderValueList = new ArrayList&lt;CDef.MemberStatus&gt;();
+     * orderValueList.add(CDef.MemberStatus.Withdrawal);
+     * orderValueList.add(CDef.MemberStatus.Formalized);
+     * orderValueList.add(CDef.MemberStatus.Provisional);
+     * cb.query().addOrderBy_MemberStatusCode_Asc().<span style="color: #DD4747">withManualOrder(orderValueList)</span>;
+     * <span style="color: #3F7E5E">// order by </span>
+     * <span style="color: #3F7E5E">//   case</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'WDL' then 0</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'FML' then 1</span>
+     * <span style="color: #3F7E5E">//     when MEMBER_STATUS_CODE = 'PRV' then 2</span>
+     * <span style="color: #3F7E5E">//     else 3</span>
+     * <span style="color: #3F7E5E">//   end asc, ...</span>
+     * </pre>
+     * @param orderValueList The list of order values for manual ordering. (NotNull)
+     */
+    public void withManualOrder(List<? extends Object> orderValueList) { // is user public!
+        assertObjectNotNull("withManualOrder(orderValueList)", orderValueList);
+        final ManualOrderBean manualOrderBean = new ManualOrderBean();
+        manualOrderBean.acceptOrderValueList(orderValueList);
+        withManualOrder(manualOrderBean);
+    }
 
     // ===================================================================================
     //                                                                       Very Internal

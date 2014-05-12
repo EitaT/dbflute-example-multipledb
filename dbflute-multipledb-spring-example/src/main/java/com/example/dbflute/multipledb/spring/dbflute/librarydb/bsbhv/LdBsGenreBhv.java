@@ -8,6 +8,8 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.exception.*;
+import org.seasar.dbflute.optional.*;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
@@ -93,7 +95,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
-     * int count = genreBhv.<span style="color: #FD4747">selectCount</span>(cb);
+     * int count = genreBhv.<span style="color: #DD4747">selectCount</span>(cb);
      * </pre>
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The count for the condition. (NotMinus)
@@ -121,12 +123,14 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     //                                                                       Entity Select
     //                                                                       =============
     /**
-     * Select the entity by the condition-bean.
+     * Select the entity by the condition-bean. #beforejava8 <br />
+     * <span style="color: #AD4747; font-size: 120%">The return might be null if no data, so you should have null check.</span> <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, use selectEntityWithDeletedCheck().</span>
      * <pre>
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
-     * LdGenre genre = genreBhv.<span style="color: #FD4747">selectEntity</span>(cb);
-     * if (genre != null) {
+     * LdGenre genre = genreBhv.<span style="color: #DD4747">selectEntity</span>(cb);
+     * if (genre != null) { <span style="color: #3F7E5E">// null check</span>
      *     ... = genre.get...();
      * } else {
      *     ...
@@ -134,8 +138,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The entity selected by the condition. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectEntity(LdGenreCB cb) {
         return doSelectEntity(cb, LdGenre.class);
@@ -147,24 +151,29 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
             public List<ENTITY> callbackSelectList(LdGenreCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
     }
 
+    protected <ENTITY extends LdGenre> OptionalEntity<ENTITY> doSelectOptionalEntity(LdGenreCB cb, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(cb, tp), cb);
+    }
+
     @Override
     protected Entity doReadEntity(ConditionBean cb) {
         return selectEntity(downcast(cb));
     }
 
     /**
-     * Select the entity by the condition-bean with deleted check.
+     * Select the entity by the condition-bean with deleted check. <br />
+     * <span style="color: #AD4747; font-size: 120%">If the data always exists as your business rule, this method is good.</span>
      * <pre>
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
-     * LdGenre genre = genreBhv.<span style="color: #FD4747">selectEntityWithDeletedCheck</span>(cb);
+     * LdGenre genre = genreBhv.<span style="color: #DD4747">selectEntityWithDeletedCheck</span>(cb);
      * ... = genre.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectEntityWithDeletedCheck(LdGenreCB cb) {
         return doSelectEntityWithDeletedCheck(cb, LdGenre.class);
@@ -185,8 +194,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value.
      * @param genreCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectByPKValue(String genreCode) {
         return doSelectByPKValue(genreCode, LdGenre.class);
@@ -200,9 +209,9 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * Select the entity by the primary-key value with deleted check.
      * @param genreCode The one of primary key. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectByPKValueWithDeletedCheck(String genreCode) {
         return doSelectByPKValueWithDeletedCheck(genreCode, LdGenre.class);
@@ -228,14 +237,14 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * ListResultBean&lt;LdGenre&gt; genreList = genreBhv.<span style="color: #FD4747">selectList</span>(cb);
+     * ListResultBean&lt;LdGenre&gt; genreList = genreBhv.<span style="color: #DD4747">selectList</span>(cb);
      * for (LdGenre genre : genreList) {
      *     ... = genre.get...();
      * }
      * </pre>
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdGenre> selectList(LdGenreCB cb) {
         return doSelectList(cb, LdGenre.class);
@@ -263,8 +272,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
      * cb.query().addOrderBy_Bar...();
-     * cb.<span style="color: #FD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
-     * PagingResultBean&lt;LdGenre&gt; page = genreBhv.<span style="color: #FD4747">selectPage</span>(cb);
+     * cb.<span style="color: #DD4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
+     * PagingResultBean&lt;LdGenre&gt; page = genreBhv.<span style="color: #DD4747">selectPage</span>(cb);
      * int allRecordCount = page.getAllRecordCount();
      * int allPageCount = page.getAllPageCount();
      * boolean isExistPrePage = page.isExistPrePage();
@@ -276,7 +285,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
-     * @exception org.seasar.dbflute.exception.DangerousResultSizeException When the result size is over the specified safety size.
+     * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdGenre> selectPage(LdGenreCB cb) {
         return doSelectPage(cb, LdGenre.class);
@@ -303,7 +312,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
-     * genreBhv.<span style="color: #FD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdGenre&gt;() {
+     * genreBhv.<span style="color: #DD4747">selectCursor</span>(cb, new EntityRowHandler&lt;LdGenre&gt;() {
      *     public void handle(LdGenre entity) {
      *         ... = entity.getFoo...();
      *     }
@@ -332,9 +341,9 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * Select the scalar value derived by a function from uniquely-selected records. <br />
      * You should call a function method after this method called like as follows:
      * <pre>
-     * genreBhv.<span style="color: #FD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
+     * genreBhv.<span style="color: #DD4747">scalarSelect</span>(Date.class).max(new ScalarQuery() {
      *     public void query(LdGenreCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooDatetime()</span>; <span style="color: #3F7E5E">// required for a function</span>
      *         cb.query().setBarName_PrefixSearch("S");
      *     }
      * });
@@ -374,61 +383,96 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     //                                                                       Load Referrer
     //                                                                       =============
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param genre The entity of genre. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadBookList(LdGenre genre, ConditionBeanSetupper<LdBookCB> conditionBeanSetupper) {
-        xassLRArg(genre, conditionBeanSetupper);
-        loadBookList(xnewLRLs(genre), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of bookList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of bookList by the set-upper of referrer. <br />
      * BOOK by GENRE_CODE, named 'bookList'.
      * <pre>
-     * genreBhv.<span style="color: #FD4747">loadBookList</span>(genreList, new ConditionBeanSetupper&lt;LdBookCB&gt;() {
+     * genreBhv.<span style="color: #DD4747">loadBookList</span>(genreList, new ConditionBeanSetupper&lt;LdBookCB&gt;() {
      *     public void setup(LdBookCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (LdGenre genre : genreList) {
-     *     ... = genre.<span style="color: #FD4747">getBookList()</span>;
+     *     ... = genre.<span style="color: #DD4747">getBookList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setGenreCode_InScope(pkList);
      * cb.query().addOrderBy_GenreCode_Asc();
      * </pre>
      * @param genreList The entity list of genre. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBookList(List<LdGenre> genreList, ConditionBeanSetupper<LdBookCB> conditionBeanSetupper) {
-        xassLRArg(genreList, conditionBeanSetupper);
-        loadBookList(genreList, new LoadReferrerOption<LdBookCB, LdBook>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<LdBook> loadBookList(List<LdGenre> genreList, ConditionBeanSetupper<LdBookCB> setupper) {
+        xassLRArg(genreList, setupper);
+        return doLoadBookList(genreList, new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of bookList by the set-upper of referrer. <br />
+     * BOOK by GENRE_CODE, named 'bookList'.
+     * <pre>
+     * genreBhv.<span style="color: #DD4747">loadBookList</span>(genreList, new ConditionBeanSetupper&lt;LdBookCB&gt;() {
+     *     public void setup(LdBookCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = genre.<span style="color: #DD4747">getBookList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setGenreCode_InScope(pkList);
+     * cb.query().addOrderBy_GenreCode_Asc();
+     * </pre>
+     * @param genre The entity of genre. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<LdBook> loadBookList(LdGenre genre, ConditionBeanSetupper<LdBookCB> setupper) {
+        xassLRArg(genre, setupper);
+        return doLoadBookList(xnewLRLs(genre), new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param genre The entity of genre. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBookList(LdGenre genre, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    public NestedReferrerLoader<LdBook> loadBookList(LdGenre genre, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(genre, loadReferrerOption);
-        loadBookList(xnewLRLs(genre), loadReferrerOption);
+        return loadBookList(xnewLRLs(genre), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param genreList The entity list of genre. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadBookList(List<LdGenre> genreList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<LdBook> loadBookList(List<LdGenre> genreList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(genreList, loadReferrerOption);
-        if (genreList.isEmpty()) { return; }
+        if (genreList.isEmpty()) { return (NestedReferrerLoader<LdBook>)EMPTY_LOADER; }
+        return doLoadBookList(genreList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<LdBook> doLoadBookList(List<LdGenre> genreList, LoadReferrerOption<LdBookCB, LdBook> option) {
         final LdBookBhv referrerBhv = xgetBSFLR().select(LdBookBhv.class);
-        helpLoadReferrerInternally(genreList, loadReferrerOption, new InternalLoadReferrerCallback<LdGenre, String, LdBookCB, LdBook>() {
+        return helpLoadReferrerInternally(genreList, option, new InternalLoadReferrerCallback<LdGenre, String, LdBookCB, LdBook>() {
             public String getPKVal(LdGenre et)
             { return et.getGenreCode(); }
             public void setRfLs(LdGenre et, List<LdBook> ls)
@@ -447,61 +491,96 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
-     * @param genre The entity of genre. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
-     */
-    public void loadGenreSelfList(LdGenre genre, ConditionBeanSetupper<LdGenreCB> conditionBeanSetupper) {
-        xassLRArg(genre, conditionBeanSetupper);
-        loadGenreSelfList(xnewLRLs(genre), conditionBeanSetupper);
-    }
-    /**
-     * Load referrer of genreSelfList with the set-upper for condition-bean of referrer. <br />
+     * Load referrer of genreSelfList by the set-upper of referrer. <br />
      * GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
      * <pre>
-     * genreBhv.<span style="color: #FD4747">loadGenreSelfList</span>(genreList, new ConditionBeanSetupper&lt;LdGenreCB&gt;() {
+     * genreBhv.<span style="color: #DD4747">loadGenreSelfList</span>(genreList, new ConditionBeanSetupper&lt;LdGenreCB&gt;() {
      *     public void setup(LdGenreCB cb) {
      *         cb.setupSelect...();
      *         cb.query().setFoo...(value);
-     *         cb.query().addOrderBy_Bar...(); <span style="color: #3F7E5E">// basically you should order referrer list</span>
+     *         cb.query().addOrderBy_Bar...();
      *     }
-     * });
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
      * for (LdGenre genre : genreList) {
-     *     ... = genre.<span style="color: #FD4747">getGenreSelfList()</span>;
+     *     ... = genre.<span style="color: #DD4747">getGenreSelfList()</span>;
      * }
      * </pre>
-     * About internal policy, the value of primary key(and others too) is treated as case-insensitive. <br />
-     * The condition-bean that the set-upper provides have settings before you touch it. It is as follows:
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
      * <pre>
      * cb.query().setParentGenreCode_InScope(pkList);
      * cb.query().addOrderBy_ParentGenreCode_Asc();
      * </pre>
      * @param genreList The entity list of genre. (NotNull)
-     * @param conditionBeanSetupper The instance of referrer condition-bean set-upper for registering referrer condition. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadGenreSelfList(List<LdGenre> genreList, ConditionBeanSetupper<LdGenreCB> conditionBeanSetupper) {
-        xassLRArg(genreList, conditionBeanSetupper);
-        loadGenreSelfList(genreList, new LoadReferrerOption<LdGenreCB, LdGenre>().xinit(conditionBeanSetupper));
+    public NestedReferrerLoader<LdGenre> loadGenreSelfList(List<LdGenre> genreList, ConditionBeanSetupper<LdGenreCB> setupper) {
+        xassLRArg(genreList, setupper);
+        return doLoadGenreSelfList(genreList, new LoadReferrerOption<LdGenreCB, LdGenre>().xinit(setupper));
     }
+
     /**
-     * {Refer to overload method that has an argument of the list of entity.}
+     * Load referrer of genreSelfList by the set-upper of referrer. <br />
+     * GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
+     * <pre>
+     * genreBhv.<span style="color: #DD4747">loadGenreSelfList</span>(genreList, new ConditionBeanSetupper&lt;LdGenreCB&gt;() {
+     *     public void setup(LdGenreCB cb) {
+     *         cb.setupSelect...();
+     *         cb.query().setFoo...(value);
+     *         cb.query().addOrderBy_Bar...();
+     *     }
+     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     * <span style="color: #3F7E5E">//}).withNestedList(referrerList -&gt {</span>
+     * <span style="color: #3F7E5E">//    ...</span>
+     * <span style="color: #3F7E5E">//});</span>
+     * ... = genre.<span style="color: #DD4747">getGenreSelfList()</span>;
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setParentGenreCode_InScope(pkList);
+     * cb.query().addOrderBy_ParentGenreCode_Asc();
+     * </pre>
+     * @param genre The entity of genre. (NotNull)
+     * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoader<LdGenre> loadGenreSelfList(LdGenre genre, ConditionBeanSetupper<LdGenreCB> setupper) {
+        xassLRArg(genre, setupper);
+        return doLoadGenreSelfList(xnewLRLs(genre), new LoadReferrerOption<LdGenreCB, LdGenre>().xinit(setupper));
+    }
+
+    /**
+     * {Refer to overload method that has an argument of the list of entity.} #beforejava8
      * @param genre The entity of genre. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadGenreSelfList(LdGenre genre, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
+    public NestedReferrerLoader<LdGenre> loadGenreSelfList(LdGenre genre, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
         xassLRArg(genre, loadReferrerOption);
-        loadGenreSelfList(xnewLRLs(genre), loadReferrerOption);
+        return loadGenreSelfList(xnewLRLs(genre), loadReferrerOption);
     }
+
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.}
+     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
      * @param genreList The entity list of genre. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public void loadGenreSelfList(List<LdGenre> genreList, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
+    @SuppressWarnings("unchecked")
+    public NestedReferrerLoader<LdGenre> loadGenreSelfList(List<LdGenre> genreList, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
         xassLRArg(genreList, loadReferrerOption);
-        if (genreList.isEmpty()) { return; }
+        if (genreList.isEmpty()) { return (NestedReferrerLoader<LdGenre>)EMPTY_LOADER; }
+        return doLoadGenreSelfList(genreList, loadReferrerOption);
+    }
+
+    protected NestedReferrerLoader<LdGenre> doLoadGenreSelfList(List<LdGenre> genreList, LoadReferrerOption<LdGenreCB, LdGenre> option) {
         final LdGenreBhv referrerBhv = xgetBSFLR().select(LdGenreBhv.class);
-        helpLoadReferrerInternally(genreList, loadReferrerOption, new InternalLoadReferrerCallback<LdGenre, String, LdGenreCB, LdGenre>() {
+        return helpLoadReferrerInternally(genreList, option, new InternalLoadReferrerCallback<LdGenre, String, LdGenreCB, LdGenre>() {
             public String getPKVal(LdGenre et)
             { return et.getGenreCode(); }
             public void setRfLs(LdGenre et, List<LdGenre> ls)
@@ -563,12 +642,12 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//genre.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//genre.set...;</span>
-     * genreBhv.<span style="color: #FD4747">insert</span>(genre);
+     * genreBhv.<span style="color: #DD4747">insert</span>(genre);
      * ... = genre.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
      * @param genre The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdGenre genre) {
         doInsert(genre, null);
@@ -604,17 +683,17 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//genre.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//genre.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * genre.<span style="color: #FD4747">setVersionNo</span>(value);
+     * genre.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     genreBhv.<span style="color: #FD4747">update</span>(genre);
+     *     genreBhv.<span style="color: #DD4747">update</span>(genre);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void update(final LdGenre genre) {
         doUpdate(genre, null);
@@ -668,12 +747,12 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
-     * genreBhv.<span style="color: #FD4747">updateNonstrict</span>(genre);
+     * genreBhv.<span style="color: #DD4747">updateNonstrict</span>(genre);
      * </pre>
      * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void updateNonstrict(final LdGenre genre) {
         doUpdateNonstrict(genre, null);
@@ -695,11 +774,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param genre The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdGenre genre) {
         doInesrtOrUpdate(genre, null, null);
@@ -727,11 +806,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
-     * <p><span style="color: #FD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
      * @param genre The entity of insert or update target. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdGenre genre) {
         doInesrtOrUpdateNonstrict(genre, null, null);
@@ -760,16 +839,16 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * LdGenre genre = new LdGenre();
      * genre.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * genre.<span style="color: #FD4747">setVersionNo</span>(value);
+     * genre.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
-     *     genreBhv.<span style="color: #FD4747">delete</span>(genre);
+     *     genreBhv.<span style="color: #DD4747">delete</span>(genre);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void delete(LdGenre genre) {
         doDelete(genre, null);
@@ -801,11 +880,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
-     * genreBhv.<span style="color: #FD4747">deleteNonstrict</span>(genre);
+     * genreBhv.<span style="color: #DD4747">deleteNonstrict</span>(genre);
      * </pre>
      * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrict(LdGenre genre) {
         doDeleteNonstrict(genre, null);
@@ -826,11 +905,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
-     * genreBhv.<span style="color: #FD4747">deleteNonstrictIgnoreDeleted</span>(genre);
+     * genreBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(genre);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
      * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdGenre genre) {
         doDeleteNonstrictIgnoreDeleted(genre, null);
@@ -855,7 +934,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     /**
      * Batch-insert the entity list modified-only of same-set columns. (DefaultConstraintsEnabled) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <p><span style="color: #FD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
+     * <p><span style="color: #DD4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * for (... : ...) {
      *     LdGenre genre = new LdGenre();
@@ -868,7 +947,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
      *     genreList.add(genre);
      * }
-     * genreBhv.<span style="color: #FD4747">batchInsert</span>(genreList);
+     * genreBhv.<span style="color: #DD4747">batchInsert</span>(genreList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
@@ -902,7 +981,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdGenre genre = new LdGenre();
@@ -917,11 +996,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     genreList.add(genre);
      * }
-     * genreBhv.<span style="color: #FD4747">batchUpdate</span>(genreList);
+     * genreBhv.<span style="color: #DD4747">batchUpdate</span>(genreList);
      * </pre>
      * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdGenre> genreList) {
         UpdateOption<LdGenreCB> op = createPlainUpdateOption();
@@ -950,16 +1029,16 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * genreBhv.<span style="color: #FD4747">batchUpdate</span>(genreList, new SpecifyQuery<LdGenreCB>() {
+     * genreBhv.<span style="color: #DD4747">batchUpdate</span>(genreList, new SpecifyQuery<LdGenreCB>() {
      *     public void specify(LdGenreCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * genreBhv.<span style="color: #FD4747">batchUpdate</span>(genreList, new SpecifyQuery<LdGenreCB>() {
+     * genreBhv.<span style="color: #DD4747">batchUpdate</span>(genreList, new SpecifyQuery<LdGenreCB>() {
      *     public void specify(LdGenreCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -971,7 +1050,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdGenre> genreList, SpecifyQuery<LdGenreCB> updateColumnSpec) {
         return doBatchUpdate(genreList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -980,7 +1059,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     /**
      * Batch-update the entity list non-strictly modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
-     * <span style="color: #FD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
+     * <span style="color: #DD4747; font-size: 140%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
      *     LdGenre genre = new LdGenre();
@@ -995,11 +1074,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
      *     genreList.add(genre);
      * }
-     * genreBhv.<span style="color: #FD4747">batchUpdate</span>(genreList);
+     * genreBhv.<span style="color: #DD4747">batchUpdate</span>(genreList);
      * </pre>
      * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdGenre> genreList) {
         UpdateOption<LdGenreCB> option = createPlainUpdateOption();
@@ -1017,16 +1096,16 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * <pre>
      * <span style="color: #3F7E5E">// e.g. update two columns only</span>
-     * genreBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(genreList, new SpecifyQuery<LdGenreCB>() {
+     * genreBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(genreList, new SpecifyQuery<LdGenreCB>() {
      *     public void specify(LdGenreCB cb) { <span style="color: #3F7E5E">// the two only updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
-     *         cb.specify().<span style="color: #FD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnFooStatusCode()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
+     *         cb.specify().<span style="color: #DD4747">columnBarDate()</span>; <span style="color: #3F7E5E">// should be modified in any entities</span>
      *     }
      * });
      * <span style="color: #3F7E5E">// e.g. update every column in the table</span>
-     * genreBhv.<span style="color: #FD4747">batchUpdateNonstrict</span>(genreList, new SpecifyQuery<LdGenreCB>() {
+     * genreBhv.<span style="color: #DD4747">batchUpdateNonstrict</span>(genreList, new SpecifyQuery<LdGenreCB>() {
      *     public void specify(LdGenreCB cb) { <span style="color: #3F7E5E">// all columns are updated</span>
-     *         cb.specify().<span style="color: #FD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
+     *         cb.specify().<span style="color: #DD4747">columnEveryColumn()</span>; <span style="color: #3F7E5E">// no check of modified properties</span>
      *     }
      * });
      * </pre>
@@ -1037,7 +1116,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdGenre> genreList, SpecifyQuery<LdGenreCB> updateColumnSpec) {
         return doBatchUpdateNonstrict(genreList, createSpecifiedUpdateOption(updateColumnSpec));
@@ -1054,7 +1133,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
+     * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchDelete(List<LdGenre> genreList) {
         return doBatchDelete(genreList, null);
@@ -1077,7 +1156,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * This method uses executeBatch() of java.sql.PreparedStatement.
      * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchDeleteNonstrict(List<LdGenre> genreList) {
         return doBatchDeleteNonstrict(genreList, null);
@@ -1101,7 +1180,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * genreBhv.<span style="color: #FD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdGenre, LdGenreCB&gt;() {
+     * genreBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdGenre, LdGenreCB&gt;() {
      *     public ConditionBean setup(genre entity, LdGenreCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
@@ -1163,12 +1242,12 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
-     * genreBhv.<span style="color: #FD4747">queryUpdate</span>(genre, cb);
+     * genreBhv.<span style="color: #DD4747">queryUpdate</span>(genre, cb);
      * </pre>
      * @param genre The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition.
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition.
      */
     public int queryUpdate(LdGenre genre, LdGenreCB cb) {
         return doQueryUpdate(genre, cb, null);
@@ -1191,11 +1270,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdGenreCB cb = new LdGenreCB();
      * cb.query().setFoo...(value);
-     * genreBhv.<span style="color: #FD4747">queryDelete</span>(genre, cb);
+     * genreBhv.<span style="color: #DD4747">queryDelete</span>(genre, cb);
      * </pre>
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition.
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition.
      */
     public int queryDelete(LdGenreCB cb) {
         return doQueryDelete(cb, null);
@@ -1231,12 +1310,12 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * InsertOption<LdGenreCB> option = new InsertOption<LdGenreCB>();
      * <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      * option.disableCommonColumnAutoSetup();
-     * genreBhv.<span style="color: #FD4747">varyingInsert</span>(genre, option);
+     * genreBhv.<span style="color: #DD4747">varyingInsert</span>(genre, option);
      * ... = genre.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * @param genre The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsert(LdGenre genre, InsertOption<LdGenreCB> option) {
         assertInsertOptionNotNull(option);
@@ -1252,25 +1331,25 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * genre.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * genre.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
-     * genre.<span style="color: #FD4747">setVersionNo</span>(value);
+     * genre.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
      *     UpdateOption&lt;LdGenreCB&gt; option = new UpdateOption&lt;LdGenreCB&gt;();
      *     option.self(new SpecifyQuery&lt;LdGenreCB&gt;() {
      *         public void specify(LdGenreCB cb) {
-     *             cb.specify().<span style="color: #FD4747">columnXxxCount()</span>;
+     *             cb.specify().<span style="color: #DD4747">columnXxxCount()</span>;
      *         }
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
-     *     genreBhv.<span style="color: #FD4747">varyingUpdate</span>(genre, option);
+     *     genreBhv.<span style="color: #DD4747">varyingUpdate</span>(genre, option);
      * } catch (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
      * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdate(LdGenre genre, UpdateOption<LdGenreCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1292,16 +1371,16 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdGenreCB&gt; option = new UpdateOption&lt;LdGenreCB&gt;();
      * option.self(new SpecifyQuery&lt;LdGenreCB&gt;() {
      *     public void specify(LdGenreCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * genreBhv.<span style="color: #FD4747">varyingUpdateNonstrict</span>(genre, option);
+     * genreBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(genre, option);
      * </pre>
      * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingUpdateNonstrict(LdGenre genre, UpdateOption<LdGenreCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1314,9 +1393,9 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param genre The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdate(LdGenre genre, InsertOption<LdGenreCB> insertOption, UpdateOption<LdGenreCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1329,9 +1408,9 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param genre The entity of insert or update target. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
-     * @exception org.seasar.dbflute.exception.EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void varyingInsertOrUpdateNonstrict(LdGenre genre, InsertOption<LdGenreCB> insertOption, UpdateOption<LdGenreCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
@@ -1344,8 +1423,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * Other specifications are same as delete(entity).
      * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyUpdatedException When the entity has already been updated.
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyUpdatedException When the entity has already been updated.
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDelete(LdGenre genre, DeleteOption<LdGenreCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1358,8 +1437,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * Other specifications are same as deleteNonstrict(entity).
      * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
      * @param option The option of update for varying requests. (NotNull)
-     * @exception org.seasar.dbflute.exception.EntityAlreadyDeletedException When the entity has already been deleted. (not found)
-     * @exception org.seasar.dbflute.exception.EntityDuplicatedException When the entity has been duplicated.
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
+     * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void varyingDeleteNonstrict(LdGenre genre, DeleteOption<LdGenreCB> option) {
         assertDeleteOptionNotNull(option);
@@ -1472,16 +1551,16 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * UpdateOption&lt;LdGenreCB&gt; option = new UpdateOption&lt;LdGenreCB&gt;();
      * option.self(new SpecifyQuery&lt;LdGenreCB&gt;() {
      *     public void specify(LdGenreCB cb) {
-     *         cb.specify().<span style="color: #FD4747">columnFooCount()</span>;
+     *         cb.specify().<span style="color: #DD4747">columnFooCount()</span>;
      *     }
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
-     * genreBhv.<span style="color: #FD4747">varyingQueryUpdate</span>(genre, cb, option);
+     * genreBhv.<span style="color: #DD4747">varyingQueryUpdate</span>(genre, cb, option);
      * </pre>
      * @param genre The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @return The updated count.
-     * @exception org.seasar.dbflute.exception.NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryUpdate(LdGenre genre, LdGenreCB cb, UpdateOption<LdGenreCB> option) {
         assertUpdateOptionNotNull(option);
@@ -1495,7 +1574,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
-     * @exception org.seasar.dbflute.exception.NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
+     * @exception NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
     public int varyingQueryDelete(LdGenreCB cb, DeleteOption<LdGenreCB> option) {
         assertDeleteOptionNotNull(option);
