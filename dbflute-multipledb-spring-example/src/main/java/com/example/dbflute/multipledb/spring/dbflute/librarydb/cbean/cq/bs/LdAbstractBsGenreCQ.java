@@ -24,8 +24,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsGenreCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsGenreCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -333,7 +333,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     public abstract String keepGenreCode_SpecifyDerivedReferrer_GenreSelfList(LdGenreCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from BOOK where ...)} <br />
      * BOOK by GENRE_CODE, named 'bookAsOne'.
      * <pre>
@@ -367,7 +367,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     public abstract String keepGenreCode_QueryDerivedReferrer_BookListParameter(Object vl);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from GENRE where ...)} <br />
      * GENRE by PARENT_GENRE_CODE, named 'genreSelfAsOne'.
      * <pre>
@@ -1762,7 +1762,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(LdGenreCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdGenreCB> myselfDerived() {
@@ -1784,8 +1784,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<LdGenreCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -1800,8 +1800,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdGenreCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

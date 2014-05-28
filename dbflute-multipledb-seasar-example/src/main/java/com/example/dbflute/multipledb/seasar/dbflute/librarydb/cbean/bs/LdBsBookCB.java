@@ -80,10 +80,24 @@ public class LdBsBookCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param bookId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     */
     public void acceptPrimaryKey(Integer bookId) {
         assertObjectNotNull("bookId", bookId);
         LdBsBookCB cb = this;
-        cb.query().setBookId_Equal(bookId);
+        cb.query().setBookId_Equal(bookId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param isbn : UQ, NotNull, VARCHAR(20). (NotNull)
+     */
+    public void acceptUniqueOf(String isbn) {
+        assertObjectNotNull("isbn", isbn);
+        LdBsBookCB cb = this;
+        cb.query().setIsbn_Equal(isbn);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -698,6 +712,11 @@ public class LdBsBookCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdBookCB> orQuery) {
         xorSQ((LdBookCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

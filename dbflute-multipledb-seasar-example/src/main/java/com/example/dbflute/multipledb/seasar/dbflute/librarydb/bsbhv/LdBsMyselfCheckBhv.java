@@ -171,7 +171,7 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdMyselfCheck. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param myselfCheckId The one of primary key. (NotNull)
+     * @param myselfCheckId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdMyselfCheck selectByPKValue(Integer myselfCheckId) {
-        return doSelectByPKValue(myselfCheckId, LdMyselfCheck.class);
+        return doSelectByPK(myselfCheckId, LdMyselfCheck.class);
     }
 
-    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectByPKValue(Integer myselfCheckId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(myselfCheckId), entityType);
+    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectByPK(Integer myselfCheckId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(myselfCheckId), entityType);
+    }
+
+    protected <ENTITY extends LdMyselfCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer myselfCheckId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(myselfCheckId, entityType), myselfCheckId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param myselfCheckId The one of primary key. (NotNull)
+     * @param myselfCheckId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdMyselfCheck selectByPKValueWithDeletedCheck(Integer myselfCheckId) {
-        return doSelectByPKValueWithDeletedCheck(myselfCheckId, LdMyselfCheck.class);
+        return doSelectByPKWithDeletedCheck(myselfCheckId, LdMyselfCheck.class);
     }
 
-    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectByPKValueWithDeletedCheck(Integer myselfCheckId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(myselfCheckId), entityType);
+    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectByPKWithDeletedCheck(Integer myselfCheckId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(myselfCheckId), entityType);
     }
 
-    private LdMyselfCheckCB buildPKCB(Integer myselfCheckId) {
+    protected LdMyselfCheckCB xprepareCBAsPK(Integer myselfCheckId) {
         assertObjectNotNull("myselfCheckId", myselfCheckId);
-        LdMyselfCheckCB cb = newMyConditionBean();
-        cb.query().setMyselfCheckId_Equal(myselfCheckId);
+        LdMyselfCheckCB cb = newMyConditionBean(); cb.acceptPrimaryKey(myselfCheckId);
         return cb;
     }
 
@@ -389,7 +392,8 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
      */
     public List<LdMyself> pulloutMyself(List<LdMyselfCheck> myselfCheckList) {
         return helpPulloutInternally(myselfCheckList, new InternalPulloutCallback<LdMyselfCheck, LdMyself>() {
-            public LdMyself getFr(LdMyselfCheck et) { return et.getMyself(); }
+            public LdMyself getFr(LdMyselfCheck et)
+            { return et.getMyself(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdMyself et, List<LdMyselfCheck> ls)
             { et.setMyselfCheckList(ls); }

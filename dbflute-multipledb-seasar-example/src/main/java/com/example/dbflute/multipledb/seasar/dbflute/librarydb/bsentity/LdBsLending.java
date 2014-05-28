@@ -82,13 +82,13 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     // -----------------------------------------------------
     //                                                Column
     //                                                ------
-    /** LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} */
+    /** LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER} */
     protected Integer _libraryId;
 
-    /** LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} */
+    /** LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER} */
     protected Integer _lbUserId;
 
-    /** LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)} */
+    /** LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)} */
     protected java.sql.Timestamp _lendingDate;
 
     /** R_USER: {NotNull, VARCHAR(100), default=[default-user]} */
@@ -112,6 +112,9 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -159,6 +162,17 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
         if (getLbUserId() == null) { return false; }
         if (getLendingDate() == null) { return false; }
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> myuniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -444,8 +458,8 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
         if (!xSV(getLendingDate(), other.getLendingDate())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -453,15 +467,15 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getLibraryId());
-        result = xCH(result, getLbUserId());
-        result = xCH(result, getLendingDate());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getLibraryId());
+        hs = xCH(hs, getLbUserId());
+        hs = xCH(hs, getLendingDate());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -485,15 +499,15 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_libraryUser != null)
-        { sb.append(l).append(xbRDS(_libraryUser, "libraryUser")); }
-        if (_lendingCollectionList != null) { for (Entity e : _lendingCollectionList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "lendingCollectionList")); } } }
+        { sb.append(li).append(xbRDS(_libraryUser, "libraryUser")); }
+        if (_lendingCollectionList != null) { for (Entity et : _lendingCollectionList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "lendingCollectionList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
     }
 
     /**
@@ -509,30 +523,30 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getLibraryId());
-        sb.append(delimiter).append(getLbUserId());
-        sb.append(delimiter).append(getLendingDate());
-        sb.append(delimiter).append(getRUser());
-        sb.append(delimiter).append(getRModule());
-        sb.append(delimiter).append(getRTimestamp());
-        sb.append(delimiter).append(getUUser());
-        sb.append(delimiter).append(getUModule());
-        sb.append(delimiter).append(getUTimestamp());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getLibraryId());
+        sb.append(dm).append(getLbUserId());
+        sb.append(dm).append(getLendingDate());
+        sb.append(dm).append(getRUser());
+        sb.append(dm).append(getRModule());
+        sb.append(dm).append(getRTimestamp());
+        sb.append(dm).append(getUUser());
+        sb.append(dm).append(getUModule());
+        sb.append(dm).append(getUTimestamp());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_libraryUser != null) { sb.append(c).append("libraryUser"); }
+        String cm = ",";
+        if (_libraryUser != null) { sb.append(cm).append("libraryUser"); }
         if (_lendingCollectionList != null && !_lendingCollectionList.isEmpty())
-        { sb.append(c).append("lendingCollectionList"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        { sb.append(cm).append("lendingCollectionList"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
@@ -553,7 +567,7 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
+     * [get] LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
      * @return The value of the column 'LIBRARY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLibraryId() {
@@ -561,7 +575,7 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * [set] LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
+     * [set] LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER} <br />
      * @param libraryId The value of the column 'LIBRARY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryId(Integer libraryId) {
@@ -570,7 +584,7 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * [get] LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
+     * [get] LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
      * @return The value of the column 'LB_USER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLbUserId() {
@@ -578,7 +592,7 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * [set] LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
+     * [set] LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER} <br />
      * @param lbUserId The value of the column 'LB_USER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLbUserId(Integer lbUserId) {
@@ -587,7 +601,7 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * [get] LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)} <br />
+     * [get] LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)} <br />
      * @return The value of the column 'LENDING_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getLendingDate() {
@@ -595,7 +609,7 @@ public abstract class LdBsLending implements LdEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * [set] LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)} <br />
+     * [set] LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)} <br />
      * @param lendingDate The value of the column 'LENDING_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setLendingDate(java.sql.Timestamp lendingDate) {

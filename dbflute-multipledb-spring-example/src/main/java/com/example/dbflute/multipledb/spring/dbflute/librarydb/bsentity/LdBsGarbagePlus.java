@@ -110,6 +110,9 @@ public abstract class LdBsGarbagePlus implements Entity, Serializable, Cloneable
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -151,6 +154,17 @@ public abstract class LdBsGarbagePlus implements Entity, Serializable, Cloneable
      */
     public boolean hasPrimaryKeyValue() {
         return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> myuniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -231,8 +245,8 @@ public abstract class LdBsGarbagePlus implements Entity, Serializable, Cloneable
         if (!xSV(getUTimestamp(), other.getUTimestamp())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -240,21 +254,21 @@ public abstract class LdBsGarbagePlus implements Entity, Serializable, Cloneable
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getGarbageMemo());
-        result = xCH(result, getGarbageTime());
-        result = xCH(result, getGarbageCount());
-        result = xCH(result, getRUser());
-        result = xCH(result, getRModule());
-        result = xCH(result, getRTimestamp());
-        result = xCH(result, getUUser());
-        result = xCH(result, getUModule());
-        result = xCH(result, getUTimestamp());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getGarbageMemo());
+        hs = xCH(hs, getGarbageTime());
+        hs = xCH(hs, getGarbageCount());
+        hs = xCH(hs, getRUser());
+        hs = xCH(hs, getRModule());
+        hs = xCH(hs, getRTimestamp());
+        hs = xCH(hs, getUUser());
+        hs = xCH(hs, getUModule());
+        hs = xCH(hs, getUTimestamp());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -294,18 +308,18 @@ public abstract class LdBsGarbagePlus implements Entity, Serializable, Cloneable
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getGarbageMemo());
-        sb.append(delimiter).append(getGarbageTime());
-        sb.append(delimiter).append(getGarbageCount());
-        sb.append(delimiter).append(getRUser());
-        sb.append(delimiter).append(getRModule());
-        sb.append(delimiter).append(getRTimestamp());
-        sb.append(delimiter).append(getUUser());
-        sb.append(delimiter).append(getUModule());
-        sb.append(delimiter).append(getUTimestamp());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getGarbageMemo());
+        sb.append(dm).append(getGarbageTime());
+        sb.append(dm).append(getGarbageCount());
+        sb.append(dm).append(getRUser());
+        sb.append(dm).append(getRModule());
+        sb.append(dm).append(getRTimestamp());
+        sb.append(dm).append(getUUser());
+        sb.append(dm).append(getUModule());
+        sb.append(dm).append(getUTimestamp());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();

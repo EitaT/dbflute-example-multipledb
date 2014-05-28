@@ -171,7 +171,7 @@ public abstract class LdBsBlackActionLookupBhv extends AbstractBehaviorWritable 
      * </pre>
      * @param cb The condition-bean of LdBlackActionLookup. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsBlackActionLookupBhv extends AbstractBehaviorWritable 
 
     /**
      * Select the entity by the primary-key value.
-     * @param blackActionCode The one of primary key. (NotNull)
+     * @param blackActionCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackActionLookup selectByPKValue(String blackActionCode) {
-        return doSelectByPKValue(blackActionCode, LdBlackActionLookup.class);
+        return doSelectByPK(blackActionCode, LdBlackActionLookup.class);
     }
 
-    protected <ENTITY extends LdBlackActionLookup> ENTITY doSelectByPKValue(String blackActionCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(blackActionCode), entityType);
+    protected <ENTITY extends LdBlackActionLookup> ENTITY doSelectByPK(String blackActionCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(blackActionCode), entityType);
+    }
+
+    protected <ENTITY extends LdBlackActionLookup> OptionalEntity<ENTITY> doSelectOptionalByPK(String blackActionCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(blackActionCode, entityType), blackActionCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param blackActionCode The one of primary key. (NotNull)
+     * @param blackActionCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackActionLookup selectByPKValueWithDeletedCheck(String blackActionCode) {
-        return doSelectByPKValueWithDeletedCheck(blackActionCode, LdBlackActionLookup.class);
+        return doSelectByPKWithDeletedCheck(blackActionCode, LdBlackActionLookup.class);
     }
 
-    protected <ENTITY extends LdBlackActionLookup> ENTITY doSelectByPKValueWithDeletedCheck(String blackActionCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(blackActionCode), entityType);
+    protected <ENTITY extends LdBlackActionLookup> ENTITY doSelectByPKWithDeletedCheck(String blackActionCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(blackActionCode), entityType);
     }
 
-    private LdBlackActionLookupCB buildPKCB(String blackActionCode) {
+    protected LdBlackActionLookupCB xprepareCBAsPK(String blackActionCode) {
         assertObjectNotNull("blackActionCode", blackActionCode);
-        LdBlackActionLookupCB cb = newMyConditionBean();
-        cb.query().setBlackActionCode_Equal(blackActionCode);
+        LdBlackActionLookupCB cb = newMyConditionBean(); cb.acceptPrimaryKey(blackActionCode);
         return cb;
     }
 

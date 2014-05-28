@@ -171,7 +171,7 @@ public abstract class LdBsLibraryBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdLibrary. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,64 @@ public abstract class LdBsLibraryBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param libraryId The one of primary key. (NotNull)
+     * @param libraryId : PK, ID, NotNull, SMALLINT(5). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibrary selectByPKValue(Integer libraryId) {
-        return doSelectByPKValue(libraryId, LdLibrary.class);
+        return doSelectByPK(libraryId, LdLibrary.class);
     }
 
-    protected <ENTITY extends LdLibrary> ENTITY doSelectByPKValue(Integer libraryId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(libraryId), entityType);
+    protected <ENTITY extends LdLibrary> ENTITY doSelectByPK(Integer libraryId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(libraryId), entityType);
+    }
+
+    protected <ENTITY extends LdLibrary> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer libraryId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(libraryId, entityType), libraryId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param libraryId The one of primary key. (NotNull)
+     * @param libraryId : PK, ID, NotNull, SMALLINT(5). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibrary selectByPKValueWithDeletedCheck(Integer libraryId) {
-        return doSelectByPKValueWithDeletedCheck(libraryId, LdLibrary.class);
+        return doSelectByPKWithDeletedCheck(libraryId, LdLibrary.class);
     }
 
-    protected <ENTITY extends LdLibrary> ENTITY doSelectByPKValueWithDeletedCheck(Integer libraryId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(libraryId), entityType);
+    protected <ENTITY extends LdLibrary> ENTITY doSelectByPKWithDeletedCheck(Integer libraryId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(libraryId), entityType);
     }
 
-    private LdLibraryCB buildPKCB(Integer libraryId) {
+    protected LdLibraryCB xprepareCBAsPK(Integer libraryId) {
         assertObjectNotNull("libraryId", libraryId);
-        LdLibraryCB cb = newMyConditionBean();
-        cb.query().setLibraryId_Equal(libraryId);
+        LdLibraryCB cb = newMyConditionBean(); cb.acceptPrimaryKey(libraryId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param libraryName : UQ, NotNull, VARCHAR(80). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<LdLibrary> selectByUniqueOf(String libraryName) {
+        return doSelectByUniqueOf(libraryName, LdLibrary.class);
+    }
+
+    protected <ENTITY extends LdLibrary> OptionalEntity<ENTITY> doSelectByUniqueOf(String libraryName, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(libraryName), entityType), libraryName);
+    }
+
+    protected LdLibraryCB xprepareCBAsUniqueOf(String libraryName) {
+        assertObjectNotNull("libraryName", libraryName);
+        LdLibraryCB cb = newMyConditionBean(); cb.acceptUniqueOf(libraryName);
         return cb;
     }
 
@@ -824,7 +849,8 @@ public abstract class LdBsLibraryBhv extends AbstractBehaviorWritable {
      */
     public List<LdLibraryTypeLookup> pulloutLibraryTypeLookup(List<LdLibrary> libraryList) {
         return helpPulloutInternally(libraryList, new InternalPulloutCallback<LdLibrary, LdLibraryTypeLookup>() {
-            public LdLibraryTypeLookup getFr(LdLibrary et) { return et.getLibraryTypeLookup(); }
+            public LdLibraryTypeLookup getFr(LdLibrary et)
+            { return et.getLibraryTypeLookup(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLibraryTypeLookup et, List<LdLibrary> ls)
             { et.setLibraryList(ls); }

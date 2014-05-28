@@ -22,8 +22,8 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbAbstractBsProductCategoryCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public MbAbstractBsProductCategoryCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -282,7 +282,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     public abstract String keepProductCategoryCode_SpecifyDerivedReferrer_ProductCategorySelfList(MbProductCategoryCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from PRODUCT where ...)} <br />
      * PRODUCT by PRODUCT_CATEGORY_CODE, named 'productAsOne'.
      * <pre>
@@ -316,7 +316,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     public abstract String keepProductCategoryCode_QueryDerivedReferrer_ProductListParameter(Object vl);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from PRODUCT_CATEGORY where ...)} <br />
      * PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfAsOne'.
      * <pre>
@@ -695,7 +695,7 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     public abstract String keepSpecifyMyselfDerived(MbProductCategoryCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MbProductCategoryCB> myselfDerived() {
@@ -717,8 +717,8 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<MbProductCategoryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -733,8 +733,8 @@ public abstract class MbAbstractBsProductCategoryCQ extends AbstractConditionQue
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<MbProductCategoryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

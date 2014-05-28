@@ -24,8 +24,8 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsLibraryCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsLibraryCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -481,7 +481,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_SpecifyDerivedReferrer_NextLibraryByNextLibraryIdList(LdNextLibraryCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from COLLECTION where ...)} <br />
      * COLLECTION by LIBRARY_ID, named 'collectionAsOne'.
      * <pre>
@@ -515,7 +515,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_QueryDerivedReferrer_CollectionListParameter(Object vl);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from LIBRARY_USER where ...)} <br />
      * LIBRARY_USER by LIBRARY_ID, named 'libraryUserAsOne'.
      * <pre>
@@ -549,7 +549,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_QueryDerivedReferrer_LibraryUserListParameter(Object vl);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdAsOne'.
      * <pre>
@@ -583,7 +583,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepLibraryId_QueryDerivedReferrer_NextLibraryByLibraryIdListParameter(Object vl);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from NEXT_LIBRARY where ...)} <br />
      * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdAsOne'.
      * <pre>
@@ -1762,7 +1762,7 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(LdLibraryCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdLibraryCB> myselfDerived() {
@@ -1784,8 +1784,8 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<LdLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -1800,8 +1800,8 @@ public abstract class LdAbstractBsLibraryCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdLibraryCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

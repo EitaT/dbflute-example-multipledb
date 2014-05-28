@@ -25,9 +25,9 @@ public class MbSummaryProductCIQ extends MbAbstractBsSummaryProductCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbSummaryProductCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public MbSummaryProductCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, MbBsSummaryProductCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path
@@ -75,6 +75,8 @@ public class MbSummaryProductCIQ extends MbAbstractBsSummaryProductCQ {
     protected ConditionValue getCValueProductStatusCode() { return _myCQ.getProductStatusCode(); }
     protected ConditionValue getCValueLatestPurchaseDatetime() { return _myCQ.getLatestPurchaseDatetime(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(MbSummaryProductCQ sq)
+    { throwIICBOE("ScalarCondition"); return null; }
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
         throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");

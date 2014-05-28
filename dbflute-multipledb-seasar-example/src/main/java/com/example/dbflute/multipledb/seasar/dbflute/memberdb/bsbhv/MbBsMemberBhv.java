@@ -178,7 +178,7 @@ public abstract class MbBsMemberBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbMember. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -199,39 +199,64 @@ public abstract class MbBsMemberBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId : PK, ID, NotNull, INTEGER(10), FK to MEMBER_LOGIN. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMember selectByPKValue(Integer memberId) {
-        return doSelectByPKValue(memberId, MbMember.class);
+        return doSelectByPK(memberId, MbMember.class);
     }
 
-    protected <ENTITY extends MbMember> ENTITY doSelectByPKValue(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberId), entityType);
+    protected <ENTITY extends MbMember> ENTITY doSelectByPK(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberId), entityType);
+    }
+
+    protected <ENTITY extends MbMember> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberId, entityType), memberId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId : PK, ID, NotNull, INTEGER(10), FK to MEMBER_LOGIN. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMember selectByPKValueWithDeletedCheck(Integer memberId) {
-        return doSelectByPKValueWithDeletedCheck(memberId, MbMember.class);
+        return doSelectByPKWithDeletedCheck(memberId, MbMember.class);
     }
 
-    protected <ENTITY extends MbMember> ENTITY doSelectByPKValueWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberId), entityType);
+    protected <ENTITY extends MbMember> ENTITY doSelectByPKWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberId), entityType);
     }
 
-    private MbMemberCB buildPKCB(Integer memberId) {
+    protected MbMemberCB xprepareCBAsPK(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
-        MbMemberCB cb = newMyConditionBean();
-        cb.query().setMemberId_Equal(memberId);
+        MbMemberCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param memberAccount : UQ, NotNull, VARCHAR(50). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MbMember> selectByUniqueOf(String memberAccount) {
+        return doSelectByUniqueOf(memberAccount, MbMember.class);
+    }
+
+    protected <ENTITY extends MbMember> OptionalEntity<ENTITY> doSelectByUniqueOf(String memberAccount, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberAccount), entityType), memberAccount);
+    }
+
+    protected MbMemberCB xprepareCBAsUniqueOf(String memberAccount) {
+        assertObjectNotNull("memberAccount", memberAccount);
+        MbMemberCB cb = newMyConditionBean(); cb.acceptUniqueOf(memberAccount);
         return cb;
     }
 
@@ -723,7 +748,8 @@ public abstract class MbBsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MbMemberStatus> pulloutMemberStatus(List<MbMember> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<MbMember, MbMemberStatus>() {
-            public MbMemberStatus getFr(MbMember et) { return et.getMemberStatus(); }
+            public MbMemberStatus getFr(MbMember et)
+            { return et.getMemberStatus(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMemberStatus et, List<MbMember> ls)
             { et.setMemberList(ls); }
@@ -736,7 +762,8 @@ public abstract class MbBsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MbMemberLogin> pulloutMemberLoginAsLatest(List<MbMember> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<MbMember, MbMemberLogin>() {
-            public MbMemberLogin getFr(MbMember et) { return et.getMemberLoginAsLatest(); }
+            public MbMemberLogin getFr(MbMember et)
+            { return et.getMemberLoginAsLatest(); }
             public boolean hasRf() { return false; }
             public void setRfLs(MbMemberLogin et, List<MbMember> ls)
             { throw new UnsupportedOperationException(); }
@@ -749,7 +776,8 @@ public abstract class MbBsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MbMemberSecurity> pulloutMemberSecurityAsOne(List<MbMember> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<MbMember, MbMemberSecurity>() {
-            public MbMemberSecurity getFr(MbMember et) { return et.getMemberSecurityAsOne(); }
+            public MbMemberSecurity getFr(MbMember et)
+            { return et.getMemberSecurityAsOne(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMemberSecurity et, List<MbMember> ls)
             { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }
@@ -762,7 +790,8 @@ public abstract class MbBsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MbMemberService> pulloutMemberServiceAsOne(List<MbMember> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<MbMember, MbMemberService>() {
-            public MbMemberService getFr(MbMember et) { return et.getMemberServiceAsOne(); }
+            public MbMemberService getFr(MbMember et)
+            { return et.getMemberServiceAsOne(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMemberService et, List<MbMember> ls)
             { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }
@@ -775,7 +804,8 @@ public abstract class MbBsMemberBhv extends AbstractBehaviorWritable {
      */
     public List<MbMemberWithdrawal> pulloutMemberWithdrawalAsOne(List<MbMember> memberList) {
         return helpPulloutInternally(memberList, new InternalPulloutCallback<MbMember, MbMemberWithdrawal>() {
-            public MbMemberWithdrawal getFr(MbMember et) { return et.getMemberWithdrawalAsOne(); }
+            public MbMemberWithdrawal getFr(MbMember et)
+            { return et.getMemberWithdrawalAsOne(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMemberWithdrawal et, List<MbMember> ls)
             { if (!ls.isEmpty()) { et.setMember(ls.get(0)); } }

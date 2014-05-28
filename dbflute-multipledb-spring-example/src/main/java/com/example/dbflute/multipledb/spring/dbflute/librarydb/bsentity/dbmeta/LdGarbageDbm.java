@@ -35,6 +35,9 @@ public class LdGarbageDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgGarbageMemo(), "garbageMemo");
@@ -45,8 +48,6 @@ public class LdGarbageDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUUser(), "UUser");
         setupEpg(_epgMap, new EpgUTimestamp(), "UTimestamp");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgGarbageMemo implements PropertyGateway {
         public Object read(Entity et) { return ((LdGarbage)et).getGarbageMemo(); }
         public void write(Entity et, Object vl) { ((LdGarbage)et).setGarbageMemo((String)vl); }
@@ -75,6 +76,8 @@ public class LdGarbageDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdGarbage)et).getUTimestamp(); }
         public void write(Entity et, Object vl) { ((LdGarbage)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -90,20 +93,48 @@ public class LdGarbageDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnGarbageMemo = cci("GARBAGE_MEMO", "GARBAGE_MEMO", null, null, false, "garbageMemo", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnGarbageTime = cci("GARBAGE_TIME", "GARBAGE_TIME", null, null, false, "garbageTime", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnGarbageCount = cci("GARBAGE_COUNT", "GARBAGE_COUNT", null, null, false, "garbageCount", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, false, "RUser", String.class, false, false, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, false, "RTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, false, "UUser", String.class, false, false, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, false, "UTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, null, false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
+    protected final ColumnInfo _columnGarbageMemo = cci("GARBAGE_MEMO", "GARBAGE_MEMO", null, null, String.class, "garbageMemo", null, false, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnGarbageTime = cci("GARBAGE_TIME", "GARBAGE_TIME", null, null, java.sql.Timestamp.class, "garbageTime", null, false, false, false, "TIMESTAMP", 26, 6, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnGarbageCount = cci("GARBAGE_COUNT", "GARBAGE_COUNT", null, null, Integer.class, "garbageCount", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, String.class, "RUser", null, false, false, false, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, java.sql.Timestamp.class, "RTimestamp", null, false, false, false, "TIMESTAMP", 26, 6, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, String.class, "UUser", null, false, false, false, "VARCHAR", 100, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, java.sql.Timestamp.class, "UTimestamp", null, false, false, false, "TIMESTAMP", 26, 6, null, false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
 
+    /**
+     * GARBAGE_MEMO: {VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnGarbageMemo() { return _columnGarbageMemo; }
+    /**
+     * GARBAGE_TIME: {TIMESTAMP(26, 6)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnGarbageTime() { return _columnGarbageTime; }
+    /**
+     * GARBAGE_COUNT: {INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnGarbageCount() { return _columnGarbageCount; }
+    /**
+     * R_USER: {VARCHAR(100)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRUser() { return _columnRUser; }
+    /**
+     * R_TIMESTAMP: {TIMESTAMP(26, 6)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRTimestamp() { return _columnRTimestamp; }
+    /**
+     * U_USER: {VARCHAR(100)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUUser() { return _columnUUser; }
+    /**
+     * U_TIMESTAMP: {TIMESTAMP(26, 6)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUTimestamp() { return _columnUTimestamp; }
 
     protected List<ColumnInfo> ccil() {
@@ -135,6 +166,8 @@ public class LdGarbageDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------

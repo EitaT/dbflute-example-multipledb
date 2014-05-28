@@ -24,8 +24,8 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsGarbageCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsGarbageCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -951,6 +951,129 @@ public abstract class LdAbstractBsGarbageCQ extends AbstractConditionQuery {
 
     protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
     protected abstract ConditionValue getCValueUTimestamp();
+
+    // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    /**
+     * Prepare ScalarCondition as equal. <br />
+     * {where FOO = (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdGarbageCB&gt;() {
+     *     public void query(LdGarbageCB subCB) {
+     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setYyy...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdGarbageCB> scalar_Equal() {
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdGarbageCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as equal. <br />
+     * {where FOO &lt;&gt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdGarbageCB&gt;() {
+     *     public void query(LdGarbageCB subCB) {
+     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setYyy...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdGarbageCB> scalar_NotEqual() {
+        return xcreateSSQFunction(CK_NES.getOperand(), LdGarbageCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as greaterThan. <br />
+     * {where FOO &gt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdGarbageCB&gt;() {
+     *     public void query(LdGarbageCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdGarbageCB> scalar_GreaterThan() {
+        return xcreateSSQFunction(CK_GT.getOperand(), LdGarbageCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as lessThan. <br />
+     * {where FOO &lt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdGarbageCB&gt;() {
+     *     public void query(LdGarbageCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdGarbageCB> scalar_LessThan() {
+        return xcreateSSQFunction(CK_LT.getOperand(), LdGarbageCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as greaterEqual. <br />
+     * {where FOO &gt;= (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdGarbageCB&gt;() {
+     *     public void query(LdGarbageCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdGarbageCB> scalar_GreaterEqual() {
+        return xcreateSSQFunction(CK_GE.getOperand(), LdGarbageCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as lessEqual. <br />
+     * {where FOO &lt;= (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdGarbageCB&gt;() {
+     *     public void query(LdGarbageCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdGarbageCB> scalar_LessEqual() {
+        return xcreateSSQFunction(CK_LE.getOperand(), LdGarbageCB.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdGarbageCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
+    }
+    public abstract String keepScalarCondition(LdGarbageCQ sq);
+
+    protected LdGarbageCB xcreateScalarConditionCB() {
+        LdGarbageCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
+    }
+
+    protected LdGarbageCB xcreateScalarConditionPartitionByCB() {
+        LdGarbageCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
+    }
 
     // ===================================================================================
     //                                                                          Compatible

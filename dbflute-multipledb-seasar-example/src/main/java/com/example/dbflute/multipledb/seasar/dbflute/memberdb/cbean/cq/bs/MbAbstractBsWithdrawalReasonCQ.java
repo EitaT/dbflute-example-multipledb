@@ -22,8 +22,8 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbAbstractBsWithdrawalReasonCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public MbAbstractBsWithdrawalReasonCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -199,7 +199,7 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     public abstract String keepWithdrawalReasonCode_SpecifyDerivedReferrer_MemberWithdrawalList(MbMemberWithdrawalCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from MEMBER_WITHDRAWAL where ...)} <br />
      * MEMBER_WITHDRAWAL by WITHDRAWAL_REASON_CODE, named 'memberWithdrawalAsOne'.
      * <pre>
@@ -548,7 +548,7 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     public abstract String keepSpecifyMyselfDerived(MbWithdrawalReasonCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MbWithdrawalReasonCB> myselfDerived() {
@@ -570,8 +570,8 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<MbWithdrawalReasonCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -586,8 +586,8 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<MbWithdrawalReasonCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

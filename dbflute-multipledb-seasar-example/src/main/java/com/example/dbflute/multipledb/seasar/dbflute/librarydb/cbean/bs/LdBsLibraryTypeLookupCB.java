@@ -79,10 +79,14 @@ public class LdBsLibraryTypeLookupCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param libraryTypeCode : PK, NotNull, CHAR(3). (NotNull)
+     */
     public void acceptPrimaryKey(String libraryTypeCode) {
         assertObjectNotNull("libraryTypeCode", libraryTypeCode);
         LdBsLibraryTypeLookupCB cb = this;
-        cb.query().setLibraryTypeCode_Equal(libraryTypeCode);
+        cb.query().setLibraryTypeCode_Equal(libraryTypeCode);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -445,6 +449,11 @@ public class LdBsLibraryTypeLookupCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdLibraryTypeLookupCB> orQuery) {
         xorSQ((LdLibraryTypeLookupCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

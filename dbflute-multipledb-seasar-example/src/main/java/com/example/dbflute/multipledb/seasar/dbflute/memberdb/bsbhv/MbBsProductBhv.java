@@ -169,7 +169,7 @@ public abstract class MbBsProductBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbProduct. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,64 @@ public abstract class MbBsProductBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param productId The one of primary key. (NotNull)
+     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbProduct selectByPKValue(Integer productId) {
-        return doSelectByPKValue(productId, MbProduct.class);
+        return doSelectByPK(productId, MbProduct.class);
     }
 
-    protected <ENTITY extends MbProduct> ENTITY doSelectByPKValue(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(productId), entityType);
+    protected <ENTITY extends MbProduct> ENTITY doSelectByPK(Integer productId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(productId), entityType);
+    }
+
+    protected <ENTITY extends MbProduct> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer productId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(productId, entityType), productId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param productId The one of primary key. (NotNull)
+     * @param productId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbProduct selectByPKValueWithDeletedCheck(Integer productId) {
-        return doSelectByPKValueWithDeletedCheck(productId, MbProduct.class);
+        return doSelectByPKWithDeletedCheck(productId, MbProduct.class);
     }
 
-    protected <ENTITY extends MbProduct> ENTITY doSelectByPKValueWithDeletedCheck(Integer productId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(productId), entityType);
+    protected <ENTITY extends MbProduct> ENTITY doSelectByPKWithDeletedCheck(Integer productId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productId), entityType);
     }
 
-    private MbProductCB buildPKCB(Integer productId) {
+    protected MbProductCB xprepareCBAsPK(Integer productId) {
         assertObjectNotNull("productId", productId);
-        MbProductCB cb = newMyConditionBean();
-        cb.query().setProductId_Equal(productId);
+        MbProductCB cb = newMyConditionBean(); cb.acceptPrimaryKey(productId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param productHandleCode : UQ, NotNull, VARCHAR(100). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MbProduct> selectByUniqueOf(String productHandleCode) {
+        return doSelectByUniqueOf(productHandleCode, MbProduct.class);
+    }
+
+    protected <ENTITY extends MbProduct> OptionalEntity<ENTITY> doSelectByUniqueOf(String productHandleCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(productHandleCode), entityType), productHandleCode);
+    }
+
+    protected MbProductCB xprepareCBAsUniqueOf(String productHandleCode) {
+        assertObjectNotNull("productHandleCode", productHandleCode);
+        MbProductCB cb = newMyConditionBean(); cb.acceptUniqueOf(productHandleCode);
         return cb;
     }
 
@@ -498,7 +523,8 @@ public abstract class MbBsProductBhv extends AbstractBehaviorWritable {
      */
     public List<MbProductCategory> pulloutProductCategory(List<MbProduct> productList) {
         return helpPulloutInternally(productList, new InternalPulloutCallback<MbProduct, MbProductCategory>() {
-            public MbProductCategory getFr(MbProduct et) { return et.getProductCategory(); }
+            public MbProductCategory getFr(MbProduct et)
+            { return et.getProductCategory(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbProductCategory et, List<MbProduct> ls)
             { et.setProductList(ls); }
@@ -511,7 +537,8 @@ public abstract class MbBsProductBhv extends AbstractBehaviorWritable {
      */
     public List<MbProductStatus> pulloutProductStatus(List<MbProduct> productList) {
         return helpPulloutInternally(productList, new InternalPulloutCallback<MbProduct, MbProductStatus>() {
-            public MbProductStatus getFr(MbProduct et) { return et.getProductStatus(); }
+            public MbProductStatus getFr(MbProduct et)
+            { return et.getProductStatus(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbProductStatus et, List<MbProduct> ls)
             { et.setProductList(ls); }

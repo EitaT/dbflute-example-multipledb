@@ -24,8 +24,8 @@ public abstract class LdAbstractBsBlackListCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsBlackListCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsBlackListCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -232,7 +232,7 @@ public abstract class LdAbstractBsBlackListCQ extends AbstractConditionQuery {
     public abstract String keepBlackListId_SpecifyDerivedReferrer_BlackActionList(LdBlackActionCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from BLACK_ACTION where ...)} <br />
      * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionAsOne'.
      * <pre>
@@ -1383,7 +1383,7 @@ public abstract class LdAbstractBsBlackListCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(LdBlackListCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdBlackListCB> myselfDerived() {
@@ -1405,8 +1405,8 @@ public abstract class LdAbstractBsBlackListCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<LdBlackListCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -1421,8 +1421,8 @@ public abstract class LdAbstractBsBlackListCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdBlackListCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

@@ -3,6 +3,8 @@ package com.example.dbflute.multipledb.seasar.dbflute.memberdb.cbean.cq.bs;
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -24,8 +26,8 @@ public class MbBsMemberWithdrawalCQ extends MbAbstractBsMemberWithdrawalCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbBsMemberWithdrawalCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public MbBsMemberWithdrawalCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -333,7 +335,7 @@ public class MbBsMemberWithdrawalCQ extends MbAbstractBsMemberWithdrawalCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         MbMemberWithdrawalCQ bq = (MbMemberWithdrawalCQ)bqs;
         MbMemberWithdrawalCQ uq = (MbMemberWithdrawalCQ)uqs;
         if (bq.hasConditionQueryMember()) {
@@ -484,5 +486,7 @@ public class MbBsMemberWithdrawalCQ extends MbAbstractBsMemberWithdrawalCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return MbMemberWithdrawalCB.class.getName(); }
     protected String xCQ() { return MbMemberWithdrawalCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

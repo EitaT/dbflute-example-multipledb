@@ -169,7 +169,7 @@ public abstract class MbBsMemberAddressBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbMemberAddress. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,65 @@ public abstract class MbBsMemberAddressBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberAddressId The one of primary key. (NotNull)
+     * @param memberAddressId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMemberAddress selectByPKValue(Integer memberAddressId) {
-        return doSelectByPKValue(memberAddressId, MbMemberAddress.class);
+        return doSelectByPK(memberAddressId, MbMemberAddress.class);
     }
 
-    protected <ENTITY extends MbMemberAddress> ENTITY doSelectByPKValue(Integer memberAddressId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberAddressId), entityType);
+    protected <ENTITY extends MbMemberAddress> ENTITY doSelectByPK(Integer memberAddressId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberAddressId), entityType);
+    }
+
+    protected <ENTITY extends MbMemberAddress> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberAddressId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberAddressId, entityType), memberAddressId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberAddressId The one of primary key. (NotNull)
+     * @param memberAddressId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMemberAddress selectByPKValueWithDeletedCheck(Integer memberAddressId) {
-        return doSelectByPKValueWithDeletedCheck(memberAddressId, MbMemberAddress.class);
+        return doSelectByPKWithDeletedCheck(memberAddressId, MbMemberAddress.class);
     }
 
-    protected <ENTITY extends MbMemberAddress> ENTITY doSelectByPKValueWithDeletedCheck(Integer memberAddressId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberAddressId), entityType);
+    protected <ENTITY extends MbMemberAddress> ENTITY doSelectByPKWithDeletedCheck(Integer memberAddressId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberAddressId), entityType);
     }
 
-    private MbMemberAddressCB buildPKCB(Integer memberAddressId) {
+    protected MbMemberAddressCB xprepareCBAsPK(Integer memberAddressId) {
         assertObjectNotNull("memberAddressId", memberAddressId);
-        MbMemberAddressCB cb = newMyConditionBean();
-        cb.query().setMemberAddressId_Equal(memberAddressId);
+        MbMemberAddressCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberAddressId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param memberId : UQ+, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param validBeginDate : +UQ, NotNull, DATE(8). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MbMemberAddress> selectByUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+        return doSelectByUniqueOf(memberId, validBeginDate, MbMemberAddress.class);
+    }
+
+    protected <ENTITY extends MbMemberAddress> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, java.util.Date validBeginDate, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId, validBeginDate), entityType), memberId, validBeginDate);
+    }
+
+    protected MbMemberAddressCB xprepareCBAsUniqueOf(Integer memberId, java.util.Date validBeginDate) {
+        assertObjectNotNull("memberId", memberId);assertObjectNotNull("validBeginDate", validBeginDate);
+        MbMemberAddressCB cb = newMyConditionBean(); cb.acceptUniqueOf(memberId, validBeginDate);
         return cb;
     }
 
@@ -387,7 +413,8 @@ public abstract class MbBsMemberAddressBhv extends AbstractBehaviorWritable {
      */
     public List<MbMember> pulloutMember(List<MbMemberAddress> memberAddressList) {
         return helpPulloutInternally(memberAddressList, new InternalPulloutCallback<MbMemberAddress, MbMember>() {
-            public MbMember getFr(MbMemberAddress et) { return et.getMember(); }
+            public MbMember getFr(MbMemberAddress et)
+            { return et.getMember(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMember et, List<MbMemberAddress> ls)
             { et.setMemberAddressList(ls); }
@@ -400,7 +427,8 @@ public abstract class MbBsMemberAddressBhv extends AbstractBehaviorWritable {
      */
     public List<MbRegion> pulloutRegion(List<MbMemberAddress> memberAddressList) {
         return helpPulloutInternally(memberAddressList, new InternalPulloutCallback<MbMemberAddress, MbRegion>() {
-            public MbRegion getFr(MbMemberAddress et) { return et.getRegion(); }
+            public MbRegion getFr(MbMemberAddress et)
+            { return et.getRegion(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbRegion et, List<MbMemberAddress> ls)
             { et.setMemberAddressList(ls); }

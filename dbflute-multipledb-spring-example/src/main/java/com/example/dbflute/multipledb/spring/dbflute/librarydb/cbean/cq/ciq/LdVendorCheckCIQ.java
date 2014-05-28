@@ -27,9 +27,9 @@ public class LdVendorCheckCIQ extends LdAbstractBsVendorCheckCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdVendorCheckCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public LdVendorCheckCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, LdBsVendorCheckCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path
@@ -85,6 +85,8 @@ public class LdVendorCheckCIQ extends LdAbstractBsVendorCheckCQ {
     protected ConditionValue getCValueTypeOfTimestamp() { return _myCQ.getTypeOfTimestamp(); }
     protected ConditionValue getCValueTypeOfTime() { return _myCQ.getTypeOfTime(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdVendorCheckCQ sq)
+    { throwIICBOE("ScalarCondition"); return null; }
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
         throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");

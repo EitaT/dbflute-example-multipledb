@@ -5,6 +5,8 @@
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -26,8 +28,8 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdBsGarbageCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdBsGarbageCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -261,7 +263,7 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
     }
 
     // ===================================================================================
@@ -272,10 +274,23 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     }
 
     // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    protected Map<String, LdGarbageCQ> _scalarConditionMap;
+    public Map<String, LdGarbageCQ> getScalarCondition() { return _scalarConditionMap; }
+    public String keepScalarCondition(LdGarbageCQ sq) {
+        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
+    }
+
+    // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return LdGarbageCB.class.getName(); }
     protected String xCQ() { return LdGarbageCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

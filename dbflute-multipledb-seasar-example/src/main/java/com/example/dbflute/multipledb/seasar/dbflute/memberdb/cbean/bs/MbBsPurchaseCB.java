@@ -78,10 +78,26 @@ public class MbBsPurchaseCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
+     */
     public void acceptPrimaryKey(Long purchaseId) {
         assertObjectNotNull("purchaseId", purchaseId);
         MbBsPurchaseCB cb = this;
-        cb.query().setPurchaseId_Equal(purchaseId);
+        cb.query().setPurchaseId_Equal(purchaseId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param memberId : UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param productId : +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
+     * @param purchaseDatetime : +UQ, IX+, NotNull, TIMESTAMP(23, 10). (NotNull)
+     */
+    public void acceptUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+        assertObjectNotNull("memberId", memberId);assertObjectNotNull("productId", productId);assertObjectNotNull("purchaseDatetime", purchaseDatetime);
+        MbBsPurchaseCB cb = this;
+        cb.query().setMemberId_Equal(memberId);;cb.query().setProductId_Equal(productId);;cb.query().setPurchaseDatetime_Equal(purchaseDatetime);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -353,17 +369,17 @@ public class MbBsPurchaseCB extends AbstractConditionBean {
          */
         public HpSpecifiedColumn columnPurchaseId() { return doColumn("PURCHASE_ID"); }
         /**
-         * MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+         * MEMBER_ID: {UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnMemberId() { return doColumn("MEMBER_ID"); }
         /**
-         * PRODUCT_ID: {UQ+, IX, NotNull, INTEGER(10), FK to PRODUCT}
+         * PRODUCT_ID: {+UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnProductId() { return doColumn("PRODUCT_ID"); }
         /**
-         * PURCHASE_DATETIME: {UQ+, IX, NotNull, TIMESTAMP(23, 10)}
+         * PURCHASE_DATETIME: {+UQ, IX+, NotNull, TIMESTAMP(23, 10)}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnPurchaseDatetime() { return doColumn("PURCHASE_DATETIME"); }
@@ -550,6 +566,11 @@ public class MbBsPurchaseCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<MbPurchaseCB> orQuery) {
         xorSQ((MbPurchaseCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

@@ -3,6 +3,8 @@ package com.example.dbflute.multipledb.seasar.dbflute.memberdb.cbean.cq.bs;
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -24,8 +26,8 @@ public class MbBsMemberSecurityCQ extends MbAbstractBsMemberSecurityCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbBsMemberSecurityCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public MbBsMemberSecurityCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -338,7 +340,7 @@ public class MbBsMemberSecurityCQ extends MbAbstractBsMemberSecurityCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         MbMemberSecurityCQ bq = (MbMemberSecurityCQ)bqs;
         MbMemberSecurityCQ uq = (MbMemberSecurityCQ)uqs;
         if (bq.hasConditionQueryMember()) {
@@ -452,5 +454,7 @@ public class MbBsMemberSecurityCQ extends MbAbstractBsMemberSecurityCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return MbMemberSecurityCB.class.getName(); }
     protected String xCQ() { return MbMemberSecurityCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

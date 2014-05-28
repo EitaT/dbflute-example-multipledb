@@ -5,6 +5,8 @@
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -26,8 +28,8 @@ public class LdBsCollectionCQ extends LdAbstractBsCollectionCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdBsCollectionCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdBsCollectionCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -207,14 +209,14 @@ public class LdBsCollectionCQ extends LdAbstractBsCollectionCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @return this. (NotNull)
      */
     public LdBsCollectionCQ addOrderBy_LibraryId_Asc() { regOBA("LIBRARY_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @return this. (NotNull)
      */
     public LdBsCollectionCQ addOrderBy_LibraryId_Desc() { regOBD("LIBRARY_ID"); return this; }
@@ -244,14 +246,14 @@ public class LdBsCollectionCQ extends LdAbstractBsCollectionCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @return this. (NotNull)
      */
     public LdBsCollectionCQ addOrderBy_BookId_Asc() { regOBA("BOOK_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @return this. (NotNull)
      */
     public LdBsCollectionCQ addOrderBy_BookId_Desc() { regOBD("BOOK_ID"); return this; }
@@ -443,7 +445,7 @@ public class LdBsCollectionCQ extends LdAbstractBsCollectionCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         LdCollectionCQ bq = (LdCollectionCQ)bqs;
         LdCollectionCQ uq = (LdCollectionCQ)uqs;
         if (bq.hasConditionQueryBook()) {
@@ -631,5 +633,7 @@ public class LdBsCollectionCQ extends LdAbstractBsCollectionCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return LdCollectionCB.class.getName(); }
     protected String xCQ() { return LdCollectionCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

@@ -171,7 +171,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdPublisher. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param publisherId The one of primary key. (NotNull)
+     * @param publisherId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectByPKValue(Integer publisherId) {
-        return doSelectByPKValue(publisherId, LdPublisher.class);
+        return doSelectByPK(publisherId, LdPublisher.class);
     }
 
-    protected <ENTITY extends LdPublisher> ENTITY doSelectByPKValue(Integer publisherId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(publisherId), entityType);
+    protected <ENTITY extends LdPublisher> ENTITY doSelectByPK(Integer publisherId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(publisherId), entityType);
+    }
+
+    protected <ENTITY extends LdPublisher> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer publisherId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(publisherId, entityType), publisherId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param publisherId The one of primary key. (NotNull)
+     * @param publisherId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectByPKValueWithDeletedCheck(Integer publisherId) {
-        return doSelectByPKValueWithDeletedCheck(publisherId, LdPublisher.class);
+        return doSelectByPKWithDeletedCheck(publisherId, LdPublisher.class);
     }
 
-    protected <ENTITY extends LdPublisher> ENTITY doSelectByPKValueWithDeletedCheck(Integer publisherId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(publisherId), entityType);
+    protected <ENTITY extends LdPublisher> ENTITY doSelectByPKWithDeletedCheck(Integer publisherId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(publisherId), entityType);
     }
 
-    private LdPublisherCB buildPKCB(Integer publisherId) {
+    protected LdPublisherCB xprepareCBAsPK(Integer publisherId) {
         assertObjectNotNull("publisherId", publisherId);
-        LdPublisherCB cb = newMyConditionBean();
-        cb.query().setPublisherId_Equal(publisherId);
+        LdPublisherCB cb = newMyConditionBean(); cb.acceptPrimaryKey(publisherId);
         return cb;
     }
 

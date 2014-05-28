@@ -80,10 +80,15 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param lbUserId : PK, IX, NotNull, INTEGER(10), FK to LB_USER. (NotNull)
+     */
     public void acceptPrimaryKey(Integer libraryId, Integer lbUserId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);
         LdBsLibraryUserCB cb = this;
-        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);
+        cb.query().setLibraryId_Equal(libraryId);;cb.query().setLbUserId_Equal(lbUserId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -346,12 +351,12 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
         { super(baseCB, qyCall, purpose, dbmetaProvider); }
         /**
-         * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+         * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLibraryId() { return doColumn("LIBRARY_ID"); }
         /**
-         * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
+         * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLbUserId() { return doColumn("LB_USER_ID"); }
@@ -551,6 +556,11 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdLibraryUserCB> orQuery) {
         xorSQ((LdLibraryUserCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

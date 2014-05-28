@@ -175,7 +175,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdBook. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -196,39 +196,64 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param bookId The one of primary key. (NotNull)
+     * @param bookId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBook selectByPKValue(Integer bookId) {
-        return doSelectByPKValue(bookId, LdBook.class);
+        return doSelectByPK(bookId, LdBook.class);
     }
 
-    protected <ENTITY extends LdBook> ENTITY doSelectByPKValue(Integer bookId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(bookId), entityType);
+    protected <ENTITY extends LdBook> ENTITY doSelectByPK(Integer bookId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(bookId), entityType);
+    }
+
+    protected <ENTITY extends LdBook> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer bookId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(bookId, entityType), bookId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param bookId The one of primary key. (NotNull)
+     * @param bookId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBook selectByPKValueWithDeletedCheck(Integer bookId) {
-        return doSelectByPKValueWithDeletedCheck(bookId, LdBook.class);
+        return doSelectByPKWithDeletedCheck(bookId, LdBook.class);
     }
 
-    protected <ENTITY extends LdBook> ENTITY doSelectByPKValueWithDeletedCheck(Integer bookId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(bookId), entityType);
+    protected <ENTITY extends LdBook> ENTITY doSelectByPKWithDeletedCheck(Integer bookId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(bookId), entityType);
     }
 
-    private LdBookCB buildPKCB(Integer bookId) {
+    protected LdBookCB xprepareCBAsPK(Integer bookId) {
         assertObjectNotNull("bookId", bookId);
-        LdBookCB cb = newMyConditionBean();
-        cb.query().setBookId_Equal(bookId);
+        LdBookCB cb = newMyConditionBean(); cb.acceptPrimaryKey(bookId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param isbn : UQ, NotNull, VARCHAR(20). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<LdBook> selectByUniqueOf(String isbn) {
+        return doSelectByUniqueOf(isbn, LdBook.class);
+    }
+
+    protected <ENTITY extends LdBook> OptionalEntity<ENTITY> doSelectByUniqueOf(String isbn, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(isbn), entityType), isbn);
+    }
+
+    protected LdBookCB xprepareCBAsUniqueOf(String isbn) {
+        assertObjectNotNull("isbn", isbn);
+        LdBookCB cb = newMyConditionBean(); cb.acceptUniqueOf(isbn);
         return cb;
     }
 
@@ -504,7 +529,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      */
     public List<LdAuthor> pulloutAuthor(List<LdBook> bookList) {
         return helpPulloutInternally(bookList, new InternalPulloutCallback<LdBook, LdAuthor>() {
-            public LdAuthor getFr(LdBook et) { return et.getAuthor(); }
+            public LdAuthor getFr(LdBook et)
+            { return et.getAuthor(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdAuthor et, List<LdBook> ls)
             { et.setBookList(ls); }
@@ -517,7 +543,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      */
     public List<LdGenre> pulloutGenre(List<LdBook> bookList) {
         return helpPulloutInternally(bookList, new InternalPulloutCallback<LdBook, LdGenre>() {
-            public LdGenre getFr(LdBook et) { return et.getGenre(); }
+            public LdGenre getFr(LdBook et)
+            { return et.getGenre(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdGenre et, List<LdBook> ls)
             { et.setBookList(ls); }
@@ -530,7 +557,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      */
     public List<LdPublisher> pulloutPublisher(List<LdBook> bookList) {
         return helpPulloutInternally(bookList, new InternalPulloutCallback<LdBook, LdPublisher>() {
-            public LdPublisher getFr(LdBook et) { return et.getPublisher(); }
+            public LdPublisher getFr(LdBook et)
+            { return et.getPublisher(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdPublisher et, List<LdBook> ls)
             { et.setBookList(ls); }
@@ -543,7 +571,8 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable {
      */
     public List<LdCollectionStatusLookup> pulloutCollectionStatusLookupAsNonExist(List<LdBook> bookList) {
         return helpPulloutInternally(bookList, new InternalPulloutCallback<LdBook, LdCollectionStatusLookup>() {
-            public LdCollectionStatusLookup getFr(LdBook et) { return et.getCollectionStatusLookupAsNonExist(); }
+            public LdCollectionStatusLookup getFr(LdBook et)
+            { return et.getCollectionStatusLookupAsNonExist(); }
             public boolean hasRf() { return false; }
             public void setRfLs(LdCollectionStatusLookup et, List<LdBook> ls)
             { throw new UnsupportedOperationException(); }

@@ -35,6 +35,9 @@ public class LdLbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgLbUserId(), "lbUserId");
@@ -47,8 +50,6 @@ public class LdLbUserDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUModule(), "UModule");
         setupEpg(_epgMap, new EpgUTimestamp(), "UTimestamp");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgLbUserId implements PropertyGateway {
         public Object read(Entity et) { return ((LdLbUser)et).getLbUserId(); }
         public void write(Entity et, Object vl) { ((LdLbUser)et).setLbUserId(cti(vl)); }
@@ -85,6 +86,22 @@ public class LdLbUserDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdLbUser)et).getUTimestamp(); }
         public void write(Entity et, Object vl) { ((LdLbUser)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgBlackListAsOne(), "blackListAsOne");
+    }
+    public class EfpgBlackListAsOne implements PropertyGateway {
+        public Object read(Entity et) { return ((LdLbUser)et).getBlackListAsOne(); }
+        public void write(Entity et, Object vl) { ((LdLbUser)et).setBlackListAsOne((LdBlackList)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -100,24 +117,60 @@ public class LdLbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnLbUserId = cci("LB_USER_ID", "LB_USER_ID", null, null, true, "lbUserId", Integer.class, true, true, "INTEGER", 10, 0, "GENERATED_BY_DEFAULT", false, null, null, null, "libraryUserList", null);
-    protected final ColumnInfo _columnLbUserName = cci("LB_USER_NAME", "LB_USER_NAME", null, null, true, "lbUserName", String.class, false, false, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnUserPassword = cci("USER_PASSWORD", "USER_PASSWORD", null, null, true, "userPassword", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, true, "RUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
-    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, true, "RModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.RegisterModuleType);
-    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, true, "RTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, null, null, null, null, null);
-    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, true, "UUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
-    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, true, "UModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.UpdateModuleType);
-    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, true, "UTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, OptimisticLockType.UPDATE_DATE, null, null, null, null);
+    protected final ColumnInfo _columnLbUserId = cci("LB_USER_ID", "LB_USER_ID", null, null, Integer.class, "lbUserId", null, true, true, true, "INTEGER", 10, 0, "GENERATED_BY_DEFAULT", false, null, null, null, "libraryUserList", null);
+    protected final ColumnInfo _columnLbUserName = cci("LB_USER_NAME", "LB_USER_NAME", null, null, String.class, "lbUserName", null, false, false, true, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnUserPassword = cci("USER_PASSWORD", "USER_PASSWORD", null, null, String.class, "userPassword", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, String.class, "RUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
+    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, String.class, "RModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.RegisterModuleType);
+    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, java.sql.Timestamp.class, "RTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, null, null, null, null, null);
+    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, String.class, "UUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
+    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, String.class, "UModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.UpdateModuleType);
+    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, java.sql.Timestamp.class, "UTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, OptimisticLockType.UPDATE_DATE, null, null, null, null);
 
+    /**
+     * LB_USER_ID: {PK, ID, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLbUserId() { return _columnLbUserId; }
+    /**
+     * LB_USER_NAME: {NotNull, VARCHAR(80)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLbUserName() { return _columnLbUserName; }
+    /**
+     * USER_PASSWORD: {NotNull, VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUserPassword() { return _columnUserPassword; }
+    /**
+     * R_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRUser() { return _columnRUser; }
+    /**
+     * R_MODULE: {NotNull, VARCHAR(100), default=[default-module], classification=RegisterModuleType}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRModule() { return _columnRModule; }
+    /**
+     * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRTimestamp() { return _columnRTimestamp; }
+    /**
+     * U_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUUser() { return _columnUUser; }
+    /**
+     * U_MODULE: {NotNull, VARCHAR(100), default=[default-module], classification=UpdateModuleType}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUModule() { return _columnUModule; }
+    /**
+     * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUTimestamp() { return _columnUTimestamp; }
 
     protected List<ColumnInfo> ccil() {
@@ -149,17 +202,27 @@ public class LdLbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
+     * @return The information object of foreign property(referrer-as-one). (NotNull)
+     */
     public ForeignInfo foreignBlackListAsOne() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLbUserId(), LdBlackListDbm.getInstance().columnLbUserId());
-        return cfi("FK_BLACK_LIST_LB_USER", "blackListAsOne", this, LdBlackListDbm.getInstance(), mp, 0, true, false, true, false, null, null, false, "lbUser");
+        return cfi("FK_BLACK_LIST_LB_USER", "blackListAsOne", this, LdBlackListDbm.getInstance(), mp, 0, null, true, false, true, false, null, null, false, "lbUser");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * LIBRARY_USER by LB_USER_ID, named 'libraryUserList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerLibraryUserList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLbUserId(), LdLibraryUserDbm.getInstance().columnLbUserId());
         return cri("FK_LIBRARY_USER_LB_USER", "libraryUserList", this, LdLibraryUserDbm.getInstance(), mp, false, "lbUser");

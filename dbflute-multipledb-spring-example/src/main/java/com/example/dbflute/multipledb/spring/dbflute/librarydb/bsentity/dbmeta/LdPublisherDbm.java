@@ -35,6 +35,9 @@ public class LdPublisherDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgPublisherId(), "publisherId");
@@ -46,8 +49,6 @@ public class LdPublisherDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUModule(), "UModule");
         setupEpg(_epgMap, new EpgUTimestamp(), "UTimestamp");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgPublisherId implements PropertyGateway {
         public Object read(Entity et) { return ((LdPublisher)et).getPublisherId(); }
         public void write(Entity et, Object vl) { ((LdPublisher)et).setPublisherId(cti(vl)); }
@@ -80,6 +81,8 @@ public class LdPublisherDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdPublisher)et).getUTimestamp(); }
         public void write(Entity et, Object vl) { ((LdPublisher)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -95,22 +98,54 @@ public class LdPublisherDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnPublisherId = cci("PUBLISHER_ID", "PUBLISHER_ID", null, null, true, "publisherId", Integer.class, true, true, "INTEGER", 10, 0, "GENERATED_BY_DEFAULT", false, null, null, null, "bookList", null);
-    protected final ColumnInfo _columnPublisherName = cci("PUBLISHER_NAME", "PUBLISHER_NAME", null, null, true, "publisherName", String.class, false, false, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, true, "RUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, true, "RModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, true, "RTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, true, "UUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, true, "UModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, true, "UTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
+    protected final ColumnInfo _columnPublisherId = cci("PUBLISHER_ID", "PUBLISHER_ID", null, null, Integer.class, "publisherId", null, true, true, true, "INTEGER", 10, 0, "GENERATED_BY_DEFAULT", false, null, null, null, "bookList", null);
+    protected final ColumnInfo _columnPublisherName = cci("PUBLISHER_NAME", "PUBLISHER_NAME", null, null, String.class, "publisherName", null, false, false, true, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, String.class, "RUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, String.class, "RModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, java.sql.Timestamp.class, "RTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, String.class, "UUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, String.class, "UModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, java.sql.Timestamp.class, "UTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
 
+    /**
+     * PUBLISHER_ID: {PK, ID, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnPublisherId() { return _columnPublisherId; }
+    /**
+     * PUBLISHER_NAME: {NotNull, VARCHAR(80)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnPublisherName() { return _columnPublisherName; }
+    /**
+     * R_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRUser() { return _columnRUser; }
+    /**
+     * R_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRModule() { return _columnRModule; }
+    /**
+     * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRTimestamp() { return _columnRTimestamp; }
+    /**
+     * U_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUUser() { return _columnUUser; }
+    /**
+     * U_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUModule() { return _columnUModule; }
+    /**
+     * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUTimestamp() { return _columnUTimestamp; }
 
     protected List<ColumnInfo> ccil() {
@@ -141,6 +176,8 @@ public class LdPublisherDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
@@ -148,6 +185,10 @@ public class LdPublisherDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * BOOK by PUBLISHER_ID, named 'bookList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerBookList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnPublisherId(), LdBookDbm.getInstance().columnPublisherId());
         return cri("FK_BOOK_PUBLISHER", "bookList", this, LdBookDbm.getInstance(), mp, false, "publisher");

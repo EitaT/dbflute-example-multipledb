@@ -78,10 +78,14 @@ public class MbBsProductCategoryCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param productCategoryCode : PK, NotNull, CHAR(3). (NotNull)
+     */
     public void acceptPrimaryKey(String productCategoryCode) {
         assertObjectNotNull("productCategoryCode", productCategoryCode);
         MbBsProductCategoryCB cb = this;
-        cb.query().setProductCategoryCode_Equal(productCategoryCode);
+        cb.query().setProductCategoryCode_Equal(productCategoryCode);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -492,6 +496,11 @@ public class MbBsProductCategoryCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<MbProductCategoryCB> orQuery) {
         xorSQ((MbProductCategoryCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

@@ -171,7 +171,7 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
      * </pre>
      * @param cb The condition-bean of LdLendingCollection. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,45 +192,48 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
 
     /**
      * Select the entity by the primary-key value.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param lbUserId The one of primary key. (NotNull)
-     * @param lendingDate The one of primary key. (NotNull)
-     * @param collectionId The one of primary key. (NotNull)
+     * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LENDING. (NotNull)
+     * @param lbUserId : PK, NotNull, INTEGER(10), FK to LENDING. (NotNull)
+     * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6), FK to LENDING. (NotNull)
+     * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLendingCollection selectByPKValue(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId) {
-        return doSelectByPKValue(libraryId, lbUserId, lendingDate, collectionId, LdLendingCollection.class);
+        return doSelectByPK(libraryId, lbUserId, lendingDate, collectionId, LdLendingCollection.class);
     }
 
-    protected <ENTITY extends LdLendingCollection> ENTITY doSelectByPKValue(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(libraryId, lbUserId, lendingDate, collectionId), entityType);
+    protected <ENTITY extends LdLendingCollection> ENTITY doSelectByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(libraryId, lbUserId, lendingDate, collectionId), entityType);
+    }
+
+    protected <ENTITY extends LdLendingCollection> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(libraryId, lbUserId, lendingDate, collectionId, entityType), libraryId, lbUserId, lendingDate, collectionId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param lbUserId The one of primary key. (NotNull)
-     * @param lendingDate The one of primary key. (NotNull)
-     * @param collectionId The one of primary key. (NotNull)
+     * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LENDING. (NotNull)
+     * @param lbUserId : PK, NotNull, INTEGER(10), FK to LENDING. (NotNull)
+     * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6), FK to LENDING. (NotNull)
+     * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLendingCollection selectByPKValueWithDeletedCheck(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId) {
-        return doSelectByPKValueWithDeletedCheck(libraryId, lbUserId, lendingDate, collectionId, LdLendingCollection.class);
+        return doSelectByPKWithDeletedCheck(libraryId, lbUserId, lendingDate, collectionId, LdLendingCollection.class);
     }
 
-    protected <ENTITY extends LdLendingCollection> ENTITY doSelectByPKValueWithDeletedCheck(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(libraryId, lbUserId, lendingDate, collectionId), entityType);
+    protected <ENTITY extends LdLendingCollection> ENTITY doSelectByPKWithDeletedCheck(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(libraryId, lbUserId, lendingDate, collectionId), entityType);
     }
 
-    private LdLendingCollectionCB buildPKCB(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId) {
+    protected LdLendingCollectionCB xprepareCBAsPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);assertObjectNotNull("lendingDate", lendingDate);assertObjectNotNull("collectionId", collectionId);
-        LdLendingCollectionCB cb = newMyConditionBean();
-        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);cb.query().setLendingDate_Equal(lendingDate);cb.query().setCollectionId_Equal(collectionId);
+        LdLendingCollectionCB cb = newMyConditionBean(); cb.acceptPrimaryKey(libraryId, lbUserId, lendingDate, collectionId);
         return cb;
     }
 
@@ -395,7 +398,8 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
      */
     public List<LdCollection> pulloutCollection(List<LdLendingCollection> lendingCollectionList) {
         return helpPulloutInternally(lendingCollectionList, new InternalPulloutCallback<LdLendingCollection, LdCollection>() {
-            public LdCollection getFr(LdLendingCollection et) { return et.getCollection(); }
+            public LdCollection getFr(LdLendingCollection et)
+            { return et.getCollection(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdCollection et, List<LdLendingCollection> ls)
             { et.setLendingCollectionList(ls); }
@@ -408,7 +412,8 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
      */
     public List<LdLending> pulloutLending(List<LdLendingCollection> lendingCollectionList) {
         return helpPulloutInternally(lendingCollectionList, new InternalPulloutCallback<LdLendingCollection, LdLending>() {
-            public LdLending getFr(LdLendingCollection et) { return et.getLending(); }
+            public LdLending getFr(LdLendingCollection et)
+            { return et.getLending(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLending et, List<LdLendingCollection> ls)
             { et.setLendingCollectionList(ls); }
@@ -421,7 +426,8 @@ public abstract class LdBsLendingCollectionBhv extends AbstractBehaviorWritable 
      */
     public List<LdLibraryUser> pulloutLibraryUser(List<LdLendingCollection> lendingCollectionList) {
         return helpPulloutInternally(lendingCollectionList, new InternalPulloutCallback<LdLendingCollection, LdLibraryUser>() {
-            public LdLibraryUser getFr(LdLendingCollection et) { return et.getLibraryUser(); }
+            public LdLibraryUser getFr(LdLendingCollection et)
+            { return et.getLibraryUser(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLibraryUser et, List<LdLendingCollection> ls)
             { et.setLendingCollectionList(ls); }

@@ -3,6 +3,8 @@ package com.example.dbflute.multipledb.seasar.dbflute.memberdb.cbean.cq.bs;
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -24,8 +26,8 @@ public class MbBsMemberAddressCQ extends MbAbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbBsMemberAddressCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public MbBsMemberAddressCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -118,14 +120,14 @@ public class MbBsMemberAddressCQ extends MbAbstractBsMemberAddressCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public MbBsMemberAddressCQ addOrderBy_MemberId_Asc() { regOBA("MEMBER_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * MEMBER_ID: {UQ, IX, NotNull, INTEGER(10), FK to MEMBER}
+     * MEMBER_ID: {UQ+, IX, NotNull, INTEGER(10), FK to MEMBER}
      * @return this. (NotNull)
      */
     public MbBsMemberAddressCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
@@ -139,14 +141,14 @@ public class MbBsMemberAddressCQ extends MbAbstractBsMemberAddressCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
      * @return this. (NotNull)
      */
     public MbBsMemberAddressCQ addOrderBy_ValidBeginDate_Asc() { regOBA("VALID_BEGIN_DATE"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * VALID_BEGIN_DATE: {UQ+, NotNull, DATE(8)}
+     * VALID_BEGIN_DATE: {+UQ, NotNull, DATE(8)}
      * @return this. (NotNull)
      */
     public MbBsMemberAddressCQ addOrderBy_ValidBeginDate_Desc() { regOBD("VALID_BEGIN_DATE"); return this; }
@@ -375,7 +377,7 @@ public class MbBsMemberAddressCQ extends MbAbstractBsMemberAddressCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         MbMemberAddressCQ bq = (MbMemberAddressCQ)bqs;
         MbMemberAddressCQ uq = (MbMemberAddressCQ)uqs;
         if (bq.hasConditionQueryMember()) {
@@ -526,5 +528,7 @@ public class MbBsMemberAddressCQ extends MbAbstractBsMemberAddressCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return MbMemberAddressCB.class.getName(); }
     protected String xCQ() { return MbMemberAddressCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

@@ -171,7 +171,7 @@ public abstract class LdBsNextLibraryBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdNextLibrary. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,41 +192,44 @@ public abstract class LdBsNextLibraryBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param nextLibraryId The one of primary key. (NotNull)
+     * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param nextLibraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdNextLibrary selectByPKValue(Integer libraryId, Integer nextLibraryId) {
-        return doSelectByPKValue(libraryId, nextLibraryId, LdNextLibrary.class);
+        return doSelectByPK(libraryId, nextLibraryId, LdNextLibrary.class);
     }
 
-    protected <ENTITY extends LdNextLibrary> ENTITY doSelectByPKValue(Integer libraryId, Integer nextLibraryId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(libraryId, nextLibraryId), entityType);
+    protected <ENTITY extends LdNextLibrary> ENTITY doSelectByPK(Integer libraryId, Integer nextLibraryId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(libraryId, nextLibraryId), entityType);
+    }
+
+    protected <ENTITY extends LdNextLibrary> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer libraryId, Integer nextLibraryId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(libraryId, nextLibraryId, entityType), libraryId, nextLibraryId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param nextLibraryId The one of primary key. (NotNull)
+     * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param nextLibraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdNextLibrary selectByPKValueWithDeletedCheck(Integer libraryId, Integer nextLibraryId) {
-        return doSelectByPKValueWithDeletedCheck(libraryId, nextLibraryId, LdNextLibrary.class);
+        return doSelectByPKWithDeletedCheck(libraryId, nextLibraryId, LdNextLibrary.class);
     }
 
-    protected <ENTITY extends LdNextLibrary> ENTITY doSelectByPKValueWithDeletedCheck(Integer libraryId, Integer nextLibraryId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(libraryId, nextLibraryId), entityType);
+    protected <ENTITY extends LdNextLibrary> ENTITY doSelectByPKWithDeletedCheck(Integer libraryId, Integer nextLibraryId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(libraryId, nextLibraryId), entityType);
     }
 
-    private LdNextLibraryCB buildPKCB(Integer libraryId, Integer nextLibraryId) {
+    protected LdNextLibraryCB xprepareCBAsPK(Integer libraryId, Integer nextLibraryId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("nextLibraryId", nextLibraryId);
-        LdNextLibraryCB cb = newMyConditionBean();
-        cb.query().setLibraryId_Equal(libraryId);cb.query().setNextLibraryId_Equal(nextLibraryId);
+        LdNextLibraryCB cb = newMyConditionBean(); cb.acceptPrimaryKey(libraryId, nextLibraryId);
         return cb;
     }
 
@@ -391,7 +394,8 @@ public abstract class LdBsNextLibraryBhv extends AbstractBehaviorWritable {
      */
     public List<LdLibrary> pulloutLibraryByLibraryId(List<LdNextLibrary> nextLibraryList) {
         return helpPulloutInternally(nextLibraryList, new InternalPulloutCallback<LdNextLibrary, LdLibrary>() {
-            public LdLibrary getFr(LdNextLibrary et) { return et.getLibraryByLibraryId(); }
+            public LdLibrary getFr(LdNextLibrary et)
+            { return et.getLibraryByLibraryId(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLibrary et, List<LdNextLibrary> ls)
             { et.setNextLibraryByLibraryIdList(ls); }
@@ -404,7 +408,8 @@ public abstract class LdBsNextLibraryBhv extends AbstractBehaviorWritable {
      */
     public List<LdLibrary> pulloutLibraryByNextLibraryId(List<LdNextLibrary> nextLibraryList) {
         return helpPulloutInternally(nextLibraryList, new InternalPulloutCallback<LdNextLibrary, LdLibrary>() {
-            public LdLibrary getFr(LdNextLibrary et) { return et.getLibraryByNextLibraryId(); }
+            public LdLibrary getFr(LdNextLibrary et)
+            { return et.getLibraryByNextLibraryId(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLibrary et, List<LdNextLibrary> ls)
             { et.setNextLibraryByNextLibraryIdList(ls); }

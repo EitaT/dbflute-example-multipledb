@@ -24,8 +24,8 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsLibraryTypeLookupCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsLibraryTypeLookupCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -250,7 +250,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     public abstract String keepLibraryTypeCode_SpecifyDerivedReferrer_LibraryList(LdLibraryCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from LIBRARY where ...)} <br />
      * LIBRARY by LIBRARY_TYPE_CODE, named 'libraryAsOne'.
      * <pre>
@@ -1267,7 +1267,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     public abstract String keepSpecifyMyselfDerived(LdLibraryTypeLookupCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdLibraryTypeLookupCB> myselfDerived() {
@@ -1289,8 +1289,8 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<LdLibraryTypeLookupCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -1305,8 +1305,8 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdLibraryTypeLookupCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

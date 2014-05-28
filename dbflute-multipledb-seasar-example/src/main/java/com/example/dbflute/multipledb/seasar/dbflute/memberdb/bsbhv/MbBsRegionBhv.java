@@ -169,7 +169,7 @@ public abstract class MbBsRegionBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbRegion. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,42 @@ public abstract class MbBsRegionBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param regionId The one of primary key. (NotNull)
+     * @param regionId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbRegion selectByPKValue(Integer regionId) {
-        return doSelectByPKValue(regionId, MbRegion.class);
+        return doSelectByPK(regionId, MbRegion.class);
     }
 
-    protected <ENTITY extends MbRegion> ENTITY doSelectByPKValue(Integer regionId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(regionId), entityType);
+    protected <ENTITY extends MbRegion> ENTITY doSelectByPK(Integer regionId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(regionId), entityType);
+    }
+
+    protected <ENTITY extends MbRegion> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer regionId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(regionId, entityType), regionId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param regionId The one of primary key. (NotNull)
+     * @param regionId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbRegion selectByPKValueWithDeletedCheck(Integer regionId) {
-        return doSelectByPKValueWithDeletedCheck(regionId, MbRegion.class);
+        return doSelectByPKWithDeletedCheck(regionId, MbRegion.class);
     }
 
-    protected <ENTITY extends MbRegion> ENTITY doSelectByPKValueWithDeletedCheck(Integer regionId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(regionId), entityType);
+    protected <ENTITY extends MbRegion> ENTITY doSelectByPKWithDeletedCheck(Integer regionId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(regionId), entityType);
     }
 
-    private MbRegionCB buildPKCB(Integer regionId) {
+    protected MbRegionCB xprepareCBAsPK(Integer regionId) {
         assertObjectNotNull("regionId", regionId);
-        MbRegionCB cb = newMyConditionBean();
-        cb.query().setRegionId_Equal(regionId);
+        MbRegionCB cb = newMyConditionBean(); cb.acceptPrimaryKey(regionId);
         return cb;
     }
 

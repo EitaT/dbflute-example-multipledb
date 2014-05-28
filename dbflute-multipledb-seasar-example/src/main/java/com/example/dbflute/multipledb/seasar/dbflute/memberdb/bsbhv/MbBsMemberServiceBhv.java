@@ -169,7 +169,7 @@ public abstract class MbBsMemberServiceBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbMemberService. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,64 @@ public abstract class MbBsMemberServiceBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberServiceId The one of primary key. (NotNull)
+     * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMemberService selectByPKValue(Integer memberServiceId) {
-        return doSelectByPKValue(memberServiceId, MbMemberService.class);
+        return doSelectByPK(memberServiceId, MbMemberService.class);
     }
 
-    protected <ENTITY extends MbMemberService> ENTITY doSelectByPKValue(Integer memberServiceId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberServiceId), entityType);
+    protected <ENTITY extends MbMemberService> ENTITY doSelectByPK(Integer memberServiceId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberServiceId), entityType);
+    }
+
+    protected <ENTITY extends MbMemberService> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberServiceId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberServiceId, entityType), memberServiceId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberServiceId The one of primary key. (NotNull)
+     * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMemberService selectByPKValueWithDeletedCheck(Integer memberServiceId) {
-        return doSelectByPKValueWithDeletedCheck(memberServiceId, MbMemberService.class);
+        return doSelectByPKWithDeletedCheck(memberServiceId, MbMemberService.class);
     }
 
-    protected <ENTITY extends MbMemberService> ENTITY doSelectByPKValueWithDeletedCheck(Integer memberServiceId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberServiceId), entityType);
+    protected <ENTITY extends MbMemberService> ENTITY doSelectByPKWithDeletedCheck(Integer memberServiceId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberServiceId), entityType);
     }
 
-    private MbMemberServiceCB buildPKCB(Integer memberServiceId) {
+    protected MbMemberServiceCB xprepareCBAsPK(Integer memberServiceId) {
         assertObjectNotNull("memberServiceId", memberServiceId);
-        MbMemberServiceCB cb = newMyConditionBean();
-        cb.query().setMemberServiceId_Equal(memberServiceId);
+        MbMemberServiceCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberServiceId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MbMemberService> selectByUniqueOf(Integer memberId) {
+        return doSelectByUniqueOf(memberId, MbMemberService.class);
+    }
+
+    protected <ENTITY extends MbMemberService> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId), entityType), memberId);
+    }
+
+    protected MbMemberServiceCB xprepareCBAsUniqueOf(Integer memberId) {
+        assertObjectNotNull("memberId", memberId);
+        MbMemberServiceCB cb = newMyConditionBean(); cb.acceptUniqueOf(memberId);
         return cb;
     }
 
@@ -387,7 +412,8 @@ public abstract class MbBsMemberServiceBhv extends AbstractBehaviorWritable {
      */
     public List<MbMember> pulloutMember(List<MbMemberService> memberServiceList) {
         return helpPulloutInternally(memberServiceList, new InternalPulloutCallback<MbMemberService, MbMember>() {
-            public MbMember getFr(MbMemberService et) { return et.getMember(); }
+            public MbMember getFr(MbMemberService et)
+            { return et.getMember(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMember et, List<MbMemberService> ls)
             { if (!ls.isEmpty()) { et.setMemberServiceAsOne(ls.get(0)); } }
@@ -400,7 +426,8 @@ public abstract class MbBsMemberServiceBhv extends AbstractBehaviorWritable {
      */
     public List<MbServiceRank> pulloutServiceRank(List<MbMemberService> memberServiceList) {
         return helpPulloutInternally(memberServiceList, new InternalPulloutCallback<MbMemberService, MbServiceRank>() {
-            public MbServiceRank getFr(MbMemberService et) { return et.getServiceRank(); }
+            public MbServiceRank getFr(MbMemberService et)
+            { return et.getServiceRank(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbServiceRank et, List<MbMemberService> ls)
             { et.setMemberServiceList(ls); }

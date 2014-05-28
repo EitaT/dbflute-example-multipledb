@@ -171,7 +171,7 @@ public abstract class LdBsMyselfBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdMyself. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsMyselfBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param myselfId The one of primary key. (NotNull)
+     * @param myselfId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdMyself selectByPKValue(Integer myselfId) {
-        return doSelectByPKValue(myselfId, LdMyself.class);
+        return doSelectByPK(myselfId, LdMyself.class);
     }
 
-    protected <ENTITY extends LdMyself> ENTITY doSelectByPKValue(Integer myselfId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(myselfId), entityType);
+    protected <ENTITY extends LdMyself> ENTITY doSelectByPK(Integer myselfId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(myselfId), entityType);
+    }
+
+    protected <ENTITY extends LdMyself> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer myselfId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(myselfId, entityType), myselfId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param myselfId The one of primary key. (NotNull)
+     * @param myselfId : PK, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdMyself selectByPKValueWithDeletedCheck(Integer myselfId) {
-        return doSelectByPKValueWithDeletedCheck(myselfId, LdMyself.class);
+        return doSelectByPKWithDeletedCheck(myselfId, LdMyself.class);
     }
 
-    protected <ENTITY extends LdMyself> ENTITY doSelectByPKValueWithDeletedCheck(Integer myselfId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(myselfId), entityType);
+    protected <ENTITY extends LdMyself> ENTITY doSelectByPKWithDeletedCheck(Integer myselfId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(myselfId), entityType);
     }
 
-    private LdMyselfCB buildPKCB(Integer myselfId) {
+    protected LdMyselfCB xprepareCBAsPK(Integer myselfId) {
         assertObjectNotNull("myselfId", myselfId);
-        LdMyselfCB cb = newMyConditionBean();
-        cb.query().setMyselfId_Equal(myselfId);
+        LdMyselfCB cb = newMyConditionBean(); cb.acceptPrimaryKey(myselfId);
         return cb;
     }
 

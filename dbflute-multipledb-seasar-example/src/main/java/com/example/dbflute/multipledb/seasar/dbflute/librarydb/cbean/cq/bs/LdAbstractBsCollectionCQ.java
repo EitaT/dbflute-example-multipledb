@@ -24,8 +24,8 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsCollectionCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsCollectionCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -306,7 +306,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     public abstract String keepCollectionId_SpecifyDerivedReferrer_LendingCollectionList(LdLendingCollectionCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from LENDING_COLLECTION where ...)} <br />
      * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionAsOne'.
      * <pre>
@@ -356,7 +356,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as equal. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_Equal(Integer libraryId) {
@@ -369,7 +369,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_NotEqual(Integer libraryId) {
@@ -382,7 +382,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterThan(Integer libraryId) {
@@ -391,7 +391,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessThan(Integer libraryId) {
@@ -400,7 +400,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterEqual(Integer libraryId) {
@@ -409,7 +409,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryId The value of libraryId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessEqual(Integer libraryId) {
@@ -420,7 +420,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param minNumber The min number of libraryId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of libraryId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -431,7 +431,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryIdList The collection of libraryId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_InScope(Collection<Integer> libraryIdList) {
@@ -444,7 +444,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @param libraryIdList The collection of libraryId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_NotInScope(Collection<Integer> libraryIdList) {
@@ -490,7 +490,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookId The value of bookId as equal. (NullAllowed: if null, no condition)
      */
     public void setBookId_Equal(Integer bookId) {
@@ -503,7 +503,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookId The value of bookId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setBookId_NotEqual(Integer bookId) {
@@ -516,7 +516,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookId The value of bookId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setBookId_GreaterThan(Integer bookId) {
@@ -525,7 +525,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookId The value of bookId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setBookId_LessThan(Integer bookId) {
@@ -534,7 +534,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookId The value of bookId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setBookId_GreaterEqual(Integer bookId) {
@@ -543,7 +543,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookId The value of bookId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setBookId_LessEqual(Integer bookId) {
@@ -554,7 +554,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param minNumber The min number of bookId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of bookId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -565,7 +565,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookIdList The collection of bookId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setBookId_InScope(Collection<Integer> bookIdList) {
@@ -578,7 +578,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
      * @param bookIdList The collection of bookId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setBookId_NotInScope(Collection<Integer> bookIdList) {
@@ -1590,7 +1590,7 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(LdCollectionCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdCollectionCB> myselfDerived() {
@@ -1612,8 +1612,8 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<LdCollectionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -1628,8 +1628,8 @@ public abstract class LdAbstractBsCollectionCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdCollectionCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

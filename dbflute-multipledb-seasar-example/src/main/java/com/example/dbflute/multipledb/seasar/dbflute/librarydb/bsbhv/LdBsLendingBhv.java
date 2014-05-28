@@ -171,7 +171,7 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdLending. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,43 +192,46 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param lbUserId The one of primary key. (NotNull)
-     * @param lendingDate The one of primary key. (NotNull)
+     * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER. (NotNull)
+     * @param lbUserId : PK, NotNull, INTEGER(10), FK to LIBRARY_USER. (NotNull)
+     * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLending selectByPKValue(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate) {
-        return doSelectByPKValue(libraryId, lbUserId, lendingDate, LdLending.class);
+        return doSelectByPK(libraryId, lbUserId, lendingDate, LdLending.class);
     }
 
-    protected <ENTITY extends LdLending> ENTITY doSelectByPKValue(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(libraryId, lbUserId, lendingDate), entityType);
+    protected <ENTITY extends LdLending> ENTITY doSelectByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(libraryId, lbUserId, lendingDate), entityType);
+    }
+
+    protected <ENTITY extends LdLending> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(libraryId, lbUserId, lendingDate, entityType), libraryId, lbUserId, lendingDate);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param lbUserId The one of primary key. (NotNull)
-     * @param lendingDate The one of primary key. (NotNull)
+     * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER. (NotNull)
+     * @param lbUserId : PK, NotNull, INTEGER(10), FK to LIBRARY_USER. (NotNull)
+     * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLending selectByPKValueWithDeletedCheck(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate) {
-        return doSelectByPKValueWithDeletedCheck(libraryId, lbUserId, lendingDate, LdLending.class);
+        return doSelectByPKWithDeletedCheck(libraryId, lbUserId, lendingDate, LdLending.class);
     }
 
-    protected <ENTITY extends LdLending> ENTITY doSelectByPKValueWithDeletedCheck(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(libraryId, lbUserId, lendingDate), entityType);
+    protected <ENTITY extends LdLending> ENTITY doSelectByPKWithDeletedCheck(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(libraryId, lbUserId, lendingDate), entityType);
     }
 
-    private LdLendingCB buildPKCB(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate) {
+    protected LdLendingCB xprepareCBAsPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);assertObjectNotNull("lendingDate", lendingDate);
-        LdLendingCB cb = newMyConditionBean();
-        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);cb.query().setLendingDate_Equal(lendingDate);
+        LdLendingCB cb = newMyConditionBean(); cb.acceptPrimaryKey(libraryId, lbUserId, lendingDate);
         return cb;
     }
 
@@ -525,7 +528,8 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
                 foreignKeyMap.put("LendingDate", re.getLendingDate());
                 return foreignKeyMap;
             }
-            public void setlcEt(LdLendingCollection re, LdLending le) { re.setLending(le); }
+            public void setlcEt(LdLendingCollection re, LdLending le)
+            { re.setLending(le); }
             public String getRfPrNm() { return "lendingCollectionList"; }
         });
     }
@@ -540,7 +544,8 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
      */
     public List<LdLibraryUser> pulloutLibraryUser(List<LdLending> lendingList) {
         return helpPulloutInternally(lendingList, new InternalPulloutCallback<LdLending, LdLibraryUser>() {
-            public LdLibraryUser getFr(LdLending et) { return et.getLibraryUser(); }
+            public LdLibraryUser getFr(LdLending et)
+            { return et.getLibraryUser(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLibraryUser et, List<LdLending> ls)
             { et.setLendingList(ls); }

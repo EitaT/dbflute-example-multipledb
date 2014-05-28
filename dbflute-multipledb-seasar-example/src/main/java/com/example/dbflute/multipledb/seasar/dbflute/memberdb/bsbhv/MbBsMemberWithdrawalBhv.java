@@ -169,7 +169,7 @@ public abstract class MbBsMemberWithdrawalBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbMemberWithdrawal. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,42 @@ public abstract class MbBsMemberWithdrawalBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId : PK, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMemberWithdrawal selectByPKValue(Integer memberId) {
-        return doSelectByPKValue(memberId, MbMemberWithdrawal.class);
+        return doSelectByPK(memberId, MbMemberWithdrawal.class);
     }
 
-    protected <ENTITY extends MbMemberWithdrawal> ENTITY doSelectByPKValue(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(memberId), entityType);
+    protected <ENTITY extends MbMemberWithdrawal> ENTITY doSelectByPK(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(memberId), entityType);
+    }
+
+    protected <ENTITY extends MbMemberWithdrawal> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer memberId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(memberId, entityType), memberId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param memberId The one of primary key. (NotNull)
+     * @param memberId : PK, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbMemberWithdrawal selectByPKValueWithDeletedCheck(Integer memberId) {
-        return doSelectByPKValueWithDeletedCheck(memberId, MbMemberWithdrawal.class);
+        return doSelectByPKWithDeletedCheck(memberId, MbMemberWithdrawal.class);
     }
 
-    protected <ENTITY extends MbMemberWithdrawal> ENTITY doSelectByPKValueWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(memberId), entityType);
+    protected <ENTITY extends MbMemberWithdrawal> ENTITY doSelectByPKWithDeletedCheck(Integer memberId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(memberId), entityType);
     }
 
-    private MbMemberWithdrawalCB buildPKCB(Integer memberId) {
+    protected MbMemberWithdrawalCB xprepareCBAsPK(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
-        MbMemberWithdrawalCB cb = newMyConditionBean();
-        cb.query().setMemberId_Equal(memberId);
+        MbMemberWithdrawalCB cb = newMyConditionBean(); cb.acceptPrimaryKey(memberId);
         return cb;
     }
 
@@ -387,7 +390,8 @@ public abstract class MbBsMemberWithdrawalBhv extends AbstractBehaviorWritable {
      */
     public List<MbMember> pulloutMember(List<MbMemberWithdrawal> memberWithdrawalList) {
         return helpPulloutInternally(memberWithdrawalList, new InternalPulloutCallback<MbMemberWithdrawal, MbMember>() {
-            public MbMember getFr(MbMemberWithdrawal et) { return et.getMember(); }
+            public MbMember getFr(MbMemberWithdrawal et)
+            { return et.getMember(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMember et, List<MbMemberWithdrawal> ls)
             { if (!ls.isEmpty()) { et.setMemberWithdrawalAsOne(ls.get(0)); } }
@@ -400,7 +404,8 @@ public abstract class MbBsMemberWithdrawalBhv extends AbstractBehaviorWritable {
      */
     public List<MbWithdrawalReason> pulloutWithdrawalReason(List<MbMemberWithdrawal> memberWithdrawalList) {
         return helpPulloutInternally(memberWithdrawalList, new InternalPulloutCallback<MbMemberWithdrawal, MbWithdrawalReason>() {
-            public MbWithdrawalReason getFr(MbMemberWithdrawal et) { return et.getWithdrawalReason(); }
+            public MbWithdrawalReason getFr(MbMemberWithdrawal et)
+            { return et.getWithdrawalReason(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbWithdrawalReason et, List<MbMemberWithdrawal> ls)
             { et.setMemberWithdrawalList(ls); }

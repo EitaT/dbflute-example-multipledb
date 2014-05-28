@@ -171,7 +171,7 @@ public abstract class LdBsVendorConstraintNameAutoRefBhv extends AbstractBehavio
      * </pre>
      * @param cb The condition-bean of LdVendorConstraintNameAutoRef. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,64 @@ public abstract class LdBsVendorConstraintNameAutoRefBhv extends AbstractBehavio
 
     /**
      * Select the entity by the primary-key value.
-     * @param constraintNameAutoRefId The one of primary key. (NotNull)
+     * @param constraintNameAutoRefId : PK, NotNull, NUMERIC(16). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdVendorConstraintNameAutoRef selectByPKValue(java.math.BigDecimal constraintNameAutoRefId) {
-        return doSelectByPKValue(constraintNameAutoRefId, LdVendorConstraintNameAutoRef.class);
+        return doSelectByPK(constraintNameAutoRefId, LdVendorConstraintNameAutoRef.class);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoRef> ENTITY doSelectByPKValue(java.math.BigDecimal constraintNameAutoRefId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(constraintNameAutoRefId), entityType);
+    protected <ENTITY extends LdVendorConstraintNameAutoRef> ENTITY doSelectByPK(java.math.BigDecimal constraintNameAutoRefId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(constraintNameAutoRefId), entityType);
+    }
+
+    protected <ENTITY extends LdVendorConstraintNameAutoRef> OptionalEntity<ENTITY> doSelectOptionalByPK(java.math.BigDecimal constraintNameAutoRefId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(constraintNameAutoRefId, entityType), constraintNameAutoRefId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param constraintNameAutoRefId The one of primary key. (NotNull)
+     * @param constraintNameAutoRefId : PK, NotNull, NUMERIC(16). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdVendorConstraintNameAutoRef selectByPKValueWithDeletedCheck(java.math.BigDecimal constraintNameAutoRefId) {
-        return doSelectByPKValueWithDeletedCheck(constraintNameAutoRefId, LdVendorConstraintNameAutoRef.class);
+        return doSelectByPKWithDeletedCheck(constraintNameAutoRefId, LdVendorConstraintNameAutoRef.class);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoRef> ENTITY doSelectByPKValueWithDeletedCheck(java.math.BigDecimal constraintNameAutoRefId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(constraintNameAutoRefId), entityType);
+    protected <ENTITY extends LdVendorConstraintNameAutoRef> ENTITY doSelectByPKWithDeletedCheck(java.math.BigDecimal constraintNameAutoRefId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(constraintNameAutoRefId), entityType);
     }
 
-    private LdVendorConstraintNameAutoRefCB buildPKCB(java.math.BigDecimal constraintNameAutoRefId) {
+    protected LdVendorConstraintNameAutoRefCB xprepareCBAsPK(java.math.BigDecimal constraintNameAutoRefId) {
         assertObjectNotNull("constraintNameAutoRefId", constraintNameAutoRefId);
-        LdVendorConstraintNameAutoRefCB cb = newMyConditionBean();
-        cb.query().setConstraintNameAutoRefId_Equal(constraintNameAutoRefId);
+        LdVendorConstraintNameAutoRefCB cb = newMyConditionBean(); cb.acceptPrimaryKey(constraintNameAutoRefId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param constraintNameAutoUnique : UQ, NotNull, VARCHAR(50). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<LdVendorConstraintNameAutoRef> selectByUniqueOf(String constraintNameAutoUnique) {
+        return doSelectByUniqueOf(constraintNameAutoUnique, LdVendorConstraintNameAutoRef.class);
+    }
+
+    protected <ENTITY extends LdVendorConstraintNameAutoRef> OptionalEntity<ENTITY> doSelectByUniqueOf(String constraintNameAutoUnique, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(constraintNameAutoUnique), entityType), constraintNameAutoUnique);
+    }
+
+    protected LdVendorConstraintNameAutoRefCB xprepareCBAsUniqueOf(String constraintNameAutoUnique) {
+        assertObjectNotNull("constraintNameAutoUnique", constraintNameAutoUnique);
+        LdVendorConstraintNameAutoRefCB cb = newMyConditionBean(); cb.acceptUniqueOf(constraintNameAutoUnique);
         return cb;
     }
 
@@ -389,7 +414,8 @@ public abstract class LdBsVendorConstraintNameAutoRefBhv extends AbstractBehavio
      */
     public List<LdVendorConstraintNameAutoFoo> pulloutVendorConstraintNameAutoFoo(List<LdVendorConstraintNameAutoRef> vendorConstraintNameAutoRefList) {
         return helpPulloutInternally(vendorConstraintNameAutoRefList, new InternalPulloutCallback<LdVendorConstraintNameAutoRef, LdVendorConstraintNameAutoFoo>() {
-            public LdVendorConstraintNameAutoFoo getFr(LdVendorConstraintNameAutoRef et) { return et.getVendorConstraintNameAutoFoo(); }
+            public LdVendorConstraintNameAutoFoo getFr(LdVendorConstraintNameAutoRef et)
+            { return et.getVendorConstraintNameAutoFoo(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdVendorConstraintNameAutoFoo et, List<LdVendorConstraintNameAutoRef> ls)
             { et.setVendorConstraintNameAutoRefList(ls); }
@@ -402,7 +428,8 @@ public abstract class LdBsVendorConstraintNameAutoRefBhv extends AbstractBehavio
      */
     public List<LdVendorConstraintNameAutoBar> pulloutVendorConstraintNameAutoBar(List<LdVendorConstraintNameAutoRef> vendorConstraintNameAutoRefList) {
         return helpPulloutInternally(vendorConstraintNameAutoRefList, new InternalPulloutCallback<LdVendorConstraintNameAutoRef, LdVendorConstraintNameAutoBar>() {
-            public LdVendorConstraintNameAutoBar getFr(LdVendorConstraintNameAutoRef et) { return et.getVendorConstraintNameAutoBar(); }
+            public LdVendorConstraintNameAutoBar getFr(LdVendorConstraintNameAutoRef et)
+            { return et.getVendorConstraintNameAutoBar(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdVendorConstraintNameAutoBar et, List<LdVendorConstraintNameAutoRef> ls)
             { et.setVendorConstraintNameAutoRefList(ls); }
@@ -415,7 +442,8 @@ public abstract class LdBsVendorConstraintNameAutoRefBhv extends AbstractBehavio
      */
     public List<LdVendorConstraintNameAutoQux> pulloutVendorConstraintNameAutoQux(List<LdVendorConstraintNameAutoRef> vendorConstraintNameAutoRefList) {
         return helpPulloutInternally(vendorConstraintNameAutoRefList, new InternalPulloutCallback<LdVendorConstraintNameAutoRef, LdVendorConstraintNameAutoQux>() {
-            public LdVendorConstraintNameAutoQux getFr(LdVendorConstraintNameAutoRef et) { return et.getVendorConstraintNameAutoQux(); }
+            public LdVendorConstraintNameAutoQux getFr(LdVendorConstraintNameAutoRef et)
+            { return et.getVendorConstraintNameAutoQux(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdVendorConstraintNameAutoQux et, List<LdVendorConstraintNameAutoRef> ls)
             { et.setVendorConstraintNameAutoRefList(ls); }

@@ -171,7 +171,7 @@ public abstract class LdBsLbUserBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdLbUser. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsLbUserBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param lbUserId The one of primary key. (NotNull)
+     * @param lbUserId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLbUser selectByPKValue(Integer lbUserId) {
-        return doSelectByPKValue(lbUserId, LdLbUser.class);
+        return doSelectByPK(lbUserId, LdLbUser.class);
     }
 
-    protected <ENTITY extends LdLbUser> ENTITY doSelectByPKValue(Integer lbUserId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(lbUserId), entityType);
+    protected <ENTITY extends LdLbUser> ENTITY doSelectByPK(Integer lbUserId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(lbUserId), entityType);
+    }
+
+    protected <ENTITY extends LdLbUser> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer lbUserId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(lbUserId, entityType), lbUserId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param lbUserId The one of primary key. (NotNull)
+     * @param lbUserId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLbUser selectByPKValueWithDeletedCheck(Integer lbUserId) {
-        return doSelectByPKValueWithDeletedCheck(lbUserId, LdLbUser.class);
+        return doSelectByPKWithDeletedCheck(lbUserId, LdLbUser.class);
     }
 
-    protected <ENTITY extends LdLbUser> ENTITY doSelectByPKValueWithDeletedCheck(Integer lbUserId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(lbUserId), entityType);
+    protected <ENTITY extends LdLbUser> ENTITY doSelectByPKWithDeletedCheck(Integer lbUserId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(lbUserId), entityType);
     }
 
-    private LdLbUserCB buildPKCB(Integer lbUserId) {
+    protected LdLbUserCB xprepareCBAsPK(Integer lbUserId) {
         assertObjectNotNull("lbUserId", lbUserId);
-        LdLbUserCB cb = newMyConditionBean();
-        cb.query().setLbUserId_Equal(lbUserId);
+        LdLbUserCB cb = newMyConditionBean(); cb.acceptPrimaryKey(lbUserId);
         return cb;
     }
 
@@ -500,7 +503,8 @@ public abstract class LdBsLbUserBhv extends AbstractBehaviorWritable {
      */
     public List<LdBlackList> pulloutBlackListAsOne(List<LdLbUser> lbUserList) {
         return helpPulloutInternally(lbUserList, new InternalPulloutCallback<LdLbUser, LdBlackList>() {
-            public LdBlackList getFr(LdLbUser et) { return et.getBlackListAsOne(); }
+            public LdBlackList getFr(LdLbUser et)
+            { return et.getBlackListAsOne(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdBlackList et, List<LdLbUser> ls)
             { if (!ls.isEmpty()) { et.setLbUser(ls.get(0)); } }

@@ -169,7 +169,7 @@ public abstract class MbBsProductCategoryBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbProductCategory. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,42 @@ public abstract class MbBsProductCategoryBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param productCategoryCode The one of primary key. (NotNull)
+     * @param productCategoryCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbProductCategory selectByPKValue(String productCategoryCode) {
-        return doSelectByPKValue(productCategoryCode, MbProductCategory.class);
+        return doSelectByPK(productCategoryCode, MbProductCategory.class);
     }
 
-    protected <ENTITY extends MbProductCategory> ENTITY doSelectByPKValue(String productCategoryCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(productCategoryCode), entityType);
+    protected <ENTITY extends MbProductCategory> ENTITY doSelectByPK(String productCategoryCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(productCategoryCode), entityType);
+    }
+
+    protected <ENTITY extends MbProductCategory> OptionalEntity<ENTITY> doSelectOptionalByPK(String productCategoryCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(productCategoryCode, entityType), productCategoryCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param productCategoryCode The one of primary key. (NotNull)
+     * @param productCategoryCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbProductCategory selectByPKValueWithDeletedCheck(String productCategoryCode) {
-        return doSelectByPKValueWithDeletedCheck(productCategoryCode, MbProductCategory.class);
+        return doSelectByPKWithDeletedCheck(productCategoryCode, MbProductCategory.class);
     }
 
-    protected <ENTITY extends MbProductCategory> ENTITY doSelectByPKValueWithDeletedCheck(String productCategoryCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(productCategoryCode), entityType);
+    protected <ENTITY extends MbProductCategory> ENTITY doSelectByPKWithDeletedCheck(String productCategoryCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(productCategoryCode), entityType);
     }
 
-    private MbProductCategoryCB buildPKCB(String productCategoryCode) {
+    protected MbProductCategoryCB xprepareCBAsPK(String productCategoryCode) {
         assertObjectNotNull("productCategoryCode", productCategoryCode);
-        MbProductCategoryCB cb = newMyConditionBean();
-        cb.query().setProductCategoryCode_Equal(productCategoryCode);
+        MbProductCategoryCB cb = newMyConditionBean(); cb.acceptPrimaryKey(productCategoryCode);
         return cb;
     }
 
@@ -606,7 +609,8 @@ public abstract class MbBsProductCategoryBhv extends AbstractBehaviorWritable {
      */
     public List<MbProductCategory> pulloutProductCategorySelf(List<MbProductCategory> productCategoryList) {
         return helpPulloutInternally(productCategoryList, new InternalPulloutCallback<MbProductCategory, MbProductCategory>() {
-            public MbProductCategory getFr(MbProductCategory et) { return et.getProductCategorySelf(); }
+            public MbProductCategory getFr(MbProductCategory et)
+            { return et.getProductCategorySelf(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbProductCategory et, List<MbProductCategory> ls)
             { et.setProductCategorySelfList(ls); }

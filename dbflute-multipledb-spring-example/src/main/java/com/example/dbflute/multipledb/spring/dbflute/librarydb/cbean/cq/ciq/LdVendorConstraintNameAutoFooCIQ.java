@@ -27,9 +27,9 @@ public class LdVendorConstraintNameAutoFooCIQ extends LdAbstractBsVendorConstrai
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdVendorConstraintNameAutoFooCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public LdVendorConstraintNameAutoFooCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, LdBsVendorConstraintNameAutoFooCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

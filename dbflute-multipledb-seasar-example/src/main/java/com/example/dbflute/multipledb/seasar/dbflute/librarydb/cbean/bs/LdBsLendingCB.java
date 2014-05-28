@@ -80,10 +80,16 @@ public class LdBsLendingCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER. (NotNull)
+     * @param lbUserId : PK, NotNull, INTEGER(10), FK to LIBRARY_USER. (NotNull)
+     * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6). (NotNull)
+     */
     public void acceptPrimaryKey(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);assertObjectNotNull("lendingDate", lendingDate);
         LdBsLendingCB cb = this;
-        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);cb.query().setLendingDate_Equal(lendingDate);
+        cb.query().setLibraryId_Equal(libraryId);;cb.query().setLbUserId_Equal(lbUserId);;cb.query().setLendingDate_Equal(lendingDate);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -323,17 +329,17 @@ public class LdBsLendingCB extends AbstractConditionBean {
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider)
         { super(baseCB, qyCall, purpose, dbmetaProvider); }
         /**
-         * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+         * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLibraryId() { return doColumn("LIBRARY_ID"); }
         /**
-         * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+         * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLbUserId() { return doColumn("LB_USER_ID"); }
         /**
-         * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+         * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLendingDate() { return doColumn("LENDING_DATE"); }
@@ -473,6 +479,11 @@ public class LdBsLendingCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdLendingCB> orQuery) {
         xorSQ((LdLendingCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

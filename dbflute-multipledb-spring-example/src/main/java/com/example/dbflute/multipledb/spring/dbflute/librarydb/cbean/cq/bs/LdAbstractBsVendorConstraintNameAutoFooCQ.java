@@ -24,8 +24,8 @@ public abstract class LdAbstractBsVendorConstraintNameAutoFooCQ extends Abstract
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsVendorConstraintNameAutoFooCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsVendorConstraintNameAutoFooCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -232,7 +232,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoFooCQ extends Abstract
     public abstract String keepConstraintNameAutoFooId_SpecifyDerivedReferrer_VendorConstraintNameAutoRefList(LdVendorConstraintNameAutoRefCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from VENDOR_CONSTRAINT_NAME_AUTO_REF where ...)} <br />
      * VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefAsOne'.
      * <pre>
@@ -539,7 +539,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoFooCQ extends Abstract
     public abstract String keepSpecifyMyselfDerived(LdVendorConstraintNameAutoFooCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdVendorConstraintNameAutoFooCB> myselfDerived() {
@@ -561,8 +561,8 @@ public abstract class LdAbstractBsVendorConstraintNameAutoFooCQ extends Abstract
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<LdVendorConstraintNameAutoFooCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -577,8 +577,8 @@ public abstract class LdAbstractBsVendorConstraintNameAutoFooCQ extends Abstract
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdVendorConstraintNameAutoFooCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

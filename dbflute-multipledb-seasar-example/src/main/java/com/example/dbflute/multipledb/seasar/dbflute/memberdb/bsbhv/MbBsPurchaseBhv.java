@@ -169,7 +169,7 @@ public abstract class MbBsPurchaseBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbPurchase. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,66 @@ public abstract class MbBsPurchaseBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param purchaseId The one of primary key. (NotNull)
+     * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbPurchase selectByPKValue(Long purchaseId) {
-        return doSelectByPKValue(purchaseId, MbPurchase.class);
+        return doSelectByPK(purchaseId, MbPurchase.class);
     }
 
-    protected <ENTITY extends MbPurchase> ENTITY doSelectByPKValue(Long purchaseId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(purchaseId), entityType);
+    protected <ENTITY extends MbPurchase> ENTITY doSelectByPK(Long purchaseId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(purchaseId), entityType);
+    }
+
+    protected <ENTITY extends MbPurchase> OptionalEntity<ENTITY> doSelectOptionalByPK(Long purchaseId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(purchaseId, entityType), purchaseId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param purchaseId The one of primary key. (NotNull)
+     * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbPurchase selectByPKValueWithDeletedCheck(Long purchaseId) {
-        return doSelectByPKValueWithDeletedCheck(purchaseId, MbPurchase.class);
+        return doSelectByPKWithDeletedCheck(purchaseId, MbPurchase.class);
     }
 
-    protected <ENTITY extends MbPurchase> ENTITY doSelectByPKValueWithDeletedCheck(Long purchaseId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(purchaseId), entityType);
+    protected <ENTITY extends MbPurchase> ENTITY doSelectByPKWithDeletedCheck(Long purchaseId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(purchaseId), entityType);
     }
 
-    private MbPurchaseCB buildPKCB(Long purchaseId) {
+    protected MbPurchaseCB xprepareCBAsPK(Long purchaseId) {
         assertObjectNotNull("purchaseId", purchaseId);
-        MbPurchaseCB cb = newMyConditionBean();
-        cb.query().setPurchaseId_Equal(purchaseId);
+        MbPurchaseCB cb = newMyConditionBean(); cb.acceptPrimaryKey(purchaseId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param memberId : UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @param productId : +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
+     * @param purchaseDatetime : +UQ, IX+, NotNull, TIMESTAMP(23, 10). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MbPurchase> selectByUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+        return doSelectByUniqueOf(memberId, productId, purchaseDatetime, MbPurchase.class);
+    }
+
+    protected <ENTITY extends MbPurchase> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(memberId, productId, purchaseDatetime), entityType), memberId, productId, purchaseDatetime);
+    }
+
+    protected MbPurchaseCB xprepareCBAsUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+        assertObjectNotNull("memberId", memberId);assertObjectNotNull("productId", productId);assertObjectNotNull("purchaseDatetime", purchaseDatetime);
+        MbPurchaseCB cb = newMyConditionBean(); cb.acceptUniqueOf(memberId, productId, purchaseDatetime);
         return cb;
     }
 
@@ -387,7 +414,8 @@ public abstract class MbBsPurchaseBhv extends AbstractBehaviorWritable {
      */
     public List<MbMember> pulloutMember(List<MbPurchase> purchaseList) {
         return helpPulloutInternally(purchaseList, new InternalPulloutCallback<MbPurchase, MbMember>() {
-            public MbMember getFr(MbPurchase et) { return et.getMember(); }
+            public MbMember getFr(MbPurchase et)
+            { return et.getMember(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbMember et, List<MbPurchase> ls)
             { et.setPurchaseList(ls); }
@@ -400,7 +428,8 @@ public abstract class MbBsPurchaseBhv extends AbstractBehaviorWritable {
      */
     public List<MbProduct> pulloutProduct(List<MbPurchase> purchaseList) {
         return helpPulloutInternally(purchaseList, new InternalPulloutCallback<MbPurchase, MbProduct>() {
-            public MbProduct getFr(MbPurchase et) { return et.getProduct(); }
+            public MbProduct getFr(MbPurchase et)
+            { return et.getProduct(); }
             public boolean hasRf() { return true; }
             public void setRfLs(MbProduct et, List<MbPurchase> ls)
             { et.setPurchaseList(ls); }

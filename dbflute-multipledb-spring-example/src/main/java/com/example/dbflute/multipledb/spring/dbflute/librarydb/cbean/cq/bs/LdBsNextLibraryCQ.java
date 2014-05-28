@@ -5,6 +5,8 @@
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -26,8 +28,8 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdBsNextLibraryCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdBsNextLibraryCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -335,7 +337,7 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         LdNextLibraryCQ bq = (LdNextLibraryCQ)bqs;
         LdNextLibraryCQ uq = (LdNextLibraryCQ)uqs;
         if (bq.hasConditionQueryLibraryByLibraryId()) {
@@ -422,10 +424,23 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     }
 
     // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    protected Map<String, LdNextLibraryCQ> _scalarConditionMap;
+    public Map<String, LdNextLibraryCQ> getScalarCondition() { return _scalarConditionMap; }
+    public String keepScalarCondition(LdNextLibraryCQ sq) {
+        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
+    }
+
+    // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return LdNextLibraryCB.class.getName(); }
     protected String xCQ() { return LdNextLibraryCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

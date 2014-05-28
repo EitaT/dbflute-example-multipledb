@@ -79,10 +79,24 @@ public class LdBsVendorConstraintNameAutoQuxCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param constraintNameAutoQuxId : PK, NotNull, NUMERIC(16). (NotNull)
+     */
     public void acceptPrimaryKey(java.math.BigDecimal constraintNameAutoQuxId) {
         assertObjectNotNull("constraintNameAutoQuxId", constraintNameAutoQuxId);
         LdBsVendorConstraintNameAutoQuxCB cb = this;
-        cb.query().setConstraintNameAutoQuxId_Equal(constraintNameAutoQuxId);
+        cb.query().setConstraintNameAutoQuxId_Equal(constraintNameAutoQuxId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param constraintNameAutoQuxName : UQ, NotNull, VARCHAR(50). (NotNull)
+     */
+    public void acceptUniqueOf(String constraintNameAutoQuxName) {
+        assertObjectNotNull("constraintNameAutoQuxName", constraintNameAutoQuxName);
+        LdBsVendorConstraintNameAutoQuxCB cb = this;
+        cb.query().setConstraintNameAutoQuxName_Equal(constraintNameAutoQuxName);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -415,6 +429,11 @@ public class LdBsVendorConstraintNameAutoQuxCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdVendorConstraintNameAutoQuxCB> orQuery) {
         xorSQ((LdVendorConstraintNameAutoQuxCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

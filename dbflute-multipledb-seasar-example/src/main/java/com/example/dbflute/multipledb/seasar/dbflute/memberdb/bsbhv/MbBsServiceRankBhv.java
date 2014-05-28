@@ -169,7 +169,7 @@ public abstract class MbBsServiceRankBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of MbServiceRank. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -190,39 +190,64 @@ public abstract class MbBsServiceRankBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param serviceRankCode The one of primary key. (NotNull)
+     * @param serviceRankCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbServiceRank selectByPKValue(String serviceRankCode) {
-        return doSelectByPKValue(serviceRankCode, MbServiceRank.class);
+        return doSelectByPK(serviceRankCode, MbServiceRank.class);
     }
 
-    protected <ENTITY extends MbServiceRank> ENTITY doSelectByPKValue(String serviceRankCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(serviceRankCode), entityType);
+    protected <ENTITY extends MbServiceRank> ENTITY doSelectByPK(String serviceRankCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(serviceRankCode), entityType);
+    }
+
+    protected <ENTITY extends MbServiceRank> OptionalEntity<ENTITY> doSelectOptionalByPK(String serviceRankCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(serviceRankCode, entityType), serviceRankCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param serviceRankCode The one of primary key. (NotNull)
+     * @param serviceRankCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public MbServiceRank selectByPKValueWithDeletedCheck(String serviceRankCode) {
-        return doSelectByPKValueWithDeletedCheck(serviceRankCode, MbServiceRank.class);
+        return doSelectByPKWithDeletedCheck(serviceRankCode, MbServiceRank.class);
     }
 
-    protected <ENTITY extends MbServiceRank> ENTITY doSelectByPKValueWithDeletedCheck(String serviceRankCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(serviceRankCode), entityType);
+    protected <ENTITY extends MbServiceRank> ENTITY doSelectByPKWithDeletedCheck(String serviceRankCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(serviceRankCode), entityType);
     }
 
-    private MbServiceRankCB buildPKCB(String serviceRankCode) {
+    protected MbServiceRankCB xprepareCBAsPK(String serviceRankCode) {
         assertObjectNotNull("serviceRankCode", serviceRankCode);
-        MbServiceRankCB cb = newMyConditionBean();
-        cb.query().setServiceRankCode_Equal(serviceRankCode);
+        MbServiceRankCB cb = newMyConditionBean(); cb.acceptPrimaryKey(serviceRankCode);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<MbServiceRank> selectByUniqueOf(Integer displayOrder) {
+        return doSelectByUniqueOf(displayOrder, MbServiceRank.class);
+    }
+
+    protected <ENTITY extends MbServiceRank> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer displayOrder, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(displayOrder), entityType), displayOrder);
+    }
+
+    protected MbServiceRankCB xprepareCBAsUniqueOf(Integer displayOrder) {
+        assertObjectNotNull("displayOrder", displayOrder);
+        MbServiceRankCB cb = newMyConditionBean(); cb.acceptUniqueOf(displayOrder);
         return cb;
     }
 

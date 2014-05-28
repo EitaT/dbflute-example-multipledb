@@ -1,4 +1,39 @@
 map:{
+    ; 2014/05/28 21:12:16 = map:{
+        ; diffDate = 2014/05/28 21:12:16
+        ; tableDiff = map:{
+            ; LENDING = map:{
+                ; tableName = LENDING
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; SQL100521215407231(old) = map:{
+                        ; constraintName = SQL100521215407231(old)
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; LENDING_COLLECTION = map:{
+                ; tableName = LENDING_COLLECTION
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; SQL100521215407240(old) = map:{
+                        ; constraintName = SQL100521215407240(old)
+                        ; diffType = DELETE
+                    }
+                }
+            }
+            ; LIBRARY_USER = map:{
+                ; tableName = LIBRARY_USER
+                ; diffType = CHANGE
+                ; uniqueKeyDiff = map:{
+                    ; SQL100521215407280(old) = map:{
+                        ; constraintName = SQL100521215407280(old)
+                        ; diffType = DELETE
+                    }
+                }
+            }
+        }
+    }
     ; 2014/04/19 13:37:08 = map:{
         ; diffDate = 2014/04/19 13:37:08
         ; tableDiff = map:{

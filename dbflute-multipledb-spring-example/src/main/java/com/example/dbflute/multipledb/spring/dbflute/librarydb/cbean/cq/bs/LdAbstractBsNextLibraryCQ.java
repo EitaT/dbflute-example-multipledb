@@ -24,8 +24,8 @@ public abstract class LdAbstractBsNextLibraryCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsNextLibraryCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsNextLibraryCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -1152,6 +1152,129 @@ public abstract class LdAbstractBsNextLibraryCQ extends AbstractConditionQuery {
 
     protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
     protected abstract ConditionValue getCValueUTimestamp();
+
+    // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    /**
+     * Prepare ScalarCondition as equal. <br />
+     * {where FOO = (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     *     public void query(LdNextLibraryCB subCB) {
+     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setYyy...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdNextLibraryCB> scalar_Equal() {
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdNextLibraryCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as equal. <br />
+     * {where FOO &lt;&gt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     *     public void query(LdNextLibraryCB subCB) {
+     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setYyy...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdNextLibraryCB> scalar_NotEqual() {
+        return xcreateSSQFunction(CK_NES.getOperand(), LdNextLibraryCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as greaterThan. <br />
+     * {where FOO &gt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     *     public void query(LdNextLibraryCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdNextLibraryCB> scalar_GreaterThan() {
+        return xcreateSSQFunction(CK_GT.getOperand(), LdNextLibraryCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as lessThan. <br />
+     * {where FOO &lt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     *     public void query(LdNextLibraryCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdNextLibraryCB> scalar_LessThan() {
+        return xcreateSSQFunction(CK_LT.getOperand(), LdNextLibraryCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as greaterEqual. <br />
+     * {where FOO &gt;= (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     *     public void query(LdNextLibraryCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdNextLibraryCB> scalar_GreaterEqual() {
+        return xcreateSSQFunction(CK_GE.getOperand(), LdNextLibraryCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as lessEqual. <br />
+     * {where FOO &lt;= (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdNextLibraryCB&gt;() {
+     *     public void query(LdNextLibraryCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdNextLibraryCB> scalar_LessEqual() {
+        return xcreateSSQFunction(CK_LE.getOperand(), LdNextLibraryCB.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdNextLibraryCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
+    }
+    public abstract String keepScalarCondition(LdNextLibraryCQ sq);
+
+    protected LdNextLibraryCB xcreateScalarConditionCB() {
+        LdNextLibraryCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
+    }
+
+    protected LdNextLibraryCB xcreateScalarConditionPartitionByCB() {
+        LdNextLibraryCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
+    }
 
     // ===================================================================================
     //                                                                          Compatible

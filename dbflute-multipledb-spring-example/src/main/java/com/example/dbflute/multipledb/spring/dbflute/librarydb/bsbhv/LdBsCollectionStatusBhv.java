@@ -171,7 +171,7 @@ public abstract class LdBsCollectionStatusBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdCollectionStatus. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsCollectionStatusBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param collectionId The one of primary key. (NotNull)
+     * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatus selectByPKValue(Integer collectionId) {
-        return doSelectByPKValue(collectionId, LdCollectionStatus.class);
+        return doSelectByPK(collectionId, LdCollectionStatus.class);
     }
 
-    protected <ENTITY extends LdCollectionStatus> ENTITY doSelectByPKValue(Integer collectionId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(collectionId), entityType);
+    protected <ENTITY extends LdCollectionStatus> ENTITY doSelectByPK(Integer collectionId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(collectionId), entityType);
+    }
+
+    protected <ENTITY extends LdCollectionStatus> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer collectionId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(collectionId, entityType), collectionId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param collectionId The one of primary key. (NotNull)
+     * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatus selectByPKValueWithDeletedCheck(Integer collectionId) {
-        return doSelectByPKValueWithDeletedCheck(collectionId, LdCollectionStatus.class);
+        return doSelectByPKWithDeletedCheck(collectionId, LdCollectionStatus.class);
     }
 
-    protected <ENTITY extends LdCollectionStatus> ENTITY doSelectByPKValueWithDeletedCheck(Integer collectionId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(collectionId), entityType);
+    protected <ENTITY extends LdCollectionStatus> ENTITY doSelectByPKWithDeletedCheck(Integer collectionId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(collectionId), entityType);
     }
 
-    private LdCollectionStatusCB buildPKCB(Integer collectionId) {
+    protected LdCollectionStatusCB xprepareCBAsPK(Integer collectionId) {
         assertObjectNotNull("collectionId", collectionId);
-        LdCollectionStatusCB cb = newMyConditionBean();
-        cb.query().setCollectionId_Equal(collectionId);
+        LdCollectionStatusCB cb = newMyConditionBean(); cb.acceptPrimaryKey(collectionId);
         return cb;
     }
 
@@ -389,7 +392,8 @@ public abstract class LdBsCollectionStatusBhv extends AbstractBehaviorWritable {
      */
     public List<LdCollection> pulloutCollection(List<LdCollectionStatus> collectionStatusList) {
         return helpPulloutInternally(collectionStatusList, new InternalPulloutCallback<LdCollectionStatus, LdCollection>() {
-            public LdCollection getFr(LdCollectionStatus et) { return et.getCollection(); }
+            public LdCollection getFr(LdCollectionStatus et)
+            { return et.getCollection(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdCollection et, List<LdCollectionStatus> ls)
             { if (!ls.isEmpty()) { et.setCollectionStatusAsOne(ls.get(0)); } }
@@ -402,7 +406,8 @@ public abstract class LdBsCollectionStatusBhv extends AbstractBehaviorWritable {
      */
     public List<LdCollectionStatusLookup> pulloutCollectionStatusLookup(List<LdCollectionStatus> collectionStatusList) {
         return helpPulloutInternally(collectionStatusList, new InternalPulloutCallback<LdCollectionStatus, LdCollectionStatusLookup>() {
-            public LdCollectionStatusLookup getFr(LdCollectionStatus et) { return et.getCollectionStatusLookup(); }
+            public LdCollectionStatusLookup getFr(LdCollectionStatus et)
+            { return et.getCollectionStatusLookup(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdCollectionStatusLookup et, List<LdCollectionStatus> ls)
             { et.setCollectionStatusList(ls); }

@@ -80,10 +80,24 @@ public class LdBsBlackListCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param blackListId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     */
     public void acceptPrimaryKey(Integer blackListId) {
         assertObjectNotNull("blackListId", blackListId);
         LdBsBlackListCB cb = this;
-        cb.query().setBlackListId_Equal(blackListId);
+        cb.query().setBlackListId_Equal(blackListId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param lbUserId : UQ, IX, NotNull, INTEGER(10), FK to LB_USER. (NotNull)
+     */
+    public void acceptUniqueOf(Integer lbUserId) {
+        assertObjectNotNull("lbUserId", lbUserId);
+        LdBsBlackListCB cb = this;
+        cb.query().setLbUserId_Equal(lbUserId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -504,6 +518,11 @@ public class LdBsBlackListCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdBlackListCB> orQuery) {
         xorSQ((LdBlackListCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

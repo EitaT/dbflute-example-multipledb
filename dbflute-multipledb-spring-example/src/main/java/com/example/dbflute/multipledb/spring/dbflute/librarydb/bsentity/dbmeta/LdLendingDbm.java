@@ -35,6 +35,9 @@ public class LdLendingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgLibraryId(), "libraryId");
@@ -47,8 +50,6 @@ public class LdLendingDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUModule(), "UModule");
         setupEpg(_epgMap, new EpgUTimestamp(), "UTimestamp");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgLibraryId implements PropertyGateway {
         public Object read(Entity et) { return ((LdLending)et).getLibraryId(); }
         public void write(Entity et, Object vl) { ((LdLending)et).setLibraryId(cti(vl)); }
@@ -85,6 +86,22 @@ public class LdLendingDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdLending)et).getUTimestamp(); }
         public void write(Entity et, Object vl) { ((LdLending)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgLibraryUser(), "libraryUser");
+    }
+    public class EfpgLibraryUser implements PropertyGateway {
+        public Object read(Entity et) { return ((LdLending)et).getLibraryUser(); }
+        public void write(Entity et, Object vl) { ((LdLending)et).setLibraryUser((LdLibraryUser)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -100,24 +117,60 @@ public class LdLendingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnLibraryId = cci("LIBRARY_ID", "LIBRARY_ID", null, null, true, "libraryId", Integer.class, true, false, "SMALLINT", 5, 0, null, false, null, null, "libraryUser", "lendingCollectionList", null);
-    protected final ColumnInfo _columnLbUserId = cci("LB_USER_ID", "LB_USER_ID", null, null, true, "lbUserId", Integer.class, true, false, "INTEGER", 10, 0, null, false, null, null, "libraryUser", "lendingCollectionList", null);
-    protected final ColumnInfo _columnLendingDate = cci("LENDING_DATE", "LENDING_DATE", null, null, true, "lendingDate", java.sql.Timestamp.class, true, false, "TIMESTAMP", 26, 6, null, false, null, null, null, "lendingCollectionList", null);
-    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, true, "RUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, true, "RModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, true, "RTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, true, "UUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, true, "UModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, true, "UTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
+    protected final ColumnInfo _columnLibraryId = cci("LIBRARY_ID", "LIBRARY_ID", null, null, Integer.class, "libraryId", null, true, false, true, "SMALLINT", 5, 0, null, false, null, null, "libraryUser", "lendingCollectionList", null);
+    protected final ColumnInfo _columnLbUserId = cci("LB_USER_ID", "LB_USER_ID", null, null, Integer.class, "lbUserId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, "libraryUser", "lendingCollectionList", null);
+    protected final ColumnInfo _columnLendingDate = cci("LENDING_DATE", "LENDING_DATE", null, null, java.sql.Timestamp.class, "lendingDate", null, true, false, true, "TIMESTAMP", 26, 6, null, false, null, null, null, "lendingCollectionList", null);
+    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, String.class, "RUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, String.class, "RModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, java.sql.Timestamp.class, "RTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, String.class, "UUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, String.class, "UModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, java.sql.Timestamp.class, "UTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
 
+    /**
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLibraryId() { return _columnLibraryId; }
+    /**
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLbUserId() { return _columnLbUserId; }
+    /**
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLendingDate() { return _columnLendingDate; }
+    /**
+     * R_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRUser() { return _columnRUser; }
+    /**
+     * R_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRModule() { return _columnRModule; }
+    /**
+     * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRTimestamp() { return _columnRTimestamp; }
+    /**
+     * U_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUUser() { return _columnUUser; }
+    /**
+     * U_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUModule() { return _columnUModule; }
+    /**
+     * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUTimestamp() { return _columnUTimestamp; }
 
     protected List<ColumnInfo> ccil() {
@@ -155,19 +208,29 @@ public class LdLendingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * LIBRARY_USER by my LIBRARY_ID, LB_USER_ID, named 'libraryUser'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignLibraryUser() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMapSized(4);
         mp.put(columnLibraryId(), LdLibraryUserDbm.getInstance().columnLibraryId());
         mp.put(columnLbUserId(), LdLibraryUserDbm.getInstance().columnLbUserId());
-        return cfi("FK_LENDING_LIBRARY_USER", "libraryUser", this, LdLibraryUserDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "lendingList");
+        return cfi("FK_LENDING_LIBRARY_USER", "libraryUser", this, LdLibraryUserDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "lendingList");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, LENDING_DATE, named 'lendingCollectionList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerLendingCollectionList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMapSized(4);
         mp.put(columnLibraryId(), LdLendingCollectionDbm.getInstance().columnLibraryId());

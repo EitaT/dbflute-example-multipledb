@@ -25,9 +25,9 @@ public class MbRegionCIQ extends MbAbstractBsRegionCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbRegionCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public MbRegionCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, MbBsRegionCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

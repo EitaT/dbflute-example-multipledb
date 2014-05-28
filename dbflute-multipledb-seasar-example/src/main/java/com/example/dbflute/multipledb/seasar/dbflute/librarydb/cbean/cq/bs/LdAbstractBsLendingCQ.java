@@ -24,8 +24,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsLendingCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsLendingCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -49,7 +49,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryId The value of libraryId as equal. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_Equal(Integer libraryId) {
@@ -62,7 +62,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryId The value of libraryId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_NotEqual(Integer libraryId) {
@@ -75,7 +75,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryId The value of libraryId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterThan(Integer libraryId) {
@@ -84,7 +84,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryId The value of libraryId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessThan(Integer libraryId) {
@@ -93,7 +93,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryId The value of libraryId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_GreaterEqual(Integer libraryId) {
@@ -102,7 +102,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryId The value of libraryId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLibraryId_LessEqual(Integer libraryId) {
@@ -113,7 +113,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param minNumber The min number of libraryId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of libraryId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -124,7 +124,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryIdList The collection of libraryId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_InScope(Collection<Integer> libraryIdList) {
@@ -137,7 +137,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      * @param libraryIdList The collection of libraryId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLibraryId_NotInScope(Collection<Integer> libraryIdList) {
@@ -150,13 +150,13 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      */
     public void setLibraryId_IsNull() { regLibraryId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY_USER}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
      */
     public void setLibraryId_IsNotNull() { regLibraryId(CK_ISNN, DOBJ); }
 
@@ -165,7 +165,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserId The value of lbUserId as equal. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_Equal(Integer lbUserId) {
@@ -178,7 +178,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserId The value of lbUserId as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_NotEqual(Integer lbUserId) {
@@ -191,7 +191,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserId The value of lbUserId as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_GreaterThan(Integer lbUserId) {
@@ -200,7 +200,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserId The value of lbUserId as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_LessThan(Integer lbUserId) {
@@ -209,7 +209,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserId The value of lbUserId as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_GreaterEqual(Integer lbUserId) {
@@ -218,7 +218,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserId The value of lbUserId as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLbUserId_LessEqual(Integer lbUserId) {
@@ -229,7 +229,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br />
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param minNumber The min number of lbUserId. (NullAllowed: if null, no from-condition)
      * @param maxNumber The max number of lbUserId. (NullAllowed: if null, no to-condition)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -240,7 +240,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserIdList The collection of lbUserId as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLbUserId_InScope(Collection<Integer> lbUserIdList) {
@@ -253,7 +253,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      * @param lbUserIdList The collection of lbUserId as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLbUserId_NotInScope(Collection<Integer> lbUserIdList) {
@@ -266,13 +266,13 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      */
     public void setLbUserId_IsNull() { regLbUserId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LIBRARY_USER}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
      */
     public void setLbUserId_IsNotNull() { regLbUserId(CK_ISNN, DOBJ); }
 
@@ -281,7 +281,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDate The value of lendingDate as equal. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_Equal(java.sql.Timestamp lendingDate) {
@@ -290,7 +290,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDate The value of lendingDate as notEqual. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_NotEqual(java.sql.Timestamp lendingDate) {
@@ -299,7 +299,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDate The value of lendingDate as greaterThan. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_GreaterThan(java.sql.Timestamp lendingDate) {
@@ -308,7 +308,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDate The value of lendingDate as lessThan. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_LessThan(java.sql.Timestamp lendingDate) {
@@ -317,7 +317,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDate The value of lendingDate as greaterEqual. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_GreaterEqual(java.sql.Timestamp lendingDate) {
@@ -326,7 +326,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDate The value of lendingDate as lessEqual. (NullAllowed: if null, no condition)
      */
     public void setLendingDate_LessEqual(java.sql.Timestamp lendingDate) {
@@ -336,7 +336,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     /**
      * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * <pre>e.g. setLendingDate_FromTo(fromDate, toDate, new <span style="color: #DD4747">FromToOption</span>().compareAsDate());</pre>
      * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of lendingDate. (NullAllowed: if null, no from-condition)
      * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of lendingDate. (NullAllowed: if null, no to-condition)
@@ -349,7 +349,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     /**
      * DateFromTo. (Date means yyyy/MM/dd) {fromDate &lt;= column &lt; toDate + 1 day} <br />
      * And NullIgnored, OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * <pre>
      * e.g. from:{2007/04/10 08:24:53} to:{2007/04/16 14:36:29}
      *  column &gt;= '2007/04/10 00:00:00' and column <span style="color: #DD4747">&lt; '2007/04/17 00:00:00'</span>
@@ -363,7 +363,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in ('1965-03-03', '1966-09-15')}. And NullOrEmptyIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDateList The collection of lendingDate as inScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLendingDate_InScope(Collection<java.sql.Timestamp> lendingDateList) {
@@ -376,7 +376,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in ('1965-03-03', '1966-09-15')}. And NullOrEmptyIgnored, NullElementIgnored, SeveralRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      * @param lendingDateList The collection of lendingDate as notInScope. (NullAllowed: if null (or empty), no condition)
      */
     public void setLendingDate_NotInScope(Collection<java.sql.Timestamp> lendingDateList) {
@@ -389,13 +389,13 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      */
     public void setLendingDate_IsNull() { regLendingDate(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br />
-     * LENDING_DATE: {PK, UQ+, NotNull, TIMESTAMP(26, 6)}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6)}
      */
     public void setLendingDate_IsNotNull() { regLendingDate(CK_ISNN, DOBJ); }
 
@@ -1121,6 +1121,129 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     protected void regUTimestamp(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUTimestamp(), "U_TIMESTAMP"); }
     protected abstract ConditionValue getCValueUTimestamp();
+
+    // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    /**
+     * Prepare ScalarCondition as equal. <br />
+     * {where FOO = (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_Equal()</span>.max(new SubQuery&lt;LdLendingCB&gt;() {
+     *     public void query(LdLendingCB subCB) {
+     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setYyy...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdLendingCB> scalar_Equal() {
+        return xcreateSSQFunction(CK_EQ.getOperand(), LdLendingCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as equal. <br />
+     * {where FOO &lt;&gt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_NotEqual()</span>.max(new SubQuery&lt;LdLendingCB&gt;() {
+     *     public void query(LdLendingCB subCB) {
+     *         subCB.specify().setXxx... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setYyy...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdLendingCB> scalar_NotEqual() {
+        return xcreateSSQFunction(CK_NES.getOperand(), LdLendingCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as greaterThan. <br />
+     * {where FOO &gt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_GreaterThan()</span>.max(new SubQuery&lt;LdLendingCB&gt;() {
+     *     public void query(LdLendingCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdLendingCB> scalar_GreaterThan() {
+        return xcreateSSQFunction(CK_GT.getOperand(), LdLendingCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as lessThan. <br />
+     * {where FOO &lt; (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_LessThan()</span>.max(new SubQuery&lt;LdLendingCB&gt;() {
+     *     public void query(LdLendingCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdLendingCB> scalar_LessThan() {
+        return xcreateSSQFunction(CK_LT.getOperand(), LdLendingCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as greaterEqual. <br />
+     * {where FOO &gt;= (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_GreaterEqual()</span>.max(new SubQuery&lt;LdLendingCB&gt;() {
+     *     public void query(LdLendingCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdLendingCB> scalar_GreaterEqual() {
+        return xcreateSSQFunction(CK_GE.getOperand(), LdLendingCB.class);
+    }
+
+    /**
+     * Prepare ScalarCondition as lessEqual. <br />
+     * {where FOO &lt;= (select max(BAR) from ...)
+     * <pre>
+     * cb.query().<span style="color: #DD4747">scalar_LessEqual()</span>.max(new SubQuery&lt;LdLendingCB&gt;() {
+     *     public void query(LdLendingCB subCB) {
+     *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
+     *         subCB.query().setBar...
+     *     }
+     * });
+     * </pre>
+     * @return The object to set up a function. (NotNull)
+     */
+    public HpSSQFunction<LdLendingCB> scalar_LessEqual() {
+        return xcreateSSQFunction(CK_LE.getOperand(), LdLendingCB.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSSQOption<CB> op) {
+        assertObjectNotNull("subQuery", sq);
+        LdLendingCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        String pp = keepScalarCondition(cb.query()); // for saving query-value
+        op.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
+        registerScalarCondition(fn, cb.query(), pp, rd, op);
+    }
+    public abstract String keepScalarCondition(LdLendingCQ sq);
+
+    protected LdLendingCB xcreateScalarConditionCB() {
+        LdLendingCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
+    }
+
+    protected LdLendingCB xcreateScalarConditionPartitionByCB() {
+        LdLendingCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
+    }
 
     // ===================================================================================
     //                                                                          Compatible

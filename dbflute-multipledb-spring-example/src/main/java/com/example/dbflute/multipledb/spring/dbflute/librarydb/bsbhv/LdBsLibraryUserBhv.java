@@ -171,7 +171,7 @@ public abstract class LdBsLibraryUserBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdLibraryUser. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,41 +192,44 @@ public abstract class LdBsLibraryUserBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param lbUserId The one of primary key. (NotNull)
+     * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param lbUserId : PK, IX, NotNull, INTEGER(10), FK to LB_USER. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryUser selectByPKValue(Integer libraryId, Integer lbUserId) {
-        return doSelectByPKValue(libraryId, lbUserId, LdLibraryUser.class);
+        return doSelectByPK(libraryId, lbUserId, LdLibraryUser.class);
     }
 
-    protected <ENTITY extends LdLibraryUser> ENTITY doSelectByPKValue(Integer libraryId, Integer lbUserId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(libraryId, lbUserId), entityType);
+    protected <ENTITY extends LdLibraryUser> ENTITY doSelectByPK(Integer libraryId, Integer lbUserId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(libraryId, lbUserId), entityType);
+    }
+
+    protected <ENTITY extends LdLibraryUser> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer libraryId, Integer lbUserId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(libraryId, lbUserId, entityType), libraryId, lbUserId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param libraryId The one of primary key. (NotNull)
-     * @param lbUserId The one of primary key. (NotNull)
+     * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param lbUserId : PK, IX, NotNull, INTEGER(10), FK to LB_USER. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryUser selectByPKValueWithDeletedCheck(Integer libraryId, Integer lbUserId) {
-        return doSelectByPKValueWithDeletedCheck(libraryId, lbUserId, LdLibraryUser.class);
+        return doSelectByPKWithDeletedCheck(libraryId, lbUserId, LdLibraryUser.class);
     }
 
-    protected <ENTITY extends LdLibraryUser> ENTITY doSelectByPKValueWithDeletedCheck(Integer libraryId, Integer lbUserId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(libraryId, lbUserId), entityType);
+    protected <ENTITY extends LdLibraryUser> ENTITY doSelectByPKWithDeletedCheck(Integer libraryId, Integer lbUserId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(libraryId, lbUserId), entityType);
     }
 
-    private LdLibraryUserCB buildPKCB(Integer libraryId, Integer lbUserId) {
+    protected LdLibraryUserCB xprepareCBAsPK(Integer libraryId, Integer lbUserId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);
-        LdLibraryUserCB cb = newMyConditionBean();
-        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);
+        LdLibraryUserCB cb = newMyConditionBean(); cb.acceptPrimaryKey(libraryId, lbUserId);
         return cb;
     }
 
@@ -515,7 +518,8 @@ public abstract class LdBsLibraryUserBhv extends AbstractBehaviorWritable {
                 foreignKeyMap.put("LbUserId", re.getLbUserId());
                 return foreignKeyMap;
             }
-            public void setlcEt(LdLending re, LdLibraryUser le) { re.setLibraryUser(le); }
+            public void setlcEt(LdLending re, LdLibraryUser le)
+            { re.setLibraryUser(le); }
             public String getRfPrNm() { return "lendingList"; }
         });
     }
@@ -651,7 +655,8 @@ public abstract class LdBsLibraryUserBhv extends AbstractBehaviorWritable {
                 foreignKeyMap.put("LbUserId", re.getLbUserId());
                 return foreignKeyMap;
             }
-            public void setlcEt(LdLendingCollection re, LdLibraryUser le) { re.setLibraryUser(le); }
+            public void setlcEt(LdLendingCollection re, LdLibraryUser le)
+            { re.setLibraryUser(le); }
             public String getRfPrNm() { return "lendingCollectionList"; }
         });
     }
@@ -666,7 +671,8 @@ public abstract class LdBsLibraryUserBhv extends AbstractBehaviorWritable {
      */
     public List<LdLbUser> pulloutLbUser(List<LdLibraryUser> libraryUserList) {
         return helpPulloutInternally(libraryUserList, new InternalPulloutCallback<LdLibraryUser, LdLbUser>() {
-            public LdLbUser getFr(LdLibraryUser et) { return et.getLbUser(); }
+            public LdLbUser getFr(LdLibraryUser et)
+            { return et.getLbUser(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLbUser et, List<LdLibraryUser> ls)
             { et.setLibraryUserList(ls); }
@@ -679,7 +685,8 @@ public abstract class LdBsLibraryUserBhv extends AbstractBehaviorWritable {
      */
     public List<LdLibrary> pulloutLibrary(List<LdLibraryUser> libraryUserList) {
         return helpPulloutInternally(libraryUserList, new InternalPulloutCallback<LdLibraryUser, LdLibrary>() {
-            public LdLibrary getFr(LdLibraryUser et) { return et.getLibrary(); }
+            public LdLibrary getFr(LdLibraryUser et)
+            { return et.getLibrary(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLibrary et, List<LdLibraryUser> ls)
             { et.setLibraryUserList(ls); }

@@ -171,7 +171,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * </pre>
      * @param cb The condition-bean of LdCollectionStatusLookup. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
 
     /**
      * Select the entity by the primary-key value.
-     * @param collectionStatusCode The one of primary key. (NotNull)
+     * @param collectionStatusCode : PK, NotNull, CHAR(3), classification=CollectionStatus. (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatusLookup selectByPKValue(String collectionStatusCode) {
-        return doSelectByPKValue(collectionStatusCode, LdCollectionStatusLookup.class);
+        return doSelectByPK(collectionStatusCode, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPKValue(String collectionStatusCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(collectionStatusCode), entityType);
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPK(String collectionStatusCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(collectionStatusCode), entityType);
+    }
+
+    protected <ENTITY extends LdCollectionStatusLookup> OptionalEntity<ENTITY> doSelectOptionalByPK(String collectionStatusCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(collectionStatusCode, entityType), collectionStatusCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param collectionStatusCode The one of primary key. (NotNull)
+     * @param collectionStatusCode : PK, NotNull, CHAR(3), classification=CollectionStatus. (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatusLookup selectByPKValueWithDeletedCheck(String collectionStatusCode) {
-        return doSelectByPKValueWithDeletedCheck(collectionStatusCode, LdCollectionStatusLookup.class);
+        return doSelectByPKWithDeletedCheck(collectionStatusCode, LdCollectionStatusLookup.class);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPKValueWithDeletedCheck(String collectionStatusCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(collectionStatusCode), entityType);
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPKWithDeletedCheck(String collectionStatusCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(collectionStatusCode), entityType);
     }
 
-    private LdCollectionStatusLookupCB buildPKCB(String collectionStatusCode) {
+    protected LdCollectionStatusLookupCB xprepareCBAsPK(String collectionStatusCode) {
         assertObjectNotNull("collectionStatusCode", collectionStatusCode);
-        LdCollectionStatusLookupCB cb = newMyConditionBean();
-        cb.query().setCollectionStatusCode_Equal(collectionStatusCode);
+        LdCollectionStatusLookupCB cb = newMyConditionBean(); cb.acceptPrimaryKey(collectionStatusCode);
         return cb;
     }
 

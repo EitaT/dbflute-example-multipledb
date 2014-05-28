@@ -27,9 +27,9 @@ public class LdGarbageCIQ extends LdAbstractBsGarbageCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdGarbageCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public LdGarbageCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, LdBsGarbageCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path
@@ -79,6 +79,8 @@ public class LdGarbageCIQ extends LdAbstractBsGarbageCQ {
     protected ConditionValue getCValueUUser() { return _myCQ.getUUser(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdGarbageCQ sq)
+    { throwIICBOE("ScalarCondition"); return null; }
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
         throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");

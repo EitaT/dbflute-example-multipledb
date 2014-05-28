@@ -25,9 +25,9 @@ public class MbMemberSecurityCIQ extends MbAbstractBsMemberSecurityCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbMemberSecurityCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public MbMemberSecurityCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, MbBsMemberSecurityCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

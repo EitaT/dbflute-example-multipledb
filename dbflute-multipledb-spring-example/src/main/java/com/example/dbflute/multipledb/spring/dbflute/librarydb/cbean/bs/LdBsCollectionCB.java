@@ -80,10 +80,25 @@ public class LdBsCollectionCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param collectionId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     */
     public void acceptPrimaryKey(Integer collectionId) {
         assertObjectNotNull("collectionId", collectionId);
         LdBsCollectionCB cb = this;
-        cb.query().setCollectionId_Equal(collectionId);
+        cb.query().setCollectionId_Equal(collectionId);;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param libraryId : UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param bookId : +UQ, IX, NotNull, INTEGER(10), FK to BOOK. (NotNull)
+     */
+    public void acceptUniqueOf(Integer libraryId, Integer bookId) {
+        assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("bookId", bookId);
+        LdBsCollectionCB cb = this;
+        cb.query().setLibraryId_Equal(libraryId);;cb.query().setBookId_Equal(bookId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -380,12 +395,12 @@ public class LdBsCollectionCB extends AbstractConditionBean {
          */
         public HpSpecifiedColumn columnCollectionId() { return doColumn("COLLECTION_ID"); }
         /**
-         * LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+         * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnLibraryId() { return doColumn("LIBRARY_ID"); }
         /**
-         * BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK}
+         * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
          * @return The information object of specified column. (NotNull)
          */
         public HpSpecifiedColumn columnBookId() { return doColumn("BOOK_ID"); }
@@ -608,6 +623,11 @@ public class LdBsCollectionCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdCollectionCB> orQuery) {
         xorSQ((LdCollectionCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

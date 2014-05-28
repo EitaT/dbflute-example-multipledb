@@ -35,6 +35,9 @@ public class LdCollectionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgCollectionId(), "collectionId");
@@ -48,8 +51,6 @@ public class LdCollectionDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUModule(), "UModule");
         setupEpg(_epgMap, new EpgUTimestamp(), "UTimestamp");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgCollectionId implements PropertyGateway {
         public Object read(Entity et) { return ((LdCollection)et).getCollectionId(); }
         public void write(Entity et, Object vl) { ((LdCollection)et).setCollectionId(cti(vl)); }
@@ -90,6 +91,34 @@ public class LdCollectionDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdCollection)et).getUTimestamp(); }
         public void write(Entity et, Object vl) { ((LdCollection)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgBook(), "book");
+        setupEfpg(_efpgMap, new EfpgLibrary(), "library");
+    }
+    public class EfpgBook implements PropertyGateway {
+        public Object read(Entity et) { return ((LdCollection)et).getBook(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setBook((LdBook)vl); }
+    }
+    public class EfpgLibrary implements PropertyGateway {
+        public Object read(Entity et) { return ((LdCollection)et).getLibrary(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setLibrary((LdLibrary)vl); }
+    }
+    {
+        setupEfpg(_efpgMap, new EfpgCollectionStatusAsOne(), "collectionStatusAsOne");
+    }
+    public class EfpgCollectionStatusAsOne implements PropertyGateway {
+        public Object read(Entity et) { return ((LdCollection)et).getCollectionStatusAsOne(); }
+        public void write(Entity et, Object vl) { ((LdCollection)et).setCollectionStatusAsOne((LdCollectionStatus)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -105,26 +134,66 @@ public class LdCollectionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnCollectionId = cci("COLLECTION_ID", "COLLECTION_ID", null, null, true, "collectionId", Integer.class, true, true, "INTEGER", 10, 0, "GENERATED_BY_DEFAULT", false, null, null, null, "lendingCollectionList", null);
-    protected final ColumnInfo _columnLibraryId = cci("LIBRARY_ID", "LIBRARY_ID", null, null, true, "libraryId", Integer.class, false, false, "SMALLINT", 5, 0, null, false, null, null, "library", null, null);
-    protected final ColumnInfo _columnBookId = cci("BOOK_ID", "BOOK_ID", null, null, true, "bookId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, "book", null, null);
-    protected final ColumnInfo _columnArrivalDate = cci("ARRIVAL_DATE", "ARRIVAL_DATE", null, null, true, "arrivalDate", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, true, "RUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, true, "RModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, true, "RTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, true, "UUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, true, "UModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, true, "UTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
+    protected final ColumnInfo _columnCollectionId = cci("COLLECTION_ID", "COLLECTION_ID", null, null, Integer.class, "collectionId", null, true, true, true, "INTEGER", 10, 0, "GENERATED_BY_DEFAULT", false, null, null, null, "lendingCollectionList", null);
+    protected final ColumnInfo _columnLibraryId = cci("LIBRARY_ID", "LIBRARY_ID", null, null, Integer.class, "libraryId", null, false, false, true, "SMALLINT", 5, 0, null, false, null, null, "library", null, null);
+    protected final ColumnInfo _columnBookId = cci("BOOK_ID", "BOOK_ID", null, null, Integer.class, "bookId", null, false, false, true, "INTEGER", 10, 0, null, false, null, null, "book", null, null);
+    protected final ColumnInfo _columnArrivalDate = cci("ARRIVAL_DATE", "ARRIVAL_DATE", null, null, java.sql.Timestamp.class, "arrivalDate", null, false, false, true, "TIMESTAMP", 26, 6, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, String.class, "RUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, String.class, "RModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, java.sql.Timestamp.class, "RTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, String.class, "UUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, String.class, "UModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, java.sql.Timestamp.class, "UTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
 
+    /**
+     * COLLECTION_ID: {PK, ID, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnCollectionId() { return _columnCollectionId; }
+    /**
+     * LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnLibraryId() { return _columnLibraryId; }
+    /**
+     * BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnBookId() { return _columnBookId; }
+    /**
+     * ARRIVAL_DATE: {NotNull, TIMESTAMP(26, 6)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnArrivalDate() { return _columnArrivalDate; }
+    /**
+     * R_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRUser() { return _columnRUser; }
+    /**
+     * R_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRModule() { return _columnRModule; }
+    /**
+     * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRTimestamp() { return _columnRTimestamp; }
+    /**
+     * U_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUUser() { return _columnUUser; }
+    /**
+     * U_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUModule() { return _columnUModule; }
+    /**
+     * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUTimestamp() { return _columnUTimestamp; }
 
     protected List<ColumnInfo> ccil() {
@@ -157,25 +226,43 @@ public class LdCollectionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * BOOK by my BOOK_ID, named 'book'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignBook() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnBookId(), LdBookDbm.getInstance().columnBookId());
-        return cfi("FK_COLLECTION_BOOK", "book", this, LdBookDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "collectionList");
+        return cfi("FK_COLLECTION_BOOK", "book", this, LdBookDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "collectionList");
     }
+    /**
+     * LIBRARY by my LIBRARY_ID, named 'library'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignLibrary() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnLibraryId(), LdLibraryDbm.getInstance().columnLibraryId());
-        return cfi("FK_COLLECTION_LIBRARY", "library", this, LdLibraryDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "collectionList");
+        return cfi("FK_COLLECTION_LIBRARY", "library", this, LdLibraryDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "collectionList");
     }
+    /**
+     * COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.
+     * @return The information object of foreign property(referrer-as-one). (NotNull)
+     */
     public ForeignInfo foreignCollectionStatusAsOne() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCollectionId(), LdCollectionStatusDbm.getInstance().columnCollectionId());
-        return cfi("FK_COLLECTION_STATUS_COLLECTION", "collectionStatusAsOne", this, LdCollectionStatusDbm.getInstance(), mp, 2, true, false, true, false, null, null, false, "collection");
+        return cfi("FK_COLLECTION_STATUS_COLLECTION", "collectionStatusAsOne", this, LdCollectionStatusDbm.getInstance(), mp, 2, null, true, false, true, false, null, null, false, "collection");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerLendingCollectionList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCollectionId(), LdLendingCollectionDbm.getInstance().columnCollectionId());
         return cri("FK_LENDING_COLLECTION_COL", "lendingCollectionList", this, LdLendingCollectionDbm.getInstance(), mp, false, "collection");

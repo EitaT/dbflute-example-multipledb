@@ -28,8 +28,8 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdBsLibraryUserCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdBsLibraryUserCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -101,14 +101,14 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LibraryId_Asc() { regOBA("LIBRARY_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY}
+     * LIBRARY_ID: {PK, IX, NotNull, SMALLINT(5), FK to LIBRARY}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LibraryId_Desc() { regOBD("LIBRARY_ID"); return this; }
@@ -138,14 +138,14 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LbUserId_Asc() { regOBA("LB_USER_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LB_USER_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to LB_USER}
+     * LB_USER_ID: {PK, IX, NotNull, INTEGER(10), FK to LB_USER}
      * @return this. (NotNull)
      */
     public LdBsLibraryUserCQ addOrderBy_LbUserId_Desc() { regOBD("LB_USER_ID"); return this; }
@@ -316,7 +316,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         LdLibraryUserCQ bq = (LdLibraryUserCQ)bqs;
         LdLibraryUserCQ uq = (LdLibraryUserCQ)uqs;
         if (bq.hasConditionQueryLbUser()) {
@@ -403,10 +403,21 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     }
 
     // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    protected Map<String, LdLibraryUserCQ> _scalarConditionMap;
+    public Map<String, LdLibraryUserCQ> getScalarCondition() { return _scalarConditionMap; }
+    public String keepScalarCondition(LdLibraryUserCQ sq) {
+        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
+    }
+
+    // ===================================================================================
     //                                                      ExistsReferrer for Compound PK
     //                                                      ==============================
     /**
-     * Set up ExistsReferrer (correlated sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query by compound key). <br />
      * {exists (select ... from LENDING where ...)}
      * @param subQuery The sub-query of LendingList for 'exists'. (NotNull)
      */
@@ -426,7 +437,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     }
 
     /**
-     * Set up ExistsReferrer (correlated sub-query). <br />
+     * Set up ExistsReferrer (correlated sub-query by compound key). <br />
      * {exists (select ... from LENDING_COLLECTION where ...)}
      * @param subQuery The sub-query of LendingCollectionList for 'exists'. (NotNull)
      */
@@ -446,7 +457,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     }
 
     /**
-     * Set up NotExistsReferrer (correlated sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query by compound key). <br />
      * {not exists (select ... from LENDING where ...)}
      * @param subQuery The sub-query of LendingList for 'not exists'. (NotNull)
      */
@@ -466,7 +477,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     }
 
     /**
-     * Set up NotExistsReferrer (correlated sub-query). <br />
+     * Set up NotExistsReferrer (correlated sub-query by compound key). <br />
      * {not exists (select ... from LENDING_COLLECTION where ...)}
      * @param subQuery The sub-query of LendingCollectionList for 'not exists'. (NotNull)
      */
@@ -522,7 +533,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     //                                              (Query)DerivedReferrer for Compound PK
     //                                              ======================================
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from LENDING where ...)} <br />
      * LENDING by LIBRARY_ID, LB_USER_ID, named 'lendingAsOne'.
      * <pre>
@@ -568,7 +579,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     }
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from LENDING_COLLECTION where ...)} <br />
      * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, named 'lendingCollectionAsOne'.
      * <pre>
@@ -619,5 +630,7 @@ public class LdBsLibraryUserCQ extends LdAbstractBsLibraryUserCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return LdLibraryUserCB.class.getName(); }
     protected String xCQ() { return LdLibraryUserCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

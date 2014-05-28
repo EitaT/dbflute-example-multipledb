@@ -171,7 +171,7 @@ public abstract class LdBsBlackActionBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdBlackAction. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsBlackActionBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param blackActionId The one of primary key. (NotNull)
+     * @param blackActionId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackAction selectByPKValue(Integer blackActionId) {
-        return doSelectByPKValue(blackActionId, LdBlackAction.class);
+        return doSelectByPK(blackActionId, LdBlackAction.class);
     }
 
-    protected <ENTITY extends LdBlackAction> ENTITY doSelectByPKValue(Integer blackActionId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(blackActionId), entityType);
+    protected <ENTITY extends LdBlackAction> ENTITY doSelectByPK(Integer blackActionId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(blackActionId), entityType);
+    }
+
+    protected <ENTITY extends LdBlackAction> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer blackActionId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(blackActionId, entityType), blackActionId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param blackActionId The one of primary key. (NotNull)
+     * @param blackActionId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackAction selectByPKValueWithDeletedCheck(Integer blackActionId) {
-        return doSelectByPKValueWithDeletedCheck(blackActionId, LdBlackAction.class);
+        return doSelectByPKWithDeletedCheck(blackActionId, LdBlackAction.class);
     }
 
-    protected <ENTITY extends LdBlackAction> ENTITY doSelectByPKValueWithDeletedCheck(Integer blackActionId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(blackActionId), entityType);
+    protected <ENTITY extends LdBlackAction> ENTITY doSelectByPKWithDeletedCheck(Integer blackActionId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(blackActionId), entityType);
     }
 
-    private LdBlackActionCB buildPKCB(Integer blackActionId) {
+    protected LdBlackActionCB xprepareCBAsPK(Integer blackActionId) {
         assertObjectNotNull("blackActionId", blackActionId);
-        LdBlackActionCB cb = newMyConditionBean();
-        cb.query().setBlackActionId_Equal(blackActionId);
+        LdBlackActionCB cb = newMyConditionBean(); cb.acceptPrimaryKey(blackActionId);
         return cb;
     }
 
@@ -389,7 +392,8 @@ public abstract class LdBsBlackActionBhv extends AbstractBehaviorWritable {
      */
     public List<LdBlackList> pulloutBlackList(List<LdBlackAction> blackActionList) {
         return helpPulloutInternally(blackActionList, new InternalPulloutCallback<LdBlackAction, LdBlackList>() {
-            public LdBlackList getFr(LdBlackAction et) { return et.getBlackList(); }
+            public LdBlackList getFr(LdBlackAction et)
+            { return et.getBlackList(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdBlackList et, List<LdBlackAction> ls)
             { et.setBlackActionList(ls); }
@@ -402,7 +406,8 @@ public abstract class LdBsBlackActionBhv extends AbstractBehaviorWritable {
      */
     public List<LdBlackActionLookup> pulloutBlackActionLookup(List<LdBlackAction> blackActionList) {
         return helpPulloutInternally(blackActionList, new InternalPulloutCallback<LdBlackAction, LdBlackActionLookup>() {
-            public LdBlackActionLookup getFr(LdBlackAction et) { return et.getBlackActionLookup(); }
+            public LdBlackActionLookup getFr(LdBlackAction et)
+            { return et.getBlackActionLookup(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdBlackActionLookup et, List<LdBlackAction> ls)
             { et.setBlackActionList(ls); }

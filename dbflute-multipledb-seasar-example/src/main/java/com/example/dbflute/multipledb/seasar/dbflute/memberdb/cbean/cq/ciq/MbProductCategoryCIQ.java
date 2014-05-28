@@ -25,9 +25,9 @@ public class MbProductCategoryCIQ extends MbAbstractBsProductCategoryCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbProductCategoryCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public MbProductCategoryCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, MbBsProductCategoryCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

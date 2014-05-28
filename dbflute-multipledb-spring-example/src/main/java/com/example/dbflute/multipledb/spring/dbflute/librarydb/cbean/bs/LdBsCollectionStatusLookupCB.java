@@ -79,10 +79,14 @@ public class LdBsCollectionStatusLookupCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param collectionStatusCode : PK, NotNull, CHAR(3), classification=CollectionStatus. (NotNull)
+     */
     public void acceptPrimaryKey(String collectionStatusCode) {
         assertObjectNotNull("collectionStatusCode", collectionStatusCode);
         LdBsCollectionStatusLookupCB cb = this;
-        cb.query().setCollectionStatusCode_Equal(collectionStatusCode);
+        cb.query().setCollectionStatusCode_Equal(collectionStatusCode);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -445,6 +449,11 @@ public class LdBsCollectionStatusLookupCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdCollectionStatusLookupCB> orQuery) {
         xorSQ((LdCollectionStatusLookupCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

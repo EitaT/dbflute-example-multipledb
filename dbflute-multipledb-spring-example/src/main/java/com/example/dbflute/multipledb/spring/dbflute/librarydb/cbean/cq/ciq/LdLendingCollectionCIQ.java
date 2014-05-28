@@ -27,9 +27,9 @@ public class LdLendingCollectionCIQ extends LdAbstractBsLendingCollectionCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdLendingCollectionCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public LdLendingCollectionCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, LdBsLendingCollectionCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path
@@ -87,6 +87,8 @@ public class LdLendingCollectionCIQ extends LdAbstractBsLendingCollectionCQ {
     protected ConditionValue getCValueUModule() { return _myCQ.getUModule(); }
     protected ConditionValue getCValueUTimestamp() { return _myCQ.getUTimestamp(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
+    public String keepScalarCondition(LdLendingCollectionCQ sq)
+    { throwIICBOE("ScalarCondition"); return null; }
 
     protected void throwIICBOE(String name) { // throwInlineIllegalConditionBeanOperationException()
         throw new IllegalConditionBeanOperationException(name + " at InlineView is unsupported.");

@@ -80,10 +80,14 @@ public class LdBsGenreCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param genreCode : PK, NotNull, VARCHAR(24). (NotNull)
+     */
     public void acceptPrimaryKey(String genreCode) {
         assertObjectNotNull("genreCode", genreCode);
         LdBsGenreCB cb = this;
-        cb.query().setGenreCode_Equal(genreCode);
+        cb.query().setGenreCode_Equal(genreCode);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -534,6 +538,11 @@ public class LdBsGenreCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdGenreCB> orQuery) {
         xorSQ((LdGenreCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

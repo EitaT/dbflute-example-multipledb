@@ -35,13 +35,14 @@ public class LdMyselfDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMyselfId(), "myselfId");
         setupEpg(_epgMap, new EpgMyselfName(), "myselfName");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMyselfId implements PropertyGateway {
         public Object read(Entity et) { return ((LdMyself)et).getMyselfId(); }
         public void write(Entity et, Object vl) { ((LdMyself)et).setMyselfId(cti(vl)); }
@@ -50,6 +51,8 @@ public class LdMyselfDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdMyself)et).getMyselfName(); }
         public void write(Entity et, Object vl) { ((LdMyself)et).setMyselfName((String)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -65,10 +68,18 @@ public class LdMyselfDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMyselfId = cci("MYSELF_ID", "MYSELF_ID", null, null, true, "myselfId", Integer.class, true, false, "INTEGER", 10, 0, null, false, null, null, null, "myselfCheckList", null);
-    protected final ColumnInfo _columnMyselfName = cci("MYSELF_NAME", "MYSELF_NAME", null, null, true, "myselfName", String.class, false, false, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMyselfId = cci("MYSELF_ID", "MYSELF_ID", null, null, Integer.class, "myselfId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, null, "myselfCheckList", null);
+    protected final ColumnInfo _columnMyselfName = cci("MYSELF_NAME", "MYSELF_NAME", null, null, String.class, "myselfName", null, false, false, true, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
 
+    /**
+     * MYSELF_ID: {PK, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMyselfId() { return _columnMyselfId; }
+    /**
+     * MYSELF_NAME: {NotNull, VARCHAR(80)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMyselfName() { return _columnMyselfName; }
 
     protected List<ColumnInfo> ccil() {
@@ -93,6 +104,8 @@ public class LdMyselfDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
@@ -100,6 +113,10 @@ public class LdMyselfDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerMyselfCheckList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMyselfId(), LdMyselfCheckDbm.getInstance().columnMyselfId());
         return cri("FK_MYSELF_CHECK_SELF", "myselfCheckList", this, LdMyselfCheckDbm.getInstance(), mp, false, "myself");

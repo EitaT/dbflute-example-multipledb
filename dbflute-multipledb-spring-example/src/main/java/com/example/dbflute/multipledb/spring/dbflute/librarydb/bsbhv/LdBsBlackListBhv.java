@@ -171,7 +171,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdBlackList. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,64 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param blackListId The one of primary key. (NotNull)
+     * @param blackListId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectByPKValue(Integer blackListId) {
-        return doSelectByPKValue(blackListId, LdBlackList.class);
+        return doSelectByPK(blackListId, LdBlackList.class);
     }
 
-    protected <ENTITY extends LdBlackList> ENTITY doSelectByPKValue(Integer blackListId, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(blackListId), entityType);
+    protected <ENTITY extends LdBlackList> ENTITY doSelectByPK(Integer blackListId, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(blackListId), entityType);
+    }
+
+    protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer blackListId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(blackListId, entityType), blackListId);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param blackListId The one of primary key. (NotNull)
+     * @param blackListId : PK, ID, NotNull, INTEGER(10). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectByPKValueWithDeletedCheck(Integer blackListId) {
-        return doSelectByPKValueWithDeletedCheck(blackListId, LdBlackList.class);
+        return doSelectByPKWithDeletedCheck(blackListId, LdBlackList.class);
     }
 
-    protected <ENTITY extends LdBlackList> ENTITY doSelectByPKValueWithDeletedCheck(Integer blackListId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(blackListId), entityType);
+    protected <ENTITY extends LdBlackList> ENTITY doSelectByPKWithDeletedCheck(Integer blackListId, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(blackListId), entityType);
     }
 
-    private LdBlackListCB buildPKCB(Integer blackListId) {
+    protected LdBlackListCB xprepareCBAsPK(Integer blackListId) {
         assertObjectNotNull("blackListId", blackListId);
-        LdBlackListCB cb = newMyConditionBean();
-        cb.query().setBlackListId_Equal(blackListId);
+        LdBlackListCB cb = newMyConditionBean(); cb.acceptPrimaryKey(blackListId);
+        return cb;
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param lbUserId : UQ, IX, NotNull, INTEGER(10), FK to LB_USER. (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @exception EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @exception EntityDuplicatedException When the entity has been duplicated.
+     * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<LdBlackList> selectByUniqueOf(Integer lbUserId) {
+        return doSelectByUniqueOf(lbUserId, LdBlackList.class);
+    }
+
+    protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer lbUserId, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(lbUserId), entityType), lbUserId);
+    }
+
+    protected LdBlackListCB xprepareCBAsUniqueOf(Integer lbUserId) {
+        assertObjectNotNull("lbUserId", lbUserId);
+        LdBlackListCB cb = newMyConditionBean(); cb.acceptUniqueOf(lbUserId);
         return cb;
     }
 
@@ -500,7 +525,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      */
     public List<LdLbUser> pulloutLbUser(List<LdBlackList> blackListList) {
         return helpPulloutInternally(blackListList, new InternalPulloutCallback<LdBlackList, LdLbUser>() {
-            public LdLbUser getFr(LdBlackList et) { return et.getLbUser(); }
+            public LdLbUser getFr(LdBlackList et)
+            { return et.getLbUser(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdLbUser et, List<LdBlackList> ls)
             { if (!ls.isEmpty()) { et.setBlackListAsOne(ls.get(0)); } }

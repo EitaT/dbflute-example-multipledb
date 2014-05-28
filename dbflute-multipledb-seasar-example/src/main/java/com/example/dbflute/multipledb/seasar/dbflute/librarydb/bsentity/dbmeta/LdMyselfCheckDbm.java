@@ -35,14 +35,15 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgMyselfCheckId(), "myselfCheckId");
         setupEpg(_epgMap, new EpgMyselfCheckName(), "myselfCheckName");
         setupEpg(_epgMap, new EpgMyselfId(), "myselfId");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgMyselfCheckId implements PropertyGateway {
         public Object read(Entity et) { return ((LdMyselfCheck)et).getMyselfCheckId(); }
         public void write(Entity et, Object vl) { ((LdMyselfCheck)et).setMyselfCheckId(cti(vl)); }
@@ -55,6 +56,22 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdMyselfCheck)et).getMyselfId(); }
         public void write(Entity et, Object vl) { ((LdMyselfCheck)et).setMyselfId(cti(vl)); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgMyself(), "myself");
+    }
+    public class EfpgMyself implements PropertyGateway {
+        public Object read(Entity et) { return ((LdMyselfCheck)et).getMyself(); }
+        public void write(Entity et, Object vl) { ((LdMyselfCheck)et).setMyself((LdMyself)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -70,12 +87,24 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnMyselfCheckId = cci("MYSELF_CHECK_ID", "MYSELF_CHECK_ID", null, null, true, "myselfCheckId", Integer.class, true, false, "INTEGER", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMyselfCheckName = cci("MYSELF_CHECK_NAME", "MYSELF_CHECK_NAME", null, null, true, "myselfCheckName", String.class, false, false, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnMyselfId = cci("MYSELF_ID", "MYSELF_ID", null, null, false, "myselfId", Integer.class, false, false, "INTEGER", 10, 0, null, false, null, null, "myself", null, null);
+    protected final ColumnInfo _columnMyselfCheckId = cci("MYSELF_CHECK_ID", "MYSELF_CHECK_ID", null, null, Integer.class, "myselfCheckId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMyselfCheckName = cci("MYSELF_CHECK_NAME", "MYSELF_CHECK_NAME", null, null, String.class, "myselfCheckName", null, false, false, true, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnMyselfId = cci("MYSELF_ID", "MYSELF_ID", null, null, Integer.class, "myselfId", null, false, false, false, "INTEGER", 10, 0, null, false, null, null, "myself", null, null);
 
+    /**
+     * MYSELF_CHECK_ID: {PK, NotNull, INTEGER(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMyselfCheckId() { return _columnMyselfCheckId; }
+    /**
+     * MYSELF_CHECK_NAME: {NotNull, VARCHAR(80)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMyselfCheckName() { return _columnMyselfCheckName; }
+    /**
+     * MYSELF_ID: {IX, INTEGER(10), FK to MYSELF}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnMyselfId() { return _columnMyselfId; }
 
     protected List<ColumnInfo> ccil() {
@@ -101,12 +130,18 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * MYSELF by my MYSELF_ID, named 'myself'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignMyself() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnMyselfId(), LdMyselfDbm.getInstance().columnMyselfId());
-        return cfi("FK_MYSELF_CHECK_SELF", "myself", this, LdMyselfDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "myselfCheckList");
+        return cfi("FK_MYSELF_CHECK_SELF", "myself", this, LdMyselfDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "myselfCheckList");
     }
 
     // -----------------------------------------------------

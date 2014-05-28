@@ -35,6 +35,9 @@ public class LdGenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgGenreCode(), "genreCode");
@@ -49,8 +52,6 @@ public class LdGenreDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUModule(), "UModule");
         setupEpg(_epgMap, new EpgUTimestamp(), "UTimestamp");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgGenreCode implements PropertyGateway {
         public Object read(Entity et) { return ((LdGenre)et).getGenreCode(); }
         public void write(Entity et, Object vl) { ((LdGenre)et).setGenreCode((String)vl); }
@@ -95,6 +96,22 @@ public class LdGenreDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdGenre)et).getUTimestamp(); }
         public void write(Entity et, Object vl) { ((LdGenre)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgGenreSelf(), "genreSelf");
+    }
+    public class EfpgGenreSelf implements PropertyGateway {
+        public Object read(Entity et) { return ((LdGenre)et).getGenreSelf(); }
+        public void write(Entity et, Object vl) { ((LdGenre)et).setGenreSelf((LdGenre)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -110,28 +127,72 @@ public class LdGenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnGenreCode = cci("GENRE_CODE", "GENRE_CODE", null, null, true, "genreCode", String.class, true, false, "VARCHAR", 24, 0, null, false, null, null, null, "bookList,genreSelfList", null);
-    protected final ColumnInfo _columnGenreName = cci("GENRE_NAME", "GENRE_NAME", null, null, true, "genreName", String.class, false, false, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnHierarchyLevel = cci("HIERARCHY_LEVEL", "HIERARCHY_LEVEL", null, null, true, "hierarchyLevel", java.math.BigDecimal.class, false, false, "NUMERIC", 9, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnHierarchyOrder = cci("HIERARCHY_ORDER", "HIERARCHY_ORDER", null, null, true, "hierarchyOrder", java.math.BigDecimal.class, false, false, "NUMERIC", 10, 0, null, false, null, null, null, null, null);
-    protected final ColumnInfo _columnParentGenreCode = cci("PARENT_GENRE_CODE", "PARENT_GENRE_CODE", null, null, false, "parentGenreCode", String.class, false, false, "VARCHAR", 24, 0, null, false, null, null, "genreSelf", null, null);
-    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, true, "RUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, true, "RModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, true, "RTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, true, "UUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, true, "UModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
-    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, true, "UTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
+    protected final ColumnInfo _columnGenreCode = cci("GENRE_CODE", "GENRE_CODE", null, null, String.class, "genreCode", null, true, false, true, "VARCHAR", 24, 0, null, false, null, null, null, "bookList,genreSelfList", null);
+    protected final ColumnInfo _columnGenreName = cci("GENRE_NAME", "GENRE_NAME", null, null, String.class, "genreName", null, false, false, true, "VARCHAR", 80, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnHierarchyLevel = cci("HIERARCHY_LEVEL", "HIERARCHY_LEVEL", null, null, java.math.BigDecimal.class, "hierarchyLevel", null, false, false, true, "NUMERIC", 9, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnHierarchyOrder = cci("HIERARCHY_ORDER", "HIERARCHY_ORDER", null, null, java.math.BigDecimal.class, "hierarchyOrder", null, false, false, true, "NUMERIC", 10, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnParentGenreCode = cci("PARENT_GENRE_CODE", "PARENT_GENRE_CODE", null, null, String.class, "parentGenreCode", null, false, false, false, "VARCHAR", 24, 0, null, false, null, null, "genreSelf", null, null);
+    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, String.class, "RUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, String.class, "RModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, java.sql.Timestamp.class, "RTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, String.class, "UUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, String.class, "UModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", false, null, null, null, null, null);
+    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, java.sql.Timestamp.class, "UTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", false, OptimisticLockType.UPDATE_DATE, null, null, null, null);
 
+    /**
+     * GENRE_CODE: {PK, NotNull, VARCHAR(24)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnGenreCode() { return _columnGenreCode; }
+    /**
+     * GENRE_NAME: {NotNull, VARCHAR(80)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnGenreName() { return _columnGenreName; }
+    /**
+     * HIERARCHY_LEVEL: {NotNull, NUMERIC(9)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnHierarchyLevel() { return _columnHierarchyLevel; }
+    /**
+     * HIERARCHY_ORDER: {NotNull, NUMERIC(10)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnHierarchyOrder() { return _columnHierarchyOrder; }
+    /**
+     * PARENT_GENRE_CODE: {IX, VARCHAR(24), FK to GENRE}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnParentGenreCode() { return _columnParentGenreCode; }
+    /**
+     * R_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRUser() { return _columnRUser; }
+    /**
+     * R_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRModule() { return _columnRModule; }
+    /**
+     * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRTimestamp() { return _columnRTimestamp; }
+    /**
+     * U_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUUser() { return _columnUUser; }
+    /**
+     * U_MODULE: {NotNull, VARCHAR(100), default=[default-module]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUModule() { return _columnUModule; }
+    /**
+     * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUTimestamp() { return _columnUTimestamp; }
 
     protected List<ColumnInfo> ccil() {
@@ -165,21 +226,35 @@ public class LdGenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * GENRE by my PARENT_GENRE_CODE, named 'genreSelf'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignGenreSelf() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParentGenreCode(), LdGenreDbm.getInstance().columnGenreCode());
-        return cfi("FK_GENRE_GENRE", "genreSelf", this, LdGenreDbm.getInstance(), mp, 0, false, false, false, false, null, null, false, "genreSelfList");
+        return cfi("FK_GENRE_GENRE", "genreSelf", this, LdGenreDbm.getInstance(), mp, 0, null, false, false, false, false, null, null, false, "genreSelfList");
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * BOOK by GENRE_CODE, named 'bookList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerBookList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGenreCode(), LdBookDbm.getInstance().columnGenreCode());
         return cri("FK_BOOK_GENRE", "bookList", this, LdBookDbm.getInstance(), mp, false, "genre");
     }
+    /**
+     * GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerGenreSelfList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGenreCode(), LdGenreDbm.getInstance().columnParentGenreCode());
         return cri("FK_GENRE_GENRE", "genreSelfList", this, LdGenreDbm.getInstance(), mp, false, "genreSelf");

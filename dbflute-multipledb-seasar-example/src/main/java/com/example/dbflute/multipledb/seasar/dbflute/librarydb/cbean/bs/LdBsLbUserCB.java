@@ -80,10 +80,14 @@ public class LdBsLbUserCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param lbUserId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     */
     public void acceptPrimaryKey(Integer lbUserId) {
         assertObjectNotNull("lbUserId", lbUserId);
         LdBsLbUserCB cb = this;
-        cb.query().setLbUserId_Equal(lbUserId);
+        cb.query().setLbUserId_Equal(lbUserId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -497,6 +501,11 @@ public class LdBsLbUserCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdLbUserCB> orQuery) {
         xorSQ((LdLbUserCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

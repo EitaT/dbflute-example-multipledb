@@ -22,8 +22,8 @@ public abstract class MbAbstractBsMemberStatusCQ extends AbstractConditionQuery 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MbAbstractBsMemberStatusCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public MbAbstractBsMemberStatusCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -329,7 +329,7 @@ public abstract class MbAbstractBsMemberStatusCQ extends AbstractConditionQuery 
     public abstract String keepMemberStatusCode_SpecifyDerivedReferrer_MemberLoginList(MbMemberLoginCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from MEMBER where ...)} <br />
      * MEMBER by MEMBER_STATUS_CODE, named 'memberAsOne'.
      * <pre>
@@ -363,7 +363,7 @@ public abstract class MbAbstractBsMemberStatusCQ extends AbstractConditionQuery 
     public abstract String keepMemberStatusCode_QueryDerivedReferrer_MemberListParameter(Object vl);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from MEMBER_LOGIN where ...)} <br />
      * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginAsOne'.
      * <pre>
@@ -785,7 +785,7 @@ public abstract class MbAbstractBsMemberStatusCQ extends AbstractConditionQuery 
     public abstract String keepSpecifyMyselfDerived(MbMemberStatusCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<MbMemberStatusCB> myselfDerived() {
@@ -807,8 +807,8 @@ public abstract class MbAbstractBsMemberStatusCQ extends AbstractConditionQuery 
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<MbMemberStatusCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -823,8 +823,8 @@ public abstract class MbAbstractBsMemberStatusCQ extends AbstractConditionQuery 
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<MbMemberStatusCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

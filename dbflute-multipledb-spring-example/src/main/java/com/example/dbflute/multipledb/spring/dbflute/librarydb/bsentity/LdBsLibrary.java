@@ -110,6 +110,9 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -152,6 +155,28 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     public boolean hasPrimaryKeyValue() {
         if (getLibraryId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param libraryName : UQ, NotNull, VARCHAR(80). (NotNull)
+     */
+    public void uniqueBy(String libraryName) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("libraryName");
+        setLibraryName(libraryName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> myuniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -323,8 +348,8 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
         if (!xSV(getLibraryId(), other.getLibraryId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -332,13 +357,13 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getLibraryId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getLibraryId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -362,21 +387,21 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_libraryTypeLookup != null)
-        { sb.append(l).append(xbRDS(_libraryTypeLookup, "libraryTypeLookup")); }
-        if (_collectionList != null) { for (Entity e : _collectionList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "collectionList")); } } }
-        if (_libraryUserList != null) { for (Entity e : _libraryUserList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "libraryUserList")); } } }
-        if (_nextLibraryByLibraryIdList != null) { for (Entity e : _nextLibraryByLibraryIdList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "nextLibraryByLibraryIdList")); } } }
-        if (_nextLibraryByNextLibraryIdList != null) { for (Entity e : _nextLibraryByNextLibraryIdList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "nextLibraryByNextLibraryIdList")); } } }
+        { sb.append(li).append(xbRDS(_libraryTypeLookup, "libraryTypeLookup")); }
+        if (_collectionList != null) { for (Entity et : _collectionList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "collectionList")); } } }
+        if (_libraryUserList != null) { for (Entity et : _libraryUserList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "libraryUserList")); } } }
+        if (_nextLibraryByLibraryIdList != null) { for (Entity et : _nextLibraryByLibraryIdList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "nextLibraryByLibraryIdList")); } } }
+        if (_nextLibraryByNextLibraryIdList != null) { for (Entity et : _nextLibraryByNextLibraryIdList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "nextLibraryByNextLibraryIdList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
     }
 
     /**
@@ -392,36 +417,36 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getLibraryId());
-        sb.append(delimiter).append(getLibraryName());
-        sb.append(delimiter).append(getLibraryTypeCode());
-        sb.append(delimiter).append(getRUser());
-        sb.append(delimiter).append(getRModule());
-        sb.append(delimiter).append(getRTimestamp());
-        sb.append(delimiter).append(getUUser());
-        sb.append(delimiter).append(getUModule());
-        sb.append(delimiter).append(getUTimestamp());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getLibraryId());
+        sb.append(dm).append(getLibraryName());
+        sb.append(dm).append(getLibraryTypeCode());
+        sb.append(dm).append(getRUser());
+        sb.append(dm).append(getRModule());
+        sb.append(dm).append(getRTimestamp());
+        sb.append(dm).append(getUUser());
+        sb.append(dm).append(getUModule());
+        sb.append(dm).append(getUTimestamp());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_libraryTypeLookup != null) { sb.append(c).append("libraryTypeLookup"); }
+        String cm = ",";
+        if (_libraryTypeLookup != null) { sb.append(cm).append("libraryTypeLookup"); }
         if (_collectionList != null && !_collectionList.isEmpty())
-        { sb.append(c).append("collectionList"); }
+        { sb.append(cm).append("collectionList"); }
         if (_libraryUserList != null && !_libraryUserList.isEmpty())
-        { sb.append(c).append("libraryUserList"); }
+        { sb.append(cm).append("libraryUserList"); }
         if (_nextLibraryByLibraryIdList != null && !_nextLibraryByLibraryIdList.isEmpty())
-        { sb.append(c).append("nextLibraryByLibraryIdList"); }
+        { sb.append(cm).append("nextLibraryByLibraryIdList"); }
         if (_nextLibraryByNextLibraryIdList != null && !_nextLibraryByNextLibraryIdList.isEmpty())
-        { sb.append(c).append("nextLibraryByNextLibraryIdList"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        { sb.append(cm).append("nextLibraryByNextLibraryIdList"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }

@@ -35,6 +35,9 @@ public class LdCollectionStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgCollectionId(), "collectionId");
@@ -46,8 +49,6 @@ public class LdCollectionStatusDbm extends AbstractDBMeta {
         setupEpg(_epgMap, new EpgUModule(), "UModule");
         setupEpg(_epgMap, new EpgUTimestamp(), "UTimestamp");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgCollectionId implements PropertyGateway {
         public Object read(Entity et) { return ((LdCollectionStatus)et).getCollectionId(); }
         public void write(Entity et, Object vl) { ((LdCollectionStatus)et).setCollectionId(cti(vl)); }
@@ -80,6 +81,27 @@ public class LdCollectionStatusDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdCollectionStatus)et).getUTimestamp(); }
         public void write(Entity et, Object vl) { ((LdCollectionStatus)et).setUTimestamp((java.sql.Timestamp)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    {
+        setupEfpg(_efpgMap, new EfpgCollection(), "collection");
+        setupEfpg(_efpgMap, new EfpgCollectionStatusLookup(), "collectionStatusLookup");
+    }
+    public class EfpgCollection implements PropertyGateway {
+        public Object read(Entity et) { return ((LdCollectionStatus)et).getCollection(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatus)et).setCollection((LdCollection)vl); }
+    }
+    public class EfpgCollectionStatusLookup implements PropertyGateway {
+        public Object read(Entity et) { return ((LdCollectionStatus)et).getCollectionStatusLookup(); }
+        public void write(Entity et, Object vl) { ((LdCollectionStatus)et).setCollectionStatusLookup((LdCollectionStatusLookup)vl); }
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -95,22 +117,54 @@ public class LdCollectionStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnCollectionId = cci("COLLECTION_ID", "COLLECTION_ID", null, null, true, "collectionId", Integer.class, true, false, "INTEGER", 10, 0, null, false, null, null, "collection", null, null);
-    protected final ColumnInfo _columnCollectionStatusCode = cci("COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", null, null, true, "collectionStatusCode", String.class, false, false, "CHAR", 3, 0, null, false, null, null, "collectionStatusLookup", null, LdCDef.DefMeta.CollectionStatus);
-    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, true, "RUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
-    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, true, "RModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.RegisterModuleType);
-    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, true, "RTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, null, null, null, null, null);
-    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, true, "UUser", String.class, false, false, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
-    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, true, "UModule", String.class, false, false, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.UpdateModuleType);
-    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, true, "UTimestamp", java.sql.Timestamp.class, false, false, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, OptimisticLockType.UPDATE_DATE, null, null, null, null);
+    protected final ColumnInfo _columnCollectionId = cci("COLLECTION_ID", "COLLECTION_ID", null, null, Integer.class, "collectionId", null, true, false, true, "INTEGER", 10, 0, null, false, null, null, "collection", null, null);
+    protected final ColumnInfo _columnCollectionStatusCode = cci("COLLECTION_STATUS_CODE", "COLLECTION_STATUS_CODE", null, null, String.class, "collectionStatusCode", null, false, false, true, "CHAR", 3, 0, null, false, null, null, "collectionStatusLookup", null, LdCDef.DefMeta.CollectionStatus);
+    protected final ColumnInfo _columnRUser = cci("R_USER", "R_USER", null, null, String.class, "RUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
+    protected final ColumnInfo _columnRModule = cci("R_MODULE", "R_MODULE", null, null, String.class, "RModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.RegisterModuleType);
+    protected final ColumnInfo _columnRTimestamp = cci("R_TIMESTAMP", "R_TIMESTAMP", null, null, java.sql.Timestamp.class, "RTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, null, null, null, null, null);
+    protected final ColumnInfo _columnUUser = cci("U_USER", "U_USER", null, null, String.class, "UUser", null, false, false, true, "VARCHAR", 100, 0, "default-user", true, null, null, null, null, null);
+    protected final ColumnInfo _columnUModule = cci("U_MODULE", "U_MODULE", null, null, String.class, "UModule", null, false, false, true, "VARCHAR", 100, 0, "default-module", true, null, null, null, null, LdCDef.DefMeta.UpdateModuleType);
+    protected final ColumnInfo _columnUTimestamp = cci("U_TIMESTAMP", "U_TIMESTAMP", null, null, java.sql.Timestamp.class, "UTimestamp", null, false, false, true, "TIMESTAMP", 26, 6, "CURRENT_TIMESTAMP", true, OptimisticLockType.UPDATE_DATE, null, null, null, null);
 
+    /**
+     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnCollectionId() { return _columnCollectionId; }
+    /**
+     * COLLECTION_STATUS_CODE: {IX, NotNull, CHAR(3), FK to COLLECTION_STATUS_LOOKUP, classification=CollectionStatus}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnCollectionStatusCode() { return _columnCollectionStatusCode; }
+    /**
+     * R_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRUser() { return _columnRUser; }
+    /**
+     * R_MODULE: {NotNull, VARCHAR(100), default=[default-module], classification=RegisterModuleType}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRModule() { return _columnRModule; }
+    /**
+     * R_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnRTimestamp() { return _columnRTimestamp; }
+    /**
+     * U_USER: {NotNull, VARCHAR(100), default=[default-user]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUUser() { return _columnUUser; }
+    /**
+     * U_MODULE: {NotNull, VARCHAR(100), default=[default-module], classification=UpdateModuleType}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUModule() { return _columnUModule; }
+    /**
+     * U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnUTimestamp() { return _columnUTimestamp; }
 
     protected List<ColumnInfo> ccil() {
@@ -141,16 +195,26 @@ public class LdCollectionStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * COLLECTION by my COLLECTION_ID, named 'collection'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignCollection() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCollectionId(), LdCollectionDbm.getInstance().columnCollectionId());
-        return cfi("FK_COLLECTION_STATUS_COLLECTION", "collection", this, LdCollectionDbm.getInstance(), mp, 0, true, false, false, false, null, null, false, "collectionStatusAsOne");
+        return cfi("FK_COLLECTION_STATUS_COLLECTION", "collection", this, LdCollectionDbm.getInstance(), mp, 0, null, true, false, false, false, null, null, false, "collectionStatusAsOne");
     }
+    /**
+     * COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
+     * @return The information object of foreign property. (NotNull)
+     */
     public ForeignInfo foreignCollectionStatusLookup() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnCollectionStatusCode(), LdCollectionStatusLookupDbm.getInstance().columnCollectionStatusCode());
-        return cfi("FK_COLLECTION_STATUS_LOOKUP", "collectionStatusLookup", this, LdCollectionStatusLookupDbm.getInstance(), mp, 1, false, false, false, false, null, null, false, "collectionStatusList");
+        return cfi("FK_COLLECTION_STATUS_LOOKUP", "collectionStatusLookup", this, LdCollectionStatusLookupDbm.getInstance(), mp, 1, null, false, false, false, false, null, null, false, "collectionStatusList");
     }
 
     // -----------------------------------------------------

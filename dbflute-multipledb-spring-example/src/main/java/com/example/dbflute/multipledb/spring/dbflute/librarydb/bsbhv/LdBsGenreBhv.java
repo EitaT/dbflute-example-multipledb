@@ -171,7 +171,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * </pre>
      * @param cb The condition-bean of LdGenre. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
 
     /**
      * Select the entity by the primary-key value.
-     * @param genreCode The one of primary key. (NotNull)
+     * @param genreCode : PK, NotNull, VARCHAR(24). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectByPKValue(String genreCode) {
-        return doSelectByPKValue(genreCode, LdGenre.class);
+        return doSelectByPK(genreCode, LdGenre.class);
     }
 
-    protected <ENTITY extends LdGenre> ENTITY doSelectByPKValue(String genreCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(genreCode), entityType);
+    protected <ENTITY extends LdGenre> ENTITY doSelectByPK(String genreCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(genreCode), entityType);
+    }
+
+    protected <ENTITY extends LdGenre> OptionalEntity<ENTITY> doSelectOptionalByPK(String genreCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(genreCode, entityType), genreCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param genreCode The one of primary key. (NotNull)
+     * @param genreCode : PK, NotNull, VARCHAR(24). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectByPKValueWithDeletedCheck(String genreCode) {
-        return doSelectByPKValueWithDeletedCheck(genreCode, LdGenre.class);
+        return doSelectByPKWithDeletedCheck(genreCode, LdGenre.class);
     }
 
-    protected <ENTITY extends LdGenre> ENTITY doSelectByPKValueWithDeletedCheck(String genreCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(genreCode), entityType);
+    protected <ENTITY extends LdGenre> ENTITY doSelectByPKWithDeletedCheck(String genreCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(genreCode), entityType);
     }
 
-    private LdGenreCB buildPKCB(String genreCode) {
+    protected LdGenreCB xprepareCBAsPK(String genreCode) {
         assertObjectNotNull("genreCode", genreCode);
-        LdGenreCB cb = newMyConditionBean();
-        cb.query().setGenreCode_Equal(genreCode);
+        LdGenreCB cb = newMyConditionBean(); cb.acceptPrimaryKey(genreCode);
         return cb;
     }
 
@@ -608,7 +611,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      */
     public List<LdGenre> pulloutGenreSelf(List<LdGenre> genreList) {
         return helpPulloutInternally(genreList, new InternalPulloutCallback<LdGenre, LdGenre>() {
-            public LdGenre getFr(LdGenre et) { return et.getGenreSelf(); }
+            public LdGenre getFr(LdGenre et)
+            { return et.getGenreSelf(); }
             public boolean hasRf() { return true; }
             public void setRfLs(LdGenre et, List<LdGenre> ls)
             { et.setGenreSelfList(ls); }

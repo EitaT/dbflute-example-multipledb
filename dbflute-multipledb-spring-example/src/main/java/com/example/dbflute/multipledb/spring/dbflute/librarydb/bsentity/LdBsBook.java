@@ -146,6 +146,9 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -188,6 +191,28 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     public boolean hasPrimaryKeyValue() {
         if (getBookId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param isbn : UQ, NotNull, VARCHAR(20). (NotNull)
+     */
+    public void uniqueBy(String isbn) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("isbn");
+        setIsbn(isbn);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> myuniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -445,8 +470,8 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
         if (!xSV(getBookId(), other.getBookId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -454,13 +479,13 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getBookId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getBookId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -484,21 +509,21 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_author != null)
-        { sb.append(l).append(xbRDS(_author, "author")); }
+        { sb.append(li).append(xbRDS(_author, "author")); }
         if (_genre != null)
-        { sb.append(l).append(xbRDS(_genre, "genre")); }
+        { sb.append(li).append(xbRDS(_genre, "genre")); }
         if (_publisher != null)
-        { sb.append(l).append(xbRDS(_publisher, "publisher")); }
+        { sb.append(li).append(xbRDS(_publisher, "publisher")); }
         if (_collectionStatusLookupAsNonExist != null)
-        { sb.append(l).append(xbRDS(_collectionStatusLookupAsNonExist, "collectionStatusLookupAsNonExist")); }
-        if (_collectionList != null) { for (Entity e : _collectionList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "collectionList")); } } }
+        { sb.append(li).append(xbRDS(_collectionStatusLookupAsNonExist, "collectionStatusLookupAsNonExist")); }
+        if (_collectionList != null) { for (Entity et : _collectionList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "collectionList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
     }
 
     /**
@@ -514,40 +539,40 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getBookId());
-        sb.append(delimiter).append(getIsbn());
-        sb.append(delimiter).append(getBookName());
-        sb.append(delimiter).append(getAuthorId());
-        sb.append(delimiter).append(getPublisherId());
-        sb.append(delimiter).append(getGenreCode());
-        sb.append(delimiter).append(getOpeningPart());
-        sb.append(delimiter).append(getMaxLendingDateCount());
-        sb.append(delimiter).append(getOutOfUserSelectYn());
-        sb.append(delimiter).append(getOutOfUserSelectReason());
-        sb.append(delimiter).append(getRUser());
-        sb.append(delimiter).append(getRModule());
-        sb.append(delimiter).append(getRTimestamp());
-        sb.append(delimiter).append(getUUser());
-        sb.append(delimiter).append(getUModule());
-        sb.append(delimiter).append(getUTimestamp());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getBookId());
+        sb.append(dm).append(getIsbn());
+        sb.append(dm).append(getBookName());
+        sb.append(dm).append(getAuthorId());
+        sb.append(dm).append(getPublisherId());
+        sb.append(dm).append(getGenreCode());
+        sb.append(dm).append(getOpeningPart());
+        sb.append(dm).append(getMaxLendingDateCount());
+        sb.append(dm).append(getOutOfUserSelectYn());
+        sb.append(dm).append(getOutOfUserSelectReason());
+        sb.append(dm).append(getRUser());
+        sb.append(dm).append(getRModule());
+        sb.append(dm).append(getRTimestamp());
+        sb.append(dm).append(getUUser());
+        sb.append(dm).append(getUModule());
+        sb.append(dm).append(getUTimestamp());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_author != null) { sb.append(c).append("author"); }
-        if (_genre != null) { sb.append(c).append("genre"); }
-        if (_publisher != null) { sb.append(c).append("publisher"); }
-        if (_collectionStatusLookupAsNonExist != null) { sb.append(c).append("collectionStatusLookupAsNonExist"); }
+        String cm = ",";
+        if (_author != null) { sb.append(cm).append("author"); }
+        if (_genre != null) { sb.append(cm).append("genre"); }
+        if (_publisher != null) { sb.append(cm).append("publisher"); }
+        if (_collectionStatusLookupAsNonExist != null) { sb.append(cm).append("collectionStatusLookupAsNonExist"); }
         if (_collectionList != null && !_collectionList.isEmpty())
-        { sb.append(c).append("collectionList"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        { sb.append(cm).append("collectionList"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }

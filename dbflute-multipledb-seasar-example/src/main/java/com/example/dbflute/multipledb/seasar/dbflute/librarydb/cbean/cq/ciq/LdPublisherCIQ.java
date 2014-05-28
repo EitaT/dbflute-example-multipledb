@@ -27,9 +27,9 @@ public class LdPublisherCIQ extends LdAbstractBsPublisherCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdPublisherCIQ(ConditionQuery childQuery, SqlClause sqlClause
+    public LdPublisherCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
                         , String aliasName, int nestLevel, LdBsPublisherCQ myCQ) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
         _relationPath = _myCQ.xgetRelationPath(); // accept relation path

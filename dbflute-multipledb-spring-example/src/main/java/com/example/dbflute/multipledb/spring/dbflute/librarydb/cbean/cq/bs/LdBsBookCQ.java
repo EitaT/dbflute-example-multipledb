@@ -5,6 +5,8 @@
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -26,8 +28,8 @@ public class LdBsBookCQ extends LdAbstractBsBookCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdBsBookCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdBsBookCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -553,7 +555,7 @@ public class LdBsBookCQ extends LdAbstractBsBookCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         LdBookCQ bq = (LdBookCQ)bqs;
         LdBookCQ uq = (LdBookCQ)uqs;
         if (bq.hasConditionQueryAuthor()) {
@@ -778,5 +780,7 @@ public class LdBsBookCQ extends LdAbstractBsBookCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return LdBookCB.class.getName(); }
     protected String xCQ() { return LdBookCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

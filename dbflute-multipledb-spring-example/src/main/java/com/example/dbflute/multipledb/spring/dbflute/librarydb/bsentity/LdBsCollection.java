@@ -85,10 +85,10 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     /** COLLECTION_ID: {PK, ID, NotNull, INTEGER(10)} */
     protected Integer _collectionId;
 
-    /** LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY} */
+    /** LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY} */
     protected Integer _libraryId;
 
-    /** BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK} */
+    /** BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK} */
     protected Integer _bookId;
 
     /** ARRIVAL_DATE: {NotNull, TIMESTAMP(26, 6)} */
@@ -115,6 +115,9 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     // -----------------------------------------------------
     //                                              Internal
     //                                              --------
+    /** The unique-driven properties for this entity. (NotNull) */
+    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
+
     /** The modified properties for this entity. (NotNull) */
     protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
 
@@ -157,6 +160,30 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     public boolean hasPrimaryKeyValue() {
         if (getCollectionId() == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br />
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param libraryId : UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param bookId : +UQ, IX, NotNull, INTEGER(10), FK to BOOK. (NotNull)
+     */
+    public void uniqueBy(Integer libraryId, Integer bookId) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("libraryId");
+        __uniqueDrivenProperties.addPropertyName("bookId");
+        setLibraryId(libraryId);setBookId(bookId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Set<String> myuniqueDrivenProperties() {
+        return __uniqueDrivenProperties.getPropertyNames();
+    }
+
+    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
+        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -306,8 +333,8 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
         if (!xSV(getCollectionId(), other.getCollectionId())) { return false; }
         return true;
     }
-    protected boolean xSV(Object value1, Object value2) {
-        return FunCustodial.isSameValue(value1, value2);
+    protected boolean xSV(Object v1, Object v2) {
+        return FunCustodial.isSameValue(v1, v2);
     }
 
     /**
@@ -315,13 +342,13 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      * @return The hash-code from primary-key or columns.
      */
     public int hashCode() {
-        int result = 17;
-        result = xCH(result, getTableDbName());
-        result = xCH(result, getCollectionId());
-        return result;
+        int hs = 17;
+        hs = xCH(hs, getTableDbName());
+        hs = xCH(hs, getCollectionId());
+        return hs;
     }
-    protected int xCH(int result, Object value) {
-        return FunCustodial.calculateHashcode(result, value);
+    protected int xCH(int hs, Object vl) {
+        return FunCustodial.calculateHashcode(hs, vl);
     }
 
     /**
@@ -345,19 +372,19 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     public String toStringWithRelation() {
         StringBuilder sb = new StringBuilder();
         sb.append(toString());
-        String l = "\n  ";
+        String li = "\n  ";
         if (_book != null)
-        { sb.append(l).append(xbRDS(_book, "book")); }
+        { sb.append(li).append(xbRDS(_book, "book")); }
         if (_library != null)
-        { sb.append(l).append(xbRDS(_library, "library")); }
+        { sb.append(li).append(xbRDS(_library, "library")); }
         if (_collectionStatusAsOne != null)
-        { sb.append(l).append(xbRDS(_collectionStatusAsOne, "collectionStatusAsOne")); }
-        if (_lendingCollectionList != null) { for (Entity e : _lendingCollectionList)
-        { if (e != null) { sb.append(l).append(xbRDS(e, "lendingCollectionList")); } } }
+        { sb.append(li).append(xbRDS(_collectionStatusAsOne, "collectionStatusAsOne")); }
+        if (_lendingCollectionList != null) { for (Entity et : _lendingCollectionList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "lendingCollectionList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity e, String name) { // buildRelationDisplayString()
-        return e.buildDisplayString(name, true, true);
+    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
+        return et.buildDisplayString(name, true, true);
     }
 
     /**
@@ -373,33 +400,33 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
     protected String buildColumnString() {
         StringBuilder sb = new StringBuilder();
-        String delimiter = ", ";
-        sb.append(delimiter).append(getCollectionId());
-        sb.append(delimiter).append(getLibraryId());
-        sb.append(delimiter).append(getBookId());
-        sb.append(delimiter).append(getArrivalDate());
-        sb.append(delimiter).append(getRUser());
-        sb.append(delimiter).append(getRModule());
-        sb.append(delimiter).append(getRTimestamp());
-        sb.append(delimiter).append(getUUser());
-        sb.append(delimiter).append(getUModule());
-        sb.append(delimiter).append(getUTimestamp());
-        if (sb.length() > delimiter.length()) {
-            sb.delete(0, delimiter.length());
+        String dm = ", ";
+        sb.append(dm).append(getCollectionId());
+        sb.append(dm).append(getLibraryId());
+        sb.append(dm).append(getBookId());
+        sb.append(dm).append(getArrivalDate());
+        sb.append(dm).append(getRUser());
+        sb.append(dm).append(getRModule());
+        sb.append(dm).append(getRTimestamp());
+        sb.append(dm).append(getUUser());
+        sb.append(dm).append(getUModule());
+        sb.append(dm).append(getUTimestamp());
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
     protected String buildRelationString() {
         StringBuilder sb = new StringBuilder();
-        String c = ",";
-        if (_book != null) { sb.append(c).append("book"); }
-        if (_library != null) { sb.append(c).append("library"); }
-        if (_collectionStatusAsOne != null) { sb.append(c).append("collectionStatusAsOne"); }
+        String cm = ",";
+        if (_book != null) { sb.append(cm).append("book"); }
+        if (_library != null) { sb.append(cm).append("library"); }
+        if (_collectionStatusAsOne != null) { sb.append(cm).append("collectionStatusAsOne"); }
         if (_lendingCollectionList != null && !_lendingCollectionList.isEmpty())
-        { sb.append(c).append("lendingCollectionList"); }
-        if (sb.length() > c.length()) {
-            sb.delete(0, c.length()).insert(0, "(").append(")");
+        { sb.append(cm).append("lendingCollectionList"); }
+        if (sb.length() > cm.length()) {
+            sb.delete(0, cm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
@@ -437,7 +464,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * [get] LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
+     * [get] LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
      * @return The value of the column 'LIBRARY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLibraryId() {
@@ -445,7 +472,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * [set] LIBRARY_ID: {UQ, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
+     * [set] LIBRARY_ID: {UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY} <br />
      * @param libraryId The value of the column 'LIBRARY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryId(Integer libraryId) {
@@ -454,7 +481,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * [get] BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK} <br />
+     * [get] BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK} <br />
      * @return The value of the column 'BOOK_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getBookId() {
@@ -462,7 +489,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * [set] BOOK_ID: {UQ+, IX, NotNull, INTEGER(10), FK to BOOK} <br />
+     * [set] BOOK_ID: {+UQ, IX, NotNull, INTEGER(10), FK to BOOK} <br />
      * @param bookId The value of the column 'BOOK_ID'. (basically NotNull if update: for the constraint)
      */
     public void setBookId(Integer bookId) {

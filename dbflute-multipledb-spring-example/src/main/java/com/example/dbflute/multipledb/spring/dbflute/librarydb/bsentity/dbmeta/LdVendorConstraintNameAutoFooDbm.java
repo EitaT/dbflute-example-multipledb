@@ -35,13 +35,14 @@ public class LdVendorConstraintNameAutoFooDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                    Property Gateway
     //                                                                    ================
+    // -----------------------------------------------------
+    //                                       Column Property
+    //                                       ---------------
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     {
         setupEpg(_epgMap, new EpgConstraintNameAutoFooId(), "constraintNameAutoFooId");
         setupEpg(_epgMap, new EpgConstraintNameAutoFooName(), "constraintNameAutoFooName");
     }
-    public PropertyGateway findPropertyGateway(String propertyName)
-    { return doFindEpg(_epgMap, propertyName); }
     public static class EpgConstraintNameAutoFooId implements PropertyGateway {
         public Object read(Entity et) { return ((LdVendorConstraintNameAutoFoo)et).getConstraintNameAutoFooId(); }
         public void write(Entity et, Object vl) { ((LdVendorConstraintNameAutoFoo)et).setConstraintNameAutoFooId(ctb(vl)); }
@@ -50,6 +51,8 @@ public class LdVendorConstraintNameAutoFooDbm extends AbstractDBMeta {
         public Object read(Entity et) { return ((LdVendorConstraintNameAutoFoo)et).getConstraintNameAutoFooName(); }
         public void write(Entity et, Object vl) { ((LdVendorConstraintNameAutoFoo)et).setConstraintNameAutoFooName((String)vl); }
     }
+    public PropertyGateway findPropertyGateway(String prop)
+    { return doFindEpg(_epgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -65,10 +68,18 @@ public class LdVendorConstraintNameAutoFooDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnConstraintNameAutoFooId = cci("CONSTRAINT_NAME_AUTO_FOO_ID", "CONSTRAINT_NAME_AUTO_FOO_ID", null, null, true, "constraintNameAutoFooId", java.math.BigDecimal.class, true, false, "NUMERIC", 16, 0, null, false, null, null, null, "vendorConstraintNameAutoRefList", null);
-    protected final ColumnInfo _columnConstraintNameAutoFooName = cci("CONSTRAINT_NAME_AUTO_FOO_NAME", "CONSTRAINT_NAME_AUTO_FOO_NAME", null, null, true, "constraintNameAutoFooName", String.class, false, false, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
+    protected final ColumnInfo _columnConstraintNameAutoFooId = cci("CONSTRAINT_NAME_AUTO_FOO_ID", "CONSTRAINT_NAME_AUTO_FOO_ID", null, null, java.math.BigDecimal.class, "constraintNameAutoFooId", null, true, false, true, "NUMERIC", 16, 0, null, false, null, null, null, "vendorConstraintNameAutoRefList", null);
+    protected final ColumnInfo _columnConstraintNameAutoFooName = cci("CONSTRAINT_NAME_AUTO_FOO_NAME", "CONSTRAINT_NAME_AUTO_FOO_NAME", null, null, String.class, "constraintNameAutoFooName", null, false, false, true, "VARCHAR", 50, 0, null, false, null, null, null, null, null);
 
+    /**
+     * CONSTRAINT_NAME_AUTO_FOO_ID: {PK, NotNull, NUMERIC(16)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnConstraintNameAutoFooId() { return _columnConstraintNameAutoFooId; }
+    /**
+     * CONSTRAINT_NAME_AUTO_FOO_NAME: {UQ, NotNull, VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
     public ColumnInfo columnConstraintNameAutoFooName() { return _columnConstraintNameAutoFooName; }
 
     protected List<ColumnInfo> ccil() {
@@ -93,6 +104,8 @@ public class LdVendorConstraintNameAutoFooDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                       Relation Info
     //                                                                       =============
+    // cannot cache because it uses related DB meta instance while booting
+    // (instead, cached by super's collection)
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
@@ -100,6 +113,10 @@ public class LdVendorConstraintNameAutoFooDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
+    /**
+     * VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefList'.
+     * @return The information object of referrer property. (NotNull)
+     */
     public ReferrerInfo referrerVendorConstraintNameAutoRefList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnConstraintNameAutoFooId(), LdVendorConstraintNameAutoRefDbm.getInstance().columnConstraintNameAutoFooId());
         return cri("SQL111023215623821", "vendorConstraintNameAutoRefList", this, LdVendorConstraintNameAutoRefDbm.getInstance(), mp, false, "vendorConstraintNameAutoFoo");

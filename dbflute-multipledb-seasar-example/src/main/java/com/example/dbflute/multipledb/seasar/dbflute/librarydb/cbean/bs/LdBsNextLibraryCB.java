@@ -80,10 +80,15 @@ public class LdBsNextLibraryCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                 PrimaryKey Handling
     //                                                                 ===================
+    /**
+     * Accept the query condition of primary key as equal.
+     * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param nextLibraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     */
     public void acceptPrimaryKey(Integer libraryId, Integer nextLibraryId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("nextLibraryId", nextLibraryId);
         LdBsNextLibraryCB cb = this;
-        cb.query().setLibraryId_Equal(libraryId);cb.query().setNextLibraryId_Equal(nextLibraryId);
+        cb.query().setLibraryId_Equal(libraryId);;cb.query().setNextLibraryId_Equal(nextLibraryId);;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
@@ -516,6 +521,11 @@ public class LdBsNextLibraryCB extends AbstractConditionBean {
      */
     public void orScopeQuery(OrQuery<LdNextLibraryCB> orQuery) {
         xorSQ((LdNextLibraryCB)this, orQuery);
+    }
+
+    @Override
+    protected HpCBPurpose xhandleOrSQPurposeChange() {
+        return null; // means no check
     }
 
     /**

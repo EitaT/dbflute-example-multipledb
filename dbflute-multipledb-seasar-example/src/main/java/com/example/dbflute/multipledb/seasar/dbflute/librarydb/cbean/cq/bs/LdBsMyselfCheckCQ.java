@@ -5,6 +5,8 @@
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -26,8 +28,8 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdBsMyselfCheckCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdBsMyselfCheckCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -193,7 +195,7 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         LdMyselfCheckCQ bq = (LdMyselfCheckCQ)bqs;
         LdMyselfCheckCQ uq = (LdMyselfCheckCQ)uqs;
         if (bq.hasConditionQueryMyself()) {
@@ -307,5 +309,7 @@ public class LdBsMyselfCheckCQ extends LdAbstractBsMyselfCheckCQ {
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return LdMyselfCheckCB.class.getName(); }
     protected String xCQ() { return LdMyselfCheckCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }

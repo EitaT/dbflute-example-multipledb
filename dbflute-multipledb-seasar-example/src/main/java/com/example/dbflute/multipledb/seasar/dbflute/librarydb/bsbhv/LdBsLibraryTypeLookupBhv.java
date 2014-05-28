@@ -171,7 +171,7 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
      * </pre>
      * @param cb The condition-bean of LdLibraryTypeLookup. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
-     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (point is not found)
+     * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
@@ -192,39 +192,42 @@ public abstract class LdBsLibraryTypeLookupBhv extends AbstractBehaviorWritable 
 
     /**
      * Select the entity by the primary-key value.
-     * @param libraryTypeCode The one of primary key. (NotNull)
+     * @param libraryTypeCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NullAllowed: if no data, it returns null)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryTypeLookup selectByPKValue(String libraryTypeCode) {
-        return doSelectByPKValue(libraryTypeCode, LdLibraryTypeLookup.class);
+        return doSelectByPK(libraryTypeCode, LdLibraryTypeLookup.class);
     }
 
-    protected <ENTITY extends LdLibraryTypeLookup> ENTITY doSelectByPKValue(String libraryTypeCode, Class<ENTITY> entityType) {
-        return doSelectEntity(buildPKCB(libraryTypeCode), entityType);
+    protected <ENTITY extends LdLibraryTypeLookup> ENTITY doSelectByPK(String libraryTypeCode, Class<ENTITY> entityType) {
+        return doSelectEntity(xprepareCBAsPK(libraryTypeCode), entityType);
+    }
+
+    protected <ENTITY extends LdLibraryTypeLookup> OptionalEntity<ENTITY> doSelectOptionalByPK(String libraryTypeCode, Class<ENTITY> entityType) {
+        return createOptionalEntity(doSelectByPK(libraryTypeCode, entityType), libraryTypeCode);
     }
 
     /**
      * Select the entity by the primary-key value with deleted check.
-     * @param libraryTypeCode The one of primary key. (NotNull)
+     * @param libraryTypeCode : PK, NotNull, CHAR(3). (NotNull)
      * @return The entity selected by the PK. (NotNull: if no data, throws exception)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdLibraryTypeLookup selectByPKValueWithDeletedCheck(String libraryTypeCode) {
-        return doSelectByPKValueWithDeletedCheck(libraryTypeCode, LdLibraryTypeLookup.class);
+        return doSelectByPKWithDeletedCheck(libraryTypeCode, LdLibraryTypeLookup.class);
     }
 
-    protected <ENTITY extends LdLibraryTypeLookup> ENTITY doSelectByPKValueWithDeletedCheck(String libraryTypeCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(buildPKCB(libraryTypeCode), entityType);
+    protected <ENTITY extends LdLibraryTypeLookup> ENTITY doSelectByPKWithDeletedCheck(String libraryTypeCode, Class<ENTITY> entityType) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(libraryTypeCode), entityType);
     }
 
-    private LdLibraryTypeLookupCB buildPKCB(String libraryTypeCode) {
+    protected LdLibraryTypeLookupCB xprepareCBAsPK(String libraryTypeCode) {
         assertObjectNotNull("libraryTypeCode", libraryTypeCode);
-        LdLibraryTypeLookupCB cb = newMyConditionBean();
-        cb.query().setLibraryTypeCode_Equal(libraryTypeCode);
+        LdLibraryTypeLookupCB cb = newMyConditionBean(); cb.acceptPrimaryKey(libraryTypeCode);
         return cb;
     }
 

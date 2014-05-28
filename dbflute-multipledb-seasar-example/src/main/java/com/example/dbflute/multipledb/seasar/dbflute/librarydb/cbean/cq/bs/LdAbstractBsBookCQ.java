@@ -24,8 +24,8 @@ public abstract class LdAbstractBsBookCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdAbstractBsBookCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdAbstractBsBookCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -232,7 +232,7 @@ public abstract class LdAbstractBsBookCQ extends AbstractConditionQuery {
     public abstract String keepBookId_SpecifyDerivedReferrer_CollectionList(LdCollectionCQ sq);
 
     /**
-     * Prepare for (Query)DerivedReferrer. <br />
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br />
      * {FOO &lt;= (select max(BAR) from COLLECTION where ...)} <br />
      * COLLECTION by BOOK_ID, named 'collectionAsOne'.
      * <pre>
@@ -2324,7 +2324,7 @@ public abstract class LdAbstractBsBookCQ extends AbstractConditionQuery {
     public abstract String keepSpecifyMyselfDerived(LdBookCQ sq);
 
     /**
-     * Prepare for (Query)MyselfDerived (SubQuery).
+     * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
     public HpQDRFunction<LdBookCB> myselfDerived() {
@@ -2346,8 +2346,8 @@ public abstract class LdAbstractBsBookCQ extends AbstractConditionQuery {
     //                                                                        MyselfExists
     //                                                                        ============
     /**
-     * Prepare for MyselfExists (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfExists (correlated sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfExists(SubQuery<LdBookCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);
@@ -2362,8 +2362,8 @@ public abstract class LdAbstractBsBookCQ extends AbstractConditionQuery {
     //                                                                       MyselfInScope
     //                                                                       =============
     /**
-     * Prepare for MyselfInScope (SubQuery).
-     * @param subQuery The implementation of sub query. (NotNull)
+     * Prepare for MyselfInScope (sub-query).
+     * @param subQuery The implementation of sub-query. (NotNull)
      */
     public void myselfInScope(SubQuery<LdBookCB> subQuery) {
         assertObjectNotNull("subQuery", subQuery);

@@ -5,6 +5,8 @@
 import java.util.Map;
 
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.*;
+import org.seasar.dbflute.cbean.coption.*;
 import org.seasar.dbflute.cbean.cvalue.ConditionValue;
 import org.seasar.dbflute.cbean.sqlclause.SqlClause;
 import org.seasar.dbflute.exception.IllegalConditionBeanOperationException;
@@ -26,8 +28,8 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public LdBsLendingCollectionCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        super(childQuery, sqlClause, aliasName, nestLevel);
+    public LdBsLendingCollectionCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
     // ===================================================================================
@@ -83,14 +85,14 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LENDING}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_LibraryId_Asc() { regOBA("LIBRARY_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LIBRARY_ID: {PK, UQ, IX, NotNull, SMALLINT(5), FK to LENDING}
+     * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LENDING}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_LibraryId_Desc() { regOBD("LIBRARY_ID"); return this; }
@@ -104,14 +106,14 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LENDING}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_LbUserId_Asc() { regOBA("LB_USER_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LB_USER_ID: {PK, UQ+, IX+, NotNull, INTEGER(10), FK to LENDING}
+     * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LENDING}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_LbUserId_Desc() { regOBD("LB_USER_ID"); return this; }
@@ -125,14 +127,14 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_LendingDate_Asc() { regOBA("LENDING_DATE"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * LENDING_DATE: {PK, UQ+, IX+, NotNull, TIMESTAMP(26, 6), FK to LENDING}
+     * LENDING_DATE: {PK, NotNull, TIMESTAMP(26, 6), FK to LENDING}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_LendingDate_Desc() { regOBD("LENDING_DATE"); return this; }
@@ -162,14 +164,14 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
 
     /** 
      * Add order-by as ascend. <br />
-     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_CollectionId_Asc() { regOBA("COLLECTION_ID"); return this; }
 
     /**
      * Add order-by as descend. <br />
-     * COLLECTION_ID: {PK, UQ+, IX, NotNull, INTEGER(10), FK to COLLECTION}
+     * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
      * @return this. (NotNull)
      */
     public LdBsLendingCollectionCQ addOrderBy_CollectionId_Desc() { regOBD("COLLECTION_ID"); return this; }
@@ -361,7 +363,7 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
-    protected void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+    public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         LdLendingCollectionCQ bq = (LdLendingCollectionCQ)bqs;
         LdLendingCollectionCQ uq = (LdLendingCollectionCQ)uqs;
         if (bq.hasConditionQueryCollection()) {
@@ -488,10 +490,23 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     }
 
     // ===================================================================================
+    //                                                                     ScalarCondition
+    //                                                                     ===============
+    protected Map<String, LdLendingCollectionCQ> _scalarConditionMap;
+    public Map<String, LdLendingCollectionCQ> getScalarCondition() { return _scalarConditionMap; }
+    public String keepScalarCondition(LdLendingCollectionCQ sq) {
+        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
+        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
+        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
+    }
+
+    // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xCB() { return LdLendingCollectionCB.class.getName(); }
     protected String xCQ() { return LdLendingCollectionCQ.class.getName(); }
+    protected String xCHp() { return HpCalculator.class.getName(); }
+    protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }
 }
