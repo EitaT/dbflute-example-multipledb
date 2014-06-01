@@ -288,6 +288,7 @@ public class MbBsPurchaseCB extends AbstractConditionBean {
         { _nssMember = new MbMemberNss(query().queryMember()); }
         return _nssMember;
     }
+
     protected MbProductNss _nssProduct;
     public MbProductNss getNssProduct() {
         if (_nssProduct == null) { _nssProduct = new MbProductNss(null); }

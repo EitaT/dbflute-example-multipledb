@@ -261,11 +261,6 @@ public class LdBsBookCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected LdAuthorNss _nssAuthor;
-    public LdAuthorNss getNssAuthor() {
-        if (_nssAuthor == null) { _nssAuthor = new LdAuthorNss(null); }
-        return _nssAuthor;
-    }
     /**
      * Set up relation columns to select clause. <br />
      * AUTHOR by my AUTHOR_ID, named 'author'.
@@ -276,18 +271,15 @@ public class LdBsBookCB extends AbstractConditionBean {
      * LdBook book = bookBhv.selectEntityWithDeletedCheck(cb);
      * ... = book.<span style="color: #DD4747">getAuthor()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdAuthorNss setupSelect_Author() {
+    public void setupSelect_Author() {
         assertSetupSelectPurpose("author");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnAuthorId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryAuthor(); } });
-        if (_nssAuthor == null || !_nssAuthor.hasConditionQuery())
-        { _nssAuthor = new LdAuthorNss(query().queryAuthor()); }
-        return _nssAuthor;
     }
+
     protected LdGenreNss _nssGenre;
     public LdGenreNss getNssGenre() {
         if (_nssGenre == null) { _nssGenre = new LdGenreNss(null); }
@@ -315,11 +307,7 @@ public class LdBsBookCB extends AbstractConditionBean {
         { _nssGenre = new LdGenreNss(query().queryGenre()); }
         return _nssGenre;
     }
-    protected LdPublisherNss _nssPublisher;
-    public LdPublisherNss getNssPublisher() {
-        if (_nssPublisher == null) { _nssPublisher = new LdPublisherNss(null); }
-        return _nssPublisher;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * PUBLISHER by my PUBLISHER_ID, named 'publisher'.
@@ -330,23 +318,15 @@ public class LdBsBookCB extends AbstractConditionBean {
      * LdBook book = bookBhv.selectEntityWithDeletedCheck(cb);
      * ... = book.<span style="color: #DD4747">getPublisher()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdPublisherNss setupSelect_Publisher() {
+    public void setupSelect_Publisher() {
         assertSetupSelectPurpose("publisher");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnPublisherId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryPublisher(); } });
-        if (_nssPublisher == null || !_nssPublisher.hasConditionQuery())
-        { _nssPublisher = new LdPublisherNss(query().queryPublisher()); }
-        return _nssPublisher;
     }
-    protected LdCollectionStatusLookupNss _nssCollectionStatusLookupAsNonExist;
-    public LdCollectionStatusLookupNss getNssCollectionStatusLookupAsNonExist() {
-        if (_nssCollectionStatusLookupAsNonExist == null) { _nssCollectionStatusLookupAsNonExist = new LdCollectionStatusLookupNss(null); }
-        return _nssCollectionStatusLookupAsNonExist;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * COLLECTION_STATUS_LOOKUP by my GENRE_CODE, named 'collectionStatusLookupAsNonExist'.
@@ -357,17 +337,13 @@ public class LdBsBookCB extends AbstractConditionBean {
      * LdBook book = bookBhv.selectEntityWithDeletedCheck(cb);
      * ... = book.<span style="color: #DD4747">getCollectionStatusLookupAsNonExist()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdCollectionStatusLookupNss setupSelect_CollectionStatusLookupAsNonExist() {
+    public void setupSelect_CollectionStatusLookupAsNonExist() {
         assertSetupSelectPurpose("collectionStatusLookupAsNonExist");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnGenreCode();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryCollectionStatusLookupAsNonExist(); } });
-        if (_nssCollectionStatusLookupAsNonExist == null || !_nssCollectionStatusLookupAsNonExist.hasConditionQuery())
-        { _nssCollectionStatusLookupAsNonExist = new LdCollectionStatusLookupNss(query().queryCollectionStatusLookupAsNonExist()); }
-        return _nssCollectionStatusLookupAsNonExist;
     }
 
     // [DBFlute-0.7.4]

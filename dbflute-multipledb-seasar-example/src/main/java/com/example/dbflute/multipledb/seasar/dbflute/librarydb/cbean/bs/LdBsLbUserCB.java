@@ -251,7 +251,6 @@ public class LdBsLbUserCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-
     protected LdBlackListNss _nssBlackListAsOne;
     public LdBlackListNss getNssBlackListAsOne() {
         if (_nssBlackListAsOne == null) { _nssBlackListAsOne = new LdBlackListNss(null); }

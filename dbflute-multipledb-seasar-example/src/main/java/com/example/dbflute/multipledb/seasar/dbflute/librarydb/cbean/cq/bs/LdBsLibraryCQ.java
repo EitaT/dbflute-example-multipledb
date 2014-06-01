@@ -75,7 +75,6 @@ public class LdBsLibraryCQ extends LdAbstractBsLibraryCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _libraryId;
     public ConditionValue getLibraryId() {
         if (_libraryId == null) { _libraryId = nCV(); }

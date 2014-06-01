@@ -30,5 +30,4 @@ public class LdGenreNss {
         _query.doNss(new LdGenreCQ.NssCall() { public ConditionQuery qf() { return _query.queryGenreSelf(); }});
         return new LdGenreNss(_query.queryGenreSelf());
     }
-
 }

@@ -22,11 +22,9 @@ public class MbMemberNss {
     /**
      * With nested relation columns to select clause. <br />
      * MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public MbMemberStatusNss withMemberStatus() {
+    public void withMemberStatus() {
         _query.doNss(new MbMemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberStatus(); }});
-        return new MbMemberStatusNss(_query.queryMemberStatus());
     }
     /**
      * With nested relation columns to select clause. <br />
@@ -37,7 +35,6 @@ public class MbMemberNss {
         _query.doNss(new MbMemberCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberLoginAsLatest(); }});
         return new MbMemberLoginNss(_query.queryMemberLoginAsLatest());
     }
-
     /**
      * With nested relation columns to select clause. <br />
      * MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.

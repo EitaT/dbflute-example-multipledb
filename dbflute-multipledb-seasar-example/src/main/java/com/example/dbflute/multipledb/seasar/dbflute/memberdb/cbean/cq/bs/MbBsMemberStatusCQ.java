@@ -73,7 +73,6 @@ public class MbBsMemberStatusCQ extends MbAbstractBsMemberStatusCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _memberStatusCode;
     public ConditionValue getMemberStatusCode() {
         if (_memberStatusCode == null) { _memberStatusCode = nCV(); }

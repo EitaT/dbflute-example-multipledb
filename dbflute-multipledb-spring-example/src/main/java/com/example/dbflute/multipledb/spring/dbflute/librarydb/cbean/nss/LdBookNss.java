@@ -24,11 +24,9 @@ public class LdBookNss {
     /**
      * With nested relation columns to select clause. <br />
      * AUTHOR by my AUTHOR_ID, named 'author'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public LdAuthorNss withAuthor() {
+    public void withAuthor() {
         _query.doNss(new LdBookCQ.NssCall() { public ConditionQuery qf() { return _query.queryAuthor(); }});
-        return new LdAuthorNss(_query.queryAuthor());
     }
     /**
      * With nested relation columns to select clause. <br />
@@ -42,20 +40,15 @@ public class LdBookNss {
     /**
      * With nested relation columns to select clause. <br />
      * PUBLISHER by my PUBLISHER_ID, named 'publisher'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public LdPublisherNss withPublisher() {
+    public void withPublisher() {
         _query.doNss(new LdBookCQ.NssCall() { public ConditionQuery qf() { return _query.queryPublisher(); }});
-        return new LdPublisherNss(_query.queryPublisher());
     }
     /**
      * With nested relation columns to select clause. <br />
      * COLLECTION_STATUS_LOOKUP by my GENRE_CODE, named 'collectionStatusLookupAsNonExist'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public LdCollectionStatusLookupNss withCollectionStatusLookupAsNonExist() {
+    public void withCollectionStatusLookupAsNonExist() {
         _query.doNss(new LdBookCQ.NssCall() { public ConditionQuery qf() { return _query.queryCollectionStatusLookupAsNonExist(); }});
-        return new LdCollectionStatusLookupNss(_query.queryCollectionStatusLookupAsNonExist());
     }
-
 }

@@ -73,7 +73,6 @@ public class MbBsRegionCQ extends MbAbstractBsRegionCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _regionId;
     public ConditionValue getRegionId() {
         if (_regionId == null) { _regionId = nCV(); }

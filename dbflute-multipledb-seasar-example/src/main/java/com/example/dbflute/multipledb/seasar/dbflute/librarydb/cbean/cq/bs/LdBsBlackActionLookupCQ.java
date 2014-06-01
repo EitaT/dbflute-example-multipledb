@@ -75,7 +75,6 @@ public class LdBsBlackActionLookupCQ extends LdAbstractBsBlackActionLookupCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _blackActionCode;
     public ConditionValue getBlackActionCode() {
         if (_blackActionCode == null) { _blackActionCode = nCV(); }

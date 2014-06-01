@@ -289,6 +289,7 @@ public class LdBsCollectionCB extends AbstractConditionBean {
         { _nssBook = new LdBookNss(query().queryBook()); }
         return _nssBook;
     }
+
     protected LdLibraryNss _nssLibrary;
     public LdLibraryNss getNssLibrary() {
         if (_nssLibrary == null) { _nssLibrary = new LdLibraryNss(null); }

@@ -75,7 +75,6 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _vendorCheckId;
     public ConditionValue getVendorCheckId() {
         if (_vendorCheckId == null) { _vendorCheckId = nCV(); }

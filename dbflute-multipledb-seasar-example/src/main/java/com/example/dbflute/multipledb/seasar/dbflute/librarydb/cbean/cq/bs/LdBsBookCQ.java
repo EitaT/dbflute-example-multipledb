@@ -75,7 +75,6 @@ public class LdBsBookCQ extends LdAbstractBsBookCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _bookId;
     public ConditionValue getBookId() {
         if (_bookId == null) { _bookId = nCV(); }

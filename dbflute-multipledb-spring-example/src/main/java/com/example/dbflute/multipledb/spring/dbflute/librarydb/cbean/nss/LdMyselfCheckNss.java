@@ -24,11 +24,8 @@ public class LdMyselfCheckNss {
     /**
      * With nested relation columns to select clause. <br />
      * MYSELF by my MYSELF_ID, named 'myself'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public LdMyselfNss withMyself() {
+    public void withMyself() {
         _query.doNss(new LdMyselfCheckCQ.NssCall() { public ConditionQuery qf() { return _query.queryMyself(); }});
-        return new LdMyselfNss(_query.queryMyself());
     }
-
 }

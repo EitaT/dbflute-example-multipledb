@@ -259,11 +259,6 @@ public class MbBsMemberCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected MbMemberStatusNss _nssMemberStatus;
-    public MbMemberStatusNss getNssMemberStatus() {
-        if (_nssMemberStatus == null) { _nssMemberStatus = new MbMemberStatusNss(null); }
-        return _nssMemberStatus;
-    }
     /**
      * Set up relation columns to select clause. <br />
      * MEMBER_STATUS by my MEMBER_STATUS_CODE, named 'memberStatus'.
@@ -274,18 +269,15 @@ public class MbBsMemberCB extends AbstractConditionBean {
      * MbMember member = memberBhv.selectEntityWithDeletedCheck(cb);
      * ... = member.<span style="color: #DD4747">getMemberStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public MbMemberStatusNss setupSelect_MemberStatus() {
+    public void setupSelect_MemberStatus() {
         assertSetupSelectPurpose("memberStatus");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnMemberStatusCode();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMemberStatus(); } });
-        if (_nssMemberStatus == null || !_nssMemberStatus.hasConditionQuery())
-        { _nssMemberStatus = new MbMemberStatusNss(query().queryMemberStatus()); }
-        return _nssMemberStatus;
     }
+
     protected MbMemberLoginNss _nssMemberLoginAsLatest;
     public MbMemberLoginNss getNssMemberLoginAsLatest() {
         if (_nssMemberLoginAsLatest == null) { _nssMemberLoginAsLatest = new MbMemberLoginNss(null); }

@@ -75,7 +75,6 @@ public class LdBsCollectionCQ extends LdAbstractBsCollectionCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _collectionId;
     public ConditionValue getCollectionId() {
         if (_collectionId == null) { _collectionId = nCV(); }

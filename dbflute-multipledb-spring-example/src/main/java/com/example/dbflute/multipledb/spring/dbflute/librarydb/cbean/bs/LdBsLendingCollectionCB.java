@@ -284,6 +284,7 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
         { _nssCollection = new LdCollectionNss(query().queryCollection()); }
         return _nssCollection;
     }
+
     protected LdLendingNss _nssLending;
     public LdLendingNss getNssLending() {
         if (_nssLending == null) { _nssLending = new LdLendingNss(null); }
@@ -308,6 +309,7 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
         { _nssLending = new LdLendingNss(query().queryLending()); }
         return _nssLending;
     }
+
     protected LdLibraryUserNss _nssLibraryUser;
     public LdLibraryUserNss getNssLibraryUser() {
         if (_nssLibraryUser == null) { _nssLibraryUser = new LdLibraryUserNss(null); }

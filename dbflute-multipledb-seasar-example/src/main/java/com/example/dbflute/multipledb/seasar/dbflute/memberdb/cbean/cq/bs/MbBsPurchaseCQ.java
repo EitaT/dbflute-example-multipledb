@@ -73,7 +73,6 @@ public class MbBsPurchaseCQ extends MbAbstractBsPurchaseCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _purchaseId;
     public ConditionValue getPurchaseId() {
         if (_purchaseId == null) { _purchaseId = nCV(); }

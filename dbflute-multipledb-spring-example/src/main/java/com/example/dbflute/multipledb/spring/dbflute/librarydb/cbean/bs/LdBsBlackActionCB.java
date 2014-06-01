@@ -278,11 +278,7 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
         { _nssBlackList = new LdBlackListNss(query().queryBlackList()); }
         return _nssBlackList;
     }
-    protected LdBlackActionLookupNss _nssBlackActionLookup;
-    public LdBlackActionLookupNss getNssBlackActionLookup() {
-        if (_nssBlackActionLookup == null) { _nssBlackActionLookup = new LdBlackActionLookupNss(null); }
-        return _nssBlackActionLookup;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * BLACK_ACTION_LOOKUP by my BLACK_ACTION_CODE, named 'blackActionLookup'.
@@ -293,17 +289,13 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
      * LdBlackAction blackAction = blackActionBhv.selectEntityWithDeletedCheck(cb);
      * ... = blackAction.<span style="color: #DD4747">getBlackActionLookup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdBlackActionLookupNss setupSelect_BlackActionLookup() {
+    public void setupSelect_BlackActionLookup() {
         assertSetupSelectPurpose("blackActionLookup");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnBlackActionCode();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryBlackActionLookup(); } });
-        if (_nssBlackActionLookup == null || !_nssBlackActionLookup.hasConditionQuery())
-        { _nssBlackActionLookup = new LdBlackActionLookupNss(query().queryBlackActionLookup()); }
-        return _nssBlackActionLookup;
     }
 
     // [DBFlute-0.7.4]

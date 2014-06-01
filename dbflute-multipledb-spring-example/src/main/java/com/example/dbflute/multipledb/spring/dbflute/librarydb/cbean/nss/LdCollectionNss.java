@@ -39,7 +39,6 @@ public class LdCollectionNss {
         _query.doNss(new LdCollectionCQ.NssCall() { public ConditionQuery qf() { return _query.queryLibrary(); }});
         return new LdLibraryNss(_query.queryLibrary());
     }
-
     /**
      * With nested relation columns to select clause. <br />
      * COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.

@@ -75,7 +75,6 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _genreCode;
     public ConditionValue getGenreCode() {
         if (_genreCode == null) { _genreCode = nCV(); }

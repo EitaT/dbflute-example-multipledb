@@ -75,7 +75,6 @@ public class LdBsMyselfCQ extends LdAbstractBsMyselfCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _myselfId;
     public ConditionValue getMyselfId() {
         if (_myselfId == null) { _myselfId = nCV(); }

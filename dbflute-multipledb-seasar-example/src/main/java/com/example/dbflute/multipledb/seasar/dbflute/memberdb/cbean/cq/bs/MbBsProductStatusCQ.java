@@ -73,7 +73,6 @@ public class MbBsProductStatusCQ extends MbAbstractBsProductStatusCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _productStatusCode;
     public ConditionValue getProductStatusCode() {
         if (_productStatusCode == null) { _productStatusCode = nCV(); }

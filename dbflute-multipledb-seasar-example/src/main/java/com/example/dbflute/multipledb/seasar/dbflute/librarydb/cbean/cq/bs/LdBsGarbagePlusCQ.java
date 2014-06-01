@@ -75,7 +75,6 @@ public class LdBsGarbagePlusCQ extends LdAbstractBsGarbagePlusCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _garbageMemo;
     public ConditionValue getGarbageMemo() {
         if (_garbageMemo == null) { _garbageMemo = nCV(); }

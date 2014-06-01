@@ -30,5 +30,4 @@ public class LdBlackListNss {
         _query.doNss(new LdBlackListCQ.NssCall() { public ConditionQuery qf() { return _query.queryLbUser(); }});
         return new LdLbUserNss(_query.queryLbUser());
     }
-
 }

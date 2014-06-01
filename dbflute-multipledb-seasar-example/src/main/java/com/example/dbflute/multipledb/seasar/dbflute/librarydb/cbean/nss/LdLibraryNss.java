@@ -24,11 +24,8 @@ public class LdLibraryNss {
     /**
      * With nested relation columns to select clause. <br />
      * LIBRARY_TYPE_LOOKUP by my LIBRARY_TYPE_CODE, named 'libraryTypeLookup'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public LdLibraryTypeLookupNss withLibraryTypeLookup() {
+    public void withLibraryTypeLookup() {
         _query.doNss(new LdLibraryCQ.NssCall() { public ConditionQuery qf() { return _query.queryLibraryTypeLookup(); }});
-        return new LdLibraryTypeLookupNss(_query.queryLibraryTypeLookup());
     }
-
 }

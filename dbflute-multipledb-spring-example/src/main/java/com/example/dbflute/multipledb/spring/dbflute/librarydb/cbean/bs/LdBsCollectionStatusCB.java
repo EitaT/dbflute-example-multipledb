@@ -275,11 +275,7 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
         { _nssCollection = new LdCollectionNss(query().queryCollection()); }
         return _nssCollection;
     }
-    protected LdCollectionStatusLookupNss _nssCollectionStatusLookup;
-    public LdCollectionStatusLookupNss getNssCollectionStatusLookup() {
-        if (_nssCollectionStatusLookup == null) { _nssCollectionStatusLookup = new LdCollectionStatusLookupNss(null); }
-        return _nssCollectionStatusLookup;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
@@ -290,17 +286,13 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
      * LdCollectionStatus collectionStatus = collectionStatusBhv.selectEntityWithDeletedCheck(cb);
      * ... = collectionStatus.<span style="color: #DD4747">getCollectionStatusLookup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdCollectionStatusLookupNss setupSelect_CollectionStatusLookup() {
+    public void setupSelect_CollectionStatusLookup() {
         assertSetupSelectPurpose("collectionStatusLookup");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnCollectionStatusCode();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryCollectionStatusLookup(); } });
-        if (_nssCollectionStatusLookup == null || !_nssCollectionStatusLookup.hasConditionQuery())
-        { _nssCollectionStatusLookup = new LdCollectionStatusLookupNss(query().queryCollectionStatusLookup()); }
-        return _nssCollectionStatusLookup;
     }
 
     // [DBFlute-0.7.4]

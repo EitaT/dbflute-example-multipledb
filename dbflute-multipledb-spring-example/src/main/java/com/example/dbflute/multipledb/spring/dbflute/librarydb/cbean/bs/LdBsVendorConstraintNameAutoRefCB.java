@@ -22,7 +22,6 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdImple
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdImplementedSqlClauseCreator;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.cq.*;
-import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.nss.*;
 
 /**
  * The base condition-bean of VENDOR_CONSTRAINT_NAME_AUTO_REF.
@@ -261,11 +260,6 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected LdVendorConstraintNameAutoFooNss _nssVendorConstraintNameAutoFoo;
-    public LdVendorConstraintNameAutoFooNss getNssVendorConstraintNameAutoFoo() {
-        if (_nssVendorConstraintNameAutoFoo == null) { _nssVendorConstraintNameAutoFoo = new LdVendorConstraintNameAutoFooNss(null); }
-        return _nssVendorConstraintNameAutoFoo;
-    }
     /**
      * Set up relation columns to select clause. <br />
      * VENDOR_CONSTRAINT_NAME_AUTO_FOO by my CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoFoo'.
@@ -276,23 +270,15 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * LdVendorConstraintNameAutoRef vendorConstraintNameAutoRef = vendorConstraintNameAutoRefBhv.selectEntityWithDeletedCheck(cb);
      * ... = vendorConstraintNameAutoRef.<span style="color: #DD4747">getVendorConstraintNameAutoFoo()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdVendorConstraintNameAutoFooNss setupSelect_VendorConstraintNameAutoFoo() {
+    public void setupSelect_VendorConstraintNameAutoFoo() {
         assertSetupSelectPurpose("vendorConstraintNameAutoFoo");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnConstraintNameAutoFooId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryVendorConstraintNameAutoFoo(); } });
-        if (_nssVendorConstraintNameAutoFoo == null || !_nssVendorConstraintNameAutoFoo.hasConditionQuery())
-        { _nssVendorConstraintNameAutoFoo = new LdVendorConstraintNameAutoFooNss(query().queryVendorConstraintNameAutoFoo()); }
-        return _nssVendorConstraintNameAutoFoo;
     }
-    protected LdVendorConstraintNameAutoBarNss _nssVendorConstraintNameAutoBar;
-    public LdVendorConstraintNameAutoBarNss getNssVendorConstraintNameAutoBar() {
-        if (_nssVendorConstraintNameAutoBar == null) { _nssVendorConstraintNameAutoBar = new LdVendorConstraintNameAutoBarNss(null); }
-        return _nssVendorConstraintNameAutoBar;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * VENDOR_CONSTRAINT_NAME_AUTO_BAR by my CONSTRAINT_NAME_AUTO_BAR_ID, named 'vendorConstraintNameAutoBar'.
@@ -303,23 +289,15 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * LdVendorConstraintNameAutoRef vendorConstraintNameAutoRef = vendorConstraintNameAutoRefBhv.selectEntityWithDeletedCheck(cb);
      * ... = vendorConstraintNameAutoRef.<span style="color: #DD4747">getVendorConstraintNameAutoBar()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdVendorConstraintNameAutoBarNss setupSelect_VendorConstraintNameAutoBar() {
+    public void setupSelect_VendorConstraintNameAutoBar() {
         assertSetupSelectPurpose("vendorConstraintNameAutoBar");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnConstraintNameAutoBarId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryVendorConstraintNameAutoBar(); } });
-        if (_nssVendorConstraintNameAutoBar == null || !_nssVendorConstraintNameAutoBar.hasConditionQuery())
-        { _nssVendorConstraintNameAutoBar = new LdVendorConstraintNameAutoBarNss(query().queryVendorConstraintNameAutoBar()); }
-        return _nssVendorConstraintNameAutoBar;
     }
-    protected LdVendorConstraintNameAutoQuxNss _nssVendorConstraintNameAutoQux;
-    public LdVendorConstraintNameAutoQuxNss getNssVendorConstraintNameAutoQux() {
-        if (_nssVendorConstraintNameAutoQux == null) { _nssVendorConstraintNameAutoQux = new LdVendorConstraintNameAutoQuxNss(null); }
-        return _nssVendorConstraintNameAutoQux;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * VENDOR_CONSTRAINT_NAME_AUTO_QUX by my CONSTRAINT_NAME_AUTO_QUX_ID, named 'vendorConstraintNameAutoQux'.
@@ -330,17 +308,13 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * LdVendorConstraintNameAutoRef vendorConstraintNameAutoRef = vendorConstraintNameAutoRefBhv.selectEntityWithDeletedCheck(cb);
      * ... = vendorConstraintNameAutoRef.<span style="color: #DD4747">getVendorConstraintNameAutoQux()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdVendorConstraintNameAutoQuxNss setupSelect_VendorConstraintNameAutoQux() {
+    public void setupSelect_VendorConstraintNameAutoQux() {
         assertSetupSelectPurpose("vendorConstraintNameAutoQux");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnConstraintNameAutoQuxId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryVendorConstraintNameAutoQux(); } });
-        if (_nssVendorConstraintNameAutoQux == null || !_nssVendorConstraintNameAutoQux.hasConditionQuery())
-        { _nssVendorConstraintNameAutoQux = new LdVendorConstraintNameAutoQuxNss(query().queryVendorConstraintNameAutoQux()); }
-        return _nssVendorConstraintNameAutoQux;
     }
 
     // [DBFlute-0.7.4]

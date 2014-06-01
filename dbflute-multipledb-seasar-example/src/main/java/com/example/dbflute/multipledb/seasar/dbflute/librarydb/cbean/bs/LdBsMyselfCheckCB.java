@@ -22,7 +22,6 @@ import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdImple
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdImplementedSqlClauseCreator;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.cq.*;
-import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.nss.*;
 
 /**
  * The base condition-bean of MYSELF_CHECK.
@@ -251,11 +250,6 @@ public class LdBsMyselfCheckCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected LdMyselfNss _nssMyself;
-    public LdMyselfNss getNssMyself() {
-        if (_nssMyself == null) { _nssMyself = new LdMyselfNss(null); }
-        return _nssMyself;
-    }
     /**
      * Set up relation columns to select clause. <br />
      * MYSELF by my MYSELF_ID, named 'myself'.
@@ -266,17 +260,13 @@ public class LdBsMyselfCheckCB extends AbstractConditionBean {
      * LdMyselfCheck myselfCheck = myselfCheckBhv.selectEntityWithDeletedCheck(cb);
      * ... = myselfCheck.<span style="color: #DD4747">getMyself()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdMyselfNss setupSelect_Myself() {
+    public void setupSelect_Myself() {
         assertSetupSelectPurpose("myself");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnMyselfId();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryMyself(); } });
-        if (_nssMyself == null || !_nssMyself.hasConditionQuery())
-        { _nssMyself = new LdMyselfNss(query().queryMyself()); }
-        return _nssMyself;
     }
 
     // [DBFlute-0.7.4]

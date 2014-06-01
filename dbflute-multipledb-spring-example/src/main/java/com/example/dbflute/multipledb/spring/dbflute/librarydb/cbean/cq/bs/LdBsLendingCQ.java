@@ -75,7 +75,6 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _libraryId;
     public ConditionValue getLibraryId() {
         if (_libraryId == null) { _libraryId = nCV(); }

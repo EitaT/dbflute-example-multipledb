@@ -278,6 +278,7 @@ public class LdBsNextLibraryCB extends AbstractConditionBean {
         { _nssLibraryByLibraryId = new LdLibraryNss(query().queryLibraryByLibraryId()); }
         return _nssLibraryByLibraryId;
     }
+
     protected LdLibraryNss _nssLibraryByNextLibraryId;
     public LdLibraryNss getNssLibraryByNextLibraryId() {
         if (_nssLibraryByNextLibraryId == null) { _nssLibraryByNextLibraryId = new LdLibraryNss(null); }

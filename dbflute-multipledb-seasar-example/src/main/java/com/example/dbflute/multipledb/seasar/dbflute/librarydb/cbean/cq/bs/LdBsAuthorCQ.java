@@ -75,7 +75,6 @@ public class LdBsAuthorCQ extends LdAbstractBsAuthorCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _authorId;
     public ConditionValue getAuthorId() {
         if (_authorId == null) { _authorId = nCV(); }

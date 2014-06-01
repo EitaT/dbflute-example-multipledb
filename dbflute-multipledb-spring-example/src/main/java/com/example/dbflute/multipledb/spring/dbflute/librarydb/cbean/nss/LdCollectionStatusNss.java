@@ -33,11 +33,8 @@ public class LdCollectionStatusNss {
     /**
      * With nested relation columns to select clause. <br />
      * COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public LdCollectionStatusLookupNss withCollectionStatusLookup() {
+    public void withCollectionStatusLookup() {
         _query.doNss(new LdCollectionStatusCQ.NssCall() { public ConditionQuery qf() { return _query.queryCollectionStatusLookup(); }});
-        return new LdCollectionStatusLookupNss(_query.queryCollectionStatusLookup());
     }
-
 }

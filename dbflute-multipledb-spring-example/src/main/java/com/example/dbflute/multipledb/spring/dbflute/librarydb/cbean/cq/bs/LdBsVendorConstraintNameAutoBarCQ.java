@@ -75,7 +75,6 @@ public class LdBsVendorConstraintNameAutoBarCQ extends LdAbstractBsVendorConstra
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _constraintNameAutoBarId;
     public ConditionValue getConstraintNameAutoBarId() {
         if (_constraintNameAutoBarId == null) { _constraintNameAutoBarId = nCV(); }

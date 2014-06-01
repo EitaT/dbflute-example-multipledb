@@ -21,7 +21,6 @@ public class LdLbUserNss {
     // ===================================================================================
     //                                                                     Nested Relation
     //                                                                     ===============
-
     /**
      * With nested relation columns to select clause. <br />
      * BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.

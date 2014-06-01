@@ -31,11 +31,8 @@ public class MbProductNss {
     /**
      * With nested relation columns to select clause. <br />
      * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public MbProductStatusNss withProductStatus() {
+    public void withProductStatus() {
         _query.doNss(new MbProductCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductStatus(); }});
-        return new MbProductStatusNss(_query.queryProductStatus());
     }
-
 }

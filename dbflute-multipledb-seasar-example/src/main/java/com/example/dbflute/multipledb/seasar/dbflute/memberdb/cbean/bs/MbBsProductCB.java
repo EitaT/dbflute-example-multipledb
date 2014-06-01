@@ -286,11 +286,7 @@ public class MbBsProductCB extends AbstractConditionBean {
         { _nssProductCategory = new MbProductCategoryNss(query().queryProductCategory()); }
         return _nssProductCategory;
     }
-    protected MbProductStatusNss _nssProductStatus;
-    public MbProductStatusNss getNssProductStatus() {
-        if (_nssProductStatus == null) { _nssProductStatus = new MbProductStatusNss(null); }
-        return _nssProductStatus;
-    }
+
     /**
      * Set up relation columns to select clause. <br />
      * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
@@ -301,17 +297,13 @@ public class MbBsProductCB extends AbstractConditionBean {
      * MbProduct product = productBhv.selectEntityWithDeletedCheck(cb);
      * ... = product.<span style="color: #DD4747">getProductStatus()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public MbProductStatusNss setupSelect_ProductStatus() {
+    public void setupSelect_ProductStatus() {
         assertSetupSelectPurpose("productStatus");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnProductStatusCode();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryProductStatus(); } });
-        if (_nssProductStatus == null || !_nssProductStatus.hasConditionQuery())
-        { _nssProductStatus = new MbProductStatusNss(query().queryProductStatus()); }
-        return _nssProductStatus;
     }
 
     // [DBFlute-0.7.4]

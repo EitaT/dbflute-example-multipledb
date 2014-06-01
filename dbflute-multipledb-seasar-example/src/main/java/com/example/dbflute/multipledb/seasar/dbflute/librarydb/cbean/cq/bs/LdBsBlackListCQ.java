@@ -75,7 +75,6 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _blackListId;
     public ConditionValue getBlackListId() {
         if (_blackListId == null) { _blackListId = nCV(); }

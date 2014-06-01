@@ -37,5 +37,4 @@ public class MbPurchaseNss {
         _query.doNss(new MbPurchaseCQ.NssCall() { public ConditionQuery qf() { return _query.queryProduct(); }});
         return new MbProductNss(_query.queryProduct());
     }
-
 }

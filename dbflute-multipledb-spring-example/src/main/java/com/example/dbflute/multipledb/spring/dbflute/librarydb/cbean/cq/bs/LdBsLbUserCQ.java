@@ -75,7 +75,6 @@ public class LdBsLbUserCQ extends LdAbstractBsLbUserCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _lbUserId;
     public ConditionValue getLbUserId() {
         if (_lbUserId == null) { _lbUserId = nCV(); }

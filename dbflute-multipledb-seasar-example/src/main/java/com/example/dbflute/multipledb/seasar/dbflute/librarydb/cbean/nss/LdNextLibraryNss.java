@@ -39,5 +39,4 @@ public class LdNextLibraryNss {
         _query.doNss(new LdNextLibraryCQ.NssCall() { public ConditionQuery qf() { return _query.queryLibraryByNextLibraryId(); }});
         return new LdLibraryNss(_query.queryLibraryByNextLibraryId());
     }
-
 }

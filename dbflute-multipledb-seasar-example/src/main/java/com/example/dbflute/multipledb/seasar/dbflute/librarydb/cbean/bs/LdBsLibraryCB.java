@@ -22,7 +22,6 @@ import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdImple
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdImplementedSqlClauseCreator;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.cq.*;
-import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.nss.*;
 
 /**
  * The base condition-bean of LIBRARY.
@@ -261,11 +260,6 @@ public class LdBsLibraryCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected LdLibraryTypeLookupNss _nssLibraryTypeLookup;
-    public LdLibraryTypeLookupNss getNssLibraryTypeLookup() {
-        if (_nssLibraryTypeLookup == null) { _nssLibraryTypeLookup = new LdLibraryTypeLookupNss(null); }
-        return _nssLibraryTypeLookup;
-    }
     /**
      * Set up relation columns to select clause. <br />
      * LIBRARY_TYPE_LOOKUP by my LIBRARY_TYPE_CODE, named 'libraryTypeLookup'.
@@ -276,17 +270,13 @@ public class LdBsLibraryCB extends AbstractConditionBean {
      * LdLibrary library = libraryBhv.selectEntityWithDeletedCheck(cb);
      * ... = library.<span style="color: #DD4747">getLibraryTypeLookup()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public LdLibraryTypeLookupNss setupSelect_LibraryTypeLookup() {
+    public void setupSelect_LibraryTypeLookup() {
         assertSetupSelectPurpose("libraryTypeLookup");
         if (hasSpecifiedColumn()) { // if reverse call
             specify().columnLibraryTypeCode();
         }
         doSetupSelect(new SsCall() { public ConditionQuery qf() { return query().queryLibraryTypeLookup(); } });
-        if (_nssLibraryTypeLookup == null || !_nssLibraryTypeLookup.hasConditionQuery())
-        { _nssLibraryTypeLookup = new LdLibraryTypeLookupNss(query().queryLibraryTypeLookup()); }
-        return _nssLibraryTypeLookup;
     }
 
     // [DBFlute-0.7.4]

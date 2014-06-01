@@ -278,6 +278,7 @@ public class LdBsLibraryUserCB extends AbstractConditionBean {
         { _nssLbUser = new LdLbUserNss(query().queryLbUser()); }
         return _nssLbUser;
     }
+
     protected LdLibraryNss _nssLibrary;
     public LdLibraryNss getNssLibrary() {
         if (_nssLibrary == null) { _nssLibrary = new LdLibraryNss(null); }

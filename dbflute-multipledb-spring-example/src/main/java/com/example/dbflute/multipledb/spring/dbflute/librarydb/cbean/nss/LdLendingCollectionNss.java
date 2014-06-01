@@ -48,5 +48,4 @@ public class LdLendingCollectionNss {
         _query.doNss(new LdLendingCollectionCQ.NssCall() { public ConditionQuery qf() { return _query.queryLibraryUser(); }});
         return new LdLibraryUserNss(_query.queryLibraryUser());
     }
-
 }

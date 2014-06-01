@@ -75,7 +75,6 @@ public class LdBsBlackActionCQ extends LdAbstractBsBlackActionCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _blackActionId;
     public ConditionValue getBlackActionId() {
         if (_blackActionId == null) { _blackActionId = nCV(); }

@@ -75,7 +75,6 @@ public class LdBsLibraryTypeLookupCQ extends LdAbstractBsLibraryTypeLookupCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _libraryTypeCode;
     public ConditionValue getLibraryTypeCode() {
         if (_libraryTypeCode == null) { _libraryTypeCode = nCV(); }

@@ -31,11 +31,8 @@ public class MbMemberLoginNss {
     /**
      * With nested relation columns to select clause. <br />
      * MEMBER_STATUS by my LOGIN_MEMBER_STATUS_CODE, named 'memberStatus'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public MbMemberStatusNss withMemberStatus() {
+    public void withMemberStatus() {
         _query.doNss(new MbMemberLoginCQ.NssCall() { public ConditionQuery qf() { return _query.queryMemberStatus(); }});
-        return new MbMemberStatusNss(_query.queryMemberStatus());
     }
-
 }

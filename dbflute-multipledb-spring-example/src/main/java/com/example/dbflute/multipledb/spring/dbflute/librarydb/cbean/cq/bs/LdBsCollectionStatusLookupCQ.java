@@ -75,7 +75,6 @@ public class LdBsCollectionStatusLookupCQ extends LdAbstractBsCollectionStatusLo
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _collectionStatusCode;
     public ConditionValue getCollectionStatusCode() {
         if (_collectionStatusCode == null) { _collectionStatusCode = nCV(); }

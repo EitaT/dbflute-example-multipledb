@@ -73,7 +73,6 @@ public class MbBsMemberServiceCQ extends MbAbstractBsMemberServiceCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     protected ConditionValue _memberServiceId;
     public ConditionValue getMemberServiceId() {
         if (_memberServiceId == null) { _memberServiceId = nCV(); }

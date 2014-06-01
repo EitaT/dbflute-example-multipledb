@@ -28,5 +28,4 @@ public class MbProductCategoryNss {
         _query.doNss(new MbProductCategoryCQ.NssCall() { public ConditionQuery qf() { return _query.queryProductCategorySelf(); }});
         return new MbProductCategoryNss(_query.queryProductCategorySelf());
     }
-
 }
