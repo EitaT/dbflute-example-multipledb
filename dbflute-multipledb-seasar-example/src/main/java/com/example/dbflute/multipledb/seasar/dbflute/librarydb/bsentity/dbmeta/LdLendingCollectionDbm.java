@@ -310,7 +310,7 @@ public class LdLendingCollectionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdLendingCollection newEntity() { return new LdLendingCollection(); }
     public LdLendingCollection newMyEntity() { return new LdLendingCollection(); }
 
     // ===================================================================================

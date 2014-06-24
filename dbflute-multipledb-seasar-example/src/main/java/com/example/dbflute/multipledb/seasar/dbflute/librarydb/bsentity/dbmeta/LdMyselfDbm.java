@@ -141,7 +141,7 @@ public class LdMyselfDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdMyself newEntity() { return new LdMyself(); }
     public LdMyself newMyEntity() { return new LdMyself(); }
 
     // ===================================================================================

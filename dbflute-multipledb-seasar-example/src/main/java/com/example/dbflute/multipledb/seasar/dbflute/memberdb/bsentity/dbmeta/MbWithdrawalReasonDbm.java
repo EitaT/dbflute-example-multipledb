@@ -151,7 +151,7 @@ public class MbWithdrawalReasonDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbWithdrawalReason newEntity() { return new MbWithdrawalReason(); }
     public MbWithdrawalReason newMyEntity() { return new MbWithdrawalReason(); }
 
     // ===================================================================================

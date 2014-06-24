@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -193,7 +193,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     protected LdBook _book;
 
     /**
-     * BOOK by my BOOK_ID, named 'book'.
+     * [get] BOOK by my BOOK_ID, named 'book'.
      * @return The entity of foreign property 'book'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdBook getBook() {
@@ -201,7 +201,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * BOOK by my BOOK_ID, named 'book'.
+     * [set] BOOK by my BOOK_ID, named 'book'.
      * @param book The entity of foreign property 'book'. (NullAllowed)
      */
     public void setBook(LdBook book) {
@@ -212,7 +212,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     protected LdLibrary _library;
 
     /**
-     * LIBRARY by my LIBRARY_ID, named 'library'.
+     * [get] LIBRARY by my LIBRARY_ID, named 'library'.
      * @return The entity of foreign property 'library'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLibrary getLibrary() {
@@ -220,7 +220,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * LIBRARY by my LIBRARY_ID, named 'library'.
+     * [set] LIBRARY by my LIBRARY_ID, named 'library'.
      * @param library The entity of foreign property 'library'. (NullAllowed)
      */
     public void setLibrary(LdLibrary library) {
@@ -231,7 +231,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     protected LdCollectionStatus _collectionStatusAsOne;
 
     /**
-     * COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.
+     * [get] COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'collectionStatusAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public LdCollectionStatus getCollectionStatusAsOne() {
@@ -239,7 +239,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.
+     * [set] COLLECTION_STATUS by COLLECTION_ID, named 'collectionStatusAsOne'.
      * @param collectionStatusAsOne The entity of foreign property(referrer-as-one) 'collectionStatusAsOne'. (NullAllowed)
      */
     public void setCollectionStatusAsOne(LdCollectionStatus collectionStatusAsOne) {
@@ -253,7 +253,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     protected List<LdLendingCollection> _lendingCollectionList;
 
     /**
-     * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionList'.
+     * [get] LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionList'.
      * @return The entity list of referrer property 'lendingCollectionList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdLendingCollection> getLendingCollectionList() {
@@ -262,7 +262,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionList'.
+     * [set] LENDING_COLLECTION by COLLECTION_ID, named 'lendingCollectionList'.
      * @param lendingCollectionList The entity list of referrer property 'lendingCollectionList'. (NullAllowed)
      */
     public void setLendingCollectionList(List<LdLendingCollection> lendingCollectionList) {
@@ -460,7 +460,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setCollectionId(Integer collectionId) {
         __modifiedProperties.addPropertyName("collectionId");
-        this._collectionId = collectionId;
+        _collectionId = collectionId;
     }
 
     /**
@@ -477,7 +477,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setLibraryId(Integer libraryId) {
         __modifiedProperties.addPropertyName("libraryId");
-        this._libraryId = libraryId;
+        _libraryId = libraryId;
     }
 
     /**
@@ -494,7 +494,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setBookId(Integer bookId) {
         __modifiedProperties.addPropertyName("bookId");
-        this._bookId = bookId;
+        _bookId = bookId;
     }
 
     /**
@@ -511,7 +511,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setArrivalDate(java.sql.Timestamp arrivalDate) {
         __modifiedProperties.addPropertyName("arrivalDate");
-        this._arrivalDate = arrivalDate;
+        _arrivalDate = arrivalDate;
     }
 
     /**
@@ -528,7 +528,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -545,7 +545,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -562,7 +562,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -579,7 +579,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -596,7 +596,7 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -613,6 +613,6 @@ public abstract class LdBsCollection implements Entity, Serializable, Cloneable 
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

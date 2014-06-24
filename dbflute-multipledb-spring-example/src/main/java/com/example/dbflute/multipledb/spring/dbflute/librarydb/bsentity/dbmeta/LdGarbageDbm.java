@@ -197,7 +197,7 @@ public class LdGarbageDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdGarbage newEntity() { return new LdGarbage(); }
     public LdGarbage newMyEntity() { return new LdGarbage(); }
 
     // ===================================================================================

@@ -141,7 +141,7 @@ public class LdVendorConstraintNameAutoFooDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdVendorConstraintNameAutoFoo newEntity() { return new LdVendorConstraintNameAutoFoo(); }
     public LdVendorConstraintNameAutoFoo newMyEntity() { return new LdVendorConstraintNameAutoFoo(); }
 
     // ===================================================================================

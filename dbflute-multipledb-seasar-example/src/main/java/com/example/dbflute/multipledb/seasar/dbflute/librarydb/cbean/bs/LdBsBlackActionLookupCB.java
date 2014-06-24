@@ -82,11 +82,23 @@ public class LdBsBlackActionLookupCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param blackActionCode : PK, NotNull, CHAR(3). (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdBlackActionLookupCB acceptPK(String blackActionCode) {
+        assertObjectNotNull("blackActionCode", blackActionCode);
+        LdBsBlackActionLookupCB cb = this;
+        cb.query().setBlackActionCode_Equal(blackActionCode);
+        return (LdBlackActionLookupCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param blackActionCode : PK, NotNull, CHAR(3). (NotNull)
      */
     public void acceptPrimaryKey(String blackActionCode) {
         assertObjectNotNull("blackActionCode", blackActionCode);
         LdBsBlackActionLookupCB cb = this;
-        cb.query().setBlackActionCode_Equal(blackActionCode);;
+        cb.query().setBlackActionCode_Equal(blackActionCode);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

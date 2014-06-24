@@ -145,7 +145,7 @@ public class MbSimpleMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbSimpleMember newEntity() { return new MbSimpleMember(); }
     public MbSimpleMember newMyEntity() { return new MbSimpleMember(); }
 
     // ===================================================================================

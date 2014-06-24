@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbCDef;
@@ -289,7 +289,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
     protected MbMember _member;
 
     /**
-     * MEMBER by my MEMBER_ID, named 'member'.
+     * [get] MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MbMember getMember() {
@@ -297,7 +297,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
     }
 
     /**
-     * MEMBER by my MEMBER_ID, named 'member'.
+     * [set] MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(MbMember member) {
@@ -308,7 +308,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
     protected MbProduct _product;
 
     /**
-     * PRODUCT by my PRODUCT_ID, named 'product'.
+     * [get] PRODUCT by my PRODUCT_ID, named 'product'.
      * @return The entity of foreign property 'product'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MbProduct getProduct() {
@@ -316,7 +316,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
     }
 
     /**
-     * PRODUCT by my PRODUCT_ID, named 'product'.
+     * [set] PRODUCT by my PRODUCT_ID, named 'product'.
      * @param product The entity of foreign property 'product'. (NullAllowed)
      */
     public void setProduct(MbProduct product) {
@@ -536,7 +536,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setPurchaseId(Long purchaseId) {
         __modifiedProperties.addPropertyName("purchaseId");
-        this._purchaseId = purchaseId;
+        _purchaseId = purchaseId;
     }
 
     /**
@@ -553,7 +553,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -570,7 +570,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setProductId(Integer productId) {
         __modifiedProperties.addPropertyName("productId");
-        this._productId = productId;
+        _productId = productId;
     }
 
     /**
@@ -587,7 +587,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setPurchaseDatetime(java.sql.Timestamp purchaseDatetime) {
         __modifiedProperties.addPropertyName("purchaseDatetime");
-        this._purchaseDatetime = purchaseDatetime;
+        _purchaseDatetime = purchaseDatetime;
     }
 
     /**
@@ -604,7 +604,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setPurchaseCount(Integer purchaseCount) {
         __modifiedProperties.addPropertyName("purchaseCount");
-        this._purchaseCount = purchaseCount;
+        _purchaseCount = purchaseCount;
     }
 
     /**
@@ -621,7 +621,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setPurchasePrice(Integer purchasePrice) {
         __modifiedProperties.addPropertyName("purchasePrice");
-        this._purchasePrice = purchasePrice;
+        _purchasePrice = purchasePrice;
     }
 
     /**
@@ -638,7 +638,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setPaymentCompleteFlg(Integer paymentCompleteFlg) {
         __modifiedProperties.addPropertyName("paymentCompleteFlg");
-        this._paymentCompleteFlg = paymentCompleteFlg;
+        _paymentCompleteFlg = paymentCompleteFlg;
     }
 
     /**
@@ -655,7 +655,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -672,7 +672,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -689,7 +689,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -706,7 +706,7 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     /**
@@ -723,6 +723,6 @@ public abstract class MbBsPurchase implements MbEntityDefinedCommonColumn, Seria
      */
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
-        this._versionNo = versionNo;
+        _versionNo = versionNo;
     }
 }

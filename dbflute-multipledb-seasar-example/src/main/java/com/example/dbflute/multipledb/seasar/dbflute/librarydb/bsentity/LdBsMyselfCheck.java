@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
 
@@ -145,7 +145,7 @@ public abstract class LdBsMyselfCheck implements Entity, Serializable, Cloneable
     protected LdMyself _myself;
 
     /**
-     * MYSELF by my MYSELF_ID, named 'myself'.
+     * [get] MYSELF by my MYSELF_ID, named 'myself'.
      * @return The entity of foreign property 'myself'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdMyself getMyself() {
@@ -153,7 +153,7 @@ public abstract class LdBsMyselfCheck implements Entity, Serializable, Cloneable
     }
 
     /**
-     * MYSELF by my MYSELF_ID, named 'myself'.
+     * [set] MYSELF by my MYSELF_ID, named 'myself'.
      * @param myself The entity of foreign property 'myself'. (NullAllowed)
      */
     public void setMyself(LdMyself myself) {
@@ -337,7 +337,7 @@ public abstract class LdBsMyselfCheck implements Entity, Serializable, Cloneable
      */
     public void setMyselfCheckId(Integer myselfCheckId) {
         __modifiedProperties.addPropertyName("myselfCheckId");
-        this._myselfCheckId = myselfCheckId;
+        _myselfCheckId = myselfCheckId;
     }
 
     /**
@@ -354,7 +354,7 @@ public abstract class LdBsMyselfCheck implements Entity, Serializable, Cloneable
      */
     public void setMyselfCheckName(String myselfCheckName) {
         __modifiedProperties.addPropertyName("myselfCheckName");
-        this._myselfCheckName = myselfCheckName;
+        _myselfCheckName = myselfCheckName;
     }
 
     /**
@@ -371,6 +371,6 @@ public abstract class LdBsMyselfCheck implements Entity, Serializable, Cloneable
      */
     public void setMyselfId(Integer myselfId) {
         __modifiedProperties.addPropertyName("myselfId");
-        this._myselfId = myselfId;
+        _myselfId = myselfId;
     }
 }

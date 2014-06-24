@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -186,7 +186,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
     protected LdLbUser _lbUser;
 
     /**
-     * LB_USER by my LB_USER_ID, named 'lbUser'.
+     * [get] LB_USER by my LB_USER_ID, named 'lbUser'.
      * @return The entity of foreign property 'lbUser'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLbUser getLbUser() {
@@ -194,7 +194,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * LB_USER by my LB_USER_ID, named 'lbUser'.
+     * [set] LB_USER by my LB_USER_ID, named 'lbUser'.
      * @param lbUser The entity of foreign property 'lbUser'. (NullAllowed)
      */
     public void setLbUser(LdLbUser lbUser) {
@@ -208,7 +208,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
     protected List<LdBlackAction> _blackActionList;
 
     /**
-     * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionList'.
+     * [get] BLACK_ACTION by BLACK_LIST_ID, named 'blackActionList'.
      * @return The entity list of referrer property 'blackActionList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdBlackAction> getBlackActionList() {
@@ -217,7 +217,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionList'.
+     * [set] BLACK_ACTION by BLACK_LIST_ID, named 'blackActionList'.
      * @param blackActionList The entity list of referrer property 'blackActionList'. (NullAllowed)
      */
     public void setBlackActionList(List<LdBlackAction> blackActionList) {
@@ -408,7 +408,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setBlackListId(Integer blackListId) {
         __modifiedProperties.addPropertyName("blackListId");
-        this._blackListId = blackListId;
+        _blackListId = blackListId;
     }
 
     /**
@@ -425,7 +425,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setLbUserId(Integer lbUserId) {
         __modifiedProperties.addPropertyName("lbUserId");
-        this._lbUserId = lbUserId;
+        _lbUserId = lbUserId;
     }
 
     /**
@@ -442,7 +442,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setBlackRank(String blackRank) {
         __modifiedProperties.addPropertyName("blackRank");
-        this._blackRank = blackRank;
+        _blackRank = blackRank;
     }
 
     /**
@@ -459,7 +459,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -476,7 +476,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -493,7 +493,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -510,7 +510,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -527,7 +527,7 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -544,6 +544,6 @@ public abstract class LdBsBlackList implements Entity, Serializable, Cloneable {
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

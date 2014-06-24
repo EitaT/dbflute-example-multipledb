@@ -84,11 +84,24 @@ public class LdBsNextLibraryCB extends AbstractConditionBean {
      * Accept the query condition of primary key as equal.
      * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
      * @param nextLibraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdNextLibraryCB acceptPK(Integer libraryId, Integer nextLibraryId) {
+        assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("nextLibraryId", nextLibraryId);
+        LdBsNextLibraryCB cb = this;
+        cb.query().setLibraryId_Equal(libraryId);cb.query().setNextLibraryId_Equal(nextLibraryId);
+        return (LdNextLibraryCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param libraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
+     * @param nextLibraryId : PK, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
      */
     public void acceptPrimaryKey(Integer libraryId, Integer nextLibraryId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("nextLibraryId", nextLibraryId);
         LdBsNextLibraryCB cb = this;
-        cb.query().setLibraryId_Equal(libraryId);;cb.query().setNextLibraryId_Equal(nextLibraryId);;
+        cb.query().setLibraryId_Equal(libraryId);cb.query().setNextLibraryId_Equal(nextLibraryId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

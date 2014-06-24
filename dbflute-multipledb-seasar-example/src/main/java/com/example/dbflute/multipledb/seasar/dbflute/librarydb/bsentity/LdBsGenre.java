@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdCDef;
@@ -338,7 +338,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
     protected LdGenre _genreSelf;
 
     /**
-     * GENRE by my PARENT_GENRE_CODE, named 'genreSelf'.
+     * [get] GENRE by my PARENT_GENRE_CODE, named 'genreSelf'.
      * @return The entity of foreign property 'genreSelf'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdGenre getGenreSelf() {
@@ -346,7 +346,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
     }
 
     /**
-     * GENRE by my PARENT_GENRE_CODE, named 'genreSelf'.
+     * [set] GENRE by my PARENT_GENRE_CODE, named 'genreSelf'.
      * @param genreSelf The entity of foreign property 'genreSelf'. (NullAllowed)
      */
     public void setGenreSelf(LdGenre genreSelf) {
@@ -360,7 +360,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
     protected List<LdBook> _bookList;
 
     /**
-     * BOOK by GENRE_CODE, named 'bookList'.
+     * [get] BOOK by GENRE_CODE, named 'bookList'.
      * @return The entity list of referrer property 'bookList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdBook> getBookList() {
@@ -369,7 +369,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
     }
 
     /**
-     * BOOK by GENRE_CODE, named 'bookList'.
+     * [set] BOOK by GENRE_CODE, named 'bookList'.
      * @param bookList The entity list of referrer property 'bookList'. (NullAllowed)
      */
     public void setBookList(List<LdBook> bookList) {
@@ -380,7 +380,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
     protected List<LdGenre> _genreSelfList;
 
     /**
-     * GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
+     * [get] GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
      * @return The entity list of referrer property 'genreSelfList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdGenre> getGenreSelfList() {
@@ -389,7 +389,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
     }
 
     /**
-     * GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
+     * [set] GENRE by PARENT_GENRE_CODE, named 'genreSelfList'.
      * @param genreSelfList The entity list of referrer property 'genreSelfList'. (NullAllowed)
      */
     public void setGenreSelfList(List<LdGenre> genreSelfList) {
@@ -610,7 +610,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setGenreCode(String genreCode) {
         __modifiedProperties.addPropertyName("genreCode");
-        this._genreCode = genreCode;
+        _genreCode = genreCode;
     }
 
     /**
@@ -627,7 +627,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setGenreName(String genreName) {
         __modifiedProperties.addPropertyName("genreName");
-        this._genreName = genreName;
+        _genreName = genreName;
     }
 
     /**
@@ -644,7 +644,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setHierarchyLevel(java.math.BigDecimal hierarchyLevel) {
         __modifiedProperties.addPropertyName("hierarchyLevel");
-        this._hierarchyLevel = hierarchyLevel;
+        _hierarchyLevel = hierarchyLevel;
     }
 
     /**
@@ -661,7 +661,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setHierarchyOrder(java.math.BigDecimal hierarchyOrder) {
         __modifiedProperties.addPropertyName("hierarchyOrder");
-        this._hierarchyOrder = hierarchyOrder;
+        _hierarchyOrder = hierarchyOrder;
     }
 
     /**
@@ -678,7 +678,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setParentGenreCode(String parentGenreCode) {
         __modifiedProperties.addPropertyName("parentGenreCode");
-        this._parentGenreCode = parentGenreCode;
+        _parentGenreCode = parentGenreCode;
     }
 
     /**
@@ -695,7 +695,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -712,7 +712,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -729,7 +729,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -746,7 +746,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -763,7 +763,7 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -780,6 +780,6 @@ public abstract class LdBsGenre implements LdEntityDefinedCommonColumn, Serializ
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

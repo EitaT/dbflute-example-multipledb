@@ -76,121 +76,50 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _genreCode;
-    public ConditionValue getGenreCode() {
-        if (_genreCode == null) { _genreCode = nCV(); }
-        return _genreCode;
-    }
+    public ConditionValue getGenreCode()
+    { if (_genreCode == null) { _genreCode = nCV(); }
+      return _genreCode; }
     protected ConditionValue getCValueGenreCode() { return getGenreCode(); }
 
-    protected Map<String, LdBookCQ> _genreCode_ExistsReferrer_BookListMap;
-    public Map<String, LdBookCQ> getGenreCode_ExistsReferrer_BookList() { return _genreCode_ExistsReferrer_BookListMap; }
-    public String keepGenreCode_ExistsReferrer_BookList(LdBookCQ sq) {
-        if (_genreCode_ExistsReferrer_BookListMap == null) { _genreCode_ExistsReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_ExistsReferrer_BookListMap.size() + 1);
-        _genreCode_ExistsReferrer_BookListMap.put(ky, sq); return "genreCode_ExistsReferrer_BookList." + ky;
-    }
+    public Map<String, LdBookCQ> getGenreCode_ExistsReferrer_BookList() { return xgetSQueMap("genreCode_ExistsReferrer_BookList"); }
+    public String keepGenreCode_ExistsReferrer_BookList(LdBookCQ sq) { return xkeepSQue("genreCode_ExistsReferrer_BookList", sq); }
 
-    protected Map<String, LdGenreCQ> _genreCode_ExistsReferrer_GenreSelfListMap;
-    public Map<String, LdGenreCQ> getGenreCode_ExistsReferrer_GenreSelfList() { return _genreCode_ExistsReferrer_GenreSelfListMap; }
-    public String keepGenreCode_ExistsReferrer_GenreSelfList(LdGenreCQ sq) {
-        if (_genreCode_ExistsReferrer_GenreSelfListMap == null) { _genreCode_ExistsReferrer_GenreSelfListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_ExistsReferrer_GenreSelfListMap.size() + 1);
-        _genreCode_ExistsReferrer_GenreSelfListMap.put(ky, sq); return "genreCode_ExistsReferrer_GenreSelfList." + ky;
-    }
+    public Map<String, LdGenreCQ> getGenreCode_ExistsReferrer_GenreSelfList() { return xgetSQueMap("genreCode_ExistsReferrer_GenreSelfList"); }
+    public String keepGenreCode_ExistsReferrer_GenreSelfList(LdGenreCQ sq) { return xkeepSQue("genreCode_ExistsReferrer_GenreSelfList", sq); }
 
-    protected Map<String, LdBookCQ> _genreCode_NotExistsReferrer_BookListMap;
-    public Map<String, LdBookCQ> getGenreCode_NotExistsReferrer_BookList() { return _genreCode_NotExistsReferrer_BookListMap; }
-    public String keepGenreCode_NotExistsReferrer_BookList(LdBookCQ sq) {
-        if (_genreCode_NotExistsReferrer_BookListMap == null) { _genreCode_NotExistsReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_NotExistsReferrer_BookListMap.size() + 1);
-        _genreCode_NotExistsReferrer_BookListMap.put(ky, sq); return "genreCode_NotExistsReferrer_BookList." + ky;
-    }
+    public Map<String, LdBookCQ> getGenreCode_NotExistsReferrer_BookList() { return xgetSQueMap("genreCode_NotExistsReferrer_BookList"); }
+    public String keepGenreCode_NotExistsReferrer_BookList(LdBookCQ sq) { return xkeepSQue("genreCode_NotExistsReferrer_BookList", sq); }
 
-    protected Map<String, LdGenreCQ> _genreCode_NotExistsReferrer_GenreSelfListMap;
-    public Map<String, LdGenreCQ> getGenreCode_NotExistsReferrer_GenreSelfList() { return _genreCode_NotExistsReferrer_GenreSelfListMap; }
-    public String keepGenreCode_NotExistsReferrer_GenreSelfList(LdGenreCQ sq) {
-        if (_genreCode_NotExistsReferrer_GenreSelfListMap == null) { _genreCode_NotExistsReferrer_GenreSelfListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_NotExistsReferrer_GenreSelfListMap.size() + 1);
-        _genreCode_NotExistsReferrer_GenreSelfListMap.put(ky, sq); return "genreCode_NotExistsReferrer_GenreSelfList." + ky;
-    }
+    public Map<String, LdGenreCQ> getGenreCode_NotExistsReferrer_GenreSelfList() { return xgetSQueMap("genreCode_NotExistsReferrer_GenreSelfList"); }
+    public String keepGenreCode_NotExistsReferrer_GenreSelfList(LdGenreCQ sq) { return xkeepSQue("genreCode_NotExistsReferrer_GenreSelfList", sq); }
 
-    protected Map<String, LdBookCQ> _genreCode_InScopeRelation_BookListMap;
-    public Map<String, LdBookCQ> getGenreCode_InScopeRelation_BookList() { return _genreCode_InScopeRelation_BookListMap; }
-    public String keepGenreCode_InScopeRelation_BookList(LdBookCQ sq) {
-        if (_genreCode_InScopeRelation_BookListMap == null) { _genreCode_InScopeRelation_BookListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_InScopeRelation_BookListMap.size() + 1);
-        _genreCode_InScopeRelation_BookListMap.put(ky, sq); return "genreCode_InScopeRelation_BookList." + ky;
-    }
+    public Map<String, LdBookCQ> getGenreCode_InScopeRelation_BookList() { return xgetSQueMap("genreCode_InScopeRelation_BookList"); }
+    public String keepGenreCode_InScopeRelation_BookList(LdBookCQ sq) { return xkeepSQue("genreCode_InScopeRelation_BookList", sq); }
 
-    protected Map<String, LdGenreCQ> _genreCode_InScopeRelation_GenreSelfListMap;
-    public Map<String, LdGenreCQ> getGenreCode_InScopeRelation_GenreSelfList() { return _genreCode_InScopeRelation_GenreSelfListMap; }
-    public String keepGenreCode_InScopeRelation_GenreSelfList(LdGenreCQ sq) {
-        if (_genreCode_InScopeRelation_GenreSelfListMap == null) { _genreCode_InScopeRelation_GenreSelfListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_InScopeRelation_GenreSelfListMap.size() + 1);
-        _genreCode_InScopeRelation_GenreSelfListMap.put(ky, sq); return "genreCode_InScopeRelation_GenreSelfList." + ky;
-    }
+    public Map<String, LdGenreCQ> getGenreCode_InScopeRelation_GenreSelfList() { return xgetSQueMap("genreCode_InScopeRelation_GenreSelfList"); }
+    public String keepGenreCode_InScopeRelation_GenreSelfList(LdGenreCQ sq) { return xkeepSQue("genreCode_InScopeRelation_GenreSelfList", sq); }
 
-    protected Map<String, LdBookCQ> _genreCode_NotInScopeRelation_BookListMap;
-    public Map<String, LdBookCQ> getGenreCode_NotInScopeRelation_BookList() { return _genreCode_NotInScopeRelation_BookListMap; }
-    public String keepGenreCode_NotInScopeRelation_BookList(LdBookCQ sq) {
-        if (_genreCode_NotInScopeRelation_BookListMap == null) { _genreCode_NotInScopeRelation_BookListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_NotInScopeRelation_BookListMap.size() + 1);
-        _genreCode_NotInScopeRelation_BookListMap.put(ky, sq); return "genreCode_NotInScopeRelation_BookList." + ky;
-    }
+    public Map<String, LdBookCQ> getGenreCode_NotInScopeRelation_BookList() { return xgetSQueMap("genreCode_NotInScopeRelation_BookList"); }
+    public String keepGenreCode_NotInScopeRelation_BookList(LdBookCQ sq) { return xkeepSQue("genreCode_NotInScopeRelation_BookList", sq); }
 
-    protected Map<String, LdGenreCQ> _genreCode_NotInScopeRelation_GenreSelfListMap;
-    public Map<String, LdGenreCQ> getGenreCode_NotInScopeRelation_GenreSelfList() { return _genreCode_NotInScopeRelation_GenreSelfListMap; }
-    public String keepGenreCode_NotInScopeRelation_GenreSelfList(LdGenreCQ sq) {
-        if (_genreCode_NotInScopeRelation_GenreSelfListMap == null) { _genreCode_NotInScopeRelation_GenreSelfListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_NotInScopeRelation_GenreSelfListMap.size() + 1);
-        _genreCode_NotInScopeRelation_GenreSelfListMap.put(ky, sq); return "genreCode_NotInScopeRelation_GenreSelfList." + ky;
-    }
+    public Map<String, LdGenreCQ> getGenreCode_NotInScopeRelation_GenreSelfList() { return xgetSQueMap("genreCode_NotInScopeRelation_GenreSelfList"); }
+    public String keepGenreCode_NotInScopeRelation_GenreSelfList(LdGenreCQ sq) { return xkeepSQue("genreCode_NotInScopeRelation_GenreSelfList", sq); }
 
-    protected Map<String, LdBookCQ> _genreCode_SpecifyDerivedReferrer_BookListMap;
-    public Map<String, LdBookCQ> getGenreCode_SpecifyDerivedReferrer_BookList() { return _genreCode_SpecifyDerivedReferrer_BookListMap; }
-    public String keepGenreCode_SpecifyDerivedReferrer_BookList(LdBookCQ sq) {
-        if (_genreCode_SpecifyDerivedReferrer_BookListMap == null) { _genreCode_SpecifyDerivedReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_SpecifyDerivedReferrer_BookListMap.size() + 1);
-        _genreCode_SpecifyDerivedReferrer_BookListMap.put(ky, sq); return "genreCode_SpecifyDerivedReferrer_BookList." + ky;
-    }
+    public Map<String, LdBookCQ> getGenreCode_SpecifyDerivedReferrer_BookList() { return xgetSQueMap("genreCode_SpecifyDerivedReferrer_BookList"); }
+    public String keepGenreCode_SpecifyDerivedReferrer_BookList(LdBookCQ sq) { return xkeepSQue("genreCode_SpecifyDerivedReferrer_BookList", sq); }
 
-    protected Map<String, LdGenreCQ> _genreCode_SpecifyDerivedReferrer_GenreSelfListMap;
-    public Map<String, LdGenreCQ> getGenreCode_SpecifyDerivedReferrer_GenreSelfList() { return _genreCode_SpecifyDerivedReferrer_GenreSelfListMap; }
-    public String keepGenreCode_SpecifyDerivedReferrer_GenreSelfList(LdGenreCQ sq) {
-        if (_genreCode_SpecifyDerivedReferrer_GenreSelfListMap == null) { _genreCode_SpecifyDerivedReferrer_GenreSelfListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_SpecifyDerivedReferrer_GenreSelfListMap.size() + 1);
-        _genreCode_SpecifyDerivedReferrer_GenreSelfListMap.put(ky, sq); return "genreCode_SpecifyDerivedReferrer_GenreSelfList." + ky;
-    }
+    public Map<String, LdGenreCQ> getGenreCode_SpecifyDerivedReferrer_GenreSelfList() { return xgetSQueMap("genreCode_SpecifyDerivedReferrer_GenreSelfList"); }
+    public String keepGenreCode_SpecifyDerivedReferrer_GenreSelfList(LdGenreCQ sq) { return xkeepSQue("genreCode_SpecifyDerivedReferrer_GenreSelfList", sq); }
 
-    protected Map<String, LdBookCQ> _genreCode_QueryDerivedReferrer_BookListMap;
-    public Map<String, LdBookCQ> getGenreCode_QueryDerivedReferrer_BookList() { return _genreCode_QueryDerivedReferrer_BookListMap; }
-    public String keepGenreCode_QueryDerivedReferrer_BookList(LdBookCQ sq) {
-        if (_genreCode_QueryDerivedReferrer_BookListMap == null) { _genreCode_QueryDerivedReferrer_BookListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_QueryDerivedReferrer_BookListMap.size() + 1);
-        _genreCode_QueryDerivedReferrer_BookListMap.put(ky, sq); return "genreCode_QueryDerivedReferrer_BookList." + ky;
-    }
-    protected Map<String, Object> _genreCode_QueryDerivedReferrer_BookListParameterMap;
-    public Map<String, Object> getGenreCode_QueryDerivedReferrer_BookListParameter() { return _genreCode_QueryDerivedReferrer_BookListParameterMap; }
-    public String keepGenreCode_QueryDerivedReferrer_BookListParameter(Object vl) {
-        if (_genreCode_QueryDerivedReferrer_BookListParameterMap == null) { _genreCode_QueryDerivedReferrer_BookListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_genreCode_QueryDerivedReferrer_BookListParameterMap.size() + 1);
-        _genreCode_QueryDerivedReferrer_BookListParameterMap.put(ky, vl); return "genreCode_QueryDerivedReferrer_BookListParameter." + ky;
-    }
+    public Map<String, LdBookCQ> getGenreCode_QueryDerivedReferrer_BookList() { return xgetSQueMap("genreCode_QueryDerivedReferrer_BookList"); }
+    public String keepGenreCode_QueryDerivedReferrer_BookList(LdBookCQ sq) { return xkeepSQue("genreCode_QueryDerivedReferrer_BookList", sq); }
+    public Map<String, Object> getGenreCode_QueryDerivedReferrer_BookListParameter() { return xgetSQuePmMap("genreCode_QueryDerivedReferrer_BookList"); }
+    public String keepGenreCode_QueryDerivedReferrer_BookListParameter(Object pm) { return xkeepSQuePm("genreCode_QueryDerivedReferrer_BookList", pm); }
 
-    protected Map<String, LdGenreCQ> _genreCode_QueryDerivedReferrer_GenreSelfListMap;
-    public Map<String, LdGenreCQ> getGenreCode_QueryDerivedReferrer_GenreSelfList() { return _genreCode_QueryDerivedReferrer_GenreSelfListMap; }
-    public String keepGenreCode_QueryDerivedReferrer_GenreSelfList(LdGenreCQ sq) {
-        if (_genreCode_QueryDerivedReferrer_GenreSelfListMap == null) { _genreCode_QueryDerivedReferrer_GenreSelfListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_genreCode_QueryDerivedReferrer_GenreSelfListMap.size() + 1);
-        _genreCode_QueryDerivedReferrer_GenreSelfListMap.put(ky, sq); return "genreCode_QueryDerivedReferrer_GenreSelfList." + ky;
-    }
-    protected Map<String, Object> _genreCode_QueryDerivedReferrer_GenreSelfListParameterMap;
-    public Map<String, Object> getGenreCode_QueryDerivedReferrer_GenreSelfListParameter() { return _genreCode_QueryDerivedReferrer_GenreSelfListParameterMap; }
-    public String keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(Object vl) {
-        if (_genreCode_QueryDerivedReferrer_GenreSelfListParameterMap == null) { _genreCode_QueryDerivedReferrer_GenreSelfListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_genreCode_QueryDerivedReferrer_GenreSelfListParameterMap.size() + 1);
-        _genreCode_QueryDerivedReferrer_GenreSelfListParameterMap.put(ky, vl); return "genreCode_QueryDerivedReferrer_GenreSelfListParameter." + ky;
-    }
+    public Map<String, LdGenreCQ> getGenreCode_QueryDerivedReferrer_GenreSelfList() { return xgetSQueMap("genreCode_QueryDerivedReferrer_GenreSelfList"); }
+    public String keepGenreCode_QueryDerivedReferrer_GenreSelfList(LdGenreCQ sq) { return xkeepSQue("genreCode_QueryDerivedReferrer_GenreSelfList", sq); }
+    public Map<String, Object> getGenreCode_QueryDerivedReferrer_GenreSelfListParameter() { return xgetSQuePmMap("genreCode_QueryDerivedReferrer_GenreSelfList"); }
+    public String keepGenreCode_QueryDerivedReferrer_GenreSelfListParameter(Object pm) { return xkeepSQuePm("genreCode_QueryDerivedReferrer_GenreSelfList", pm); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -207,10 +136,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_GenreCode_Desc() { regOBD("GENRE_CODE"); return this; }
 
     protected ConditionValue _genreName;
-    public ConditionValue getGenreName() {
-        if (_genreName == null) { _genreName = nCV(); }
-        return _genreName;
-    }
+    public ConditionValue getGenreName()
+    { if (_genreName == null) { _genreName = nCV(); }
+      return _genreName; }
     protected ConditionValue getCValueGenreName() { return getGenreName(); }
 
     /** 
@@ -228,10 +156,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_GenreName_Desc() { regOBD("GENRE_NAME"); return this; }
 
     protected ConditionValue _hierarchyLevel;
-    public ConditionValue getHierarchyLevel() {
-        if (_hierarchyLevel == null) { _hierarchyLevel = nCV(); }
-        return _hierarchyLevel;
-    }
+    public ConditionValue getHierarchyLevel()
+    { if (_hierarchyLevel == null) { _hierarchyLevel = nCV(); }
+      return _hierarchyLevel; }
     protected ConditionValue getCValueHierarchyLevel() { return getHierarchyLevel(); }
 
     /** 
@@ -249,10 +176,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_HierarchyLevel_Desc() { regOBD("HIERARCHY_LEVEL"); return this; }
 
     protected ConditionValue _hierarchyOrder;
-    public ConditionValue getHierarchyOrder() {
-        if (_hierarchyOrder == null) { _hierarchyOrder = nCV(); }
-        return _hierarchyOrder;
-    }
+    public ConditionValue getHierarchyOrder()
+    { if (_hierarchyOrder == null) { _hierarchyOrder = nCV(); }
+      return _hierarchyOrder; }
     protected ConditionValue getCValueHierarchyOrder() { return getHierarchyOrder(); }
 
     /** 
@@ -270,27 +196,16 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_HierarchyOrder_Desc() { regOBD("HIERARCHY_ORDER"); return this; }
 
     protected ConditionValue _parentGenreCode;
-    public ConditionValue getParentGenreCode() {
-        if (_parentGenreCode == null) { _parentGenreCode = nCV(); }
-        return _parentGenreCode;
-    }
+    public ConditionValue getParentGenreCode()
+    { if (_parentGenreCode == null) { _parentGenreCode = nCV(); }
+      return _parentGenreCode; }
     protected ConditionValue getCValueParentGenreCode() { return getParentGenreCode(); }
 
-    protected Map<String, LdGenreCQ> _parentGenreCode_InScopeRelation_GenreSelfMap;
-    public Map<String, LdGenreCQ> getParentGenreCode_InScopeRelation_GenreSelf() { return _parentGenreCode_InScopeRelation_GenreSelfMap; }
-    public String keepParentGenreCode_InScopeRelation_GenreSelf(LdGenreCQ sq) {
-        if (_parentGenreCode_InScopeRelation_GenreSelfMap == null) { _parentGenreCode_InScopeRelation_GenreSelfMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_parentGenreCode_InScopeRelation_GenreSelfMap.size() + 1);
-        _parentGenreCode_InScopeRelation_GenreSelfMap.put(ky, sq); return "parentGenreCode_InScopeRelation_GenreSelf." + ky;
-    }
+    public Map<String, LdGenreCQ> getParentGenreCode_InScopeRelation_GenreSelf() { return xgetSQueMap("parentGenreCode_InScopeRelation_GenreSelf"); }
+    public String keepParentGenreCode_InScopeRelation_GenreSelf(LdGenreCQ sq) { return xkeepSQue("parentGenreCode_InScopeRelation_GenreSelf", sq); }
 
-    protected Map<String, LdGenreCQ> _parentGenreCode_NotInScopeRelation_GenreSelfMap;
-    public Map<String, LdGenreCQ> getParentGenreCode_NotInScopeRelation_GenreSelf() { return _parentGenreCode_NotInScopeRelation_GenreSelfMap; }
-    public String keepParentGenreCode_NotInScopeRelation_GenreSelf(LdGenreCQ sq) {
-        if (_parentGenreCode_NotInScopeRelation_GenreSelfMap == null) { _parentGenreCode_NotInScopeRelation_GenreSelfMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_parentGenreCode_NotInScopeRelation_GenreSelfMap.size() + 1);
-        _parentGenreCode_NotInScopeRelation_GenreSelfMap.put(ky, sq); return "parentGenreCode_NotInScopeRelation_GenreSelf." + ky;
-    }
+    public Map<String, LdGenreCQ> getParentGenreCode_NotInScopeRelation_GenreSelf() { return xgetSQueMap("parentGenreCode_NotInScopeRelation_GenreSelf"); }
+    public String keepParentGenreCode_NotInScopeRelation_GenreSelf(LdGenreCQ sq) { return xkeepSQue("parentGenreCode_NotInScopeRelation_GenreSelf", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -307,10 +222,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_ParentGenreCode_Desc() { regOBD("PARENT_GENRE_CODE"); return this; }
 
     protected ConditionValue _rUser;
-    public ConditionValue getRUser() {
-        if (_rUser == null) { _rUser = nCV(); }
-        return _rUser;
-    }
+    public ConditionValue getRUser()
+    { if (_rUser == null) { _rUser = nCV(); }
+      return _rUser; }
     protected ConditionValue getCValueRUser() { return getRUser(); }
 
     /** 
@@ -328,10 +242,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_RUser_Desc() { regOBD("R_USER"); return this; }
 
     protected ConditionValue _rModule;
-    public ConditionValue getRModule() {
-        if (_rModule == null) { _rModule = nCV(); }
-        return _rModule;
-    }
+    public ConditionValue getRModule()
+    { if (_rModule == null) { _rModule = nCV(); }
+      return _rModule; }
     protected ConditionValue getCValueRModule() { return getRModule(); }
 
     /** 
@@ -349,10 +262,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_RModule_Desc() { regOBD("R_MODULE"); return this; }
 
     protected ConditionValue _rTimestamp;
-    public ConditionValue getRTimestamp() {
-        if (_rTimestamp == null) { _rTimestamp = nCV(); }
-        return _rTimestamp;
-    }
+    public ConditionValue getRTimestamp()
+    { if (_rTimestamp == null) { _rTimestamp = nCV(); }
+      return _rTimestamp; }
     protected ConditionValue getCValueRTimestamp() { return getRTimestamp(); }
 
     /** 
@@ -370,10 +282,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_RTimestamp_Desc() { regOBD("R_TIMESTAMP"); return this; }
 
     protected ConditionValue _uUser;
-    public ConditionValue getUUser() {
-        if (_uUser == null) { _uUser = nCV(); }
-        return _uUser;
-    }
+    public ConditionValue getUUser()
+    { if (_uUser == null) { _uUser = nCV(); }
+      return _uUser; }
     protected ConditionValue getCValueUUser() { return getUUser(); }
 
     /** 
@@ -391,10 +302,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_UUser_Desc() { regOBD("U_USER"); return this; }
 
     protected ConditionValue _uModule;
-    public ConditionValue getUModule() {
-        if (_uModule == null) { _uModule = nCV(); }
-        return _uModule;
-    }
+    public ConditionValue getUModule()
+    { if (_uModule == null) { _uModule = nCV(); }
+      return _uModule; }
     protected ConditionValue getCValueUModule() { return getUModule(); }
 
     /** 
@@ -412,10 +322,9 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdBsGenreCQ addOrderBy_UModule_Desc() { regOBD("U_MODULE"); return this; }
 
     protected ConditionValue _uTimestamp;
-    public ConditionValue getUTimestamp() {
-        if (_uTimestamp == null) { _uTimestamp = nCV(); }
-        return _uTimestamp;
-    }
+    public ConditionValue getUTimestamp()
+    { if (_uTimestamp == null) { _uTimestamp = nCV(); }
+      return _uTimestamp; }
     protected ConditionValue getCValueUTimestamp() { return getUTimestamp(); }
 
     /** 
@@ -449,8 +358,7 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsGenreCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public LdBsGenreCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -466,8 +374,7 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsGenreCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public LdBsGenreCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -491,31 +398,17 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     public LdGenreCQ queryGenreSelf() {
         return getConditionQueryGenreSelf();
     }
-    protected LdGenreCQ _conditionQueryGenreSelf;
     public LdGenreCQ getConditionQueryGenreSelf() {
-        if (_conditionQueryGenreSelf == null) {
-            _conditionQueryGenreSelf = xcreateQueryGenreSelf();
-            xsetupOuterJoinGenreSelf();
-        }
-        return _conditionQueryGenreSelf;
+        String prop = "genreSelf";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryGenreSelf()); xsetupOuterJoinGenreSelf(); }
+        return xgetQueRlMap(prop);
     }
     protected LdGenreCQ xcreateQueryGenreSelf() {
-        String nrp = resolveNextRelationPath("GENRE", "genreSelf");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdGenreCQ cq = new LdGenreCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("genreSelf");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("GENRE", "genreSelf"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdGenreCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "genreSelf", nrp);
     }
-    protected void xsetupOuterJoinGenreSelf() {
-        LdGenreCQ cq = getConditionQueryGenreSelf();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("PARENT_GENRE_CODE", "GENRE_CODE");
-        registerOuterJoin(cq, joinOnMap, "genreSelf");
-    }
-    public boolean hasConditionQueryGenreSelf() {
-        return _conditionQueryGenreSelf != null;
-    }
+    protected void xsetupOuterJoinGenreSelf() { xregOutJo("genreSelf"); }
+    public boolean hasConditionQueryGenreSelf() { return xhasQueRlMap("genreSelf"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -524,61 +417,32 @@ public class LdBsGenreCQ extends LdAbstractBsGenreCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, LdGenreCQ> _scalarConditionMap;
-    public Map<String, LdGenreCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdGenreCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, LdGenreCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(LdGenreCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, LdGenreCQ> _specifyMyselfDerivedMap;
-    public Map<String, LdGenreCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdGenreCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, LdGenreCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(LdGenreCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, LdGenreCQ> _queryMyselfDerivedMap;
-    public Map<String, LdGenreCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdGenreCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, LdGenreCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(LdGenreCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, LdGenreCQ> _myselfExistsMap;
-    public Map<String, LdGenreCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdGenreCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, LdGenreCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(LdGenreCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, LdGenreCQ> _myselfInScopeMap;
-    public Map<String, LdGenreCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdGenreCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, LdGenreCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(LdGenreCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

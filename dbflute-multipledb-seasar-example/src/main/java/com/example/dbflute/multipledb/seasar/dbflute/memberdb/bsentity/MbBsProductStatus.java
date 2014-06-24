@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.*;
 
@@ -158,7 +158,7 @@ public abstract class MbBsProductStatus implements Entity, Serializable, Cloneab
     protected List<MbProduct> _productList;
 
     /**
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * [get] PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * @return The entity list of referrer property 'productList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MbProduct> getProductList() {
@@ -167,7 +167,7 @@ public abstract class MbBsProductStatus implements Entity, Serializable, Cloneab
     }
 
     /**
-     * PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
+     * [set] PRODUCT by PRODUCT_STATUS_CODE, named 'productList'.
      * @param productList The entity list of referrer property 'productList'. (NullAllowed)
      */
     public void setProductList(List<MbProduct> productList) {
@@ -349,7 +349,7 @@ public abstract class MbBsProductStatus implements Entity, Serializable, Cloneab
      */
     public void setProductStatusCode(String productStatusCode) {
         __modifiedProperties.addPropertyName("productStatusCode");
-        this._productStatusCode = productStatusCode;
+        _productStatusCode = productStatusCode;
     }
 
     /**
@@ -366,7 +366,7 @@ public abstract class MbBsProductStatus implements Entity, Serializable, Cloneab
      */
     public void setProductStatusName(String productStatusName) {
         __modifiedProperties.addPropertyName("productStatusName");
-        this._productStatusName = productStatusName;
+        _productStatusName = productStatusName;
     }
 
     /**
@@ -383,6 +383,6 @@ public abstract class MbBsProductStatus implements Entity, Serializable, Cloneab
      */
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
-        this._displayOrder = displayOrder;
+        _displayOrder = displayOrder;
     }
 }

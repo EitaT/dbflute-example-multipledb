@@ -76,10 +76,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _vendorCheckId;
-    public ConditionValue getVendorCheckId() {
-        if (_vendorCheckId == null) { _vendorCheckId = nCV(); }
-        return _vendorCheckId;
-    }
+    public ConditionValue getVendorCheckId()
+    { if (_vendorCheckId == null) { _vendorCheckId = nCV(); }
+      return _vendorCheckId; }
     protected ConditionValue getCValueVendorCheckId() { return getVendorCheckId(); }
 
     /** 
@@ -97,10 +96,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_VendorCheckId_Desc() { regOBD("VENDOR_CHECK_ID"); return this; }
 
     protected ConditionValue _typeOfChar;
-    public ConditionValue getTypeOfChar() {
-        if (_typeOfChar == null) { _typeOfChar = nCV(); }
-        return _typeOfChar;
-    }
+    public ConditionValue getTypeOfChar()
+    { if (_typeOfChar == null) { _typeOfChar = nCV(); }
+      return _typeOfChar; }
     protected ConditionValue getCValueTypeOfChar() { return getTypeOfChar(); }
 
     /** 
@@ -118,10 +116,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfChar_Desc() { regOBD("TYPE_OF_CHAR"); return this; }
 
     protected ConditionValue _typeOfVarchar;
-    public ConditionValue getTypeOfVarchar() {
-        if (_typeOfVarchar == null) { _typeOfVarchar = nCV(); }
-        return _typeOfVarchar;
-    }
+    public ConditionValue getTypeOfVarchar()
+    { if (_typeOfVarchar == null) { _typeOfVarchar = nCV(); }
+      return _typeOfVarchar; }
     protected ConditionValue getCValueTypeOfVarchar() { return getTypeOfVarchar(); }
 
     /** 
@@ -139,10 +136,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfVarchar_Desc() { regOBD("TYPE_OF_VARCHAR"); return this; }
 
     protected ConditionValue _typeOfLongVarchar;
-    public ConditionValue getTypeOfLongVarchar() {
-        if (_typeOfLongVarchar == null) { _typeOfLongVarchar = nCV(); }
-        return _typeOfLongVarchar;
-    }
+    public ConditionValue getTypeOfLongVarchar()
+    { if (_typeOfLongVarchar == null) { _typeOfLongVarchar = nCV(); }
+      return _typeOfLongVarchar; }
     protected ConditionValue getCValueTypeOfLongVarchar() { return getTypeOfLongVarchar(); }
 
     /** 
@@ -160,10 +156,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfLongVarchar_Desc() { regOBD("TYPE_OF_LONG_VARCHAR"); return this; }
 
     protected ConditionValue _typeOfClob;
-    public ConditionValue getTypeOfClob() {
-        if (_typeOfClob == null) { _typeOfClob = nCV(); }
-        return _typeOfClob;
-    }
+    public ConditionValue getTypeOfClob()
+    { if (_typeOfClob == null) { _typeOfClob = nCV(); }
+      return _typeOfClob; }
     protected ConditionValue getCValueTypeOfClob() { return getTypeOfClob(); }
 
     /** 
@@ -181,10 +176,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfClob_Desc() { regOBD("TYPE_OF_CLOB"); return this; }
 
     protected ConditionValue _typeOfDecimalInteger;
-    public ConditionValue getTypeOfDecimalInteger() {
-        if (_typeOfDecimalInteger == null) { _typeOfDecimalInteger = nCV(); }
-        return _typeOfDecimalInteger;
-    }
+    public ConditionValue getTypeOfDecimalInteger()
+    { if (_typeOfDecimalInteger == null) { _typeOfDecimalInteger = nCV(); }
+      return _typeOfDecimalInteger; }
     protected ConditionValue getCValueTypeOfDecimalInteger() { return getTypeOfDecimalInteger(); }
 
     /** 
@@ -202,10 +196,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfDecimalInteger_Desc() { regOBD("TYPE_OF_DECIMAL_INTEGER"); return this; }
 
     protected ConditionValue _typeOfDecimalBigint;
-    public ConditionValue getTypeOfDecimalBigint() {
-        if (_typeOfDecimalBigint == null) { _typeOfDecimalBigint = nCV(); }
-        return _typeOfDecimalBigint;
-    }
+    public ConditionValue getTypeOfDecimalBigint()
+    { if (_typeOfDecimalBigint == null) { _typeOfDecimalBigint = nCV(); }
+      return _typeOfDecimalBigint; }
     protected ConditionValue getCValueTypeOfDecimalBigint() { return getTypeOfDecimalBigint(); }
 
     /** 
@@ -223,10 +216,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfDecimalBigint_Desc() { regOBD("TYPE_OF_DECIMAL_BIGINT"); return this; }
 
     protected ConditionValue _typeOfDecimalDecimal;
-    public ConditionValue getTypeOfDecimalDecimal() {
-        if (_typeOfDecimalDecimal == null) { _typeOfDecimalDecimal = nCV(); }
-        return _typeOfDecimalDecimal;
-    }
+    public ConditionValue getTypeOfDecimalDecimal()
+    { if (_typeOfDecimalDecimal == null) { _typeOfDecimalDecimal = nCV(); }
+      return _typeOfDecimalDecimal; }
     protected ConditionValue getCValueTypeOfDecimalDecimal() { return getTypeOfDecimalDecimal(); }
 
     /** 
@@ -244,10 +236,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfDecimalDecimal_Desc() { regOBD("TYPE_OF_DECIMAL_DECIMAL"); return this; }
 
     protected ConditionValue _typeOfBigint;
-    public ConditionValue getTypeOfBigint() {
-        if (_typeOfBigint == null) { _typeOfBigint = nCV(); }
-        return _typeOfBigint;
-    }
+    public ConditionValue getTypeOfBigint()
+    { if (_typeOfBigint == null) { _typeOfBigint = nCV(); }
+      return _typeOfBigint; }
     protected ConditionValue getCValueTypeOfBigint() { return getTypeOfBigint(); }
 
     /** 
@@ -265,10 +256,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfBigint_Desc() { regOBD("TYPE_OF_BIGINT"); return this; }
 
     protected ConditionValue _typeOfInteger;
-    public ConditionValue getTypeOfInteger() {
-        if (_typeOfInteger == null) { _typeOfInteger = nCV(); }
-        return _typeOfInteger;
-    }
+    public ConditionValue getTypeOfInteger()
+    { if (_typeOfInteger == null) { _typeOfInteger = nCV(); }
+      return _typeOfInteger; }
     protected ConditionValue getCValueTypeOfInteger() { return getTypeOfInteger(); }
 
     /** 
@@ -286,10 +276,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfInteger_Desc() { regOBD("TYPE_OF_INTEGER"); return this; }
 
     protected ConditionValue _typeOfDate;
-    public ConditionValue getTypeOfDate() {
-        if (_typeOfDate == null) { _typeOfDate = nCV(); }
-        return _typeOfDate;
-    }
+    public ConditionValue getTypeOfDate()
+    { if (_typeOfDate == null) { _typeOfDate = nCV(); }
+      return _typeOfDate; }
     protected ConditionValue getCValueTypeOfDate() { return getTypeOfDate(); }
 
     /** 
@@ -307,10 +296,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfDate_Desc() { regOBD("TYPE_OF_DATE"); return this; }
 
     protected ConditionValue _typeOfTimestamp;
-    public ConditionValue getTypeOfTimestamp() {
-        if (_typeOfTimestamp == null) { _typeOfTimestamp = nCV(); }
-        return _typeOfTimestamp;
-    }
+    public ConditionValue getTypeOfTimestamp()
+    { if (_typeOfTimestamp == null) { _typeOfTimestamp = nCV(); }
+      return _typeOfTimestamp; }
     protected ConditionValue getCValueTypeOfTimestamp() { return getTypeOfTimestamp(); }
 
     /** 
@@ -328,10 +316,9 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     public LdBsVendorCheckCQ addOrderBy_TypeOfTimestamp_Desc() { regOBD("TYPE_OF_TIMESTAMP"); return this; }
 
     protected ConditionValue _typeOfTime;
-    public ConditionValue getTypeOfTime() {
-        if (_typeOfTime == null) { _typeOfTime = nCV(); }
-        return _typeOfTime;
-    }
+    public ConditionValue getTypeOfTime()
+    { if (_typeOfTime == null) { _typeOfTime = nCV(); }
+      return _typeOfTime; }
     protected ConditionValue getCValueTypeOfTime() { return getTypeOfTime(); }
 
     /** 
@@ -365,8 +352,7 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsVendorCheckCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public LdBsVendorCheckCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -382,8 +368,7 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsVendorCheckCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public LdBsVendorCheckCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -401,13 +386,8 @@ public class LdBsVendorCheckCQ extends LdAbstractBsVendorCheckCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, LdVendorCheckCQ> _scalarConditionMap;
-    public Map<String, LdVendorCheckCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdVendorCheckCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, LdVendorCheckCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(LdVendorCheckCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

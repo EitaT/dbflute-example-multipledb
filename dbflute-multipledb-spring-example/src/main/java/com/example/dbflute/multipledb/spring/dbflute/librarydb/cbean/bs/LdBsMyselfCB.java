@@ -82,11 +82,23 @@ public class LdBsMyselfCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param myselfId : PK, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdMyselfCB acceptPK(Integer myselfId) {
+        assertObjectNotNull("myselfId", myselfId);
+        LdBsMyselfCB cb = this;
+        cb.query().setMyselfId_Equal(myselfId);
+        return (LdMyselfCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param myselfId : PK, NotNull, INTEGER(10). (NotNull)
      */
     public void acceptPrimaryKey(Integer myselfId) {
         assertObjectNotNull("myselfId", myselfId);
         LdBsMyselfCB cb = this;
-        cb.query().setMyselfId_Equal(myselfId);;
+        cb.query().setMyselfId_Equal(myselfId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

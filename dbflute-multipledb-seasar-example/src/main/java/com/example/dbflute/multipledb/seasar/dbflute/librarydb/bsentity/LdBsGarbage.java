@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
 
@@ -341,7 +341,7 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      */
     public void setGarbageMemo(String garbageMemo) {
         __modifiedProperties.addPropertyName("garbageMemo");
-        this._garbageMemo = garbageMemo;
+        _garbageMemo = garbageMemo;
     }
 
     /**
@@ -358,7 +358,7 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      */
     public void setGarbageTime(java.sql.Timestamp garbageTime) {
         __modifiedProperties.addPropertyName("garbageTime");
-        this._garbageTime = garbageTime;
+        _garbageTime = garbageTime;
     }
 
     /**
@@ -375,7 +375,7 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      */
     public void setGarbageCount(Integer garbageCount) {
         __modifiedProperties.addPropertyName("garbageCount");
-        this._garbageCount = garbageCount;
+        _garbageCount = garbageCount;
     }
 
     /**
@@ -392,7 +392,7 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -409,7 +409,7 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -426,7 +426,7 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -443,6 +443,6 @@ public abstract class LdBsGarbage implements Entity, Serializable, Cloneable {
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

@@ -7,11 +7,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
-import org.seasar.dbflute.optional.*;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.*;
+import com.example.dbflute.multipledb.seasar.dbflute.librarydb.bsbhv.loader.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.bsentity.dbmeta.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.*;
@@ -65,7 +68,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return LdCollectionStatusLookupDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -75,10 +78,10 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public LdCollectionStatusLookup newEntity() { return new LdCollectionStatusLookup(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public LdCollectionStatusLookupCB newConditionBean() { return new LdCollectionStatusLookupCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public LdCollectionStatusLookup newMyEntity() { return new LdCollectionStatusLookup(); }
@@ -101,6 +104,10 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(LdCollectionStatusLookupCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(LdCollectionStatusLookupCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -114,10 +121,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return delegateSelectCountPlainly(cb);
     }
 
-    @Override
-    protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
-    }
+    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -142,23 +146,22 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatusLookup selectEntity(LdCollectionStatusLookupCB cb) {
-        return doSelectEntity(cb, LdCollectionStatusLookup.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected LdCollectionStatusLookup facadeSelectEntity(LdCollectionStatusLookupCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntity(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityInternally(cb, tp);
     }
 
     protected <ENTITY extends LdCollectionStatusLookup> OptionalEntity<ENTITY> doSelectOptionalEntity(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    @Override
-    protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
-    }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br />
@@ -176,19 +179,19 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatusLookup selectEntityWithDeletedCheck(LdCollectionStatusLookupCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, LdCollectionStatusLookup.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected LdCollectionStatusLookup facadeSelectEntityWithDeletedCheck(LdCollectionStatusLookupCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectEntityWithDeletedCheck(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
 
-    @Override
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
-    }
+    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -198,15 +201,19 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatusLookup selectByPKValue(String collectionStatusCode) {
-        return doSelectByPK(collectionStatusCode, LdCollectionStatusLookup.class);
+        return facadeSelectByPKValue(collectionStatusCode);
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPK(String collectionStatusCode, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(collectionStatusCode), entityType);
+    protected LdCollectionStatusLookup facadeSelectByPKValue(String collectionStatusCode) {
+        return doSelectByPK(collectionStatusCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> OptionalEntity<ENTITY> doSelectOptionalByPK(String collectionStatusCode, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(collectionStatusCode, entityType), collectionStatusCode);
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPK(String collectionStatusCode, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(collectionStatusCode), tp);
+    }
+
+    protected <ENTITY extends LdCollectionStatusLookup> OptionalEntity<ENTITY> doSelectOptionalByPK(String collectionStatusCode, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(collectionStatusCode, tp), collectionStatusCode);
     }
 
     /**
@@ -218,17 +225,16 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdCollectionStatusLookup selectByPKValueWithDeletedCheck(String collectionStatusCode) {
-        return doSelectByPKWithDeletedCheck(collectionStatusCode, LdCollectionStatusLookup.class);
+        return doSelectByPKWithDeletedCheck(collectionStatusCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPKWithDeletedCheck(String collectionStatusCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(collectionStatusCode), entityType);
+    protected <ENTITY extends LdCollectionStatusLookup> ENTITY doSelectByPKWithDeletedCheck(String collectionStatusCode, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(collectionStatusCode), tp);
     }
 
     protected LdCollectionStatusLookupCB xprepareCBAsPK(String collectionStatusCode) {
         assertObjectNotNull("collectionStatusCode", collectionStatusCode);
-        LdCollectionStatusLookupCB cb = newMyConditionBean(); cb.acceptPrimaryKey(collectionStatusCode);
-        return cb;
+        return newConditionBean().acceptPK(collectionStatusCode);
     }
 
     // ===================================================================================
@@ -250,20 +256,18 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdCollectionStatusLookup> selectList(LdCollectionStatusLookupCB cb) {
-        return doSelectList(cb, LdCollectionStatusLookup.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<LdCollectionStatusLookup> facadeSelectList(LdCollectionStatusLookupCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdCollectionStatusLookup> ListResultBean<ENTITY> doSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
+        return helpSelectListInternally(cb, tp);
     }
 
-    @Override
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
-    }
+    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -291,21 +295,18 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdCollectionStatusLookup> selectPage(LdCollectionStatusLookupCB cb) {
-        return doSelectPage(cb, LdCollectionStatusLookup.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<LdCollectionStatusLookup> facadeSelectPage(LdCollectionStatusLookupCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdCollectionStatusLookup> PagingResultBean<ENTITY> doSelectPage(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public int callbackSelectCount(LdCollectionStatusLookupCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        return helpSelectPageInternally(cb, tp);
     }
 
-    @Override
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
-    }
+    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Cursor Select
@@ -325,16 +326,17 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @param entityRowHandler The handler of entity row of LdCollectionStatusLookup. (NotNull)
      */
     public void selectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<LdCollectionStatusLookup> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, LdCollectionStatusLookup.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<LdCollectionStatusLookup> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdCollectionStatusLookup> void doSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdCollectionStatusLookupCB>() {
-            public void callbackSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -355,23 +357,22 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<LdCollectionStatusLookupCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<LdCollectionStatusLookupCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends LdCollectionStatusLookupCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<LdCollectionStatusLookupCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends LdCollectionStatusLookupCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends LdCollectionStatusLookupCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
-    }
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -385,6 +386,78 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param collectionStatusLookupList The entity list of collectionStatusLookup. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<LdCollectionStatusLookup> collectionStatusLookupList, ReferrerLoaderHandler<LdLoaderOfCollectionStatusLookup> handler) {
+        xassLRArg(collectionStatusLookupList, handler);
+        handler.handle(new LdLoaderOfCollectionStatusLookup().ready(collectionStatusLookupList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param collectionStatusLookup The entity of collectionStatusLookup. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(LdCollectionStatusLookup collectionStatusLookup, ReferrerLoaderHandler<LdLoaderOfCollectionStatusLookup> handler) {
+        xassLRArg(collectionStatusLookup, handler);
+        handler.handle(new LdLoaderOfCollectionStatusLookup().ready(xnewLRAryLs(collectionStatusLookup), _behaviorSelector));
+    }
+
     /**
      * Load referrer of collectionStatusList by the set-upper of referrer. <br />
      * COLLECTION_STATUS by COLLECTION_STATUS_CODE, named 'collectionStatusList'.
@@ -413,7 +486,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdCollectionStatus> loadCollectionStatusList(List<LdCollectionStatusLookup> collectionStatusLookupList, ConditionBeanSetupper<LdCollectionStatusCB> setupper) {
+    public NestedReferrerListGateway<LdCollectionStatus> loadCollectionStatusList(List<LdCollectionStatusLookup> collectionStatusLookupList, ConditionBeanSetupper<LdCollectionStatusCB> setupper) {
         xassLRArg(collectionStatusLookupList, setupper);
         return doLoadCollectionStatusList(collectionStatusLookupList, new LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus>().xinit(setupper));
     }
@@ -444,7 +517,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdCollectionStatus> loadCollectionStatusList(LdCollectionStatusLookup collectionStatusLookup, ConditionBeanSetupper<LdCollectionStatusCB> setupper) {
+    public NestedReferrerListGateway<LdCollectionStatus> loadCollectionStatusList(LdCollectionStatusLookup collectionStatusLookup, ConditionBeanSetupper<LdCollectionStatusCB> setupper) {
         xassLRArg(collectionStatusLookup, setupper);
         return doLoadCollectionStatusList(xnewLRLs(collectionStatusLookup), new LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus>().xinit(setupper));
     }
@@ -455,7 +528,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdCollectionStatus> loadCollectionStatusList(LdCollectionStatusLookup collectionStatusLookup, LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus> loadReferrerOption) {
+    public NestedReferrerListGateway<LdCollectionStatus> loadCollectionStatusList(LdCollectionStatusLookup collectionStatusLookup, LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus> loadReferrerOption) {
         xassLRArg(collectionStatusLookup, loadReferrerOption);
         return loadCollectionStatusList(xnewLRLs(collectionStatusLookup), loadReferrerOption);
     }
@@ -467,36 +540,19 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<LdCollectionStatus> loadCollectionStatusList(List<LdCollectionStatusLookup> collectionStatusLookupList, LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus> loadReferrerOption) {
+    public NestedReferrerListGateway<LdCollectionStatus> loadCollectionStatusList(List<LdCollectionStatusLookup> collectionStatusLookupList, LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus> loadReferrerOption) {
         xassLRArg(collectionStatusLookupList, loadReferrerOption);
-        if (collectionStatusLookupList.isEmpty()) { return (NestedReferrerLoader<LdCollectionStatus>)EMPTY_LOADER; }
+        if (collectionStatusLookupList.isEmpty()) { return (NestedReferrerListGateway<LdCollectionStatus>)EMPTY_NREF_LGWAY; }
         return doLoadCollectionStatusList(collectionStatusLookupList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<LdCollectionStatus> doLoadCollectionStatusList(List<LdCollectionStatusLookup> collectionStatusLookupList, LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus> option) {
-        final LdCollectionStatusBhv referrerBhv = xgetBSFLR().select(LdCollectionStatusBhv.class);
-        return helpLoadReferrerInternally(collectionStatusLookupList, option, new InternalLoadReferrerCallback<LdCollectionStatusLookup, String, LdCollectionStatusCB, LdCollectionStatus>() {
-            public String getPKVal(LdCollectionStatusLookup et)
-            { return et.getCollectionStatusCode(); }
-            public void setRfLs(LdCollectionStatusLookup et, List<LdCollectionStatus> ls)
-            { et.setCollectionStatusList(ls); }
-            public LdCollectionStatusCB newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(LdCollectionStatusCB cb, List<String> ls)
-            { cb.query().setCollectionStatusCode_InScope(ls); }
-            public void qyOdFKAsc(LdCollectionStatusCB cb) { cb.query().addOrderBy_CollectionStatusCode_Asc(); }
-            public void spFKCol(LdCollectionStatusCB cb) { cb.specify().columnCollectionStatusCode(); }
-            public List<LdCollectionStatus> selRfLs(LdCollectionStatusCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(LdCollectionStatus re) { return re.getCollectionStatusCode(); }
-            public void setlcEt(LdCollectionStatus re, LdCollectionStatusLookup le)
-            { re.setCollectionStatusLookup(le); }
-            public String getRfPrNm() { return "collectionStatusList"; }
-        });
+    protected NestedReferrerListGateway<LdCollectionStatus> doLoadCollectionStatusList(List<LdCollectionStatusLookup> collectionStatusLookupList, LoadReferrerOption<LdCollectionStatusCB, LdCollectionStatus> option) {
+        return helpLoadReferrerInternally(collectionStatusLookupList, option, "collectionStatusList");
     }
 
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
@@ -505,11 +561,8 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @param collectionStatusLookupList The list of collectionStatusLookup. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<String> extractCollectionStatusCodeList(List<LdCollectionStatusLookup> collectionStatusLookupList) {
-        return helpExtractListInternally(collectionStatusLookupList, new InternalExtractCallback<LdCollectionStatusLookup, String>() {
-            public String getCV(LdCollectionStatusLookup et) { return et.getCollectionStatusCode(); }
-        });
-    }
+    public List<String> extractCollectionStatusCodeList(List<LdCollectionStatusLookup> collectionStatusLookupList)
+    { return helpExtractListInternally(collectionStatusLookupList, "collectionStatusCode"); }
 
     // ===================================================================================
     //                                                                       Entity Update
@@ -528,32 +581,23 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * ... = collectionStatusLookup.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param collectionStatusLookup The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param collectionStatusLookup The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdCollectionStatusLookup collectionStatusLookup) {
         doInsert(collectionStatusLookup, null);
     }
 
-    protected void doInsert(LdCollectionStatusLookup collectionStatusLookup, InsertOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareInsertOption(op);
-        delegateInsert(collectionStatusLookup, op);
+    protected void doInsert(LdCollectionStatusLookup et, InsertOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookup", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<LdCollectionStatusLookupCB> op) {
-        if (op == null) { return; }
-        assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) {
-            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    @Override
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
-    }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
@@ -564,7 +608,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * collectionStatusLookup.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     collectionStatusLookupBhv.<span style="color: #DD4747">update</span>(collectionStatusLookup);
@@ -572,50 +616,32 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *     ...
      * }
      * </pre>
-     * @param collectionStatusLookup The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param collectionStatusLookup The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final LdCollectionStatusLookup collectionStatusLookup) {
+    public void update(LdCollectionStatusLookup collectionStatusLookup) {
         doUpdate(collectionStatusLookup, null);
     }
 
-    protected void doUpdate(LdCollectionStatusLookup collectionStatusLookup, final UpdateOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareUpdateOption(op);
-        helpUpdateInternally(collectionStatusLookup, new InternalUpdateCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateUpdate(LdCollectionStatusLookup et) { return delegateUpdate(et, op); } });
+    protected void doUpdate(LdCollectionStatusLookup et, UpdateOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookup", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
 
     protected void prepareUpdateOption(UpdateOption<LdCollectionStatusLookupCB> op) {
-        if (op == null) { return; }
-        assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected LdCollectionStatusLookupCB createCBForVaryingUpdate() {
-        LdCollectionStatusLookupCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected LdCollectionStatusLookupCB createCBForVaryingUpdate()
+    { LdCollectionStatusLookupCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected LdCollectionStatusLookupCB createCBForSpecifiedUpdate() {
-        LdCollectionStatusLookupCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected LdCollectionStatusLookupCB createCBForSpecifiedUpdate()
+    { LdCollectionStatusLookupCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
-    @Override
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
-    }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
@@ -626,101 +652,73 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setVersionNo(value);</span>
      * collectionStatusLookupBhv.<span style="color: #DD4747">updateNonstrict</span>(collectionStatusLookup);
      * </pre>
-     * @param collectionStatusLookup The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param collectionStatusLookup The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void updateNonstrict(final LdCollectionStatusLookup collectionStatusLookup) {
+    public void updateNonstrict(LdCollectionStatusLookup collectionStatusLookup) {
         doUpdateNonstrict(collectionStatusLookup, null);
     }
 
-    protected void doUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup, final UpdateOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareUpdateOption(op);
-        helpUpdateNonstrictInternally(collectionStatusLookup, new InternalUpdateNonstrictCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateUpdateNonstrict(LdCollectionStatusLookup et) { return delegateUpdateNonstrict(et, op); } });
+    protected void doUpdateNonstrict(LdCollectionStatusLookup et, UpdateOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookup", et); prepareUpdateOption(op); helpUpdateNonstrictInternally(et, op);
     }
 
-    @Override
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { updateNonstrict(downcast(et)); }
-        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
+    { doUpdateNonstrict(downcast(et), downcast(op)); }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param collectionStatusLookup The entity of insert or update target. (NotNull)
+     * @param collectionStatusLookup The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdCollectionStatusLookup collectionStatusLookup) {
-        doInesrtOrUpdate(collectionStatusLookup, null, null);
+        doInsertOrUpdate(collectionStatusLookup, null, null);
     }
 
-    protected void doInesrtOrUpdate(LdCollectionStatusLookup collectionStatusLookup, final InsertOption<LdCollectionStatusLookupCB> iop, final UpdateOption<LdCollectionStatusLookupCB> uop) {
-        helpInsertOrUpdateInternally(collectionStatusLookup, new InternalInsertOrUpdateCallback<LdCollectionStatusLookup, LdCollectionStatusLookupCB>() {
-            public void callbackInsert(LdCollectionStatusLookup et) { doInsert(et, iop); }
-            public void callbackUpdate(LdCollectionStatusLookup et) { doUpdate(et, uop); }
-            public LdCollectionStatusLookupCB callbackNewMyConditionBean() { return newMyConditionBean(); }
-            public int callbackSelectCount(LdCollectionStatusLookupCB cb) { return selectCount(cb); }
-        });
+    protected void doInsertOrUpdate(LdCollectionStatusLookup et, InsertOption<LdCollectionStatusLookupCB> iop, UpdateOption<LdCollectionStatusLookupCB> uop) {
+        assertObjectNotNull("collectionStatusLookup", et); helpInsertOrUpdateInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdCollectionStatusLookupCB>();
-            uop = uop != null ? uop : new UpdateOption<LdCollectionStatusLookupCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param collectionStatusLookup The entity of insert or update target. (NotNull)
+     * @param collectionStatusLookup The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup) {
-        doInesrtOrUpdateNonstrict(collectionStatusLookup, null, null);
+        doInsertOrUpdateNonstrict(collectionStatusLookup, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup, final InsertOption<LdCollectionStatusLookupCB> iop, final UpdateOption<LdCollectionStatusLookupCB> uop) {
-        helpInsertOrUpdateInternally(collectionStatusLookup, new InternalInsertOrUpdateNonstrictCallback<LdCollectionStatusLookup>() {
-            public void callbackInsert(LdCollectionStatusLookup et) { doInsert(et, iop); }
-            public void callbackUpdateNonstrict(LdCollectionStatusLookup et) { doUpdateNonstrict(et, uop); }
-        });
+    protected void doInsertOrUpdateNonstrict(LdCollectionStatusLookup et, InsertOption<LdCollectionStatusLookupCB> iop, UpdateOption<LdCollectionStatusLookupCB> uop) {
+        assertObjectNotNull("collectionStatusLookup", et); helpInsertOrUpdateNonstrictInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdCollectionStatusLookupCB>();
-            uop = uop != null ? uop : new UpdateOption<LdCollectionStatusLookupCB>();
-            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
      * <pre>
      * LdCollectionStatusLookup collectionStatusLookup = new LdCollectionStatusLookup();
      * collectionStatusLookup.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * collectionStatusLookup.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     collectionStatusLookupBhv.<span style="color: #DD4747">delete</span>(collectionStatusLookup);
@@ -728,7 +726,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *     ...
      * }
      * </pre>
-     * @param collectionStatusLookup The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param collectionStatusLookup The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -736,35 +734,25 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doDelete(collectionStatusLookup, null);
     }
 
-    protected void doDelete(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareDeleteOption(op);
-        helpDeleteInternally(collectionStatusLookup, new InternalDeleteCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateDelete(LdCollectionStatusLookup et) { return delegateDelete(et, op); } });
+    protected void doDelete(LdCollectionStatusLookup et, final DeleteOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookup", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<LdCollectionStatusLookupCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<LdCollectionStatusLookupCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
 
-    @Override
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
-    }
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
      * LdCollectionStatusLookup collectionStatusLookup = new LdCollectionStatusLookup();
      * collectionStatusLookup.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setVersionNo(value);</span>
      * collectionStatusLookupBhv.<span style="color: #DD4747">deleteNonstrict</span>(collectionStatusLookup);
      * </pre>
-     * @param collectionStatusLookup The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param collectionStatusLookup The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -772,11 +760,8 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         doDeleteNonstrict(collectionStatusLookup, null);
     }
 
-    protected void doDeleteNonstrict(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictInternally(collectionStatusLookup, new InternalDeleteNonstrictCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateDeleteNonstrict(LdCollectionStatusLookup et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrict(LdCollectionStatusLookup et, final DeleteOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookup", et); prepareDeleteOption(op); helpDeleteNonstrictInternally(et, op);
     }
 
     /**
@@ -784,31 +769,25 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * <pre>
      * LdCollectionStatusLookup collectionStatusLookup = new LdCollectionStatusLookup();
      * collectionStatusLookup.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setVersionNo(value);</span>
      * collectionStatusLookupBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(collectionStatusLookup);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
-     * @param collectionStatusLookup The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param collectionStatusLookup The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdCollectionStatusLookup collectionStatusLookup) {
         doDeleteNonstrictIgnoreDeleted(collectionStatusLookup, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(LdCollectionStatusLookup collectionStatusLookup, final DeleteOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookup", collectionStatusLookup);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictIgnoreDeletedInternally(collectionStatusLookup, new InternalDeleteNonstrictIgnoreDeletedCallback<LdCollectionStatusLookup>() {
-            public int callbackDelegateDeleteNonstrict(LdCollectionStatusLookup et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrictIgnoreDeleted(LdCollectionStatusLookup et, final DeleteOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookup", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
-    @Override
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { deleteNonstrict(downcast(et)); }
-        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
+    { doDeleteNonstrict(downcast(et), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -838,27 +817,23 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<LdCollectionStatusLookup> collectionStatusLookupList) {
-        InsertOption<LdCollectionStatusLookupCB> op = createInsertUpdateOption();
-        return doBatchInsert(collectionStatusLookupList, op);
+        return doBatchInsert(collectionStatusLookupList, null);
     }
 
-    protected int[] doBatchInsert(List<LdCollectionStatusLookup> collectionStatusLookupList, InsertOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareBatchInsertOption(collectionStatusLookupList, op);
-        return delegateBatchInsert(collectionStatusLookupList, op);
+    protected int[] doBatchInsert(List<LdCollectionStatusLookup> ls, InsertOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookupList", ls);
+        InsertOption<LdCollectionStatusLookupCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<LdCollectionStatusLookup> collectionStatusLookupList, InsertOption<LdCollectionStatusLookupCB> op) {
+    protected void prepareBatchInsertOption(List<LdCollectionStatusLookup> ls, InsertOption<LdCollectionStatusLookupCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(collectionStatusLookupList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
-    @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
@@ -880,31 +855,27 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * }
      * collectionStatusLookupBhv.<span style="color: #DD4747">batchUpdate</span>(collectionStatusLookupList);
      * </pre>
-     * @param collectionStatusLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param collectionStatusLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdCollectionStatusLookup> collectionStatusLookupList) {
-        UpdateOption<LdCollectionStatusLookupCB> op = createPlainUpdateOption();
-        return doBatchUpdate(collectionStatusLookupList, op);
+        return doBatchUpdate(collectionStatusLookupList, null);
     }
 
-    protected int[] doBatchUpdate(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareBatchUpdateOption(collectionStatusLookupList, op);
-        return delegateBatchUpdate(collectionStatusLookupList, op);
+    protected int[] doBatchUpdate(List<LdCollectionStatusLookup> ls, UpdateOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookupList", ls);
+        UpdateOption<LdCollectionStatusLookupCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(collectionStatusLookupList);
+    protected void prepareBatchUpdateOption(List<LdCollectionStatusLookup> ls, UpdateOption<LdCollectionStatusLookupCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
-    @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
@@ -929,7 +900,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * and an optimistic lock column because they are specified implicitly.</p>
      * <p>And you should specify columns that are modified in any entities (at least one entity).
      * But if you specify every column, it has no check.</p>
-     * @param collectionStatusLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param collectionStatusLookupList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
@@ -963,14 +934,14 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdCollectionStatusLookup> collectionStatusLookupList) {
-        UpdateOption<LdCollectionStatusLookupCB> option = createPlainUpdateOption();
-        return doBatchUpdateNonstrict(collectionStatusLookupList, option);
+        return doBatchUpdateNonstrict(collectionStatusLookupList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<LdCollectionStatusLookup> collectionStatusLookupList, UpdateOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
-        prepareBatchUpdateOption(collectionStatusLookupList, op);
-        return delegateBatchUpdateNonstrict(collectionStatusLookupList, op);
+    protected int[] doBatchUpdateNonstrict(List<LdCollectionStatusLookup> ls, UpdateOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookupList", ls);
+        UpdateOption<LdCollectionStatusLookupCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop);
+        return delegateBatchUpdateNonstrict(ls, rlop);
     }
 
     /**
@@ -1005,10 +976,8 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
+    { return doBatchUpdateNonstrict(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list. (ExclusiveControl) <br />
@@ -1021,17 +990,13 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doBatchDelete(collectionStatusLookupList, null);
     }
 
-    protected int[] doBatchDelete(List<LdCollectionStatusLookup> collectionStatusLookupList, DeleteOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
+    protected int[] doBatchDelete(List<LdCollectionStatusLookup> ls, DeleteOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookupList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(collectionStatusLookupList, op);
+        return delegateBatchDelete(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list non-strictly. {NonExclusiveControl} <br />
@@ -1044,17 +1009,14 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doBatchDeleteNonstrict(collectionStatusLookupList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<LdCollectionStatusLookup> collectionStatusLookupList, DeleteOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookupList", collectionStatusLookupList);
+    protected int[] doBatchDeleteNonstrict(List<LdCollectionStatusLookup> ls, DeleteOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookupList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(collectionStatusLookupList, op);
+        return delegateBatchDeleteNonstrict(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
+    { return doBatchDeleteNonstrict(downcast(ls), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -1075,7 +1037,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1090,24 +1052,16 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     }
 
     protected int doQueryInsert(QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB> sp, InsertOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("setupper", sp);
-        prepareInsertOption(op);
-        LdCollectionStatusLookup e = new LdCollectionStatusLookup();
-        LdCollectionStatusLookupCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
+        LdCollectionStatusLookup et = newEntity(); LdCollectionStatusLookupCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected LdCollectionStatusLookupCB createCBForQueryInsert() {
-        LdCollectionStatusLookupCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected LdCollectionStatusLookupCB createCBForQueryInsert()
+    { LdCollectionStatusLookupCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
-    @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
-    }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
+    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -1119,7 +1073,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setVersionNo(value);</span>
      * LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB();
@@ -1135,17 +1089,13 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
         return doQueryUpdate(collectionStatusLookup, cb, null);
     }
 
-    protected int doQueryUpdate(LdCollectionStatusLookup collectionStatusLookup, LdCollectionStatusLookupCB cb, UpdateOption<LdCollectionStatusLookupCB> op) {
-        assertObjectNotNull("collectionStatusLookup", collectionStatusLookup); assertCBStateValid(cb);
-        prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(collectionStatusLookup, cb, op) : 0;
+    protected int doQueryUpdate(LdCollectionStatusLookup et, LdCollectionStatusLookupCB cb, UpdateOption<LdCollectionStatusLookupCB> op) {
+        assertObjectNotNull("collectionStatusLookup", et); assertCBStateValid(cb); prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (LdCollectionStatusLookupCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (LdCollectionStatusLookupCB)cb, downcast(op)); }
-    }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
+    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
@@ -1163,16 +1113,11 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     }
 
     protected int doQueryDelete(LdCollectionStatusLookupCB cb, DeleteOption<LdCollectionStatusLookupCB> op) {
-        assertCBStateValid(cb);
-        prepareDeleteOption(op);
+        assertCBStateValid(cb); prepareDeleteOption(op);
         return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((LdCollectionStatusLookupCB)cb); }
-        else { return varyingQueryDelete((LdCollectionStatusLookupCB)cb, downcast(op)); }
-    }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1195,7 +1140,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * collectionStatusLookupBhv.<span style="color: #DD4747">varyingInsert</span>(collectionStatusLookup, option);
      * ... = collectionStatusLookup.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param collectionStatusLookup The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param collectionStatusLookup The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1212,7 +1157,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * LdCollectionStatusLookup collectionStatusLookup = new LdCollectionStatusLookup();
      * collectionStatusLookup.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * collectionStatusLookup.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * collectionStatusLookup.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1227,7 +1172,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      *     ...
      * }
      * </pre>
-     * @param collectionStatusLookup The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param collectionStatusLookup The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1247,7 +1192,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * LdCollectionStatusLookup collectionStatusLookup = new LdCollectionStatusLookup();
      * collectionStatusLookup.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * collectionStatusLookup.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setVersionNo(value);</span>
      * UpdateOption&lt;LdCollectionStatusLookupCB&gt; option = new UpdateOption&lt;LdCollectionStatusLookupCB&gt;();
@@ -1258,7 +1203,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * collectionStatusLookupBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(collectionStatusLookup, option);
      * </pre>
-     * @param collectionStatusLookup The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param collectionStatusLookup The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1272,7 +1217,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param collectionStatusLookup The entity of insert or update target. (NotNull)
+     * @param collectionStatusLookup The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1281,13 +1226,13 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      */
     public void varyingInsertOrUpdate(LdCollectionStatusLookup collectionStatusLookup, InsertOption<LdCollectionStatusLookupCB> insertOption, UpdateOption<LdCollectionStatusLookupCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(collectionStatusLookup, insertOption, updateOption);
+        doInsertOrUpdate(collectionStatusLookup, insertOption, updateOption);
     }
 
     /**
      * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdateNonstrict(entity).
-     * @param collectionStatusLookup The entity of insert or update target. (NotNull)
+     * @param collectionStatusLookup The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1296,14 +1241,14 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      */
     public void varyingInsertOrUpdateNonstrict(LdCollectionStatusLookup collectionStatusLookup, InsertOption<LdCollectionStatusLookupCB> insertOption, UpdateOption<LdCollectionStatusLookupCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdateNonstrict(collectionStatusLookup, insertOption, updateOption);
+        doInsertOrUpdateNonstrict(collectionStatusLookup, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, ExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param collectionStatusLookup The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param collectionStatusLookup The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1317,7 +1262,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as deleteNonstrict(entity).
-     * @param collectionStatusLookup The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param collectionStatusLookup The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1425,7 +1370,7 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setPK...(value);</span>
      * collectionStatusLookup.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//collectionStatusLookup.setVersionNo(value);</span>
      * LdCollectionStatusLookupCB cb = new LdCollectionStatusLookupCB();
@@ -1502,113 +1447,28 @@ public abstract class LdBsCollectionStatusLookupBhv extends AbstractBehaviorWrit
     }
 
     // ===================================================================================
-    //                                                                     Delegate Method
-    //                                                                     ===============
-    // [Behavior Command]
-    // -----------------------------------------------------
-    //                                                Select
-    //                                                ------
-    protected int delegateSelectCountUniquely(LdCollectionStatusLookupCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
-    protected int delegateSelectCountPlainly(LdCollectionStatusLookupCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdCollectionStatusLookup> void delegateSelectCursor(LdCollectionStatusLookupCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
-    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
-    protected <ENTITY extends LdCollectionStatusLookup> List<ENTITY> delegateSelectList(LdCollectionStatusLookupCB cb, Class<ENTITY> tp)
-    { return invoke(createSelectListCBCommand(cb, tp)); }
-
-    // -----------------------------------------------------
-    //                                                Update
-    //                                                ------
-    protected int delegateInsert(LdCollectionStatusLookup et, InsertOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeInsert(et, op)) { return 0; }
-      return invoke(createInsertEntityCommand(et, op)); }
-    protected int delegateUpdate(LdCollectionStatusLookup et, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateEntityCommand(et, op)); }
-    protected int delegateUpdateNonstrict(LdCollectionStatusLookup et, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
-    protected int delegateDelete(LdCollectionStatusLookup et, DeleteOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteEntityCommand(et, op)); }
-    protected int delegateDeleteNonstrict(LdCollectionStatusLookup et, DeleteOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
-
-    protected int[] delegateBatchInsert(List<LdCollectionStatusLookup> ls, InsertOption<LdCollectionStatusLookupCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchInsertCommand(processBatchInternally(ls, op), op)); }
-    protected int[] delegateBatchUpdate(List<LdCollectionStatusLookup> ls, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchUpdateNonstrict(List<LdCollectionStatusLookup> ls, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-    protected int[] delegateBatchDelete(List<LdCollectionStatusLookup> ls, DeleteOption<LdCollectionStatusLookupCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchDeleteNonstrict(List<LdCollectionStatusLookup> ls, DeleteOption<LdCollectionStatusLookupCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-
-    protected int delegateQueryInsert(LdCollectionStatusLookup et, LdCollectionStatusLookupCB inCB, ConditionBean resCB, InsertOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(LdCollectionStatusLookup et, LdCollectionStatusLookupCB cb, UpdateOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
-    protected int delegateQueryDelete(LdCollectionStatusLookupCB cb, DeleteOption<LdCollectionStatusLookupCB> op)
-    { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
-
-    // ===================================================================================
     //                                                                Optimistic Lock Info
     //                                                                ====================
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean hasVersionNoValue(Entity et) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected boolean hasUpdateDateValue(Entity et) {
         return downcast(et).getUTimestamp() != null;
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected LdCollectionStatusLookup downcast(Entity et) {
-        return helpEntityDowncastInternally(et, LdCollectionStatusLookup.class);
-    }
-
-    protected LdCollectionStatusLookupCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, LdCollectionStatusLookupCB.class);
-    }
-
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<LdCollectionStatusLookup> typeOfSelectedEntity() { return LdCollectionStatusLookup.class; }
+    protected LdCollectionStatusLookup downcast(Entity et) { return helpEntityDowncastInternally(et, LdCollectionStatusLookup.class); }
+    protected LdCollectionStatusLookupCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdCollectionStatusLookupCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<LdCollectionStatusLookup> downcast(List<? extends Entity> ls) {
-        return (List<LdCollectionStatusLookup>)ls;
-    }
-
+    protected List<LdCollectionStatusLookup> downcast(List<? extends Entity> ls) { return (List<LdCollectionStatusLookup>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<LdCollectionStatusLookupCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<LdCollectionStatusLookupCB>)op;
-    }
-
+    protected InsertOption<LdCollectionStatusLookupCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<LdCollectionStatusLookupCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<LdCollectionStatusLookupCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<LdCollectionStatusLookupCB>)op;
-    }
-
+    protected UpdateOption<LdCollectionStatusLookupCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<LdCollectionStatusLookupCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<LdCollectionStatusLookupCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<LdCollectionStatusLookupCB>)op;
-    }
-
+    protected DeleteOption<LdCollectionStatusLookupCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<LdCollectionStatusLookupCB>)op; }
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB>)sp;
-    }
+    protected QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<LdCollectionStatusLookup, LdCollectionStatusLookupCB>)sp; }
 }

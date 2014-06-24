@@ -233,7 +233,7 @@ public class LdBookStatisticDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdBookStatistic newEntity() { return new LdBookStatistic(); }
     public LdBookStatistic newMyEntity() { return new LdBookStatistic(); }
 
     // ===================================================================================

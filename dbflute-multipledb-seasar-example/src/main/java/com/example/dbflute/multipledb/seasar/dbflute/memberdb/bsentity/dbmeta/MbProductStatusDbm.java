@@ -151,7 +151,7 @@ public class MbProductStatusDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbProductStatus newEntity() { return new MbProductStatus(); }
     public MbProductStatus newMyEntity() { return new MbProductStatus(); }
 
     // ===================================================================================

@@ -83,21 +83,35 @@ public class LdBsBlackListCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param blackListId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdBlackListCB acceptPK(Integer blackListId) {
+        assertObjectNotNull("blackListId", blackListId);
+        LdBsBlackListCB cb = this;
+        cb.query().setBlackListId_Equal(blackListId);
+        return (LdBlackListCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param blackListId : PK, ID, NotNull, INTEGER(10). (NotNull)
      */
     public void acceptPrimaryKey(Integer blackListId) {
         assertObjectNotNull("blackListId", blackListId);
         LdBsBlackListCB cb = this;
-        cb.query().setBlackListId_Equal(blackListId);;
+        cb.query().setBlackListId_Equal(blackListId);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param lbUserId : UQ, IX, NotNull, INTEGER(10), FK to LB_USER. (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer lbUserId) {
+    public LdBlackListCB acceptUniqueOf(Integer lbUserId) {
         assertObjectNotNull("lbUserId", lbUserId);
         LdBsBlackListCB cb = this;
-        cb.query().setLbUserId_Equal(lbUserId);;
+        cb.query().setLbUserId_Equal(lbUserId);
+        return (LdBlackListCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

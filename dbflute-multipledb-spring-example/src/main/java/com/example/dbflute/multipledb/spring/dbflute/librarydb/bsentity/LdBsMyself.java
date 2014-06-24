@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -143,7 +143,7 @@ public abstract class LdBsMyself implements Entity, Serializable, Cloneable {
     protected List<LdMyselfCheck> _myselfCheckList;
 
     /**
-     * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckList'.
+     * [get] MYSELF_CHECK by MYSELF_ID, named 'myselfCheckList'.
      * @return The entity list of referrer property 'myselfCheckList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdMyselfCheck> getMyselfCheckList() {
@@ -152,7 +152,7 @@ public abstract class LdBsMyself implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * MYSELF_CHECK by MYSELF_ID, named 'myselfCheckList'.
+     * [set] MYSELF_CHECK by MYSELF_ID, named 'myselfCheckList'.
      * @param myselfCheckList The entity list of referrer property 'myselfCheckList'. (NullAllowed)
      */
     public void setMyselfCheckList(List<LdMyselfCheck> myselfCheckList) {
@@ -333,7 +333,7 @@ public abstract class LdBsMyself implements Entity, Serializable, Cloneable {
      */
     public void setMyselfId(Integer myselfId) {
         __modifiedProperties.addPropertyName("myselfId");
-        this._myselfId = myselfId;
+        _myselfId = myselfId;
     }
 
     /**
@@ -350,6 +350,6 @@ public abstract class LdBsMyself implements Entity, Serializable, Cloneable {
      */
     public void setMyselfName(String myselfName) {
         __modifiedProperties.addPropertyName("myselfName");
-        this._myselfName = myselfName;
+        _myselfName = myselfName;
     }
 }

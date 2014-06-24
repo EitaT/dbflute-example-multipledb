@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.Date;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -396,7 +396,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setVendorCheckId(Long vendorCheckId) {
         __modifiedProperties.addPropertyName("vendorCheckId");
-        this._vendorCheckId = vendorCheckId;
+        _vendorCheckId = vendorCheckId;
     }
 
     /**
@@ -413,7 +413,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfChar(String typeOfChar) {
         __modifiedProperties.addPropertyName("typeOfChar");
-        this._typeOfChar = typeOfChar;
+        _typeOfChar = typeOfChar;
     }
 
     /**
@@ -430,7 +430,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfVarchar(String typeOfVarchar) {
         __modifiedProperties.addPropertyName("typeOfVarchar");
-        this._typeOfVarchar = typeOfVarchar;
+        _typeOfVarchar = typeOfVarchar;
     }
 
     /**
@@ -447,7 +447,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfLongVarchar(String typeOfLongVarchar) {
         __modifiedProperties.addPropertyName("typeOfLongVarchar");
-        this._typeOfLongVarchar = typeOfLongVarchar;
+        _typeOfLongVarchar = typeOfLongVarchar;
     }
 
     /**
@@ -464,7 +464,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfClob(String typeOfClob) {
         __modifiedProperties.addPropertyName("typeOfClob");
-        this._typeOfClob = typeOfClob;
+        _typeOfClob = typeOfClob;
     }
 
     /**
@@ -481,7 +481,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfDecimalInteger(java.math.BigDecimal typeOfDecimalInteger) {
         __modifiedProperties.addPropertyName("typeOfDecimalInteger");
-        this._typeOfDecimalInteger = typeOfDecimalInteger;
+        _typeOfDecimalInteger = typeOfDecimalInteger;
     }
 
     /**
@@ -498,7 +498,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfDecimalBigint(java.math.BigDecimal typeOfDecimalBigint) {
         __modifiedProperties.addPropertyName("typeOfDecimalBigint");
-        this._typeOfDecimalBigint = typeOfDecimalBigint;
+        _typeOfDecimalBigint = typeOfDecimalBigint;
     }
 
     /**
@@ -515,7 +515,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfDecimalDecimal(java.math.BigDecimal typeOfDecimalDecimal) {
         __modifiedProperties.addPropertyName("typeOfDecimalDecimal");
-        this._typeOfDecimalDecimal = typeOfDecimalDecimal;
+        _typeOfDecimalDecimal = typeOfDecimalDecimal;
     }
 
     /**
@@ -532,7 +532,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfBigint(Long typeOfBigint) {
         __modifiedProperties.addPropertyName("typeOfBigint");
-        this._typeOfBigint = typeOfBigint;
+        _typeOfBigint = typeOfBigint;
     }
 
     /**
@@ -549,7 +549,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfInteger(Integer typeOfInteger) {
         __modifiedProperties.addPropertyName("typeOfInteger");
-        this._typeOfInteger = typeOfInteger;
+        _typeOfInteger = typeOfInteger;
     }
 
     /**
@@ -566,7 +566,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfDate(java.util.Date typeOfDate) {
         __modifiedProperties.addPropertyName("typeOfDate");
-        this._typeOfDate = typeOfDate;
+        _typeOfDate = typeOfDate;
     }
 
     /**
@@ -583,7 +583,7 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfTimestamp(java.sql.Timestamp typeOfTimestamp) {
         __modifiedProperties.addPropertyName("typeOfTimestamp");
-        this._typeOfTimestamp = typeOfTimestamp;
+        _typeOfTimestamp = typeOfTimestamp;
     }
 
     /**
@@ -600,6 +600,6 @@ public abstract class LdBsVendorCheck implements Entity, Serializable, Cloneable
      */
     public void setTypeOfTime(java.sql.Time typeOfTime) {
         __modifiedProperties.addPropertyName("typeOfTime");
-        this._typeOfTime = typeOfTime;
+        _typeOfTime = typeOfTime;
     }
 }

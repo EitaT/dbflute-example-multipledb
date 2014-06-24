@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -177,7 +177,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     protected LdLibraryUser _libraryUser;
 
     /**
-     * LIBRARY_USER by my LIBRARY_ID, LB_USER_ID, named 'libraryUser'.
+     * [get] LIBRARY_USER by my LIBRARY_ID, LB_USER_ID, named 'libraryUser'.
      * @return The entity of foreign property 'libraryUser'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLibraryUser getLibraryUser() {
@@ -185,7 +185,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * LIBRARY_USER by my LIBRARY_ID, LB_USER_ID, named 'libraryUser'.
+     * [set] LIBRARY_USER by my LIBRARY_ID, LB_USER_ID, named 'libraryUser'.
      * @param libraryUser The entity of foreign property 'libraryUser'. (NullAllowed)
      */
     public void setLibraryUser(LdLibraryUser libraryUser) {
@@ -199,7 +199,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     protected List<LdLendingCollection> _lendingCollectionList;
 
     /**
-     * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, LENDING_DATE, named 'lendingCollectionList'.
+     * [get] LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, LENDING_DATE, named 'lendingCollectionList'.
      * @return The entity list of referrer property 'lendingCollectionList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdLendingCollection> getLendingCollectionList() {
@@ -208,7 +208,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, LENDING_DATE, named 'lendingCollectionList'.
+     * [set] LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, LENDING_DATE, named 'lendingCollectionList'.
      * @param lendingCollectionList The entity list of referrer property 'lendingCollectionList'. (NullAllowed)
      */
     public void setLendingCollectionList(List<LdLendingCollection> lendingCollectionList) {
@@ -403,7 +403,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setLibraryId(Integer libraryId) {
         __modifiedProperties.addPropertyName("libraryId");
-        this._libraryId = libraryId;
+        _libraryId = libraryId;
     }
 
     /**
@@ -420,7 +420,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setLbUserId(Integer lbUserId) {
         __modifiedProperties.addPropertyName("lbUserId");
-        this._lbUserId = lbUserId;
+        _lbUserId = lbUserId;
     }
 
     /**
@@ -437,7 +437,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setLendingDate(java.sql.Timestamp lendingDate) {
         __modifiedProperties.addPropertyName("lendingDate");
-        this._lendingDate = lendingDate;
+        _lendingDate = lendingDate;
     }
 
     /**
@@ -454,7 +454,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -471,7 +471,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -488,7 +488,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -505,7 +505,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -522,7 +522,7 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -539,6 +539,6 @@ public abstract class LdBsLending implements Entity, Serializable, Cloneable {
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

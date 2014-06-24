@@ -284,7 +284,7 @@ public class MbMemberAddressDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbMemberAddress newEntity() { return new MbMemberAddress(); }
     public MbMemberAddress newMyEntity() { return new MbMemberAddress(); }
 
     // ===================================================================================

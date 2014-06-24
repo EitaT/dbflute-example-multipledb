@@ -215,7 +215,7 @@ public class LdLibraryTypeLookupDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdLibraryTypeLookup newEntity() { return new LdLibraryTypeLookup(); }
     public LdLibraryTypeLookup newMyEntity() { return new LdLibraryTypeLookup(); }
 
     // ===================================================================================

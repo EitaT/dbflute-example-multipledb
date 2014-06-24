@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdCDef;
@@ -329,7 +329,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
     protected LdLibrary _libraryByLibraryId;
 
     /**
-     * LIBRARY by my LIBRARY_ID, named 'libraryByLibraryId'.
+     * [get] LIBRARY by my LIBRARY_ID, named 'libraryByLibraryId'.
      * @return The entity of foreign property 'libraryByLibraryId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLibrary getLibraryByLibraryId() {
@@ -337,7 +337,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
     }
 
     /**
-     * LIBRARY by my LIBRARY_ID, named 'libraryByLibraryId'.
+     * [set] LIBRARY by my LIBRARY_ID, named 'libraryByLibraryId'.
      * @param libraryByLibraryId The entity of foreign property 'libraryByLibraryId'. (NullAllowed)
      */
     public void setLibraryByLibraryId(LdLibrary libraryByLibraryId) {
@@ -348,7 +348,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
     protected LdLibrary _libraryByNextLibraryId;
 
     /**
-     * LIBRARY by my NEXT_LIBRARY_ID, named 'libraryByNextLibraryId'.
+     * [get] LIBRARY by my NEXT_LIBRARY_ID, named 'libraryByNextLibraryId'.
      * @return The entity of foreign property 'libraryByNextLibraryId'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLibrary getLibraryByNextLibraryId() {
@@ -356,7 +356,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
     }
 
     /**
-     * LIBRARY by my NEXT_LIBRARY_ID, named 'libraryByNextLibraryId'.
+     * [set] LIBRARY by my NEXT_LIBRARY_ID, named 'libraryByNextLibraryId'.
      * @param libraryByNextLibraryId The entity of foreign property 'libraryByNextLibraryId'. (NullAllowed)
      */
     public void setLibraryByNextLibraryId(LdLibrary libraryByNextLibraryId) {
@@ -575,7 +575,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setLibraryId(Integer libraryId) {
         __modifiedProperties.addPropertyName("libraryId");
-        this._libraryId = libraryId;
+        _libraryId = libraryId;
     }
 
     /**
@@ -592,7 +592,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setNextLibraryId(Integer nextLibraryId) {
         __modifiedProperties.addPropertyName("nextLibraryId");
-        this._nextLibraryId = nextLibraryId;
+        _nextLibraryId = nextLibraryId;
     }
 
     /**
@@ -609,7 +609,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setDistanceKm(java.math.BigDecimal distanceKm) {
         __modifiedProperties.addPropertyName("distanceKm");
-        this._distanceKm = distanceKm;
+        _distanceKm = distanceKm;
     }
 
     /**
@@ -626,7 +626,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -643,7 +643,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -660,7 +660,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -677,7 +677,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -694,7 +694,7 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -711,6 +711,6 @@ public abstract class LdBsNextLibrary implements LdEntityDefinedCommonColumn, Se
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

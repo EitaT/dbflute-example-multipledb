@@ -203,7 +203,7 @@ public class MbMemberLoginDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbMemberLogin newEntity() { return new MbMemberLogin(); }
     public MbMemberLogin newMyEntity() { return new MbMemberLogin(); }
 
     // ===================================================================================

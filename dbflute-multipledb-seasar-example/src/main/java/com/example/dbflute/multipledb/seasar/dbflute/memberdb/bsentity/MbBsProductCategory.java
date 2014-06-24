@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.*;
 
@@ -143,7 +143,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
     protected MbProductCategory _productCategorySelf;
 
     /**
-     * PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * [get] PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * @return The entity of foreign property 'productCategorySelf'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MbProductCategory getProductCategorySelf() {
@@ -151,7 +151,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
     }
 
     /**
-     * PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
+     * [set] PRODUCT_CATEGORY by my PARENT_CATEGORY_CODE, named 'productCategorySelf'.
      * @param productCategorySelf The entity of foreign property 'productCategorySelf'. (NullAllowed)
      */
     public void setProductCategorySelf(MbProductCategory productCategorySelf) {
@@ -165,7 +165,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
     protected List<MbProduct> _productList;
 
     /**
-     * PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
+     * [get] PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
      * @return The entity list of referrer property 'productList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MbProduct> getProductList() {
@@ -174,7 +174,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
     }
 
     /**
-     * PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
+     * [set] PRODUCT by PRODUCT_CATEGORY_CODE, named 'productList'.
      * @param productList The entity list of referrer property 'productList'. (NullAllowed)
      */
     public void setProductList(List<MbProduct> productList) {
@@ -185,7 +185,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
     protected List<MbProductCategory> _productCategorySelfList;
 
     /**
-     * PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
+     * [get] PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
      * @return The entity list of referrer property 'productCategorySelfList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MbProductCategory> getProductCategorySelfList() {
@@ -194,7 +194,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
     }
 
     /**
-     * PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
+     * [set] PRODUCT_CATEGORY by PARENT_CATEGORY_CODE, named 'productCategorySelfList'.
      * @param productCategorySelfList The entity list of referrer property 'productCategorySelfList'. (NullAllowed)
      */
     public void setProductCategorySelfList(List<MbProductCategory> productCategorySelfList) {
@@ -383,7 +383,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
      */
     public void setProductCategoryCode(String productCategoryCode) {
         __modifiedProperties.addPropertyName("productCategoryCode");
-        this._productCategoryCode = productCategoryCode;
+        _productCategoryCode = productCategoryCode;
     }
 
     /**
@@ -400,7 +400,7 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
      */
     public void setProductCategoryName(String productCategoryName) {
         __modifiedProperties.addPropertyName("productCategoryName");
-        this._productCategoryName = productCategoryName;
+        _productCategoryName = productCategoryName;
     }
 
     /**
@@ -417,6 +417,6 @@ public abstract class MbBsProductCategory implements Entity, Serializable, Clone
      */
     public void setParentCategoryCode(String parentCategoryCode) {
         __modifiedProperties.addPropertyName("parentCategoryCode");
-        this._parentCategoryCode = parentCategoryCode;
+        _parentCategoryCode = parentCategoryCode;
     }
 }

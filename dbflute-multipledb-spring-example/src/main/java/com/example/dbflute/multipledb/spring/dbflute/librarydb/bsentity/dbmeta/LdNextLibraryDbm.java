@@ -259,7 +259,7 @@ public class LdNextLibraryDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdNextLibrary newEntity() { return new LdNextLibrary(); }
     public LdNextLibrary newMyEntity() { return new LdNextLibrary(); }
 
     // ===================================================================================

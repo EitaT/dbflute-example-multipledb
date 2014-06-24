@@ -187,7 +187,7 @@ public class MbServiceRankDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbServiceRank newEntity() { return new MbServiceRank(); }
     public MbServiceRank newMyEntity() { return new MbServiceRank(); }
 
     // ===================================================================================

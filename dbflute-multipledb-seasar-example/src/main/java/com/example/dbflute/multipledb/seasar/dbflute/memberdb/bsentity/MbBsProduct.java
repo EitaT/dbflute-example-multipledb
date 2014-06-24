@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.*;
@@ -199,7 +199,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
     protected MbProductCategory _productCategory;
 
     /**
-     * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * [get] PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
      * @return The entity of foreign property 'productCategory'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MbProductCategory getProductCategory() {
@@ -207,7 +207,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
+     * [set] PRODUCT_CATEGORY by my PRODUCT_CATEGORY_CODE, named 'productCategory'.
      * @param productCategory The entity of foreign property 'productCategory'. (NullAllowed)
      */
     public void setProductCategory(MbProductCategory productCategory) {
@@ -218,7 +218,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
     protected MbProductStatus _productStatus;
 
     /**
-     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * [get] PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @return The entity of foreign property 'productStatus'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MbProductStatus getProductStatus() {
@@ -226,7 +226,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
+     * [set] PRODUCT_STATUS by my PRODUCT_STATUS_CODE, named 'productStatus'.
      * @param productStatus The entity of foreign property 'productStatus'. (NullAllowed)
      */
     public void setProductStatus(MbProductStatus productStatus) {
@@ -240,7 +240,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
     protected List<MbPurchase> _purchaseList;
 
     /**
-     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * [get] PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * @return The entity list of referrer property 'purchaseList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MbPurchase> getPurchaseList() {
@@ -249,7 +249,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
     }
 
     /**
-     * PURCHASE by PRODUCT_ID, named 'purchaseList'.
+     * [set] PURCHASE by PRODUCT_ID, named 'purchaseList'.
      * @param purchaseList The entity list of referrer property 'purchaseList'. (NullAllowed)
      */
     public void setPurchaseList(List<MbPurchase> purchaseList) {
@@ -469,7 +469,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setProductId(Integer productId) {
         __modifiedProperties.addPropertyName("productId");
-        this._productId = productId;
+        _productId = productId;
     }
 
     /**
@@ -486,7 +486,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setProductName(String productName) {
         __modifiedProperties.addPropertyName("productName");
-        this._productName = productName;
+        _productName = productName;
     }
 
     /**
@@ -503,7 +503,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setProductHandleCode(String productHandleCode) {
         __modifiedProperties.addPropertyName("productHandleCode");
-        this._productHandleCode = productHandleCode;
+        _productHandleCode = productHandleCode;
     }
 
     /**
@@ -520,7 +520,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setProductCategoryCode(String productCategoryCode) {
         __modifiedProperties.addPropertyName("productCategoryCode");
-        this._productCategoryCode = productCategoryCode;
+        _productCategoryCode = productCategoryCode;
     }
 
     /**
@@ -537,7 +537,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setProductStatusCode(String productStatusCode) {
         __modifiedProperties.addPropertyName("productStatusCode");
-        this._productStatusCode = productStatusCode;
+        _productStatusCode = productStatusCode;
     }
 
     /**
@@ -554,7 +554,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setRegularPrice(Integer regularPrice) {
         __modifiedProperties.addPropertyName("regularPrice");
-        this._regularPrice = regularPrice;
+        _regularPrice = regularPrice;
     }
 
     /**
@@ -571,7 +571,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -588,7 +588,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -605,7 +605,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -622,7 +622,7 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     /**
@@ -639,6 +639,6 @@ public abstract class MbBsProduct implements MbEntityDefinedCommonColumn, Serial
      */
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
-        this._versionNo = versionNo;
+        _versionNo = versionNo;
     }
 }

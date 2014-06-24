@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -175,7 +175,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
     protected LdBlackList _blackListAsOne;
 
     /**
-     * BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
+     * [get] BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
      * @return the entity of foreign property(referrer-as-one) 'blackListAsOne'. (NullAllowed: when e.g. no data, no setupSelect)
      */
     public LdBlackList getBlackListAsOne() {
@@ -183,7 +183,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
+     * [set] BLACK_LIST by LB_USER_ID, named 'blackListAsOne'.
      * @param blackListAsOne The entity of foreign property(referrer-as-one) 'blackListAsOne'. (NullAllowed)
      */
     public void setBlackListAsOne(LdBlackList blackListAsOne) {
@@ -197,7 +197,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
     protected List<LdLibraryUser> _libraryUserList;
 
     /**
-     * LIBRARY_USER by LB_USER_ID, named 'libraryUserList'.
+     * [get] LIBRARY_USER by LB_USER_ID, named 'libraryUserList'.
      * @return The entity list of referrer property 'libraryUserList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdLibraryUser> getLibraryUserList() {
@@ -206,7 +206,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * LIBRARY_USER by LB_USER_ID, named 'libraryUserList'.
+     * [set] LIBRARY_USER by LB_USER_ID, named 'libraryUserList'.
      * @param libraryUserList The entity list of referrer property 'libraryUserList'. (NullAllowed)
      */
     public void setLibraryUserList(List<LdLibraryUser> libraryUserList) {
@@ -397,7 +397,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setLbUserId(Integer lbUserId) {
         __modifiedProperties.addPropertyName("lbUserId");
-        this._lbUserId = lbUserId;
+        _lbUserId = lbUserId;
     }
 
     /**
@@ -414,7 +414,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setLbUserName(String lbUserName) {
         __modifiedProperties.addPropertyName("lbUserName");
-        this._lbUserName = lbUserName;
+        _lbUserName = lbUserName;
     }
 
     /**
@@ -431,7 +431,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setUserPassword(String userPassword) {
         __modifiedProperties.addPropertyName("userPassword");
-        this._userPassword = userPassword;
+        _userPassword = userPassword;
     }
 
     /**
@@ -448,7 +448,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -465,7 +465,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -482,7 +482,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -499,7 +499,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -516,7 +516,7 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -533,6 +533,6 @@ public abstract class LdBsLbUser implements Entity, Serializable, Cloneable {
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdCDef;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
@@ -311,7 +311,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     protected LdAuthor _author;
 
     /**
-     * AUTHOR by my AUTHOR_ID, named 'author'.
+     * [get] AUTHOR by my AUTHOR_ID, named 'author'.
      * @return The entity of foreign property 'author'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdAuthor getAuthor() {
@@ -319,7 +319,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * AUTHOR by my AUTHOR_ID, named 'author'.
+     * [set] AUTHOR by my AUTHOR_ID, named 'author'.
      * @param author The entity of foreign property 'author'. (NullAllowed)
      */
     public void setAuthor(LdAuthor author) {
@@ -330,7 +330,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     protected LdGenre _genre;
 
     /**
-     * GENRE by my GENRE_CODE, named 'genre'.
+     * [get] GENRE by my GENRE_CODE, named 'genre'.
      * @return The entity of foreign property 'genre'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdGenre getGenre() {
@@ -338,7 +338,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * GENRE by my GENRE_CODE, named 'genre'.
+     * [set] GENRE by my GENRE_CODE, named 'genre'.
      * @param genre The entity of foreign property 'genre'. (NullAllowed)
      */
     public void setGenre(LdGenre genre) {
@@ -349,7 +349,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     protected LdPublisher _publisher;
 
     /**
-     * PUBLISHER by my PUBLISHER_ID, named 'publisher'.
+     * [get] PUBLISHER by my PUBLISHER_ID, named 'publisher'.
      * @return The entity of foreign property 'publisher'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdPublisher getPublisher() {
@@ -357,7 +357,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * PUBLISHER by my PUBLISHER_ID, named 'publisher'.
+     * [set] PUBLISHER by my PUBLISHER_ID, named 'publisher'.
      * @param publisher The entity of foreign property 'publisher'. (NullAllowed)
      */
     public void setPublisher(LdPublisher publisher) {
@@ -368,7 +368,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     protected LdCollectionStatusLookup _collectionStatusLookupAsNonExist;
 
     /**
-     * COLLECTION_STATUS_LOOKUP by my GENRE_CODE, named 'collectionStatusLookupAsNonExist'.
+     * [get] COLLECTION_STATUS_LOOKUP by my GENRE_CODE, named 'collectionStatusLookupAsNonExist'.
      * @return The entity of foreign property 'collectionStatusLookupAsNonExist'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdCollectionStatusLookup getCollectionStatusLookupAsNonExist() {
@@ -376,7 +376,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * COLLECTION_STATUS_LOOKUP by my GENRE_CODE, named 'collectionStatusLookupAsNonExist'.
+     * [set] COLLECTION_STATUS_LOOKUP by my GENRE_CODE, named 'collectionStatusLookupAsNonExist'.
      * @param collectionStatusLookupAsNonExist The entity of foreign property 'collectionStatusLookupAsNonExist'. (NullAllowed)
      */
     public void setCollectionStatusLookupAsNonExist(LdCollectionStatusLookup collectionStatusLookupAsNonExist) {
@@ -390,7 +390,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     protected List<LdCollection> _collectionList;
 
     /**
-     * COLLECTION by BOOK_ID, named 'collectionList'.
+     * [get] COLLECTION by BOOK_ID, named 'collectionList'.
      * @return The entity list of referrer property 'collectionList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdCollection> getCollectionList() {
@@ -399,7 +399,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * COLLECTION by BOOK_ID, named 'collectionList'.
+     * [set] COLLECTION by BOOK_ID, named 'collectionList'.
      * @param collectionList The entity list of referrer property 'collectionList'. (NullAllowed)
      */
     public void setCollectionList(List<LdCollection> collectionList) {
@@ -606,7 +606,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setBookId(Integer bookId) {
         __modifiedProperties.addPropertyName("bookId");
-        this._bookId = bookId;
+        _bookId = bookId;
     }
 
     /**
@@ -623,7 +623,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setIsbn(String isbn) {
         __modifiedProperties.addPropertyName("isbn");
-        this._isbn = isbn;
+        _isbn = isbn;
     }
 
     /**
@@ -640,7 +640,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setBookName(String bookName) {
         __modifiedProperties.addPropertyName("bookName");
-        this._bookName = bookName;
+        _bookName = bookName;
     }
 
     /**
@@ -657,7 +657,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setAuthorId(Integer authorId) {
         __modifiedProperties.addPropertyName("authorId");
-        this._authorId = authorId;
+        _authorId = authorId;
     }
 
     /**
@@ -674,7 +674,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setPublisherId(Integer publisherId) {
         __modifiedProperties.addPropertyName("publisherId");
-        this._publisherId = publisherId;
+        _publisherId = publisherId;
     }
 
     /**
@@ -691,7 +691,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setGenreCode(String genreCode) {
         __modifiedProperties.addPropertyName("genreCode");
-        this._genreCode = genreCode;
+        _genreCode = genreCode;
     }
 
     /**
@@ -708,7 +708,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setOpeningPart(String openingPart) {
         __modifiedProperties.addPropertyName("openingPart");
-        this._openingPart = openingPart;
+        _openingPart = openingPart;
     }
 
     /**
@@ -725,7 +725,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setMaxLendingDateCount(Integer maxLendingDateCount) {
         __modifiedProperties.addPropertyName("maxLendingDateCount");
-        this._maxLendingDateCount = maxLendingDateCount;
+        _maxLendingDateCount = maxLendingDateCount;
     }
 
     /**
@@ -742,7 +742,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setOutOfUserSelectYn(String outOfUserSelectYn) {
         __modifiedProperties.addPropertyName("outOfUserSelectYn");
-        this._outOfUserSelectYn = outOfUserSelectYn;
+        _outOfUserSelectYn = outOfUserSelectYn;
     }
 
     /**
@@ -759,7 +759,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setOutOfUserSelectReason(String outOfUserSelectReason) {
         __modifiedProperties.addPropertyName("outOfUserSelectReason");
-        this._outOfUserSelectReason = outOfUserSelectReason;
+        _outOfUserSelectReason = outOfUserSelectReason;
     }
 
     /**
@@ -776,7 +776,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -793,7 +793,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -810,7 +810,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -827,7 +827,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -844,7 +844,7 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -861,6 +861,6 @@ public abstract class LdBsBook implements Entity, Serializable, Cloneable {
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

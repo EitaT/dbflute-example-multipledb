@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdCDef;
@@ -326,7 +326,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
     protected List<LdBook> _bookList;
 
     /**
-     * BOOK by PUBLISHER_ID, named 'bookList'.
+     * [get] BOOK by PUBLISHER_ID, named 'bookList'.
      * @return The entity list of referrer property 'bookList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdBook> getBookList() {
@@ -335,7 +335,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
     }
 
     /**
-     * BOOK by PUBLISHER_ID, named 'bookList'.
+     * [set] BOOK by PUBLISHER_ID, named 'bookList'.
      * @param bookList The entity list of referrer property 'bookList'. (NullAllowed)
      */
     public void setBookList(List<LdBook> bookList) {
@@ -546,7 +546,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setPublisherId(Integer publisherId) {
         __modifiedProperties.addPropertyName("publisherId");
-        this._publisherId = publisherId;
+        _publisherId = publisherId;
     }
 
     /**
@@ -563,7 +563,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setPublisherName(String publisherName) {
         __modifiedProperties.addPropertyName("publisherName");
-        this._publisherName = publisherName;
+        _publisherName = publisherName;
     }
 
     /**
@@ -580,7 +580,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -597,7 +597,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -614,7 +614,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -631,7 +631,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -648,7 +648,7 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -665,6 +665,6 @@ public abstract class LdBsPublisher implements LdEntityDefinedCommonColumn, Seri
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

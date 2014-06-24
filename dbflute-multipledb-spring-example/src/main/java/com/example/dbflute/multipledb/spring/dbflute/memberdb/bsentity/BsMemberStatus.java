@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.allcommon.CDef;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.exentity.*;
@@ -263,7 +263,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
     protected List<Member> _memberList;
 
     /**
-     * MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
+     * [get] MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * @return The entity list of referrer property 'memberList'. (NotNull: even if no loading, returns empty list)
      */
     public List<Member> getMemberList() {
@@ -272,7 +272,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
+     * [set] MEMBER by MEMBER_STATUS_CODE, named 'memberList'.
      * @param memberList The entity list of referrer property 'memberList'. (NullAllowed)
      */
     public void setMemberList(List<Member> memberList) {
@@ -283,7 +283,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
     protected List<MemberLogin> _memberLoginList;
 
     /**
-     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * [get] MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * @return The entity list of referrer property 'memberLoginList'. (NotNull: even if no loading, returns empty list)
      */
     public List<MemberLogin> getMemberLoginList() {
@@ -292,7 +292,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
     }
 
     /**
-     * MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
+     * [set] MEMBER_LOGIN by LOGIN_MEMBER_STATUS_CODE, named 'memberLoginList'.
      * @param memberLoginList The entity list of referrer property 'memberLoginList'. (NullAllowed)
      */
     public void setMemberLoginList(List<MemberLogin> memberLoginList) {
@@ -481,7 +481,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      */
     public void setMemberStatusCode(String memberStatusCode) {
         __modifiedProperties.addPropertyName("memberStatusCode");
-        this._memberStatusCode = memberStatusCode;
+        _memberStatusCode = memberStatusCode;
     }
 
     /**
@@ -500,7 +500,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      */
     public void setMemberStatusName(String memberStatusName) {
         __modifiedProperties.addPropertyName("memberStatusName");
-        this._memberStatusName = memberStatusName;
+        _memberStatusName = memberStatusName;
     }
 
     /**
@@ -517,7 +517,7 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      */
     public void setDescription(String description) {
         __modifiedProperties.addPropertyName("description");
-        this._description = description;
+        _description = description;
     }
 
     /**
@@ -536,6 +536,6 @@ public abstract class BsMemberStatus implements Entity, Serializable, Cloneable 
      */
     public void setDisplayOrder(Integer displayOrder) {
         __modifiedProperties.addPropertyName("displayOrder");
-        this._displayOrder = displayOrder;
+        _displayOrder = displayOrder;
     }
 }

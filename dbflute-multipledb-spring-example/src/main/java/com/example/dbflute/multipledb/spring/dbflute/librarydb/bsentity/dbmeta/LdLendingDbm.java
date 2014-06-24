@@ -260,7 +260,7 @@ public class LdLendingDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdLending newEntity() { return new LdLending(); }
     public LdLending newMyEntity() { return new LdLending(); }
 
     // ===================================================================================

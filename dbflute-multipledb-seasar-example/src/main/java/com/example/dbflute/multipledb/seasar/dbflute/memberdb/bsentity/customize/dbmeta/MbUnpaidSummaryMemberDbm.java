@@ -157,7 +157,7 @@ public class MbUnpaidSummaryMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbUnpaidSummaryMember newEntity() { return new MbUnpaidSummaryMember(); }
     public MbUnpaidSummaryMember newMyEntity() { return new MbUnpaidSummaryMember(); }
 
     // ===================================================================================

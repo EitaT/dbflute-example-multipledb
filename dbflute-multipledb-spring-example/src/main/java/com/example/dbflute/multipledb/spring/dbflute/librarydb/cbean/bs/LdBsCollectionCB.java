@@ -83,22 +83,36 @@ public class LdBsCollectionCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param collectionId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdCollectionCB acceptPK(Integer collectionId) {
+        assertObjectNotNull("collectionId", collectionId);
+        LdBsCollectionCB cb = this;
+        cb.query().setCollectionId_Equal(collectionId);
+        return (LdCollectionCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param collectionId : PK, ID, NotNull, INTEGER(10). (NotNull)
      */
     public void acceptPrimaryKey(Integer collectionId) {
         assertObjectNotNull("collectionId", collectionId);
         LdBsCollectionCB cb = this;
-        cb.query().setCollectionId_Equal(collectionId);;
+        cb.query().setCollectionId_Equal(collectionId);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param libraryId : UQ+, IX, NotNull, SMALLINT(5), FK to LIBRARY. (NotNull)
      * @param bookId : +UQ, IX, NotNull, INTEGER(10), FK to BOOK. (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer libraryId, Integer bookId) {
+    public LdCollectionCB acceptUniqueOf(Integer libraryId, Integer bookId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("bookId", bookId);
         LdBsCollectionCB cb = this;
-        cb.query().setLibraryId_Equal(libraryId);;cb.query().setBookId_Equal(bookId);;
+        cb.query().setLibraryId_Equal(libraryId);cb.query().setBookId_Equal(bookId);
+        return (LdCollectionCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

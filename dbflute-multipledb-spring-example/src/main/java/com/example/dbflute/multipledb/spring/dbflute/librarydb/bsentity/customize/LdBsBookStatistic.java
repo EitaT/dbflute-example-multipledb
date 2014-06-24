@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdCDef;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.customize.*;
 
@@ -454,7 +454,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setBookId(Integer bookId) {
         __modifiedProperties.addPropertyName("bookId");
-        this._bookId = bookId;
+        _bookId = bookId;
     }
 
     /**
@@ -471,7 +471,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setBookName(String bookName) {
         __modifiedProperties.addPropertyName("bookName");
-        this._bookName = bookName;
+        _bookName = bookName;
     }
 
     /**
@@ -488,7 +488,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setCollectionCount(Integer collectionCount) {
         __modifiedProperties.addPropertyName("collectionCount");
-        this._collectionCount = collectionCount;
+        _collectionCount = collectionCount;
     }
 
     /**
@@ -505,7 +505,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setOutOfUserSelectYn(String outOfUserSelectYn) {
         __modifiedProperties.addPropertyName("outOfUserSelectYn");
-        this._outOfUserSelectYn = outOfUserSelectYn;
+        _outOfUserSelectYn = outOfUserSelectYn;
     }
 
     /**
@@ -522,7 +522,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -539,7 +539,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -556,7 +556,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -573,7 +573,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -590,7 +590,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -607,6 +607,6 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

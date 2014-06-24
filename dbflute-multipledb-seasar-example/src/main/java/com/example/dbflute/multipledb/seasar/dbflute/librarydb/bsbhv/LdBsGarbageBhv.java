@@ -7,11 +7,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
-import org.seasar.dbflute.optional.*;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.*;
+import com.example.dbflute.multipledb.seasar.dbflute.librarydb.bsbhv.loader.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.bsentity.dbmeta.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.*;
@@ -65,7 +68,7 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return LdGarbageDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -75,10 +78,10 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public LdGarbage newEntity() { return new LdGarbage(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public LdGarbageCB newConditionBean() { return new LdGarbageCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public LdGarbage newMyEntity() { return new LdGarbage(); }
@@ -101,6 +104,10 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(LdGarbageCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(LdGarbageCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -114,10 +121,7 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
         return delegateSelectCountPlainly(cb);
     }
 
-    @Override
-    protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
-    }
+    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -142,23 +146,22 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGarbage selectEntity(LdGarbageCB cb) {
-        return doSelectEntity(cb, LdGarbage.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected LdGarbage facadeSelectEntity(LdGarbageCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGarbage> ENTITY doSelectEntity(LdGarbageCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdGarbageCB>() {
-            public List<ENTITY> callbackSelectList(LdGarbageCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityInternally(cb, tp);
     }
 
     protected <ENTITY extends LdGarbage> OptionalEntity<ENTITY> doSelectOptionalEntity(LdGarbageCB cb, Class<ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    @Override
-    protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
-    }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br />
@@ -176,19 +179,19 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGarbage selectEntityWithDeletedCheck(LdGarbageCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, LdGarbage.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected LdGarbage facadeSelectEntityWithDeletedCheck(LdGarbageCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGarbage> ENTITY doSelectEntityWithDeletedCheck(LdGarbageCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdGarbageCB>() {
-            public List<ENTITY> callbackSelectList(LdGarbageCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
 
-    @Override
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
-    }
+    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         List Select
@@ -209,20 +212,18 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdGarbage> selectList(LdGarbageCB cb) {
-        return doSelectList(cb, LdGarbage.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<LdGarbage> facadeSelectList(LdGarbageCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGarbage> ListResultBean<ENTITY> doSelectList(LdGarbageCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdGarbageCB>() {
-            public List<ENTITY> callbackSelectList(LdGarbageCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
+        return helpSelectListInternally(cb, tp);
     }
 
-    @Override
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
-    }
+    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -250,21 +251,18 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdGarbage> selectPage(LdGarbageCB cb) {
-        return doSelectPage(cb, LdGarbage.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<LdGarbage> facadeSelectPage(LdGarbageCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGarbage> PagingResultBean<ENTITY> doSelectPage(LdGarbageCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdGarbageCB>() {
-            public int callbackSelectCount(LdGarbageCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdGarbageCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        return helpSelectPageInternally(cb, tp);
     }
 
-    @Override
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
-    }
+    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Cursor Select
@@ -284,16 +282,17 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @param entityRowHandler The handler of entity row of LdGarbage. (NotNull)
      */
     public void selectCursor(LdGarbageCB cb, EntityRowHandler<LdGarbage> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, LdGarbage.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(LdGarbageCB cb, EntityRowHandler<LdGarbage> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGarbage> void doSelectCursor(LdGarbageCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdGarbageCB>() {
-            public void callbackSelectCursor(LdGarbageCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(LdGarbageCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -314,23 +313,22 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<LdGarbageCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<LdGarbageCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends LdGarbageCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<LdGarbageCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends LdGarbageCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends LdGarbageCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
-    }
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -342,9 +340,83 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
     }
 
     // ===================================================================================
+    //                                                                       Load Referrer
+    //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param garbageList The entity list of garbage. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<LdGarbage> garbageList, ReferrerLoaderHandler<LdLoaderOfGarbage> handler) {
+        xassLRArg(garbageList, handler);
+        handler.handle(new LdLoaderOfGarbage().ready(garbageList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param garbage The entity of garbage. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(LdGarbage garbage, ReferrerLoaderHandler<LdLoaderOfGarbage> handler) {
+        xassLRArg(garbage, handler);
+        handler.handle(new LdLoaderOfGarbage().ready(xnewLRAryLs(garbage), _behaviorSelector));
+    }
+
+    // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
@@ -364,8 +436,8 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
      * @param garbage The entity for insert. (NotNull)
      */
     public void insert(LdGarbage garbage) {
-        assertEntityNotNull(garbage);
-        delegateInsert(garbage, null);
+        assertObjectNotNull("garbage", garbage);
+        delegateInsertNoPK(garbage, null);
     }
 
     // ===================================================================================
@@ -407,25 +479,6 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
     }
 
     // ===================================================================================
-    //                                                                     Delegate Method
-    //                                                                     ===============
-    // [Behavior Command]
-    // -----------------------------------------------------
-    //                                                Select
-    //                                                ------
-    protected int delegateSelectCountUniquely(LdGarbageCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
-    protected int delegateSelectCountPlainly(LdGarbageCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdGarbage> void delegateSelectCursor(LdGarbageCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
-    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
-    protected <ENTITY extends LdGarbage> List<ENTITY> delegateSelectList(LdGarbageCB cb, Class<ENTITY> tp)
-    { return invoke(createSelectListCBCommand(cb, tp)); }
-    protected int delegateInsert(LdGarbage et, InsertOption<LdGarbageCB> op) {
-        // only filtering for extension is supported (filtering for common columns is unsupported)
-        assertEntityNotNull(et); filterEntityOfInsert(et, op);
-        return invoke(createInsertEntityCommand(et, op));
-    }
-
-    // ===================================================================================
     //                                                                     Filter Override
     //                                                                     ===============
     @Override
@@ -440,35 +493,17 @@ public abstract class LdBsGarbageBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                Optimistic Lock Info
     //                                                                ====================
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean hasVersionNoValue(Entity et) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected boolean hasUpdateDateValue(Entity et) {
         return downcast(et).getUTimestamp() != null;
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected LdGarbage downcast(Entity et) {
-        return helpEntityDowncastInternally(et, LdGarbage.class);
-    }
-
-    protected LdGarbageCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, LdGarbageCB.class);
-    }
-
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<LdGarbage> typeOfSelectedEntity() { return LdGarbage.class; }
+    protected LdGarbage downcast(Entity et) { return helpEntityDowncastInternally(et, LdGarbage.class); }
+    protected LdGarbageCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdGarbageCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<LdGarbage> downcast(List<? extends Entity> ls) {
-        return (List<LdGarbage>)ls;
-    }
+    protected List<LdGarbage> downcast(List<? extends Entity> ls) { return (List<LdGarbage>)ls; }
 }

@@ -76,66 +76,30 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _blackListId;
-    public ConditionValue getBlackListId() {
-        if (_blackListId == null) { _blackListId = nCV(); }
-        return _blackListId;
-    }
+    public ConditionValue getBlackListId()
+    { if (_blackListId == null) { _blackListId = nCV(); }
+      return _blackListId; }
     protected ConditionValue getCValueBlackListId() { return getBlackListId(); }
 
-    protected Map<String, LdBlackActionCQ> _blackListId_ExistsReferrer_BlackActionListMap;
-    public Map<String, LdBlackActionCQ> getBlackListId_ExistsReferrer_BlackActionList() { return _blackListId_ExistsReferrer_BlackActionListMap; }
-    public String keepBlackListId_ExistsReferrer_BlackActionList(LdBlackActionCQ sq) {
-        if (_blackListId_ExistsReferrer_BlackActionListMap == null) { _blackListId_ExistsReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_blackListId_ExistsReferrer_BlackActionListMap.size() + 1);
-        _blackListId_ExistsReferrer_BlackActionListMap.put(ky, sq); return "blackListId_ExistsReferrer_BlackActionList." + ky;
-    }
+    public Map<String, LdBlackActionCQ> getBlackListId_ExistsReferrer_BlackActionList() { return xgetSQueMap("blackListId_ExistsReferrer_BlackActionList"); }
+    public String keepBlackListId_ExistsReferrer_BlackActionList(LdBlackActionCQ sq) { return xkeepSQue("blackListId_ExistsReferrer_BlackActionList", sq); }
 
-    protected Map<String, LdBlackActionCQ> _blackListId_NotExistsReferrer_BlackActionListMap;
-    public Map<String, LdBlackActionCQ> getBlackListId_NotExistsReferrer_BlackActionList() { return _blackListId_NotExistsReferrer_BlackActionListMap; }
-    public String keepBlackListId_NotExistsReferrer_BlackActionList(LdBlackActionCQ sq) {
-        if (_blackListId_NotExistsReferrer_BlackActionListMap == null) { _blackListId_NotExistsReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_blackListId_NotExistsReferrer_BlackActionListMap.size() + 1);
-        _blackListId_NotExistsReferrer_BlackActionListMap.put(ky, sq); return "blackListId_NotExistsReferrer_BlackActionList." + ky;
-    }
+    public Map<String, LdBlackActionCQ> getBlackListId_NotExistsReferrer_BlackActionList() { return xgetSQueMap("blackListId_NotExistsReferrer_BlackActionList"); }
+    public String keepBlackListId_NotExistsReferrer_BlackActionList(LdBlackActionCQ sq) { return xkeepSQue("blackListId_NotExistsReferrer_BlackActionList", sq); }
 
-    protected Map<String, LdBlackActionCQ> _blackListId_SpecifyDerivedReferrer_BlackActionListMap;
-    public Map<String, LdBlackActionCQ> getBlackListId_SpecifyDerivedReferrer_BlackActionList() { return _blackListId_SpecifyDerivedReferrer_BlackActionListMap; }
-    public String keepBlackListId_SpecifyDerivedReferrer_BlackActionList(LdBlackActionCQ sq) {
-        if (_blackListId_SpecifyDerivedReferrer_BlackActionListMap == null) { _blackListId_SpecifyDerivedReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_blackListId_SpecifyDerivedReferrer_BlackActionListMap.size() + 1);
-        _blackListId_SpecifyDerivedReferrer_BlackActionListMap.put(ky, sq); return "blackListId_SpecifyDerivedReferrer_BlackActionList." + ky;
-    }
+    public Map<String, LdBlackActionCQ> getBlackListId_SpecifyDerivedReferrer_BlackActionList() { return xgetSQueMap("blackListId_SpecifyDerivedReferrer_BlackActionList"); }
+    public String keepBlackListId_SpecifyDerivedReferrer_BlackActionList(LdBlackActionCQ sq) { return xkeepSQue("blackListId_SpecifyDerivedReferrer_BlackActionList", sq); }
 
-    protected Map<String, LdBlackActionCQ> _blackListId_InScopeRelation_BlackActionListMap;
-    public Map<String, LdBlackActionCQ> getBlackListId_InScopeRelation_BlackActionList() { return _blackListId_InScopeRelation_BlackActionListMap; }
-    public String keepBlackListId_InScopeRelation_BlackActionList(LdBlackActionCQ sq) {
-        if (_blackListId_InScopeRelation_BlackActionListMap == null) { _blackListId_InScopeRelation_BlackActionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_blackListId_InScopeRelation_BlackActionListMap.size() + 1);
-        _blackListId_InScopeRelation_BlackActionListMap.put(ky, sq); return "blackListId_InScopeRelation_BlackActionList." + ky;
-    }
+    public Map<String, LdBlackActionCQ> getBlackListId_InScopeRelation_BlackActionList() { return xgetSQueMap("blackListId_InScopeRelation_BlackActionList"); }
+    public String keepBlackListId_InScopeRelation_BlackActionList(LdBlackActionCQ sq) { return xkeepSQue("blackListId_InScopeRelation_BlackActionList", sq); }
 
-    protected Map<String, LdBlackActionCQ> _blackListId_NotInScopeRelation_BlackActionListMap;
-    public Map<String, LdBlackActionCQ> getBlackListId_NotInScopeRelation_BlackActionList() { return _blackListId_NotInScopeRelation_BlackActionListMap; }
-    public String keepBlackListId_NotInScopeRelation_BlackActionList(LdBlackActionCQ sq) {
-        if (_blackListId_NotInScopeRelation_BlackActionListMap == null) { _blackListId_NotInScopeRelation_BlackActionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_blackListId_NotInScopeRelation_BlackActionListMap.size() + 1);
-        _blackListId_NotInScopeRelation_BlackActionListMap.put(ky, sq); return "blackListId_NotInScopeRelation_BlackActionList." + ky;
-    }
+    public Map<String, LdBlackActionCQ> getBlackListId_NotInScopeRelation_BlackActionList() { return xgetSQueMap("blackListId_NotInScopeRelation_BlackActionList"); }
+    public String keepBlackListId_NotInScopeRelation_BlackActionList(LdBlackActionCQ sq) { return xkeepSQue("blackListId_NotInScopeRelation_BlackActionList", sq); }
 
-    protected Map<String, LdBlackActionCQ> _blackListId_QueryDerivedReferrer_BlackActionListMap;
-    public Map<String, LdBlackActionCQ> getBlackListId_QueryDerivedReferrer_BlackActionList() { return _blackListId_QueryDerivedReferrer_BlackActionListMap; }
-    public String keepBlackListId_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ sq) {
-        if (_blackListId_QueryDerivedReferrer_BlackActionListMap == null) { _blackListId_QueryDerivedReferrer_BlackActionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_blackListId_QueryDerivedReferrer_BlackActionListMap.size() + 1);
-        _blackListId_QueryDerivedReferrer_BlackActionListMap.put(ky, sq); return "blackListId_QueryDerivedReferrer_BlackActionList." + ky;
-    }
-    protected Map<String, Object> _blackListId_QueryDerivedReferrer_BlackActionListParameterMap;
-    public Map<String, Object> getBlackListId_QueryDerivedReferrer_BlackActionListParameter() { return _blackListId_QueryDerivedReferrer_BlackActionListParameterMap; }
-    public String keepBlackListId_QueryDerivedReferrer_BlackActionListParameter(Object vl) {
-        if (_blackListId_QueryDerivedReferrer_BlackActionListParameterMap == null) { _blackListId_QueryDerivedReferrer_BlackActionListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_blackListId_QueryDerivedReferrer_BlackActionListParameterMap.size() + 1);
-        _blackListId_QueryDerivedReferrer_BlackActionListParameterMap.put(ky, vl); return "blackListId_QueryDerivedReferrer_BlackActionListParameter." + ky;
-    }
+    public Map<String, LdBlackActionCQ> getBlackListId_QueryDerivedReferrer_BlackActionList() { return xgetSQueMap("blackListId_QueryDerivedReferrer_BlackActionList"); }
+    public String keepBlackListId_QueryDerivedReferrer_BlackActionList(LdBlackActionCQ sq) { return xkeepSQue("blackListId_QueryDerivedReferrer_BlackActionList", sq); }
+    public Map<String, Object> getBlackListId_QueryDerivedReferrer_BlackActionListParameter() { return xgetSQuePmMap("blackListId_QueryDerivedReferrer_BlackActionList"); }
+    public String keepBlackListId_QueryDerivedReferrer_BlackActionListParameter(Object pm) { return xkeepSQuePm("blackListId_QueryDerivedReferrer_BlackActionList", pm); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -152,27 +116,16 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_BlackListId_Desc() { regOBD("BLACK_LIST_ID"); return this; }
 
     protected ConditionValue _lbUserId;
-    public ConditionValue getLbUserId() {
-        if (_lbUserId == null) { _lbUserId = nCV(); }
-        return _lbUserId;
-    }
+    public ConditionValue getLbUserId()
+    { if (_lbUserId == null) { _lbUserId = nCV(); }
+      return _lbUserId; }
     protected ConditionValue getCValueLbUserId() { return getLbUserId(); }
 
-    protected Map<String, LdLbUserCQ> _lbUserId_InScopeRelation_LbUserMap;
-    public Map<String, LdLbUserCQ> getLbUserId_InScopeRelation_LbUser() { return _lbUserId_InScopeRelation_LbUserMap; }
-    public String keepLbUserId_InScopeRelation_LbUser(LdLbUserCQ sq) {
-        if (_lbUserId_InScopeRelation_LbUserMap == null) { _lbUserId_InScopeRelation_LbUserMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_lbUserId_InScopeRelation_LbUserMap.size() + 1);
-        _lbUserId_InScopeRelation_LbUserMap.put(ky, sq); return "lbUserId_InScopeRelation_LbUser." + ky;
-    }
+    public Map<String, LdLbUserCQ> getLbUserId_InScopeRelation_LbUser() { return xgetSQueMap("lbUserId_InScopeRelation_LbUser"); }
+    public String keepLbUserId_InScopeRelation_LbUser(LdLbUserCQ sq) { return xkeepSQue("lbUserId_InScopeRelation_LbUser", sq); }
 
-    protected Map<String, LdLbUserCQ> _lbUserId_NotInScopeRelation_LbUserMap;
-    public Map<String, LdLbUserCQ> getLbUserId_NotInScopeRelation_LbUser() { return _lbUserId_NotInScopeRelation_LbUserMap; }
-    public String keepLbUserId_NotInScopeRelation_LbUser(LdLbUserCQ sq) {
-        if (_lbUserId_NotInScopeRelation_LbUserMap == null) { _lbUserId_NotInScopeRelation_LbUserMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_lbUserId_NotInScopeRelation_LbUserMap.size() + 1);
-        _lbUserId_NotInScopeRelation_LbUserMap.put(ky, sq); return "lbUserId_NotInScopeRelation_LbUser." + ky;
-    }
+    public Map<String, LdLbUserCQ> getLbUserId_NotInScopeRelation_LbUser() { return xgetSQueMap("lbUserId_NotInScopeRelation_LbUser"); }
+    public String keepLbUserId_NotInScopeRelation_LbUser(LdLbUserCQ sq) { return xkeepSQue("lbUserId_NotInScopeRelation_LbUser", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -189,10 +142,9 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_LbUserId_Desc() { regOBD("LB_USER_ID"); return this; }
 
     protected ConditionValue _blackRank;
-    public ConditionValue getBlackRank() {
-        if (_blackRank == null) { _blackRank = nCV(); }
-        return _blackRank;
-    }
+    public ConditionValue getBlackRank()
+    { if (_blackRank == null) { _blackRank = nCV(); }
+      return _blackRank; }
     protected ConditionValue getCValueBlackRank() { return getBlackRank(); }
 
     /** 
@@ -210,10 +162,9 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_BlackRank_Desc() { regOBD("BLACK_RANK"); return this; }
 
     protected ConditionValue _rUser;
-    public ConditionValue getRUser() {
-        if (_rUser == null) { _rUser = nCV(); }
-        return _rUser;
-    }
+    public ConditionValue getRUser()
+    { if (_rUser == null) { _rUser = nCV(); }
+      return _rUser; }
     protected ConditionValue getCValueRUser() { return getRUser(); }
 
     /** 
@@ -231,10 +182,9 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_RUser_Desc() { regOBD("R_USER"); return this; }
 
     protected ConditionValue _rModule;
-    public ConditionValue getRModule() {
-        if (_rModule == null) { _rModule = nCV(); }
-        return _rModule;
-    }
+    public ConditionValue getRModule()
+    { if (_rModule == null) { _rModule = nCV(); }
+      return _rModule; }
     protected ConditionValue getCValueRModule() { return getRModule(); }
 
     /** 
@@ -252,10 +202,9 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_RModule_Desc() { regOBD("R_MODULE"); return this; }
 
     protected ConditionValue _rTimestamp;
-    public ConditionValue getRTimestamp() {
-        if (_rTimestamp == null) { _rTimestamp = nCV(); }
-        return _rTimestamp;
-    }
+    public ConditionValue getRTimestamp()
+    { if (_rTimestamp == null) { _rTimestamp = nCV(); }
+      return _rTimestamp; }
     protected ConditionValue getCValueRTimestamp() { return getRTimestamp(); }
 
     /** 
@@ -273,10 +222,9 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_RTimestamp_Desc() { regOBD("R_TIMESTAMP"); return this; }
 
     protected ConditionValue _uUser;
-    public ConditionValue getUUser() {
-        if (_uUser == null) { _uUser = nCV(); }
-        return _uUser;
-    }
+    public ConditionValue getUUser()
+    { if (_uUser == null) { _uUser = nCV(); }
+      return _uUser; }
     protected ConditionValue getCValueUUser() { return getUUser(); }
 
     /** 
@@ -294,10 +242,9 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_UUser_Desc() { regOBD("U_USER"); return this; }
 
     protected ConditionValue _uModule;
-    public ConditionValue getUModule() {
-        if (_uModule == null) { _uModule = nCV(); }
-        return _uModule;
-    }
+    public ConditionValue getUModule()
+    { if (_uModule == null) { _uModule = nCV(); }
+      return _uModule; }
     protected ConditionValue getCValueUModule() { return getUModule(); }
 
     /** 
@@ -315,10 +262,9 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdBsBlackListCQ addOrderBy_UModule_Desc() { regOBD("U_MODULE"); return this; }
 
     protected ConditionValue _uTimestamp;
-    public ConditionValue getUTimestamp() {
-        if (_uTimestamp == null) { _uTimestamp = nCV(); }
-        return _uTimestamp;
-    }
+    public ConditionValue getUTimestamp()
+    { if (_uTimestamp == null) { _uTimestamp = nCV(); }
+      return _uTimestamp; }
     protected ConditionValue getCValueUTimestamp() { return getUTimestamp(); }
 
     /** 
@@ -352,8 +298,7 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsBlackListCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public LdBsBlackListCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -369,8 +314,7 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsBlackListCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public LdBsBlackListCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -394,31 +338,17 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     public LdLbUserCQ queryLbUser() {
         return getConditionQueryLbUser();
     }
-    protected LdLbUserCQ _conditionQueryLbUser;
     public LdLbUserCQ getConditionQueryLbUser() {
-        if (_conditionQueryLbUser == null) {
-            _conditionQueryLbUser = xcreateQueryLbUser();
-            xsetupOuterJoinLbUser();
-        }
-        return _conditionQueryLbUser;
+        String prop = "lbUser";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryLbUser()); xsetupOuterJoinLbUser(); }
+        return xgetQueRlMap(prop);
     }
     protected LdLbUserCQ xcreateQueryLbUser() {
-        String nrp = resolveNextRelationPath("BLACK_LIST", "lbUser");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdLbUserCQ cq = new LdLbUserCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("lbUser");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("BLACK_LIST", "lbUser"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdLbUserCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "lbUser", nrp);
     }
-    protected void xsetupOuterJoinLbUser() {
-        LdLbUserCQ cq = getConditionQueryLbUser();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("LB_USER_ID", "LB_USER_ID");
-        registerOuterJoin(cq, joinOnMap, "lbUser");
-    }
-    public boolean hasConditionQueryLbUser() {
-        return _conditionQueryLbUser != null;
-    }
+    protected void xsetupOuterJoinLbUser() { xregOutJo("lbUser"); }
+    public boolean hasConditionQueryLbUser() { return xhasQueRlMap("lbUser"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -427,61 +357,32 @@ public class LdBsBlackListCQ extends LdAbstractBsBlackListCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, LdBlackListCQ> _scalarConditionMap;
-    public Map<String, LdBlackListCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdBlackListCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, LdBlackListCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(LdBlackListCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, LdBlackListCQ> _specifyMyselfDerivedMap;
-    public Map<String, LdBlackListCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(LdBlackListCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, LdBlackListCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(LdBlackListCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, LdBlackListCQ> _queryMyselfDerivedMap;
-    public Map<String, LdBlackListCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(LdBlackListCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, LdBlackListCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(LdBlackListCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, LdBlackListCQ> _myselfExistsMap;
-    public Map<String, LdBlackListCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(LdBlackListCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, LdBlackListCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(LdBlackListCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, LdBlackListCQ> _myselfInScopeMap;
-    public Map<String, LdBlackListCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(LdBlackListCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, LdBlackListCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(LdBlackListCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

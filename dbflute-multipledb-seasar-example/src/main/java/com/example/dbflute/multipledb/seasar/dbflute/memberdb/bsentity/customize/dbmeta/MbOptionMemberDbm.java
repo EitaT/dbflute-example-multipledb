@@ -157,7 +157,7 @@ public class MbOptionMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbOptionMember newEntity() { return new MbOptionMember(); }
     public MbOptionMember newMyEntity() { return new MbOptionMember(); }
 
     // ===================================================================================

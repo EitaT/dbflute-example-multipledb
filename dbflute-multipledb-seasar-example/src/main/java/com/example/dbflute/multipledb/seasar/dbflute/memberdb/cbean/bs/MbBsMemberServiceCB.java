@@ -81,21 +81,35 @@ public class MbBsMemberServiceCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
+     */
+    public MbMemberServiceCB acceptPK(Integer memberServiceId) {
+        assertObjectNotNull("memberServiceId", memberServiceId);
+        MbBsMemberServiceCB cb = this;
+        cb.query().setMemberServiceId_Equal(memberServiceId);
+        return (MbMemberServiceCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param memberServiceId : PK, ID, NotNull, INTEGER(10). (NotNull)
      */
     public void acceptPrimaryKey(Integer memberServiceId) {
         assertObjectNotNull("memberServiceId", memberServiceId);
         MbBsMemberServiceCB cb = this;
-        cb.query().setMemberServiceId_Equal(memberServiceId);;
+        cb.query().setMemberServiceId_Equal(memberServiceId);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param memberId : UQ, IX, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer memberId) {
+    public MbMemberServiceCB acceptUniqueOf(Integer memberId) {
         assertObjectNotNull("memberId", memberId);
         MbBsMemberServiceCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;
+        cb.query().setMemberId_Equal(memberId);
+        return (MbMemberServiceCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

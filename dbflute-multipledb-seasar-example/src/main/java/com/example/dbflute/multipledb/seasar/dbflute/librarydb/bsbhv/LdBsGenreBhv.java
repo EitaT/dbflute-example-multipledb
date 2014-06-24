@@ -7,11 +7,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
-import org.seasar.dbflute.optional.*;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exbhv.*;
+import com.example.dbflute.multipledb.seasar.dbflute.librarydb.bsbhv.loader.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.bsentity.dbmeta.*;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.cbean.*;
@@ -65,7 +68,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return LdGenreDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -75,10 +78,10 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public LdGenre newEntity() { return new LdGenre(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public LdGenreCB newConditionBean() { return new LdGenreCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public LdGenre newMyEntity() { return new LdGenre(); }
@@ -101,6 +104,10 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(LdGenreCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(LdGenreCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -114,10 +121,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         return delegateSelectCountPlainly(cb);
     }
 
-    @Override
-    protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
-    }
+    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -142,23 +146,22 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectEntity(LdGenreCB cb) {
-        return doSelectEntity(cb, LdGenre.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected LdGenre facadeSelectEntity(LdGenreCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGenre> ENTITY doSelectEntity(LdGenreCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdGenreCB>() {
-            public List<ENTITY> callbackSelectList(LdGenreCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityInternally(cb, tp);
     }
 
     protected <ENTITY extends LdGenre> OptionalEntity<ENTITY> doSelectOptionalEntity(LdGenreCB cb, Class<ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    @Override
-    protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
-    }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br />
@@ -176,19 +179,19 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectEntityWithDeletedCheck(LdGenreCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, LdGenre.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected LdGenre facadeSelectEntityWithDeletedCheck(LdGenreCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGenre> ENTITY doSelectEntityWithDeletedCheck(LdGenreCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdGenreCB>() {
-            public List<ENTITY> callbackSelectList(LdGenreCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
 
-    @Override
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
-    }
+    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -198,15 +201,19 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectByPKValue(String genreCode) {
-        return doSelectByPK(genreCode, LdGenre.class);
+        return facadeSelectByPKValue(genreCode);
     }
 
-    protected <ENTITY extends LdGenre> ENTITY doSelectByPK(String genreCode, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(genreCode), entityType);
+    protected LdGenre facadeSelectByPKValue(String genreCode) {
+        return doSelectByPK(genreCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdGenre> OptionalEntity<ENTITY> doSelectOptionalByPK(String genreCode, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(genreCode, entityType), genreCode);
+    protected <ENTITY extends LdGenre> ENTITY doSelectByPK(String genreCode, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(genreCode), tp);
+    }
+
+    protected <ENTITY extends LdGenre> OptionalEntity<ENTITY> doSelectOptionalByPK(String genreCode, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(genreCode, tp), genreCode);
     }
 
     /**
@@ -218,17 +225,16 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdGenre selectByPKValueWithDeletedCheck(String genreCode) {
-        return doSelectByPKWithDeletedCheck(genreCode, LdGenre.class);
+        return doSelectByPKWithDeletedCheck(genreCode, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdGenre> ENTITY doSelectByPKWithDeletedCheck(String genreCode, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(genreCode), entityType);
+    protected <ENTITY extends LdGenre> ENTITY doSelectByPKWithDeletedCheck(String genreCode, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(genreCode), tp);
     }
 
     protected LdGenreCB xprepareCBAsPK(String genreCode) {
         assertObjectNotNull("genreCode", genreCode);
-        LdGenreCB cb = newMyConditionBean(); cb.acceptPrimaryKey(genreCode);
-        return cb;
+        return newConditionBean().acceptPK(genreCode);
     }
 
     // ===================================================================================
@@ -250,20 +256,18 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdGenre> selectList(LdGenreCB cb) {
-        return doSelectList(cb, LdGenre.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<LdGenre> facadeSelectList(LdGenreCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGenre> ListResultBean<ENTITY> doSelectList(LdGenreCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdGenreCB>() {
-            public List<ENTITY> callbackSelectList(LdGenreCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
+        return helpSelectListInternally(cb, tp);
     }
 
-    @Override
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
-    }
+    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -291,21 +295,18 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdGenre> selectPage(LdGenreCB cb) {
-        return doSelectPage(cb, LdGenre.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<LdGenre> facadeSelectPage(LdGenreCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGenre> PagingResultBean<ENTITY> doSelectPage(LdGenreCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdGenreCB>() {
-            public int callbackSelectCount(LdGenreCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdGenreCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        return helpSelectPageInternally(cb, tp);
     }
 
-    @Override
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
-    }
+    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Cursor Select
@@ -325,16 +326,17 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of LdGenre. (NotNull)
      */
     public void selectCursor(LdGenreCB cb, EntityRowHandler<LdGenre> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, LdGenre.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(LdGenreCB cb, EntityRowHandler<LdGenre> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdGenre> void doSelectCursor(LdGenreCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdGenreCB>() {
-            public void callbackSelectCursor(LdGenreCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(LdGenreCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -355,23 +357,22 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<LdGenreCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<LdGenreCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends LdGenreCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<LdGenreCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends LdGenreCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends LdGenreCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
-    }
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -385,6 +386,78 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param genreList The entity list of genre. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<LdGenre> genreList, ReferrerLoaderHandler<LdLoaderOfGenre> handler) {
+        xassLRArg(genreList, handler);
+        handler.handle(new LdLoaderOfGenre().ready(genreList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param genre The entity of genre. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(LdGenre genre, ReferrerLoaderHandler<LdLoaderOfGenre> handler) {
+        xassLRArg(genre, handler);
+        handler.handle(new LdLoaderOfGenre().ready(xnewLRAryLs(genre), _behaviorSelector));
+    }
+
     /**
      * Load referrer of bookList by the set-upper of referrer. <br />
      * BOOK by GENRE_CODE, named 'bookList'.
@@ -413,7 +486,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBook> loadBookList(List<LdGenre> genreList, ConditionBeanSetupper<LdBookCB> setupper) {
+    public NestedReferrerListGateway<LdBook> loadBookList(List<LdGenre> genreList, ConditionBeanSetupper<LdBookCB> setupper) {
         xassLRArg(genreList, setupper);
         return doLoadBookList(genreList, new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
     }
@@ -444,7 +517,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBook> loadBookList(LdGenre genre, ConditionBeanSetupper<LdBookCB> setupper) {
+    public NestedReferrerListGateway<LdBook> loadBookList(LdGenre genre, ConditionBeanSetupper<LdBookCB> setupper) {
         xassLRArg(genre, setupper);
         return doLoadBookList(xnewLRLs(genre), new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
     }
@@ -455,7 +528,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBook> loadBookList(LdGenre genre, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    public NestedReferrerListGateway<LdBook> loadBookList(LdGenre genre, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(genre, loadReferrerOption);
         return loadBookList(xnewLRLs(genre), loadReferrerOption);
     }
@@ -467,30 +540,14 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<LdBook> loadBookList(List<LdGenre> genreList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    public NestedReferrerListGateway<LdBook> loadBookList(List<LdGenre> genreList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(genreList, loadReferrerOption);
-        if (genreList.isEmpty()) { return (NestedReferrerLoader<LdBook>)EMPTY_LOADER; }
+        if (genreList.isEmpty()) { return (NestedReferrerListGateway<LdBook>)EMPTY_NREF_LGWAY; }
         return doLoadBookList(genreList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<LdBook> doLoadBookList(List<LdGenre> genreList, LoadReferrerOption<LdBookCB, LdBook> option) {
-        final LdBookBhv referrerBhv = xgetBSFLR().select(LdBookBhv.class);
-        return helpLoadReferrerInternally(genreList, option, new InternalLoadReferrerCallback<LdGenre, String, LdBookCB, LdBook>() {
-            public String getPKVal(LdGenre et)
-            { return et.getGenreCode(); }
-            public void setRfLs(LdGenre et, List<LdBook> ls)
-            { et.setBookList(ls); }
-            public LdBookCB newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(LdBookCB cb, List<String> ls)
-            { cb.query().setGenreCode_InScope(ls); }
-            public void qyOdFKAsc(LdBookCB cb) { cb.query().addOrderBy_GenreCode_Asc(); }
-            public void spFKCol(LdBookCB cb) { cb.specify().columnGenreCode(); }
-            public List<LdBook> selRfLs(LdBookCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(LdBook re) { return re.getGenreCode(); }
-            public void setlcEt(LdBook re, LdGenre le)
-            { re.setGenre(le); }
-            public String getRfPrNm() { return "bookList"; }
-        });
+    protected NestedReferrerListGateway<LdBook> doLoadBookList(List<LdGenre> genreList, LoadReferrerOption<LdBookCB, LdBook> option) {
+        return helpLoadReferrerInternally(genreList, option, "bookList");
     }
 
     /**
@@ -521,7 +578,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdGenre> loadGenreSelfList(List<LdGenre> genreList, ConditionBeanSetupper<LdGenreCB> setupper) {
+    public NestedReferrerListGateway<LdGenre> loadGenreSelfList(List<LdGenre> genreList, ConditionBeanSetupper<LdGenreCB> setupper) {
         xassLRArg(genreList, setupper);
         return doLoadGenreSelfList(genreList, new LoadReferrerOption<LdGenreCB, LdGenre>().xinit(setupper));
     }
@@ -552,7 +609,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdGenre> loadGenreSelfList(LdGenre genre, ConditionBeanSetupper<LdGenreCB> setupper) {
+    public NestedReferrerListGateway<LdGenre> loadGenreSelfList(LdGenre genre, ConditionBeanSetupper<LdGenreCB> setupper) {
         xassLRArg(genre, setupper);
         return doLoadGenreSelfList(xnewLRLs(genre), new LoadReferrerOption<LdGenreCB, LdGenre>().xinit(setupper));
     }
@@ -563,7 +620,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdGenre> loadGenreSelfList(LdGenre genre, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
+    public NestedReferrerListGateway<LdGenre> loadGenreSelfList(LdGenre genre, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
         xassLRArg(genre, loadReferrerOption);
         return loadGenreSelfList(xnewLRLs(genre), loadReferrerOption);
     }
@@ -575,30 +632,14 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<LdGenre> loadGenreSelfList(List<LdGenre> genreList, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
+    public NestedReferrerListGateway<LdGenre> loadGenreSelfList(List<LdGenre> genreList, LoadReferrerOption<LdGenreCB, LdGenre> loadReferrerOption) {
         xassLRArg(genreList, loadReferrerOption);
-        if (genreList.isEmpty()) { return (NestedReferrerLoader<LdGenre>)EMPTY_LOADER; }
+        if (genreList.isEmpty()) { return (NestedReferrerListGateway<LdGenre>)EMPTY_NREF_LGWAY; }
         return doLoadGenreSelfList(genreList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<LdGenre> doLoadGenreSelfList(List<LdGenre> genreList, LoadReferrerOption<LdGenreCB, LdGenre> option) {
-        final LdGenreBhv referrerBhv = xgetBSFLR().select(LdGenreBhv.class);
-        return helpLoadReferrerInternally(genreList, option, new InternalLoadReferrerCallback<LdGenre, String, LdGenreCB, LdGenre>() {
-            public String getPKVal(LdGenre et)
-            { return et.getGenreCode(); }
-            public void setRfLs(LdGenre et, List<LdGenre> ls)
-            { et.setGenreSelfList(ls); }
-            public LdGenreCB newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(LdGenreCB cb, List<String> ls)
-            { cb.query().setParentGenreCode_InScope(ls); }
-            public void qyOdFKAsc(LdGenreCB cb) { cb.query().addOrderBy_ParentGenreCode_Asc(); }
-            public void spFKCol(LdGenreCB cb) { cb.specify().columnParentGenreCode(); }
-            public List<LdGenre> selRfLs(LdGenreCB cb) { return referrerBhv.selectList(cb); }
-            public String getFKVal(LdGenre re) { return re.getParentGenreCode(); }
-            public void setlcEt(LdGenre re, LdGenre le)
-            { re.setGenreSelf(le); }
-            public String getRfPrNm() { return "genreSelfList"; }
-        });
+    protected NestedReferrerListGateway<LdGenre> doLoadGenreSelfList(List<LdGenre> genreList, LoadReferrerOption<LdGenreCB, LdGenre> option) {
+        return helpLoadReferrerInternally(genreList, option, "genreSelfList");
     }
 
     // ===================================================================================
@@ -609,15 +650,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param genreList The list of genre. (NotNull, EmptyAllowed)
      * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<LdGenre> pulloutGenreSelf(List<LdGenre> genreList) {
-        return helpPulloutInternally(genreList, new InternalPulloutCallback<LdGenre, LdGenre>() {
-            public LdGenre getFr(LdGenre et)
-            { return et.getGenreSelf(); }
-            public boolean hasRf() { return true; }
-            public void setRfLs(LdGenre et, List<LdGenre> ls)
-            { et.setGenreSelfList(ls); }
-        });
-    }
+    public List<LdGenre> pulloutGenreSelf(List<LdGenre> genreList)
+    { return helpPulloutInternally(genreList, "genreSelf"); }
 
     // ===================================================================================
     //                                                                      Extract Column
@@ -627,11 +661,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @param genreList The list of genre. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<String> extractGenreCodeList(List<LdGenre> genreList) {
-        return helpExtractListInternally(genreList, new InternalExtractCallback<LdGenre, String>() {
-            public String getCV(LdGenre et) { return et.getGenreCode(); }
-        });
-    }
+    public List<String> extractGenreCodeList(List<LdGenre> genreList)
+    { return helpExtractListInternally(genreList, "genreCode"); }
 
     // ===================================================================================
     //                                                                       Entity Update
@@ -650,32 +681,23 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * ... = genre.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param genre The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param genre The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdGenre genre) {
         doInsert(genre, null);
     }
 
-    protected void doInsert(LdGenre genre, InsertOption<LdGenreCB> op) {
-        assertObjectNotNull("genre", genre);
-        prepareInsertOption(op);
-        delegateInsert(genre, op);
+    protected void doInsert(LdGenre et, InsertOption<LdGenreCB> op) {
+        assertObjectNotNull("genre", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<LdGenreCB> op) {
-        if (op == null) { return; }
-        assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) {
-            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    @Override
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
-    }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
@@ -686,7 +708,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//genre.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//genre.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * genre.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     genreBhv.<span style="color: #DD4747">update</span>(genre);
@@ -694,50 +716,32 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param genre The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final LdGenre genre) {
+    public void update(LdGenre genre) {
         doUpdate(genre, null);
     }
 
-    protected void doUpdate(LdGenre genre, final UpdateOption<LdGenreCB> op) {
-        assertObjectNotNull("genre", genre);
-        prepareUpdateOption(op);
-        helpUpdateInternally(genre, new InternalUpdateCallback<LdGenre>() {
-            public int callbackDelegateUpdate(LdGenre et) { return delegateUpdate(et, op); } });
+    protected void doUpdate(LdGenre et, UpdateOption<LdGenreCB> op) {
+        assertObjectNotNull("genre", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
 
     protected void prepareUpdateOption(UpdateOption<LdGenreCB> op) {
-        if (op == null) { return; }
-        assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected LdGenreCB createCBForVaryingUpdate() {
-        LdGenreCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected LdGenreCB createCBForVaryingUpdate()
+    { LdGenreCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected LdGenreCB createCBForSpecifiedUpdate() {
-        LdGenreCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected LdGenreCB createCBForSpecifiedUpdate()
+    { LdGenreCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
-    @Override
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
-    }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
@@ -748,101 +752,73 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//genre.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//genre.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
      * genreBhv.<span style="color: #DD4747">updateNonstrict</span>(genre);
      * </pre>
-     * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param genre The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void updateNonstrict(final LdGenre genre) {
+    public void updateNonstrict(LdGenre genre) {
         doUpdateNonstrict(genre, null);
     }
 
-    protected void doUpdateNonstrict(LdGenre genre, final UpdateOption<LdGenreCB> op) {
-        assertObjectNotNull("genre", genre);
-        prepareUpdateOption(op);
-        helpUpdateNonstrictInternally(genre, new InternalUpdateNonstrictCallback<LdGenre>() {
-            public int callbackDelegateUpdateNonstrict(LdGenre et) { return delegateUpdateNonstrict(et, op); } });
+    protected void doUpdateNonstrict(LdGenre et, UpdateOption<LdGenreCB> op) {
+        assertObjectNotNull("genre", et); prepareUpdateOption(op); helpUpdateNonstrictInternally(et, op);
     }
 
-    @Override
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { updateNonstrict(downcast(et)); }
-        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
+    { doUpdateNonstrict(downcast(et), downcast(op)); }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param genre The entity of insert or update target. (NotNull)
+     * @param genre The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdGenre genre) {
-        doInesrtOrUpdate(genre, null, null);
+        doInsertOrUpdate(genre, null, null);
     }
 
-    protected void doInesrtOrUpdate(LdGenre genre, final InsertOption<LdGenreCB> iop, final UpdateOption<LdGenreCB> uop) {
-        helpInsertOrUpdateInternally(genre, new InternalInsertOrUpdateCallback<LdGenre, LdGenreCB>() {
-            public void callbackInsert(LdGenre et) { doInsert(et, iop); }
-            public void callbackUpdate(LdGenre et) { doUpdate(et, uop); }
-            public LdGenreCB callbackNewMyConditionBean() { return newMyConditionBean(); }
-            public int callbackSelectCount(LdGenreCB cb) { return selectCount(cb); }
-        });
+    protected void doInsertOrUpdate(LdGenre et, InsertOption<LdGenreCB> iop, UpdateOption<LdGenreCB> uop) {
+        assertObjectNotNull("genre", et); helpInsertOrUpdateInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdGenreCB>();
-            uop = uop != null ? uop : new UpdateOption<LdGenreCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param genre The entity of insert or update target. (NotNull)
+     * @param genre The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdGenre genre) {
-        doInesrtOrUpdateNonstrict(genre, null, null);
+        doInsertOrUpdateNonstrict(genre, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(LdGenre genre, final InsertOption<LdGenreCB> iop, final UpdateOption<LdGenreCB> uop) {
-        helpInsertOrUpdateInternally(genre, new InternalInsertOrUpdateNonstrictCallback<LdGenre>() {
-            public void callbackInsert(LdGenre et) { doInsert(et, iop); }
-            public void callbackUpdateNonstrict(LdGenre et) { doUpdateNonstrict(et, uop); }
-        });
+    protected void doInsertOrUpdateNonstrict(LdGenre et, InsertOption<LdGenreCB> iop, UpdateOption<LdGenreCB> uop) {
+        assertObjectNotNull("genre", et); helpInsertOrUpdateNonstrictInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdGenreCB>();
-            uop = uop != null ? uop : new UpdateOption<LdGenreCB>();
-            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
      * <pre>
      * LdGenre genre = new LdGenre();
      * genre.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * genre.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     genreBhv.<span style="color: #DD4747">delete</span>(genre);
@@ -850,7 +826,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param genre The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -858,35 +834,25 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         doDelete(genre, null);
     }
 
-    protected void doDelete(LdGenre genre, final DeleteOption<LdGenreCB> op) {
-        assertObjectNotNull("genre", genre);
-        prepareDeleteOption(op);
-        helpDeleteInternally(genre, new InternalDeleteCallback<LdGenre>() {
-            public int callbackDelegateDelete(LdGenre et) { return delegateDelete(et, op); } });
+    protected void doDelete(LdGenre et, final DeleteOption<LdGenreCB> op) {
+        assertObjectNotNull("genre", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<LdGenreCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<LdGenreCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
 
-    @Override
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
-    }
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
      * LdGenre genre = new LdGenre();
      * genre.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
      * genreBhv.<span style="color: #DD4747">deleteNonstrict</span>(genre);
      * </pre>
-     * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param genre The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -894,11 +860,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         doDeleteNonstrict(genre, null);
     }
 
-    protected void doDeleteNonstrict(LdGenre genre, final DeleteOption<LdGenreCB> op) {
-        assertObjectNotNull("genre", genre);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictInternally(genre, new InternalDeleteNonstrictCallback<LdGenre>() {
-            public int callbackDelegateDeleteNonstrict(LdGenre et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrict(LdGenre et, final DeleteOption<LdGenreCB> op) {
+        assertObjectNotNull("genre", et); prepareDeleteOption(op); helpDeleteNonstrictInternally(et, op);
     }
 
     /**
@@ -906,31 +869,25 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdGenre genre = new LdGenre();
      * genre.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
      * genreBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(genre);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
-     * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param genre The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdGenre genre) {
         doDeleteNonstrictIgnoreDeleted(genre, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(LdGenre genre, final DeleteOption<LdGenreCB> op) {
-        assertObjectNotNull("genre", genre);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictIgnoreDeletedInternally(genre, new InternalDeleteNonstrictIgnoreDeletedCallback<LdGenre>() {
-            public int callbackDelegateDeleteNonstrict(LdGenre et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrictIgnoreDeleted(LdGenre et, final DeleteOption<LdGenreCB> op) {
+        assertObjectNotNull("genre", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
-    @Override
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { deleteNonstrict(downcast(et)); }
-        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
+    { doDeleteNonstrict(downcast(et), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -960,27 +917,23 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<LdGenre> genreList) {
-        InsertOption<LdGenreCB> op = createInsertUpdateOption();
-        return doBatchInsert(genreList, op);
+        return doBatchInsert(genreList, null);
     }
 
-    protected int[] doBatchInsert(List<LdGenre> genreList, InsertOption<LdGenreCB> op) {
-        assertObjectNotNull("genreList", genreList);
-        prepareBatchInsertOption(genreList, op);
-        return delegateBatchInsert(genreList, op);
+    protected int[] doBatchInsert(List<LdGenre> ls, InsertOption<LdGenreCB> op) {
+        assertObjectNotNull("genreList", ls);
+        InsertOption<LdGenreCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<LdGenre> genreList, InsertOption<LdGenreCB> op) {
+    protected void prepareBatchInsertOption(List<LdGenre> ls, InsertOption<LdGenreCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(genreList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
-    @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
@@ -1002,31 +955,27 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * }
      * genreBhv.<span style="color: #DD4747">batchUpdate</span>(genreList);
      * </pre>
-     * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdGenre> genreList) {
-        UpdateOption<LdGenreCB> op = createPlainUpdateOption();
-        return doBatchUpdate(genreList, op);
+        return doBatchUpdate(genreList, null);
     }
 
-    protected int[] doBatchUpdate(List<LdGenre> genreList, UpdateOption<LdGenreCB> op) {
-        assertObjectNotNull("genreList", genreList);
-        prepareBatchUpdateOption(genreList, op);
-        return delegateBatchUpdate(genreList, op);
+    protected int[] doBatchUpdate(List<LdGenre> ls, UpdateOption<LdGenreCB> op) {
+        assertObjectNotNull("genreList", ls);
+        UpdateOption<LdGenreCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<LdGenre> genreList, UpdateOption<LdGenreCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(genreList);
+    protected void prepareBatchUpdateOption(List<LdGenre> ls, UpdateOption<LdGenreCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
-    @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
@@ -1051,7 +1000,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * and an optimistic lock column because they are specified implicitly.</p>
      * <p>And you should specify columns that are modified in any entities (at least one entity).
      * But if you specify every column, it has no check.</p>
-     * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param genreList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
@@ -1085,14 +1034,14 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdGenre> genreList) {
-        UpdateOption<LdGenreCB> option = createPlainUpdateOption();
-        return doBatchUpdateNonstrict(genreList, option);
+        return doBatchUpdateNonstrict(genreList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<LdGenre> genreList, UpdateOption<LdGenreCB> op) {
-        assertObjectNotNull("genreList", genreList);
-        prepareBatchUpdateOption(genreList, op);
-        return delegateBatchUpdateNonstrict(genreList, op);
+    protected int[] doBatchUpdateNonstrict(List<LdGenre> ls, UpdateOption<LdGenreCB> op) {
+        assertObjectNotNull("genreList", ls);
+        UpdateOption<LdGenreCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop);
+        return delegateBatchUpdateNonstrict(ls, rlop);
     }
 
     /**
@@ -1127,10 +1076,8 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
+    { return doBatchUpdateNonstrict(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list. (ExclusiveControl) <br />
@@ -1143,17 +1090,13 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         return doBatchDelete(genreList, null);
     }
 
-    protected int[] doBatchDelete(List<LdGenre> genreList, DeleteOption<LdGenreCB> op) {
-        assertObjectNotNull("genreList", genreList);
+    protected int[] doBatchDelete(List<LdGenre> ls, DeleteOption<LdGenreCB> op) {
+        assertObjectNotNull("genreList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(genreList, op);
+        return delegateBatchDelete(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list non-strictly. {NonExclusiveControl} <br />
@@ -1166,17 +1109,14 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(genreList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<LdGenre> genreList, DeleteOption<LdGenreCB> op) {
-        assertObjectNotNull("genreList", genreList);
+    protected int[] doBatchDeleteNonstrict(List<LdGenre> ls, DeleteOption<LdGenreCB> op) {
+        assertObjectNotNull("genreList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(genreList, op);
+        return delegateBatchDeleteNonstrict(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
+    { return doBatchDeleteNonstrict(downcast(ls), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -1197,7 +1137,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1212,24 +1152,16 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     }
 
     protected int doQueryInsert(QueryInsertSetupper<LdGenre, LdGenreCB> sp, InsertOption<LdGenreCB> op) {
-        assertObjectNotNull("setupper", sp);
-        prepareInsertOption(op);
-        LdGenre e = new LdGenre();
-        LdGenreCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
+        LdGenre et = newEntity(); LdGenreCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected LdGenreCB createCBForQueryInsert() {
-        LdGenreCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected LdGenreCB createCBForQueryInsert()
+    { LdGenreCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
-    @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
-    }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
+    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -1241,7 +1173,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//genre.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//genre.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
      * LdGenreCB cb = new LdGenreCB();
@@ -1257,17 +1189,13 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(genre, cb, null);
     }
 
-    protected int doQueryUpdate(LdGenre genre, LdGenreCB cb, UpdateOption<LdGenreCB> op) {
-        assertObjectNotNull("genre", genre); assertCBStateValid(cb);
-        prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(genre, cb, op) : 0;
+    protected int doQueryUpdate(LdGenre et, LdGenreCB cb, UpdateOption<LdGenreCB> op) {
+        assertObjectNotNull("genre", et); assertCBStateValid(cb); prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (LdGenreCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (LdGenreCB)cb, downcast(op)); }
-    }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
+    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
@@ -1285,16 +1213,11 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     }
 
     protected int doQueryDelete(LdGenreCB cb, DeleteOption<LdGenreCB> op) {
-        assertCBStateValid(cb);
-        prepareDeleteOption(op);
+        assertCBStateValid(cb); prepareDeleteOption(op);
         return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((LdGenreCB)cb); }
-        else { return varyingQueryDelete((LdGenreCB)cb, downcast(op)); }
-    }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1317,7 +1240,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * genreBhv.<span style="color: #DD4747">varyingInsert</span>(genre, option);
      * ... = genre.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param genre The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param genre The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1334,7 +1257,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * LdGenre genre = new LdGenre();
      * genre.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * genre.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * genre.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1349,7 +1272,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param genre The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1369,7 +1292,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * LdGenre genre = new LdGenre();
      * genre.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * genre.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
      * UpdateOption&lt;LdGenreCB&gt; option = new UpdateOption&lt;LdGenreCB&gt;();
@@ -1380,7 +1303,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * genreBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(genre, option);
      * </pre>
-     * @param genre The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param genre The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1394,7 +1317,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param genre The entity of insert or update target. (NotNull)
+     * @param genre The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1403,13 +1326,13 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(LdGenre genre, InsertOption<LdGenreCB> insertOption, UpdateOption<LdGenreCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(genre, insertOption, updateOption);
+        doInsertOrUpdate(genre, insertOption, updateOption);
     }
 
     /**
      * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdateNonstrict(entity).
-     * @param genre The entity of insert or update target. (NotNull)
+     * @param genre The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1418,14 +1341,14 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdateNonstrict(LdGenre genre, InsertOption<LdGenreCB> insertOption, UpdateOption<LdGenreCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdateNonstrict(genre, insertOption, updateOption);
+        doInsertOrUpdateNonstrict(genre, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, ExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param genre The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1439,7 +1362,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as deleteNonstrict(entity).
-     * @param genre The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param genre The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1547,7 +1470,7 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//genre.setPK...(value);</span>
      * genre.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//genre.setVersionNo(value);</span>
      * LdGenreCB cb = new LdGenreCB();
@@ -1624,113 +1547,28 @@ public abstract class LdBsGenreBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Delegate Method
-    //                                                                     ===============
-    // [Behavior Command]
-    // -----------------------------------------------------
-    //                                                Select
-    //                                                ------
-    protected int delegateSelectCountUniquely(LdGenreCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
-    protected int delegateSelectCountPlainly(LdGenreCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdGenre> void delegateSelectCursor(LdGenreCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
-    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
-    protected <ENTITY extends LdGenre> List<ENTITY> delegateSelectList(LdGenreCB cb, Class<ENTITY> tp)
-    { return invoke(createSelectListCBCommand(cb, tp)); }
-
-    // -----------------------------------------------------
-    //                                                Update
-    //                                                ------
-    protected int delegateInsert(LdGenre et, InsertOption<LdGenreCB> op)
-    { if (!processBeforeInsert(et, op)) { return 0; }
-      return invoke(createInsertEntityCommand(et, op)); }
-    protected int delegateUpdate(LdGenre et, UpdateOption<LdGenreCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateEntityCommand(et, op)); }
-    protected int delegateUpdateNonstrict(LdGenre et, UpdateOption<LdGenreCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
-    protected int delegateDelete(LdGenre et, DeleteOption<LdGenreCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteEntityCommand(et, op)); }
-    protected int delegateDeleteNonstrict(LdGenre et, DeleteOption<LdGenreCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
-
-    protected int[] delegateBatchInsert(List<LdGenre> ls, InsertOption<LdGenreCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchInsertCommand(processBatchInternally(ls, op), op)); }
-    protected int[] delegateBatchUpdate(List<LdGenre> ls, UpdateOption<LdGenreCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchUpdateNonstrict(List<LdGenre> ls, UpdateOption<LdGenreCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-    protected int[] delegateBatchDelete(List<LdGenre> ls, DeleteOption<LdGenreCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchDeleteNonstrict(List<LdGenre> ls, DeleteOption<LdGenreCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-
-    protected int delegateQueryInsert(LdGenre et, LdGenreCB inCB, ConditionBean resCB, InsertOption<LdGenreCB> op)
-    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(LdGenre et, LdGenreCB cb, UpdateOption<LdGenreCB> op)
-    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
-    protected int delegateQueryDelete(LdGenreCB cb, DeleteOption<LdGenreCB> op)
-    { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
-
-    // ===================================================================================
     //                                                                Optimistic Lock Info
     //                                                                ====================
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean hasVersionNoValue(Entity et) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected boolean hasUpdateDateValue(Entity et) {
         return downcast(et).getUTimestamp() != null;
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected LdGenre downcast(Entity et) {
-        return helpEntityDowncastInternally(et, LdGenre.class);
-    }
-
-    protected LdGenreCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, LdGenreCB.class);
-    }
-
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<LdGenre> typeOfSelectedEntity() { return LdGenre.class; }
+    protected LdGenre downcast(Entity et) { return helpEntityDowncastInternally(et, LdGenre.class); }
+    protected LdGenreCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdGenreCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<LdGenre> downcast(List<? extends Entity> ls) {
-        return (List<LdGenre>)ls;
-    }
-
+    protected List<LdGenre> downcast(List<? extends Entity> ls) { return (List<LdGenre>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<LdGenreCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<LdGenreCB>)op;
-    }
-
+    protected InsertOption<LdGenreCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<LdGenreCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<LdGenreCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<LdGenreCB>)op;
-    }
-
+    protected UpdateOption<LdGenreCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<LdGenreCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<LdGenreCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<LdGenreCB>)op;
-    }
-
+    protected DeleteOption<LdGenreCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<LdGenreCB>)op; }
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdGenre, LdGenreCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<LdGenre, LdGenreCB>)sp;
-    }
+    protected QueryInsertSetupper<LdGenre, LdGenreCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<LdGenre, LdGenreCB>)sp; }
 }

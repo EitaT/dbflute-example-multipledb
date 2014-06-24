@@ -291,7 +291,7 @@ public class LdBlackActionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdBlackAction newEntity() { return new LdBlackAction(); }
     public LdBlackAction newMyEntity() { return new LdBlackAction(); }
 
     // ===================================================================================

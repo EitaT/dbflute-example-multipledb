@@ -83,11 +83,23 @@ public class LdBsCollectionStatusCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdCollectionStatusCB acceptPK(Integer collectionId) {
+        assertObjectNotNull("collectionId", collectionId);
+        LdBsCollectionStatusCB cb = this;
+        cb.query().setCollectionId_Equal(collectionId);
+        return (LdCollectionStatusCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
      */
     public void acceptPrimaryKey(Integer collectionId) {
         assertObjectNotNull("collectionId", collectionId);
         LdBsCollectionStatusCB cb = this;
-        cb.query().setCollectionId_Equal(collectionId);;
+        cb.query().setCollectionId_Equal(collectionId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

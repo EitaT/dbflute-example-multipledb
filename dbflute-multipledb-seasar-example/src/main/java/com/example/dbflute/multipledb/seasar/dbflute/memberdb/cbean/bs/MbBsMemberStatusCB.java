@@ -80,21 +80,35 @@ public class MbBsMemberStatusCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param memberStatusCode : PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
+     * @return this. (NotNull)
+     */
+    public MbMemberStatusCB acceptPK(String memberStatusCode) {
+        assertObjectNotNull("memberStatusCode", memberStatusCode);
+        MbBsMemberStatusCB cb = this;
+        cb.query().setMemberStatusCode_Equal(memberStatusCode);
+        return (MbMemberStatusCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param memberStatusCode : PK, NotNull, CHAR(3), classification=MemberStatus. (NotNull)
      */
     public void acceptPrimaryKey(String memberStatusCode) {
         assertObjectNotNull("memberStatusCode", memberStatusCode);
         MbBsMemberStatusCB cb = this;
-        cb.query().setMemberStatusCode_Equal(memberStatusCode);;
+        cb.query().setMemberStatusCode_Equal(memberStatusCode);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer displayOrder) {
+    public MbMemberStatusCB acceptUniqueOf(Integer displayOrder) {
         assertObjectNotNull("displayOrder", displayOrder);
         MbBsMemberStatusCB cb = this;
-        cb.query().setDisplayOrder_Equal(displayOrder);;
+        cb.query().setDisplayOrder_Equal(displayOrder);
+        return (MbMemberStatusCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

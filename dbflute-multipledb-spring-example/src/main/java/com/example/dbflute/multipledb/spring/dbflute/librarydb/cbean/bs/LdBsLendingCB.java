@@ -85,11 +85,25 @@ public class LdBsLendingCB extends AbstractConditionBean {
      * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER. (NotNull)
      * @param lbUserId : PK, NotNull, INTEGER(10), FK to LIBRARY_USER. (NotNull)
      * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6). (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdLendingCB acceptPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate) {
+        assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);assertObjectNotNull("lendingDate", lendingDate);
+        LdBsLendingCB cb = this;
+        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);cb.query().setLendingDate_Equal(lendingDate);
+        return (LdLendingCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER. (NotNull)
+     * @param lbUserId : PK, NotNull, INTEGER(10), FK to LIBRARY_USER. (NotNull)
+     * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6). (NotNull)
      */
     public void acceptPrimaryKey(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);assertObjectNotNull("lendingDate", lendingDate);
         LdBsLendingCB cb = this;
-        cb.query().setLibraryId_Equal(libraryId);;cb.query().setLbUserId_Equal(lbUserId);;cb.query().setLendingDate_Equal(lendingDate);;
+        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);cb.query().setLendingDate_Equal(lendingDate);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

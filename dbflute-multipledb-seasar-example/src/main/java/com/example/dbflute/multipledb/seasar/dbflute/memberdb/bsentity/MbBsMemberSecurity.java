@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.*;
@@ -182,7 +182,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
     protected MbMember _member;
 
     /**
-     * MEMBER by my MEMBER_ID, named 'member'.
+     * [get] MEMBER by my MEMBER_ID, named 'member'.
      * @return The entity of foreign property 'member'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public MbMember getMember() {
@@ -190,7 +190,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
     }
 
     /**
-     * MEMBER by my MEMBER_ID, named 'member'.
+     * [set] MEMBER by my MEMBER_ID, named 'member'.
      * @param member The entity of foreign property 'member'. (NullAllowed)
      */
     public void setMember(MbMember member) {
@@ -405,7 +405,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setMemberId(Integer memberId) {
         __modifiedProperties.addPropertyName("memberId");
-        this._memberId = memberId;
+        _memberId = memberId;
     }
 
     /**
@@ -422,7 +422,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setLoginPassword(String loginPassword) {
         __modifiedProperties.addPropertyName("loginPassword");
-        this._loginPassword = loginPassword;
+        _loginPassword = loginPassword;
     }
 
     /**
@@ -439,7 +439,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setReminderQuestion(String reminderQuestion) {
         __modifiedProperties.addPropertyName("reminderQuestion");
-        this._reminderQuestion = reminderQuestion;
+        _reminderQuestion = reminderQuestion;
     }
 
     /**
@@ -456,7 +456,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setReminderAnswer(String reminderAnswer) {
         __modifiedProperties.addPropertyName("reminderAnswer");
-        this._reminderAnswer = reminderAnswer;
+        _reminderAnswer = reminderAnswer;
     }
 
     /**
@@ -473,7 +473,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setReminderUseCount(Integer reminderUseCount) {
         __modifiedProperties.addPropertyName("reminderUseCount");
-        this._reminderUseCount = reminderUseCount;
+        _reminderUseCount = reminderUseCount;
     }
 
     /**
@@ -490,7 +490,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
         __modifiedProperties.addPropertyName("registerDatetime");
-        this._registerDatetime = registerDatetime;
+        _registerDatetime = registerDatetime;
     }
 
     /**
@@ -507,7 +507,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setRegisterUser(String registerUser) {
         __modifiedProperties.addPropertyName("registerUser");
-        this._registerUser = registerUser;
+        _registerUser = registerUser;
     }
 
     /**
@@ -524,7 +524,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
         __modifiedProperties.addPropertyName("updateDatetime");
-        this._updateDatetime = updateDatetime;
+        _updateDatetime = updateDatetime;
     }
 
     /**
@@ -541,7 +541,7 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setUpdateUser(String updateUser) {
         __modifiedProperties.addPropertyName("updateUser");
-        this._updateUser = updateUser;
+        _updateUser = updateUser;
     }
 
     /**
@@ -558,6 +558,6 @@ public abstract class MbBsMemberSecurity implements MbEntityDefinedCommonColumn,
      */
     public void setVersionNo(Long versionNo) {
         __modifiedProperties.addPropertyName("versionNo");
-        this._versionNo = versionNo;
+        _versionNo = versionNo;
     }
 }

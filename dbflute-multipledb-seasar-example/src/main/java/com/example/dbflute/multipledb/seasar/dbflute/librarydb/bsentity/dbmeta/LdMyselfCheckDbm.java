@@ -167,7 +167,7 @@ public class LdMyselfCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdMyselfCheck newEntity() { return new LdMyselfCheck(); }
     public LdMyselfCheck newMyEntity() { return new LdMyselfCheck(); }
 
     // ===================================================================================

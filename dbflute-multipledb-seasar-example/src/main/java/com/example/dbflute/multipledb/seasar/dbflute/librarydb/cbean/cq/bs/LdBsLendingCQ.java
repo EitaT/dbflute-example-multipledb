@@ -76,10 +76,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _libraryId;
-    public ConditionValue getLibraryId() {
-        if (_libraryId == null) { _libraryId = nCV(); }
-        return _libraryId;
-    }
+    public ConditionValue getLibraryId()
+    { if (_libraryId == null) { _libraryId = nCV(); }
+      return _libraryId; }
     protected ConditionValue getCValueLibraryId() { return getLibraryId(); }
 
     /** 
@@ -97,10 +96,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_LibraryId_Desc() { regOBD("LIBRARY_ID"); return this; }
 
     protected ConditionValue _lbUserId;
-    public ConditionValue getLbUserId() {
-        if (_lbUserId == null) { _lbUserId = nCV(); }
-        return _lbUserId;
-    }
+    public ConditionValue getLbUserId()
+    { if (_lbUserId == null) { _lbUserId = nCV(); }
+      return _lbUserId; }
     protected ConditionValue getCValueLbUserId() { return getLbUserId(); }
 
     /** 
@@ -118,10 +116,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_LbUserId_Desc() { regOBD("LB_USER_ID"); return this; }
 
     protected ConditionValue _lendingDate;
-    public ConditionValue getLendingDate() {
-        if (_lendingDate == null) { _lendingDate = nCV(); }
-        return _lendingDate;
-    }
+    public ConditionValue getLendingDate()
+    { if (_lendingDate == null) { _lendingDate = nCV(); }
+      return _lendingDate; }
     protected ConditionValue getCValueLendingDate() { return getLendingDate(); }
 
     /** 
@@ -139,10 +136,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_LendingDate_Desc() { regOBD("LENDING_DATE"); return this; }
 
     protected ConditionValue _rUser;
-    public ConditionValue getRUser() {
-        if (_rUser == null) { _rUser = nCV(); }
-        return _rUser;
-    }
+    public ConditionValue getRUser()
+    { if (_rUser == null) { _rUser = nCV(); }
+      return _rUser; }
     protected ConditionValue getCValueRUser() { return getRUser(); }
 
     /** 
@@ -160,10 +156,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_RUser_Desc() { regOBD("R_USER"); return this; }
 
     protected ConditionValue _rModule;
-    public ConditionValue getRModule() {
-        if (_rModule == null) { _rModule = nCV(); }
-        return _rModule;
-    }
+    public ConditionValue getRModule()
+    { if (_rModule == null) { _rModule = nCV(); }
+      return _rModule; }
     protected ConditionValue getCValueRModule() { return getRModule(); }
 
     /** 
@@ -181,10 +176,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_RModule_Desc() { regOBD("R_MODULE"); return this; }
 
     protected ConditionValue _rTimestamp;
-    public ConditionValue getRTimestamp() {
-        if (_rTimestamp == null) { _rTimestamp = nCV(); }
-        return _rTimestamp;
-    }
+    public ConditionValue getRTimestamp()
+    { if (_rTimestamp == null) { _rTimestamp = nCV(); }
+      return _rTimestamp; }
     protected ConditionValue getCValueRTimestamp() { return getRTimestamp(); }
 
     /** 
@@ -202,10 +196,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_RTimestamp_Desc() { regOBD("R_TIMESTAMP"); return this; }
 
     protected ConditionValue _uUser;
-    public ConditionValue getUUser() {
-        if (_uUser == null) { _uUser = nCV(); }
-        return _uUser;
-    }
+    public ConditionValue getUUser()
+    { if (_uUser == null) { _uUser = nCV(); }
+      return _uUser; }
     protected ConditionValue getCValueUUser() { return getUUser(); }
 
     /** 
@@ -223,10 +216,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_UUser_Desc() { regOBD("U_USER"); return this; }
 
     protected ConditionValue _uModule;
-    public ConditionValue getUModule() {
-        if (_uModule == null) { _uModule = nCV(); }
-        return _uModule;
-    }
+    public ConditionValue getUModule()
+    { if (_uModule == null) { _uModule = nCV(); }
+      return _uModule; }
     protected ConditionValue getCValueUModule() { return getUModule(); }
 
     /** 
@@ -244,10 +236,9 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdBsLendingCQ addOrderBy_UModule_Desc() { regOBD("U_MODULE"); return this; }
 
     protected ConditionValue _uTimestamp;
-    public ConditionValue getUTimestamp() {
-        if (_uTimestamp == null) { _uTimestamp = nCV(); }
-        return _uTimestamp;
-    }
+    public ConditionValue getUTimestamp()
+    { if (_uTimestamp == null) { _uTimestamp = nCV(); }
+      return _uTimestamp; }
     protected ConditionValue getCValueUTimestamp() { return getUTimestamp(); }
 
     /** 
@@ -281,8 +272,7 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsLendingCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public LdBsLendingCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -298,8 +288,7 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsLendingCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public LdBsLendingCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -323,32 +312,17 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     public LdLibraryUserCQ queryLibraryUser() {
         return getConditionQueryLibraryUser();
     }
-    protected LdLibraryUserCQ _conditionQueryLibraryUser;
     public LdLibraryUserCQ getConditionQueryLibraryUser() {
-        if (_conditionQueryLibraryUser == null) {
-            _conditionQueryLibraryUser = xcreateQueryLibraryUser();
-            xsetupOuterJoinLibraryUser();
-        }
-        return _conditionQueryLibraryUser;
+        String prop = "libraryUser";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryLibraryUser()); xsetupOuterJoinLibraryUser(); }
+        return xgetQueRlMap(prop);
     }
     protected LdLibraryUserCQ xcreateQueryLibraryUser() {
-        String nrp = resolveNextRelationPath("LENDING", "libraryUser");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdLibraryUserCQ cq = new LdLibraryUserCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("libraryUser");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("LENDING", "libraryUser"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdLibraryUserCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "libraryUser", nrp);
     }
-    protected void xsetupOuterJoinLibraryUser() {
-        LdLibraryUserCQ cq = getConditionQueryLibraryUser();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("LIBRARY_ID", "LIBRARY_ID");
-        joinOnMap.put("LB_USER_ID", "LB_USER_ID");
-        registerOuterJoin(cq, joinOnMap, "libraryUser");
-    }
-    public boolean hasConditionQueryLibraryUser() {
-        return _conditionQueryLibraryUser != null;
-    }
+    protected void xsetupOuterJoinLibraryUser() { xregOutJo("libraryUser"); }
+    public boolean hasConditionQueryLibraryUser() { return xhasQueRlMap("libraryUser"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -357,13 +331,8 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, LdLendingCQ> _scalarConditionMap;
-    public Map<String, LdLendingCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdLendingCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, LdLendingCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(LdLendingCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                      ExistsReferrer for Compound PK
@@ -380,13 +349,8 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
         String pp = keepTwoOrMorePk_ExistsReferrer_LendingCollectionList(cb.query());
         registerExistsReferrer(cb.query(), "LIBRARY_ID, LB_USER_ID, LENDING_DATE", "LIBRARY_ID, LB_USER_ID, LENDING_DATE", pp, "lendingCollectionList");
     }
-    protected Map<String, LdLendingCollectionCQ> _twoOrMorePk_ExistsReferrer_LendingCollectionListMap;
-    public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_ExistsReferrer_LendingCollectionList() { return _twoOrMorePk_ExistsReferrer_LendingCollectionListMap; }
-    public String keepTwoOrMorePk_ExistsReferrer_LendingCollectionList(LdLendingCollectionCQ sq) {
-        if (_twoOrMorePk_ExistsReferrer_LendingCollectionListMap == null) { _twoOrMorePk_ExistsReferrer_LendingCollectionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_twoOrMorePk_ExistsReferrer_LendingCollectionListMap.size() + 1);
-        _twoOrMorePk_ExistsReferrer_LendingCollectionListMap.put(ky, sq); return "twoOrMorePk_ExistsReferrer_LendingCollectionList." + ky;
-    }
+    public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_ExistsReferrer_LendingCollectionList() { return xgetSQueMap("twoOrMorePk_ExistsReferrer_LendingCollectionList"); }
+    public String keepTwoOrMorePk_ExistsReferrer_LendingCollectionList(LdLendingCollectionCQ sq) { return xkeepSQue("twoOrMorePk_ExistsReferrer_LendingCollectionList", sq); }
 
     /**
      * Set up NotExistsReferrer (correlated sub-query by compound key). <br />
@@ -400,13 +364,8 @@ public class LdBsLendingCQ extends LdAbstractBsLendingCQ {
         String pp = keepTwoOrMorePk_NotExistsReferrer_LendingCollectionList(cb.query());
         registerNotExistsReferrer(cb.query(), "LIBRARY_ID, LB_USER_ID, LENDING_DATE", "LIBRARY_ID, LB_USER_ID, LENDING_DATE", pp, "lendingCollectionList");
     }
-    protected Map<String, LdLendingCollectionCQ> _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap;
-    public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_NotExistsReferrer_LendingCollectionList() { return _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap; }
-    public String keepTwoOrMorePk_NotExistsReferrer_LendingCollectionList(LdLendingCollectionCQ sq) {
-        if (_twoOrMorePk_NotExistsReferrer_LendingCollectionListMap == null) { _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_twoOrMorePk_NotExistsReferrer_LendingCollectionListMap.size() + 1);
-        _twoOrMorePk_NotExistsReferrer_LendingCollectionListMap.put(ky, sq); return "twoOrMorePk_NotExistsReferrer_LendingCollectionList." + ky;
-    }
+    public Map<String, LdLendingCollectionCQ> getTwoOrMorePk_NotExistsReferrer_LendingCollectionList() { return xgetSQueMap("twoOrMorePk_NotExistsReferrer_LendingCollectionList"); }
+    public String keepTwoOrMorePk_NotExistsReferrer_LendingCollectionList(LdLendingCollectionCQ sq) { return xkeepSQue("twoOrMorePk_NotExistsReferrer_LendingCollectionList", sq); }
 
     // ===================================================================================
     //                                            (Specify)DerivedReferrer for Compound PK

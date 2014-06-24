@@ -281,7 +281,7 @@ public class LdGenreDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdGenre newEntity() { return new LdGenre(); }
     public LdGenre newMyEntity() { return new LdGenre(); }
 
     // ===================================================================================

@@ -76,10 +76,9 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _garbageMemo;
-    public ConditionValue getGarbageMemo() {
-        if (_garbageMemo == null) { _garbageMemo = nCV(); }
-        return _garbageMemo;
-    }
+    public ConditionValue getGarbageMemo()
+    { if (_garbageMemo == null) { _garbageMemo = nCV(); }
+      return _garbageMemo; }
     protected ConditionValue getCValueGarbageMemo() { return getGarbageMemo(); }
 
     /** 
@@ -97,10 +96,9 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     public LdBsGarbageCQ addOrderBy_GarbageMemo_Desc() { regOBD("GARBAGE_MEMO"); return this; }
 
     protected ConditionValue _garbageTime;
-    public ConditionValue getGarbageTime() {
-        if (_garbageTime == null) { _garbageTime = nCV(); }
-        return _garbageTime;
-    }
+    public ConditionValue getGarbageTime()
+    { if (_garbageTime == null) { _garbageTime = nCV(); }
+      return _garbageTime; }
     protected ConditionValue getCValueGarbageTime() { return getGarbageTime(); }
 
     /** 
@@ -118,10 +116,9 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     public LdBsGarbageCQ addOrderBy_GarbageTime_Desc() { regOBD("GARBAGE_TIME"); return this; }
 
     protected ConditionValue _garbageCount;
-    public ConditionValue getGarbageCount() {
-        if (_garbageCount == null) { _garbageCount = nCV(); }
-        return _garbageCount;
-    }
+    public ConditionValue getGarbageCount()
+    { if (_garbageCount == null) { _garbageCount = nCV(); }
+      return _garbageCount; }
     protected ConditionValue getCValueGarbageCount() { return getGarbageCount(); }
 
     /** 
@@ -139,10 +136,9 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     public LdBsGarbageCQ addOrderBy_GarbageCount_Desc() { regOBD("GARBAGE_COUNT"); return this; }
 
     protected ConditionValue _rUser;
-    public ConditionValue getRUser() {
-        if (_rUser == null) { _rUser = nCV(); }
-        return _rUser;
-    }
+    public ConditionValue getRUser()
+    { if (_rUser == null) { _rUser = nCV(); }
+      return _rUser; }
     protected ConditionValue getCValueRUser() { return getRUser(); }
 
     /** 
@@ -160,10 +156,9 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     public LdBsGarbageCQ addOrderBy_RUser_Desc() { regOBD("R_USER"); return this; }
 
     protected ConditionValue _rTimestamp;
-    public ConditionValue getRTimestamp() {
-        if (_rTimestamp == null) { _rTimestamp = nCV(); }
-        return _rTimestamp;
-    }
+    public ConditionValue getRTimestamp()
+    { if (_rTimestamp == null) { _rTimestamp = nCV(); }
+      return _rTimestamp; }
     protected ConditionValue getCValueRTimestamp() { return getRTimestamp(); }
 
     /** 
@@ -181,10 +176,9 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     public LdBsGarbageCQ addOrderBy_RTimestamp_Desc() { regOBD("R_TIMESTAMP"); return this; }
 
     protected ConditionValue _uUser;
-    public ConditionValue getUUser() {
-        if (_uUser == null) { _uUser = nCV(); }
-        return _uUser;
-    }
+    public ConditionValue getUUser()
+    { if (_uUser == null) { _uUser = nCV(); }
+      return _uUser; }
     protected ConditionValue getCValueUUser() { return getUUser(); }
 
     /** 
@@ -202,10 +196,9 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     public LdBsGarbageCQ addOrderBy_UUser_Desc() { regOBD("U_USER"); return this; }
 
     protected ConditionValue _uTimestamp;
-    public ConditionValue getUTimestamp() {
-        if (_uTimestamp == null) { _uTimestamp = nCV(); }
-        return _uTimestamp;
-    }
+    public ConditionValue getUTimestamp()
+    { if (_uTimestamp == null) { _uTimestamp = nCV(); }
+      return _uTimestamp; }
     protected ConditionValue getCValueUTimestamp() { return getUTimestamp(); }
 
     /** 
@@ -239,8 +232,7 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsGarbageCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public LdBsGarbageCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -256,8 +248,7 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsGarbageCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public LdBsGarbageCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -275,13 +266,8 @@ public class LdBsGarbageCQ extends LdAbstractBsGarbageCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, LdGarbageCQ> _scalarConditionMap;
-    public Map<String, LdGarbageCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdGarbageCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, LdGarbageCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(LdGarbageCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

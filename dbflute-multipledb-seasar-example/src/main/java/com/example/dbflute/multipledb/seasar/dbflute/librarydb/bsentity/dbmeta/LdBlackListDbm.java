@@ -257,7 +257,7 @@ public class LdBlackListDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdBlackList newEntity() { return new LdBlackList(); }
     public LdBlackList newMyEntity() { return new LdBlackList(); }
 
     // ===================================================================================

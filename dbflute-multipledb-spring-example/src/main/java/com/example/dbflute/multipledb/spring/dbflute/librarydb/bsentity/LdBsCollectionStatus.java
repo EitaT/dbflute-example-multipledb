@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdCDef;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
@@ -261,7 +261,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
     protected LdCollection _collection;
 
     /**
-     * COLLECTION by my COLLECTION_ID, named 'collection'.
+     * [get] COLLECTION by my COLLECTION_ID, named 'collection'.
      * @return The entity of foreign property 'collection'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdCollection getCollection() {
@@ -269,7 +269,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
     }
 
     /**
-     * COLLECTION by my COLLECTION_ID, named 'collection'.
+     * [set] COLLECTION by my COLLECTION_ID, named 'collection'.
      * @param collection The entity of foreign property 'collection'. (NullAllowed)
      */
     public void setCollection(LdCollection collection) {
@@ -280,7 +280,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
     protected LdCollectionStatusLookup _collectionStatusLookup;
 
     /**
-     * COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
+     * [get] COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
      * @return The entity of foreign property 'collectionStatusLookup'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdCollectionStatusLookup getCollectionStatusLookup() {
@@ -288,7 +288,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
     }
 
     /**
-     * COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
+     * [set] COLLECTION_STATUS_LOOKUP by my COLLECTION_STATUS_CODE, named 'collectionStatusLookup'.
      * @param collectionStatusLookup The entity of foreign property 'collectionStatusLookup'. (NullAllowed)
      */
     public void setCollectionStatusLookup(LdCollectionStatusLookup collectionStatusLookup) {
@@ -480,7 +480,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setCollectionId(Integer collectionId) {
         __modifiedProperties.addPropertyName("collectionId");
-        this._collectionId = collectionId;
+        _collectionId = collectionId;
     }
 
     /**
@@ -497,7 +497,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setCollectionStatusCode(String collectionStatusCode) {
         __modifiedProperties.addPropertyName("collectionStatusCode");
-        this._collectionStatusCode = collectionStatusCode;
+        _collectionStatusCode = collectionStatusCode;
     }
 
     /**
@@ -514,7 +514,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -531,7 +531,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -548,7 +548,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -565,7 +565,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -582,7 +582,7 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -599,6 +599,6 @@ public abstract class LdBsCollectionStatus implements Entity, Serializable, Clon
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

@@ -139,7 +139,7 @@ public class MbRegionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbRegion newEntity() { return new MbRegion(); }
     public MbRegion newMyEntity() { return new MbRegion(); }
 
     // ===================================================================================

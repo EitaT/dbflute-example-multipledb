@@ -267,7 +267,7 @@ public class LdVendorCheckDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdVendorCheck newEntity() { return new LdVendorCheck(); }
     public LdVendorCheck newMyEntity() { return new LdVendorCheck(); }
 
     // ===================================================================================

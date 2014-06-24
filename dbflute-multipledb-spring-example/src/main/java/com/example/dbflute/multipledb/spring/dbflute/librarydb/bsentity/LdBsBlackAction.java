@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -190,7 +190,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
     protected LdBlackList _blackList;
 
     /**
-     * BLACK_LIST by my BLACK_LIST_ID, named 'blackList'.
+     * [get] BLACK_LIST by my BLACK_LIST_ID, named 'blackList'.
      * @return The entity of foreign property 'blackList'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdBlackList getBlackList() {
@@ -198,7 +198,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
     }
 
     /**
-     * BLACK_LIST by my BLACK_LIST_ID, named 'blackList'.
+     * [set] BLACK_LIST by my BLACK_LIST_ID, named 'blackList'.
      * @param blackList The entity of foreign property 'blackList'. (NullAllowed)
      */
     public void setBlackList(LdBlackList blackList) {
@@ -209,7 +209,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
     protected LdBlackActionLookup _blackActionLookup;
 
     /**
-     * BLACK_ACTION_LOOKUP by my BLACK_ACTION_CODE, named 'blackActionLookup'.
+     * [get] BLACK_ACTION_LOOKUP by my BLACK_ACTION_CODE, named 'blackActionLookup'.
      * @return The entity of foreign property 'blackActionLookup'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdBlackActionLookup getBlackActionLookup() {
@@ -217,7 +217,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
     }
 
     /**
-     * BLACK_ACTION_LOOKUP by my BLACK_ACTION_CODE, named 'blackActionLookup'.
+     * [set] BLACK_ACTION_LOOKUP by my BLACK_ACTION_CODE, named 'blackActionLookup'.
      * @param blackActionLookup The entity of foreign property 'blackActionLookup'. (NullAllowed)
      */
     public void setBlackActionLookup(LdBlackActionLookup blackActionLookup) {
@@ -416,7 +416,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setBlackActionId(Integer blackActionId) {
         __modifiedProperties.addPropertyName("blackActionId");
-        this._blackActionId = blackActionId;
+        _blackActionId = blackActionId;
     }
 
     /**
@@ -433,7 +433,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setBlackListId(Integer blackListId) {
         __modifiedProperties.addPropertyName("blackListId");
-        this._blackListId = blackListId;
+        _blackListId = blackListId;
     }
 
     /**
@@ -450,7 +450,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setBlackActionCode(String blackActionCode) {
         __modifiedProperties.addPropertyName("blackActionCode");
-        this._blackActionCode = blackActionCode;
+        _blackActionCode = blackActionCode;
     }
 
     /**
@@ -467,7 +467,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setBlackLevel(Integer blackLevel) {
         __modifiedProperties.addPropertyName("blackLevel");
-        this._blackLevel = blackLevel;
+        _blackLevel = blackLevel;
     }
 
     /**
@@ -484,7 +484,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setActionDate(java.sql.Timestamp actionDate) {
         __modifiedProperties.addPropertyName("actionDate");
-        this._actionDate = actionDate;
+        _actionDate = actionDate;
     }
 
     /**
@@ -501,7 +501,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setEvidencePhotograph(byte[] evidencePhotograph) {
         __modifiedProperties.addPropertyName("evidencePhotograph");
-        this._evidencePhotograph = evidencePhotograph;
+        _evidencePhotograph = evidencePhotograph;
     }
 
     /**
@@ -518,7 +518,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -535,7 +535,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -552,7 +552,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -569,7 +569,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -586,7 +586,7 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -603,6 +603,6 @@ public abstract class LdBsBlackAction implements Entity, Serializable, Cloneable
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

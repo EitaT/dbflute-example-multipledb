@@ -82,21 +82,35 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param constraintNameAutoRefId : PK, NotNull, NUMERIC(16). (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdVendorConstraintNameAutoRefCB acceptPK(java.math.BigDecimal constraintNameAutoRefId) {
+        assertObjectNotNull("constraintNameAutoRefId", constraintNameAutoRefId);
+        LdBsVendorConstraintNameAutoRefCB cb = this;
+        cb.query().setConstraintNameAutoRefId_Equal(constraintNameAutoRefId);
+        return (LdVendorConstraintNameAutoRefCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param constraintNameAutoRefId : PK, NotNull, NUMERIC(16). (NotNull)
      */
     public void acceptPrimaryKey(java.math.BigDecimal constraintNameAutoRefId) {
         assertObjectNotNull("constraintNameAutoRefId", constraintNameAutoRefId);
         LdBsVendorConstraintNameAutoRefCB cb = this;
-        cb.query().setConstraintNameAutoRefId_Equal(constraintNameAutoRefId);;
+        cb.query().setConstraintNameAutoRefId_Equal(constraintNameAutoRefId);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param constraintNameAutoUnique : UQ, NotNull, VARCHAR(50). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(String constraintNameAutoUnique) {
+    public LdVendorConstraintNameAutoRefCB acceptUniqueOf(String constraintNameAutoUnique) {
         assertObjectNotNull("constraintNameAutoUnique", constraintNameAutoUnique);
         LdBsVendorConstraintNameAutoRefCB cb = this;
-        cb.query().setConstraintNameAutoUnique_Equal(constraintNameAutoUnique);;
+        cb.query().setConstraintNameAutoUnique_Equal(constraintNameAutoUnique);
+        return (LdVendorConstraintNameAutoRefCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

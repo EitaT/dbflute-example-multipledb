@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -171,7 +171,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     protected LdLbUser _lbUser;
 
     /**
-     * LB_USER by my LB_USER_ID, named 'lbUser'.
+     * [get] LB_USER by my LB_USER_ID, named 'lbUser'.
      * @return The entity of foreign property 'lbUser'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLbUser getLbUser() {
@@ -179,7 +179,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     }
 
     /**
-     * LB_USER by my LB_USER_ID, named 'lbUser'.
+     * [set] LB_USER by my LB_USER_ID, named 'lbUser'.
      * @param lbUser The entity of foreign property 'lbUser'. (NullAllowed)
      */
     public void setLbUser(LdLbUser lbUser) {
@@ -190,7 +190,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     protected LdLibrary _library;
 
     /**
-     * LIBRARY by my LIBRARY_ID, named 'library'.
+     * [get] LIBRARY by my LIBRARY_ID, named 'library'.
      * @return The entity of foreign property 'library'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLibrary getLibrary() {
@@ -198,7 +198,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     }
 
     /**
-     * LIBRARY by my LIBRARY_ID, named 'library'.
+     * [set] LIBRARY by my LIBRARY_ID, named 'library'.
      * @param library The entity of foreign property 'library'. (NullAllowed)
      */
     public void setLibrary(LdLibrary library) {
@@ -212,7 +212,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     protected List<LdLending> _lendingList;
 
     /**
-     * LENDING by LIBRARY_ID, LB_USER_ID, named 'lendingList'.
+     * [get] LENDING by LIBRARY_ID, LB_USER_ID, named 'lendingList'.
      * @return The entity list of referrer property 'lendingList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdLending> getLendingList() {
@@ -221,7 +221,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     }
 
     /**
-     * LENDING by LIBRARY_ID, LB_USER_ID, named 'lendingList'.
+     * [set] LENDING by LIBRARY_ID, LB_USER_ID, named 'lendingList'.
      * @param lendingList The entity list of referrer property 'lendingList'. (NullAllowed)
      */
     public void setLendingList(List<LdLending> lendingList) {
@@ -232,7 +232,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     protected List<LdLendingCollection> _lendingCollectionList;
 
     /**
-     * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, named 'lendingCollectionList'.
+     * [get] LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, named 'lendingCollectionList'.
      * @return The entity list of referrer property 'lendingCollectionList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdLendingCollection> getLendingCollectionList() {
@@ -241,7 +241,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
     }
 
     /**
-     * LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, named 'lendingCollectionList'.
+     * [set] LENDING_COLLECTION by LIBRARY_ID, LB_USER_ID, named 'lendingCollectionList'.
      * @param lendingCollectionList The entity list of referrer property 'lendingCollectionList'. (NullAllowed)
      */
     public void setLendingCollectionList(List<LdLendingCollection> lendingCollectionList) {
@@ -440,7 +440,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setLibraryId(Integer libraryId) {
         __modifiedProperties.addPropertyName("libraryId");
-        this._libraryId = libraryId;
+        _libraryId = libraryId;
     }
 
     /**
@@ -457,7 +457,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setLbUserId(Integer lbUserId) {
         __modifiedProperties.addPropertyName("lbUserId");
-        this._lbUserId = lbUserId;
+        _lbUserId = lbUserId;
     }
 
     /**
@@ -474,7 +474,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -491,7 +491,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -508,7 +508,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -525,7 +525,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -542,7 +542,7 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -559,6 +559,6 @@ public abstract class LdBsLibraryUser implements Entity, Serializable, Cloneable
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

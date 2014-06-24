@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdCDef;
@@ -404,7 +404,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
     protected List<LdCollectionStatus> _collectionStatusList;
 
     /**
-     * COLLECTION_STATUS by COLLECTION_STATUS_CODE, named 'collectionStatusList'.
+     * [get] COLLECTION_STATUS by COLLECTION_STATUS_CODE, named 'collectionStatusList'.
      * @return The entity list of referrer property 'collectionStatusList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdCollectionStatus> getCollectionStatusList() {
@@ -413,7 +413,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
     }
 
     /**
-     * COLLECTION_STATUS by COLLECTION_STATUS_CODE, named 'collectionStatusList'.
+     * [set] COLLECTION_STATUS by COLLECTION_STATUS_CODE, named 'collectionStatusList'.
      * @param collectionStatusList The entity list of referrer property 'collectionStatusList'. (NullAllowed)
      */
     public void setCollectionStatusList(List<LdCollectionStatus> collectionStatusList) {
@@ -624,7 +624,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setCollectionStatusCode(String collectionStatusCode) {
         __modifiedProperties.addPropertyName("collectionStatusCode");
-        this._collectionStatusCode = collectionStatusCode;
+        _collectionStatusCode = collectionStatusCode;
     }
 
     /**
@@ -641,7 +641,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setCollectionStatusName(String collectionStatusName) {
         __modifiedProperties.addPropertyName("collectionStatusName");
-        this._collectionStatusName = collectionStatusName;
+        _collectionStatusName = collectionStatusName;
     }
 
     /**
@@ -658,7 +658,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -675,7 +675,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -692,7 +692,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -709,7 +709,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -726,7 +726,7 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -743,6 +743,6 @@ public abstract class LdBsCollectionStatusLookup implements LdEntityDefinedCommo
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

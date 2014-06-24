@@ -74,272 +74,106 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _memberId;
-    public ConditionValue getMemberId() {
-        if (_memberId == null) { _memberId = nCV(); }
-        return _memberId;
-    }
+    public ConditionValue getMemberId()
+    { if (_memberId == null) { _memberId = nCV(); }
+      return _memberId; }
     protected ConditionValue getCValueMemberId() { return getMemberId(); }
 
-    protected Map<String, MbMemberAddressCQ> _memberId_ExistsReferrer_MemberAddressListMap;
-    public Map<String, MbMemberAddressCQ> getMemberId_ExistsReferrer_MemberAddressList() { return _memberId_ExistsReferrer_MemberAddressListMap; }
-    public String keepMemberId_ExistsReferrer_MemberAddressList(MbMemberAddressCQ sq) {
-        if (_memberId_ExistsReferrer_MemberAddressListMap == null) { _memberId_ExistsReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_ExistsReferrer_MemberAddressListMap.size() + 1);
-        _memberId_ExistsReferrer_MemberAddressListMap.put(ky, sq); return "memberId_ExistsReferrer_MemberAddressList." + ky;
-    }
+    public Map<String, MbMemberAddressCQ> getMemberId_ExistsReferrer_MemberAddressList() { return xgetSQueMap("memberId_ExistsReferrer_MemberAddressList"); }
+    public String keepMemberId_ExistsReferrer_MemberAddressList(MbMemberAddressCQ sq) { return xkeepSQue("memberId_ExistsReferrer_MemberAddressList", sq); }
 
-    protected Map<String, MbMemberLoginCQ> _memberId_ExistsReferrer_MemberLoginListMap;
-    public Map<String, MbMemberLoginCQ> getMemberId_ExistsReferrer_MemberLoginList() { return _memberId_ExistsReferrer_MemberLoginListMap; }
-    public String keepMemberId_ExistsReferrer_MemberLoginList(MbMemberLoginCQ sq) {
-        if (_memberId_ExistsReferrer_MemberLoginListMap == null) { _memberId_ExistsReferrer_MemberLoginListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_ExistsReferrer_MemberLoginListMap.size() + 1);
-        _memberId_ExistsReferrer_MemberLoginListMap.put(ky, sq); return "memberId_ExistsReferrer_MemberLoginList." + ky;
-    }
+    public Map<String, MbMemberLoginCQ> getMemberId_ExistsReferrer_MemberLoginList() { return xgetSQueMap("memberId_ExistsReferrer_MemberLoginList"); }
+    public String keepMemberId_ExistsReferrer_MemberLoginList(MbMemberLoginCQ sq) { return xkeepSQue("memberId_ExistsReferrer_MemberLoginList", sq); }
 
-    protected Map<String, MbMemberSecurityCQ> _memberId_ExistsReferrer_MemberSecurityAsOneMap;
-    public Map<String, MbMemberSecurityCQ> getMemberId_ExistsReferrer_MemberSecurityAsOne() { return _memberId_ExistsReferrer_MemberSecurityAsOneMap; }
-    public String keepMemberId_ExistsReferrer_MemberSecurityAsOne(MbMemberSecurityCQ sq) {
-        if (_memberId_ExistsReferrer_MemberSecurityAsOneMap == null) { _memberId_ExistsReferrer_MemberSecurityAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_ExistsReferrer_MemberSecurityAsOneMap.size() + 1);
-        _memberId_ExistsReferrer_MemberSecurityAsOneMap.put(ky, sq); return "memberId_ExistsReferrer_MemberSecurityAsOne." + ky;
-    }
+    public Map<String, MbMemberSecurityCQ> getMemberId_ExistsReferrer_MemberSecurityAsOne() { return xgetSQueMap("memberId_ExistsReferrer_MemberSecurityAsOne"); }
+    public String keepMemberId_ExistsReferrer_MemberSecurityAsOne(MbMemberSecurityCQ sq) { return xkeepSQue("memberId_ExistsReferrer_MemberSecurityAsOne", sq); }
 
-    protected Map<String, MbMemberServiceCQ> _memberId_ExistsReferrer_MemberServiceAsOneMap;
-    public Map<String, MbMemberServiceCQ> getMemberId_ExistsReferrer_MemberServiceAsOne() { return _memberId_ExistsReferrer_MemberServiceAsOneMap; }
-    public String keepMemberId_ExistsReferrer_MemberServiceAsOne(MbMemberServiceCQ sq) {
-        if (_memberId_ExistsReferrer_MemberServiceAsOneMap == null) { _memberId_ExistsReferrer_MemberServiceAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_ExistsReferrer_MemberServiceAsOneMap.size() + 1);
-        _memberId_ExistsReferrer_MemberServiceAsOneMap.put(ky, sq); return "memberId_ExistsReferrer_MemberServiceAsOne." + ky;
-    }
+    public Map<String, MbMemberServiceCQ> getMemberId_ExistsReferrer_MemberServiceAsOne() { return xgetSQueMap("memberId_ExistsReferrer_MemberServiceAsOne"); }
+    public String keepMemberId_ExistsReferrer_MemberServiceAsOne(MbMemberServiceCQ sq) { return xkeepSQue("memberId_ExistsReferrer_MemberServiceAsOne", sq); }
 
-    protected Map<String, MbMemberWithdrawalCQ> _memberId_ExistsReferrer_MemberWithdrawalAsOneMap;
-    public Map<String, MbMemberWithdrawalCQ> getMemberId_ExistsReferrer_MemberWithdrawalAsOne() { return _memberId_ExistsReferrer_MemberWithdrawalAsOneMap; }
-    public String keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) {
-        if (_memberId_ExistsReferrer_MemberWithdrawalAsOneMap == null) { _memberId_ExistsReferrer_MemberWithdrawalAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_ExistsReferrer_MemberWithdrawalAsOneMap.size() + 1);
-        _memberId_ExistsReferrer_MemberWithdrawalAsOneMap.put(ky, sq); return "memberId_ExistsReferrer_MemberWithdrawalAsOne." + ky;
-    }
+    public Map<String, MbMemberWithdrawalCQ> getMemberId_ExistsReferrer_MemberWithdrawalAsOne() { return xgetSQueMap("memberId_ExistsReferrer_MemberWithdrawalAsOne"); }
+    public String keepMemberId_ExistsReferrer_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) { return xkeepSQue("memberId_ExistsReferrer_MemberWithdrawalAsOne", sq); }
 
-    protected Map<String, MbPurchaseCQ> _memberId_ExistsReferrer_PurchaseListMap;
-    public Map<String, MbPurchaseCQ> getMemberId_ExistsReferrer_PurchaseList() { return _memberId_ExistsReferrer_PurchaseListMap; }
-    public String keepMemberId_ExistsReferrer_PurchaseList(MbPurchaseCQ sq) {
-        if (_memberId_ExistsReferrer_PurchaseListMap == null) { _memberId_ExistsReferrer_PurchaseListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_ExistsReferrer_PurchaseListMap.size() + 1);
-        _memberId_ExistsReferrer_PurchaseListMap.put(ky, sq); return "memberId_ExistsReferrer_PurchaseList." + ky;
-    }
+    public Map<String, MbPurchaseCQ> getMemberId_ExistsReferrer_PurchaseList() { return xgetSQueMap("memberId_ExistsReferrer_PurchaseList"); }
+    public String keepMemberId_ExistsReferrer_PurchaseList(MbPurchaseCQ sq) { return xkeepSQue("memberId_ExistsReferrer_PurchaseList", sq); }
 
-    protected Map<String, MbMemberAddressCQ> _memberId_NotExistsReferrer_MemberAddressListMap;
-    public Map<String, MbMemberAddressCQ> getMemberId_NotExistsReferrer_MemberAddressList() { return _memberId_NotExistsReferrer_MemberAddressListMap; }
-    public String keepMemberId_NotExistsReferrer_MemberAddressList(MbMemberAddressCQ sq) {
-        if (_memberId_NotExistsReferrer_MemberAddressListMap == null) { _memberId_NotExistsReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotExistsReferrer_MemberAddressListMap.size() + 1);
-        _memberId_NotExistsReferrer_MemberAddressListMap.put(ky, sq); return "memberId_NotExistsReferrer_MemberAddressList." + ky;
-    }
+    public Map<String, MbMemberAddressCQ> getMemberId_NotExistsReferrer_MemberAddressList() { return xgetSQueMap("memberId_NotExistsReferrer_MemberAddressList"); }
+    public String keepMemberId_NotExistsReferrer_MemberAddressList(MbMemberAddressCQ sq) { return xkeepSQue("memberId_NotExistsReferrer_MemberAddressList", sq); }
 
-    protected Map<String, MbMemberLoginCQ> _memberId_NotExistsReferrer_MemberLoginListMap;
-    public Map<String, MbMemberLoginCQ> getMemberId_NotExistsReferrer_MemberLoginList() { return _memberId_NotExistsReferrer_MemberLoginListMap; }
-    public String keepMemberId_NotExistsReferrer_MemberLoginList(MbMemberLoginCQ sq) {
-        if (_memberId_NotExistsReferrer_MemberLoginListMap == null) { _memberId_NotExistsReferrer_MemberLoginListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotExistsReferrer_MemberLoginListMap.size() + 1);
-        _memberId_NotExistsReferrer_MemberLoginListMap.put(ky, sq); return "memberId_NotExistsReferrer_MemberLoginList." + ky;
-    }
+    public Map<String, MbMemberLoginCQ> getMemberId_NotExistsReferrer_MemberLoginList() { return xgetSQueMap("memberId_NotExistsReferrer_MemberLoginList"); }
+    public String keepMemberId_NotExistsReferrer_MemberLoginList(MbMemberLoginCQ sq) { return xkeepSQue("memberId_NotExistsReferrer_MemberLoginList", sq); }
 
-    protected Map<String, MbMemberSecurityCQ> _memberId_NotExistsReferrer_MemberSecurityAsOneMap;
-    public Map<String, MbMemberSecurityCQ> getMemberId_NotExistsReferrer_MemberSecurityAsOne() { return _memberId_NotExistsReferrer_MemberSecurityAsOneMap; }
-    public String keepMemberId_NotExistsReferrer_MemberSecurityAsOne(MbMemberSecurityCQ sq) {
-        if (_memberId_NotExistsReferrer_MemberSecurityAsOneMap == null) { _memberId_NotExistsReferrer_MemberSecurityAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotExistsReferrer_MemberSecurityAsOneMap.size() + 1);
-        _memberId_NotExistsReferrer_MemberSecurityAsOneMap.put(ky, sq); return "memberId_NotExistsReferrer_MemberSecurityAsOne." + ky;
-    }
+    public Map<String, MbMemberSecurityCQ> getMemberId_NotExistsReferrer_MemberSecurityAsOne() { return xgetSQueMap("memberId_NotExistsReferrer_MemberSecurityAsOne"); }
+    public String keepMemberId_NotExistsReferrer_MemberSecurityAsOne(MbMemberSecurityCQ sq) { return xkeepSQue("memberId_NotExistsReferrer_MemberSecurityAsOne", sq); }
 
-    protected Map<String, MbMemberServiceCQ> _memberId_NotExistsReferrer_MemberServiceAsOneMap;
-    public Map<String, MbMemberServiceCQ> getMemberId_NotExistsReferrer_MemberServiceAsOne() { return _memberId_NotExistsReferrer_MemberServiceAsOneMap; }
-    public String keepMemberId_NotExistsReferrer_MemberServiceAsOne(MbMemberServiceCQ sq) {
-        if (_memberId_NotExistsReferrer_MemberServiceAsOneMap == null) { _memberId_NotExistsReferrer_MemberServiceAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotExistsReferrer_MemberServiceAsOneMap.size() + 1);
-        _memberId_NotExistsReferrer_MemberServiceAsOneMap.put(ky, sq); return "memberId_NotExistsReferrer_MemberServiceAsOne." + ky;
-    }
+    public Map<String, MbMemberServiceCQ> getMemberId_NotExistsReferrer_MemberServiceAsOne() { return xgetSQueMap("memberId_NotExistsReferrer_MemberServiceAsOne"); }
+    public String keepMemberId_NotExistsReferrer_MemberServiceAsOne(MbMemberServiceCQ sq) { return xkeepSQue("memberId_NotExistsReferrer_MemberServiceAsOne", sq); }
 
-    protected Map<String, MbMemberWithdrawalCQ> _memberId_NotExistsReferrer_MemberWithdrawalAsOneMap;
-    public Map<String, MbMemberWithdrawalCQ> getMemberId_NotExistsReferrer_MemberWithdrawalAsOne() { return _memberId_NotExistsReferrer_MemberWithdrawalAsOneMap; }
-    public String keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) {
-        if (_memberId_NotExistsReferrer_MemberWithdrawalAsOneMap == null) { _memberId_NotExistsReferrer_MemberWithdrawalAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotExistsReferrer_MemberWithdrawalAsOneMap.size() + 1);
-        _memberId_NotExistsReferrer_MemberWithdrawalAsOneMap.put(ky, sq); return "memberId_NotExistsReferrer_MemberWithdrawalAsOne." + ky;
-    }
+    public Map<String, MbMemberWithdrawalCQ> getMemberId_NotExistsReferrer_MemberWithdrawalAsOne() { return xgetSQueMap("memberId_NotExistsReferrer_MemberWithdrawalAsOne"); }
+    public String keepMemberId_NotExistsReferrer_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) { return xkeepSQue("memberId_NotExistsReferrer_MemberWithdrawalAsOne", sq); }
 
-    protected Map<String, MbPurchaseCQ> _memberId_NotExistsReferrer_PurchaseListMap;
-    public Map<String, MbPurchaseCQ> getMemberId_NotExistsReferrer_PurchaseList() { return _memberId_NotExistsReferrer_PurchaseListMap; }
-    public String keepMemberId_NotExistsReferrer_PurchaseList(MbPurchaseCQ sq) {
-        if (_memberId_NotExistsReferrer_PurchaseListMap == null) { _memberId_NotExistsReferrer_PurchaseListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotExistsReferrer_PurchaseListMap.size() + 1);
-        _memberId_NotExistsReferrer_PurchaseListMap.put(ky, sq); return "memberId_NotExistsReferrer_PurchaseList." + ky;
-    }
+    public Map<String, MbPurchaseCQ> getMemberId_NotExistsReferrer_PurchaseList() { return xgetSQueMap("memberId_NotExistsReferrer_PurchaseList"); }
+    public String keepMemberId_NotExistsReferrer_PurchaseList(MbPurchaseCQ sq) { return xkeepSQue("memberId_NotExistsReferrer_PurchaseList", sq); }
 
-    protected Map<String, MbMemberAddressCQ> _memberId_SpecifyDerivedReferrer_MemberAddressListMap;
-    public Map<String, MbMemberAddressCQ> getMemberId_SpecifyDerivedReferrer_MemberAddressList() { return _memberId_SpecifyDerivedReferrer_MemberAddressListMap; }
-    public String keepMemberId_SpecifyDerivedReferrer_MemberAddressList(MbMemberAddressCQ sq) {
-        if (_memberId_SpecifyDerivedReferrer_MemberAddressListMap == null) { _memberId_SpecifyDerivedReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_SpecifyDerivedReferrer_MemberAddressListMap.size() + 1);
-        _memberId_SpecifyDerivedReferrer_MemberAddressListMap.put(ky, sq); return "memberId_SpecifyDerivedReferrer_MemberAddressList." + ky;
-    }
+    public Map<String, MbMemberAddressCQ> getMemberId_SpecifyDerivedReferrer_MemberAddressList() { return xgetSQueMap("memberId_SpecifyDerivedReferrer_MemberAddressList"); }
+    public String keepMemberId_SpecifyDerivedReferrer_MemberAddressList(MbMemberAddressCQ sq) { return xkeepSQue("memberId_SpecifyDerivedReferrer_MemberAddressList", sq); }
 
-    protected Map<String, MbMemberLoginCQ> _memberId_SpecifyDerivedReferrer_MemberLoginListMap;
-    public Map<String, MbMemberLoginCQ> getMemberId_SpecifyDerivedReferrer_MemberLoginList() { return _memberId_SpecifyDerivedReferrer_MemberLoginListMap; }
-    public String keepMemberId_SpecifyDerivedReferrer_MemberLoginList(MbMemberLoginCQ sq) {
-        if (_memberId_SpecifyDerivedReferrer_MemberLoginListMap == null) { _memberId_SpecifyDerivedReferrer_MemberLoginListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_SpecifyDerivedReferrer_MemberLoginListMap.size() + 1);
-        _memberId_SpecifyDerivedReferrer_MemberLoginListMap.put(ky, sq); return "memberId_SpecifyDerivedReferrer_MemberLoginList." + ky;
-    }
+    public Map<String, MbMemberLoginCQ> getMemberId_SpecifyDerivedReferrer_MemberLoginList() { return xgetSQueMap("memberId_SpecifyDerivedReferrer_MemberLoginList"); }
+    public String keepMemberId_SpecifyDerivedReferrer_MemberLoginList(MbMemberLoginCQ sq) { return xkeepSQue("memberId_SpecifyDerivedReferrer_MemberLoginList", sq); }
 
-    protected Map<String, MbPurchaseCQ> _memberId_SpecifyDerivedReferrer_PurchaseListMap;
-    public Map<String, MbPurchaseCQ> getMemberId_SpecifyDerivedReferrer_PurchaseList() { return _memberId_SpecifyDerivedReferrer_PurchaseListMap; }
-    public String keepMemberId_SpecifyDerivedReferrer_PurchaseList(MbPurchaseCQ sq) {
-        if (_memberId_SpecifyDerivedReferrer_PurchaseListMap == null) { _memberId_SpecifyDerivedReferrer_PurchaseListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_SpecifyDerivedReferrer_PurchaseListMap.size() + 1);
-        _memberId_SpecifyDerivedReferrer_PurchaseListMap.put(ky, sq); return "memberId_SpecifyDerivedReferrer_PurchaseList." + ky;
-    }
+    public Map<String, MbPurchaseCQ> getMemberId_SpecifyDerivedReferrer_PurchaseList() { return xgetSQueMap("memberId_SpecifyDerivedReferrer_PurchaseList"); }
+    public String keepMemberId_SpecifyDerivedReferrer_PurchaseList(MbPurchaseCQ sq) { return xkeepSQue("memberId_SpecifyDerivedReferrer_PurchaseList", sq); }
 
-    protected Map<String, MbMemberAddressCQ> _memberId_InScopeRelation_MemberAddressListMap;
-    public Map<String, MbMemberAddressCQ> getMemberId_InScopeRelation_MemberAddressList() { return _memberId_InScopeRelation_MemberAddressListMap; }
-    public String keepMemberId_InScopeRelation_MemberAddressList(MbMemberAddressCQ sq) {
-        if (_memberId_InScopeRelation_MemberAddressListMap == null) { _memberId_InScopeRelation_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberAddressListMap.size() + 1);
-        _memberId_InScopeRelation_MemberAddressListMap.put(ky, sq); return "memberId_InScopeRelation_MemberAddressList." + ky;
-    }
+    public Map<String, MbMemberAddressCQ> getMemberId_InScopeRelation_MemberAddressList() { return xgetSQueMap("memberId_InScopeRelation_MemberAddressList"); }
+    public String keepMemberId_InScopeRelation_MemberAddressList(MbMemberAddressCQ sq) { return xkeepSQue("memberId_InScopeRelation_MemberAddressList", sq); }
 
-    protected Map<String, MbMemberLoginCQ> _memberId_InScopeRelation_MemberLoginListMap;
-    public Map<String, MbMemberLoginCQ> getMemberId_InScopeRelation_MemberLoginList() { return _memberId_InScopeRelation_MemberLoginListMap; }
-    public String keepMemberId_InScopeRelation_MemberLoginList(MbMemberLoginCQ sq) {
-        if (_memberId_InScopeRelation_MemberLoginListMap == null) { _memberId_InScopeRelation_MemberLoginListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberLoginListMap.size() + 1);
-        _memberId_InScopeRelation_MemberLoginListMap.put(ky, sq); return "memberId_InScopeRelation_MemberLoginList." + ky;
-    }
+    public Map<String, MbMemberLoginCQ> getMemberId_InScopeRelation_MemberLoginList() { return xgetSQueMap("memberId_InScopeRelation_MemberLoginList"); }
+    public String keepMemberId_InScopeRelation_MemberLoginList(MbMemberLoginCQ sq) { return xkeepSQue("memberId_InScopeRelation_MemberLoginList", sq); }
 
-    protected Map<String, MbMemberSecurityCQ> _memberId_InScopeRelation_MemberSecurityAsOneMap;
-    public Map<String, MbMemberSecurityCQ> getMemberId_InScopeRelation_MemberSecurityAsOne() { return _memberId_InScopeRelation_MemberSecurityAsOneMap; }
-    public String keepMemberId_InScopeRelation_MemberSecurityAsOne(MbMemberSecurityCQ sq) {
-        if (_memberId_InScopeRelation_MemberSecurityAsOneMap == null) { _memberId_InScopeRelation_MemberSecurityAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberSecurityAsOneMap.size() + 1);
-        _memberId_InScopeRelation_MemberSecurityAsOneMap.put(ky, sq); return "memberId_InScopeRelation_MemberSecurityAsOne." + ky;
-    }
+    public Map<String, MbMemberSecurityCQ> getMemberId_InScopeRelation_MemberSecurityAsOne() { return xgetSQueMap("memberId_InScopeRelation_MemberSecurityAsOne"); }
+    public String keepMemberId_InScopeRelation_MemberSecurityAsOne(MbMemberSecurityCQ sq) { return xkeepSQue("memberId_InScopeRelation_MemberSecurityAsOne", sq); }
 
-    protected Map<String, MbMemberServiceCQ> _memberId_InScopeRelation_MemberServiceAsOneMap;
-    public Map<String, MbMemberServiceCQ> getMemberId_InScopeRelation_MemberServiceAsOne() { return _memberId_InScopeRelation_MemberServiceAsOneMap; }
-    public String keepMemberId_InScopeRelation_MemberServiceAsOne(MbMemberServiceCQ sq) {
-        if (_memberId_InScopeRelation_MemberServiceAsOneMap == null) { _memberId_InScopeRelation_MemberServiceAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberServiceAsOneMap.size() + 1);
-        _memberId_InScopeRelation_MemberServiceAsOneMap.put(ky, sq); return "memberId_InScopeRelation_MemberServiceAsOne." + ky;
-    }
+    public Map<String, MbMemberServiceCQ> getMemberId_InScopeRelation_MemberServiceAsOne() { return xgetSQueMap("memberId_InScopeRelation_MemberServiceAsOne"); }
+    public String keepMemberId_InScopeRelation_MemberServiceAsOne(MbMemberServiceCQ sq) { return xkeepSQue("memberId_InScopeRelation_MemberServiceAsOne", sq); }
 
-    protected Map<String, MbMemberWithdrawalCQ> _memberId_InScopeRelation_MemberWithdrawalAsOneMap;
-    public Map<String, MbMemberWithdrawalCQ> getMemberId_InScopeRelation_MemberWithdrawalAsOne() { return _memberId_InScopeRelation_MemberWithdrawalAsOneMap; }
-    public String keepMemberId_InScopeRelation_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) {
-        if (_memberId_InScopeRelation_MemberWithdrawalAsOneMap == null) { _memberId_InScopeRelation_MemberWithdrawalAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_MemberWithdrawalAsOneMap.size() + 1);
-        _memberId_InScopeRelation_MemberWithdrawalAsOneMap.put(ky, sq); return "memberId_InScopeRelation_MemberWithdrawalAsOne." + ky;
-    }
+    public Map<String, MbMemberWithdrawalCQ> getMemberId_InScopeRelation_MemberWithdrawalAsOne() { return xgetSQueMap("memberId_InScopeRelation_MemberWithdrawalAsOne"); }
+    public String keepMemberId_InScopeRelation_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) { return xkeepSQue("memberId_InScopeRelation_MemberWithdrawalAsOne", sq); }
 
-    protected Map<String, MbPurchaseCQ> _memberId_InScopeRelation_PurchaseListMap;
-    public Map<String, MbPurchaseCQ> getMemberId_InScopeRelation_PurchaseList() { return _memberId_InScopeRelation_PurchaseListMap; }
-    public String keepMemberId_InScopeRelation_PurchaseList(MbPurchaseCQ sq) {
-        if (_memberId_InScopeRelation_PurchaseListMap == null) { _memberId_InScopeRelation_PurchaseListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_InScopeRelation_PurchaseListMap.size() + 1);
-        _memberId_InScopeRelation_PurchaseListMap.put(ky, sq); return "memberId_InScopeRelation_PurchaseList." + ky;
-    }
+    public Map<String, MbPurchaseCQ> getMemberId_InScopeRelation_PurchaseList() { return xgetSQueMap("memberId_InScopeRelation_PurchaseList"); }
+    public String keepMemberId_InScopeRelation_PurchaseList(MbPurchaseCQ sq) { return xkeepSQue("memberId_InScopeRelation_PurchaseList", sq); }
 
-    protected Map<String, MbMemberAddressCQ> _memberId_NotInScopeRelation_MemberAddressListMap;
-    public Map<String, MbMemberAddressCQ> getMemberId_NotInScopeRelation_MemberAddressList() { return _memberId_NotInScopeRelation_MemberAddressListMap; }
-    public String keepMemberId_NotInScopeRelation_MemberAddressList(MbMemberAddressCQ sq) {
-        if (_memberId_NotInScopeRelation_MemberAddressListMap == null) { _memberId_NotInScopeRelation_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberAddressListMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberAddressListMap.put(ky, sq); return "memberId_NotInScopeRelation_MemberAddressList." + ky;
-    }
+    public Map<String, MbMemberAddressCQ> getMemberId_NotInScopeRelation_MemberAddressList() { return xgetSQueMap("memberId_NotInScopeRelation_MemberAddressList"); }
+    public String keepMemberId_NotInScopeRelation_MemberAddressList(MbMemberAddressCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_MemberAddressList", sq); }
 
-    protected Map<String, MbMemberLoginCQ> _memberId_NotInScopeRelation_MemberLoginListMap;
-    public Map<String, MbMemberLoginCQ> getMemberId_NotInScopeRelation_MemberLoginList() { return _memberId_NotInScopeRelation_MemberLoginListMap; }
-    public String keepMemberId_NotInScopeRelation_MemberLoginList(MbMemberLoginCQ sq) {
-        if (_memberId_NotInScopeRelation_MemberLoginListMap == null) { _memberId_NotInScopeRelation_MemberLoginListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberLoginListMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberLoginListMap.put(ky, sq); return "memberId_NotInScopeRelation_MemberLoginList." + ky;
-    }
+    public Map<String, MbMemberLoginCQ> getMemberId_NotInScopeRelation_MemberLoginList() { return xgetSQueMap("memberId_NotInScopeRelation_MemberLoginList"); }
+    public String keepMemberId_NotInScopeRelation_MemberLoginList(MbMemberLoginCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_MemberLoginList", sq); }
 
-    protected Map<String, MbMemberSecurityCQ> _memberId_NotInScopeRelation_MemberSecurityAsOneMap;
-    public Map<String, MbMemberSecurityCQ> getMemberId_NotInScopeRelation_MemberSecurityAsOne() { return _memberId_NotInScopeRelation_MemberSecurityAsOneMap; }
-    public String keepMemberId_NotInScopeRelation_MemberSecurityAsOne(MbMemberSecurityCQ sq) {
-        if (_memberId_NotInScopeRelation_MemberSecurityAsOneMap == null) { _memberId_NotInScopeRelation_MemberSecurityAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberSecurityAsOneMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberSecurityAsOneMap.put(ky, sq); return "memberId_NotInScopeRelation_MemberSecurityAsOne." + ky;
-    }
+    public Map<String, MbMemberSecurityCQ> getMemberId_NotInScopeRelation_MemberSecurityAsOne() { return xgetSQueMap("memberId_NotInScopeRelation_MemberSecurityAsOne"); }
+    public String keepMemberId_NotInScopeRelation_MemberSecurityAsOne(MbMemberSecurityCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_MemberSecurityAsOne", sq); }
 
-    protected Map<String, MbMemberServiceCQ> _memberId_NotInScopeRelation_MemberServiceAsOneMap;
-    public Map<String, MbMemberServiceCQ> getMemberId_NotInScopeRelation_MemberServiceAsOne() { return _memberId_NotInScopeRelation_MemberServiceAsOneMap; }
-    public String keepMemberId_NotInScopeRelation_MemberServiceAsOne(MbMemberServiceCQ sq) {
-        if (_memberId_NotInScopeRelation_MemberServiceAsOneMap == null) { _memberId_NotInScopeRelation_MemberServiceAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberServiceAsOneMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberServiceAsOneMap.put(ky, sq); return "memberId_NotInScopeRelation_MemberServiceAsOne." + ky;
-    }
+    public Map<String, MbMemberServiceCQ> getMemberId_NotInScopeRelation_MemberServiceAsOne() { return xgetSQueMap("memberId_NotInScopeRelation_MemberServiceAsOne"); }
+    public String keepMemberId_NotInScopeRelation_MemberServiceAsOne(MbMemberServiceCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_MemberServiceAsOne", sq); }
 
-    protected Map<String, MbMemberWithdrawalCQ> _memberId_NotInScopeRelation_MemberWithdrawalAsOneMap;
-    public Map<String, MbMemberWithdrawalCQ> getMemberId_NotInScopeRelation_MemberWithdrawalAsOne() { return _memberId_NotInScopeRelation_MemberWithdrawalAsOneMap; }
-    public String keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) {
-        if (_memberId_NotInScopeRelation_MemberWithdrawalAsOneMap == null) { _memberId_NotInScopeRelation_MemberWithdrawalAsOneMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_MemberWithdrawalAsOneMap.size() + 1);
-        _memberId_NotInScopeRelation_MemberWithdrawalAsOneMap.put(ky, sq); return "memberId_NotInScopeRelation_MemberWithdrawalAsOne." + ky;
-    }
+    public Map<String, MbMemberWithdrawalCQ> getMemberId_NotInScopeRelation_MemberWithdrawalAsOne() { return xgetSQueMap("memberId_NotInScopeRelation_MemberWithdrawalAsOne"); }
+    public String keepMemberId_NotInScopeRelation_MemberWithdrawalAsOne(MbMemberWithdrawalCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_MemberWithdrawalAsOne", sq); }
 
-    protected Map<String, MbPurchaseCQ> _memberId_NotInScopeRelation_PurchaseListMap;
-    public Map<String, MbPurchaseCQ> getMemberId_NotInScopeRelation_PurchaseList() { return _memberId_NotInScopeRelation_PurchaseListMap; }
-    public String keepMemberId_NotInScopeRelation_PurchaseList(MbPurchaseCQ sq) {
-        if (_memberId_NotInScopeRelation_PurchaseListMap == null) { _memberId_NotInScopeRelation_PurchaseListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_NotInScopeRelation_PurchaseListMap.size() + 1);
-        _memberId_NotInScopeRelation_PurchaseListMap.put(ky, sq); return "memberId_NotInScopeRelation_PurchaseList." + ky;
-    }
+    public Map<String, MbPurchaseCQ> getMemberId_NotInScopeRelation_PurchaseList() { return xgetSQueMap("memberId_NotInScopeRelation_PurchaseList"); }
+    public String keepMemberId_NotInScopeRelation_PurchaseList(MbPurchaseCQ sq) { return xkeepSQue("memberId_NotInScopeRelation_PurchaseList", sq); }
 
-    protected Map<String, MbMemberAddressCQ> _memberId_QueryDerivedReferrer_MemberAddressListMap;
-    public Map<String, MbMemberAddressCQ> getMemberId_QueryDerivedReferrer_MemberAddressList() { return _memberId_QueryDerivedReferrer_MemberAddressListMap; }
-    public String keepMemberId_QueryDerivedReferrer_MemberAddressList(MbMemberAddressCQ sq) {
-        if (_memberId_QueryDerivedReferrer_MemberAddressListMap == null) { _memberId_QueryDerivedReferrer_MemberAddressListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_QueryDerivedReferrer_MemberAddressListMap.size() + 1);
-        _memberId_QueryDerivedReferrer_MemberAddressListMap.put(ky, sq); return "memberId_QueryDerivedReferrer_MemberAddressList." + ky;
-    }
-    protected Map<String, Object> _memberId_QueryDerivedReferrer_MemberAddressListParameterMap;
-    public Map<String, Object> getMemberId_QueryDerivedReferrer_MemberAddressListParameter() { return _memberId_QueryDerivedReferrer_MemberAddressListParameterMap; }
-    public String keepMemberId_QueryDerivedReferrer_MemberAddressListParameter(Object vl) {
-        if (_memberId_QueryDerivedReferrer_MemberAddressListParameterMap == null) { _memberId_QueryDerivedReferrer_MemberAddressListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_memberId_QueryDerivedReferrer_MemberAddressListParameterMap.size() + 1);
-        _memberId_QueryDerivedReferrer_MemberAddressListParameterMap.put(ky, vl); return "memberId_QueryDerivedReferrer_MemberAddressListParameter." + ky;
-    }
+    public Map<String, MbMemberAddressCQ> getMemberId_QueryDerivedReferrer_MemberAddressList() { return xgetSQueMap("memberId_QueryDerivedReferrer_MemberAddressList"); }
+    public String keepMemberId_QueryDerivedReferrer_MemberAddressList(MbMemberAddressCQ sq) { return xkeepSQue("memberId_QueryDerivedReferrer_MemberAddressList", sq); }
+    public Map<String, Object> getMemberId_QueryDerivedReferrer_MemberAddressListParameter() { return xgetSQuePmMap("memberId_QueryDerivedReferrer_MemberAddressList"); }
+    public String keepMemberId_QueryDerivedReferrer_MemberAddressListParameter(Object pm) { return xkeepSQuePm("memberId_QueryDerivedReferrer_MemberAddressList", pm); }
 
-    protected Map<String, MbMemberLoginCQ> _memberId_QueryDerivedReferrer_MemberLoginListMap;
-    public Map<String, MbMemberLoginCQ> getMemberId_QueryDerivedReferrer_MemberLoginList() { return _memberId_QueryDerivedReferrer_MemberLoginListMap; }
-    public String keepMemberId_QueryDerivedReferrer_MemberLoginList(MbMemberLoginCQ sq) {
-        if (_memberId_QueryDerivedReferrer_MemberLoginListMap == null) { _memberId_QueryDerivedReferrer_MemberLoginListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_QueryDerivedReferrer_MemberLoginListMap.size() + 1);
-        _memberId_QueryDerivedReferrer_MemberLoginListMap.put(ky, sq); return "memberId_QueryDerivedReferrer_MemberLoginList." + ky;
-    }
-    protected Map<String, Object> _memberId_QueryDerivedReferrer_MemberLoginListParameterMap;
-    public Map<String, Object> getMemberId_QueryDerivedReferrer_MemberLoginListParameter() { return _memberId_QueryDerivedReferrer_MemberLoginListParameterMap; }
-    public String keepMemberId_QueryDerivedReferrer_MemberLoginListParameter(Object vl) {
-        if (_memberId_QueryDerivedReferrer_MemberLoginListParameterMap == null) { _memberId_QueryDerivedReferrer_MemberLoginListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_memberId_QueryDerivedReferrer_MemberLoginListParameterMap.size() + 1);
-        _memberId_QueryDerivedReferrer_MemberLoginListParameterMap.put(ky, vl); return "memberId_QueryDerivedReferrer_MemberLoginListParameter." + ky;
-    }
+    public Map<String, MbMemberLoginCQ> getMemberId_QueryDerivedReferrer_MemberLoginList() { return xgetSQueMap("memberId_QueryDerivedReferrer_MemberLoginList"); }
+    public String keepMemberId_QueryDerivedReferrer_MemberLoginList(MbMemberLoginCQ sq) { return xkeepSQue("memberId_QueryDerivedReferrer_MemberLoginList", sq); }
+    public Map<String, Object> getMemberId_QueryDerivedReferrer_MemberLoginListParameter() { return xgetSQuePmMap("memberId_QueryDerivedReferrer_MemberLoginList"); }
+    public String keepMemberId_QueryDerivedReferrer_MemberLoginListParameter(Object pm) { return xkeepSQuePm("memberId_QueryDerivedReferrer_MemberLoginList", pm); }
 
-    protected Map<String, MbPurchaseCQ> _memberId_QueryDerivedReferrer_PurchaseListMap;
-    public Map<String, MbPurchaseCQ> getMemberId_QueryDerivedReferrer_PurchaseList() { return _memberId_QueryDerivedReferrer_PurchaseListMap; }
-    public String keepMemberId_QueryDerivedReferrer_PurchaseList(MbPurchaseCQ sq) {
-        if (_memberId_QueryDerivedReferrer_PurchaseListMap == null) { _memberId_QueryDerivedReferrer_PurchaseListMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberId_QueryDerivedReferrer_PurchaseListMap.size() + 1);
-        _memberId_QueryDerivedReferrer_PurchaseListMap.put(ky, sq); return "memberId_QueryDerivedReferrer_PurchaseList." + ky;
-    }
-    protected Map<String, Object> _memberId_QueryDerivedReferrer_PurchaseListParameterMap;
-    public Map<String, Object> getMemberId_QueryDerivedReferrer_PurchaseListParameter() { return _memberId_QueryDerivedReferrer_PurchaseListParameterMap; }
-    public String keepMemberId_QueryDerivedReferrer_PurchaseListParameter(Object vl) {
-        if (_memberId_QueryDerivedReferrer_PurchaseListParameterMap == null) { _memberId_QueryDerivedReferrer_PurchaseListParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_memberId_QueryDerivedReferrer_PurchaseListParameterMap.size() + 1);
-        _memberId_QueryDerivedReferrer_PurchaseListParameterMap.put(ky, vl); return "memberId_QueryDerivedReferrer_PurchaseListParameter." + ky;
-    }
+    public Map<String, MbPurchaseCQ> getMemberId_QueryDerivedReferrer_PurchaseList() { return xgetSQueMap("memberId_QueryDerivedReferrer_PurchaseList"); }
+    public String keepMemberId_QueryDerivedReferrer_PurchaseList(MbPurchaseCQ sq) { return xkeepSQue("memberId_QueryDerivedReferrer_PurchaseList", sq); }
+    public Map<String, Object> getMemberId_QueryDerivedReferrer_PurchaseListParameter() { return xgetSQuePmMap("memberId_QueryDerivedReferrer_PurchaseList"); }
+    public String keepMemberId_QueryDerivedReferrer_PurchaseListParameter(Object pm) { return xkeepSQuePm("memberId_QueryDerivedReferrer_PurchaseList", pm); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -356,10 +190,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_MemberId_Desc() { regOBD("MEMBER_ID"); return this; }
 
     protected ConditionValue _memberName;
-    public ConditionValue getMemberName() {
-        if (_memberName == null) { _memberName = nCV(); }
-        return _memberName;
-    }
+    public ConditionValue getMemberName()
+    { if (_memberName == null) { _memberName = nCV(); }
+      return _memberName; }
     protected ConditionValue getCValueMemberName() { return getMemberName(); }
 
     /** 
@@ -377,10 +210,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_MemberName_Desc() { regOBD("MEMBER_NAME"); return this; }
 
     protected ConditionValue _memberAccount;
-    public ConditionValue getMemberAccount() {
-        if (_memberAccount == null) { _memberAccount = nCV(); }
-        return _memberAccount;
-    }
+    public ConditionValue getMemberAccount()
+    { if (_memberAccount == null) { _memberAccount = nCV(); }
+      return _memberAccount; }
     protected ConditionValue getCValueMemberAccount() { return getMemberAccount(); }
 
     /** 
@@ -398,27 +230,16 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_MemberAccount_Desc() { regOBD("MEMBER_ACCOUNT"); return this; }
 
     protected ConditionValue _memberStatusCode;
-    public ConditionValue getMemberStatusCode() {
-        if (_memberStatusCode == null) { _memberStatusCode = nCV(); }
-        return _memberStatusCode;
-    }
+    public ConditionValue getMemberStatusCode()
+    { if (_memberStatusCode == null) { _memberStatusCode = nCV(); }
+      return _memberStatusCode; }
     protected ConditionValue getCValueMemberStatusCode() { return getMemberStatusCode(); }
 
-    protected Map<String, MbMemberStatusCQ> _memberStatusCode_InScopeRelation_MemberStatusMap;
-    public Map<String, MbMemberStatusCQ> getMemberStatusCode_InScopeRelation_MemberStatus() { return _memberStatusCode_InScopeRelation_MemberStatusMap; }
-    public String keepMemberStatusCode_InScopeRelation_MemberStatus(MbMemberStatusCQ sq) {
-        if (_memberStatusCode_InScopeRelation_MemberStatusMap == null) { _memberStatusCode_InScopeRelation_MemberStatusMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberStatusCode_InScopeRelation_MemberStatusMap.size() + 1);
-        _memberStatusCode_InScopeRelation_MemberStatusMap.put(ky, sq); return "memberStatusCode_InScopeRelation_MemberStatus." + ky;
-    }
+    public Map<String, MbMemberStatusCQ> getMemberStatusCode_InScopeRelation_MemberStatus() { return xgetSQueMap("memberStatusCode_InScopeRelation_MemberStatus"); }
+    public String keepMemberStatusCode_InScopeRelation_MemberStatus(MbMemberStatusCQ sq) { return xkeepSQue("memberStatusCode_InScopeRelation_MemberStatus", sq); }
 
-    protected Map<String, MbMemberStatusCQ> _memberStatusCode_NotInScopeRelation_MemberStatusMap;
-    public Map<String, MbMemberStatusCQ> getMemberStatusCode_NotInScopeRelation_MemberStatus() { return _memberStatusCode_NotInScopeRelation_MemberStatusMap; }
-    public String keepMemberStatusCode_NotInScopeRelation_MemberStatus(MbMemberStatusCQ sq) {
-        if (_memberStatusCode_NotInScopeRelation_MemberStatusMap == null) { _memberStatusCode_NotInScopeRelation_MemberStatusMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_memberStatusCode_NotInScopeRelation_MemberStatusMap.size() + 1);
-        _memberStatusCode_NotInScopeRelation_MemberStatusMap.put(ky, sq); return "memberStatusCode_NotInScopeRelation_MemberStatus." + ky;
-    }
+    public Map<String, MbMemberStatusCQ> getMemberStatusCode_NotInScopeRelation_MemberStatus() { return xgetSQueMap("memberStatusCode_NotInScopeRelation_MemberStatus"); }
+    public String keepMemberStatusCode_NotInScopeRelation_MemberStatus(MbMemberStatusCQ sq) { return xkeepSQue("memberStatusCode_NotInScopeRelation_MemberStatus", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -435,10 +256,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_MemberStatusCode_Desc() { regOBD("MEMBER_STATUS_CODE"); return this; }
 
     protected ConditionValue _formalizedDatetime;
-    public ConditionValue getFormalizedDatetime() {
-        if (_formalizedDatetime == null) { _formalizedDatetime = nCV(); }
-        return _formalizedDatetime;
-    }
+    public ConditionValue getFormalizedDatetime()
+    { if (_formalizedDatetime == null) { _formalizedDatetime = nCV(); }
+      return _formalizedDatetime; }
     protected ConditionValue getCValueFormalizedDatetime() { return getFormalizedDatetime(); }
 
     /** 
@@ -456,10 +276,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_FormalizedDatetime_Desc() { regOBD("FORMALIZED_DATETIME"); return this; }
 
     protected ConditionValue _birthdate;
-    public ConditionValue getBirthdate() {
-        if (_birthdate == null) { _birthdate = nCV(); }
-        return _birthdate;
-    }
+    public ConditionValue getBirthdate()
+    { if (_birthdate == null) { _birthdate = nCV(); }
+      return _birthdate; }
     protected ConditionValue getCValueBirthdate() { return getBirthdate(); }
 
     /** 
@@ -477,10 +296,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_Birthdate_Desc() { regOBD("BIRTHDATE"); return this; }
 
     protected ConditionValue _registerDatetime;
-    public ConditionValue getRegisterDatetime() {
-        if (_registerDatetime == null) { _registerDatetime = nCV(); }
-        return _registerDatetime;
-    }
+    public ConditionValue getRegisterDatetime()
+    { if (_registerDatetime == null) { _registerDatetime = nCV(); }
+      return _registerDatetime; }
     protected ConditionValue getCValueRegisterDatetime() { return getRegisterDatetime(); }
 
     /** 
@@ -498,10 +316,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_RegisterDatetime_Desc() { regOBD("REGISTER_DATETIME"); return this; }
 
     protected ConditionValue _registerUser;
-    public ConditionValue getRegisterUser() {
-        if (_registerUser == null) { _registerUser = nCV(); }
-        return _registerUser;
-    }
+    public ConditionValue getRegisterUser()
+    { if (_registerUser == null) { _registerUser = nCV(); }
+      return _registerUser; }
     protected ConditionValue getCValueRegisterUser() { return getRegisterUser(); }
 
     /** 
@@ -519,10 +336,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_RegisterUser_Desc() { regOBD("REGISTER_USER"); return this; }
 
     protected ConditionValue _updateDatetime;
-    public ConditionValue getUpdateDatetime() {
-        if (_updateDatetime == null) { _updateDatetime = nCV(); }
-        return _updateDatetime;
-    }
+    public ConditionValue getUpdateDatetime()
+    { if (_updateDatetime == null) { _updateDatetime = nCV(); }
+      return _updateDatetime; }
     protected ConditionValue getCValueUpdateDatetime() { return getUpdateDatetime(); }
 
     /** 
@@ -540,10 +356,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_UpdateDatetime_Desc() { regOBD("UPDATE_DATETIME"); return this; }
 
     protected ConditionValue _updateUser;
-    public ConditionValue getUpdateUser() {
-        if (_updateUser == null) { _updateUser = nCV(); }
-        return _updateUser;
-    }
+    public ConditionValue getUpdateUser()
+    { if (_updateUser == null) { _updateUser = nCV(); }
+      return _updateUser; }
     protected ConditionValue getCValueUpdateUser() { return getUpdateUser(); }
 
     /** 
@@ -561,10 +376,9 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbBsMemberCQ addOrderBy_UpdateUser_Desc() { regOBD("UPDATE_USER"); return this; }
 
     protected ConditionValue _versionNo;
-    public ConditionValue getVersionNo() {
-        if (_versionNo == null) { _versionNo = nCV(); }
-        return _versionNo;
-    }
+    public ConditionValue getVersionNo()
+    { if (_versionNo == null) { _versionNo = nCV(); }
+      return _versionNo; }
     protected ConditionValue getCValueVersionNo() { return getVersionNo(); }
 
     /** 
@@ -598,8 +412,7 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public MbBsMemberCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public MbBsMemberCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -615,8 +428,7 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public MbBsMemberCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public MbBsMemberCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -652,31 +464,17 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbMemberStatusCQ queryMemberStatus() {
         return getConditionQueryMemberStatus();
     }
-    protected MbMemberStatusCQ _conditionQueryMemberStatus;
     public MbMemberStatusCQ getConditionQueryMemberStatus() {
-        if (_conditionQueryMemberStatus == null) {
-            _conditionQueryMemberStatus = xcreateQueryMemberStatus();
-            xsetupOuterJoinMemberStatus();
-        }
-        return _conditionQueryMemberStatus;
+        String prop = "memberStatus";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberStatus()); xsetupOuterJoinMemberStatus(); }
+        return xgetQueRlMap(prop);
     }
     protected MbMemberStatusCQ xcreateQueryMemberStatus() {
-        String nrp = resolveNextRelationPath("MEMBER", "memberStatus");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MbMemberStatusCQ cq = new MbMemberStatusCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberStatus");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("MEMBER", "memberStatus"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MbMemberStatusCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "memberStatus", nrp);
     }
-    protected void xsetupOuterJoinMemberStatus() {
-        MbMemberStatusCQ cq = getConditionQueryMemberStatus();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("MEMBER_STATUS_CODE", "MEMBER_STATUS_CODE");
-        registerOuterJoin(cq, joinOnMap, "memberStatus");
-    }
-    public boolean hasConditionQueryMemberStatus() {
-        return _conditionQueryMemberStatus != null;
-    }
+    protected void xsetupOuterJoinMemberStatus() { xregOutJo("memberStatus"); }
+    public boolean hasConditionQueryMemberStatus() { return xhasQueRlMap("memberStatus"); }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -686,133 +484,71 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     public MbMemberLoginCQ queryMemberLoginAsLatest() {
         return getConditionQueryMemberLoginAsLatest();
     }
-    protected MbMemberLoginCQ _conditionQueryMemberLoginAsLatest;
     public MbMemberLoginCQ getConditionQueryMemberLoginAsLatest() {
-        if (_conditionQueryMemberLoginAsLatest == null) {
-            _conditionQueryMemberLoginAsLatest = xcreateQueryMemberLoginAsLatest();
-            xsetupOuterJoinMemberLoginAsLatest();
-        }
-        return _conditionQueryMemberLoginAsLatest;
+        String prop = "memberLoginAsLatest";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberLoginAsLatest()); xsetupOuterJoinMemberLoginAsLatest(); }
+        return xgetQueRlMap(prop);
     }
     protected MbMemberLoginCQ xcreateQueryMemberLoginAsLatest() {
-        String nrp = resolveNextRelationPath("MEMBER", "memberLoginAsLatest");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MbMemberLoginCQ cq = new MbMemberLoginCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberLoginAsLatest");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("MEMBER", "memberLoginAsLatest"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MbMemberLoginCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "memberLoginAsLatest", nrp);
     }
-    protected void xsetupOuterJoinMemberLoginAsLatest() {
-        MbMemberLoginCQ cq = getConditionQueryMemberLoginAsLatest();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("MEMBER_ID", "MEMBER_ID");
-        registerOuterJoin(cq, joinOnMap, "memberLoginAsLatest");
-    }
-    public boolean hasConditionQueryMemberLoginAsLatest() {
-        return _conditionQueryMemberLoginAsLatest != null;
-    }
+    protected void xsetupOuterJoinMemberLoginAsLatest() { xregOutJo("memberLoginAsLatest"); }
+    public boolean hasConditionQueryMemberLoginAsLatest() { return xhasQueRlMap("memberLoginAsLatest"); }
 
     /**
      * Get the condition-query for relation table. <br />
      * MEMBER_SECURITY by MEMBER_ID, named 'memberSecurityAsOne'.
      * @return The instance of condition-query. (NotNull)
      */
-    public MbMemberSecurityCQ queryMemberSecurityAsOne() {
-        return getConditionQueryMemberSecurityAsOne();
-    }
-    protected MbMemberSecurityCQ _conditionQueryMemberSecurityAsOne;
+    public MbMemberSecurityCQ queryMemberSecurityAsOne() { return getConditionQueryMemberSecurityAsOne(); }
     public MbMemberSecurityCQ getConditionQueryMemberSecurityAsOne() {
-        if (_conditionQueryMemberSecurityAsOne == null) {
-            _conditionQueryMemberSecurityAsOne = xcreateQueryMemberSecurityAsOne();
-            xsetupOuterJoinMemberSecurityAsOne();
-        }
-        return _conditionQueryMemberSecurityAsOne;
+        String prop = "memberSecurityAsOne";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberSecurityAsOne()); xsetupOuterJoinMemberSecurityAsOne(); }
+        return xgetQueRlMap(prop);
     }
     protected MbMemberSecurityCQ xcreateQueryMemberSecurityAsOne() {
-        String nrp = resolveNextRelationPath("MEMBER", "memberSecurityAsOne");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MbMemberSecurityCQ cq = new MbMemberSecurityCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberSecurityAsOne");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("MEMBER", "memberSecurityAsOne"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MbMemberSecurityCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "memberSecurityAsOne", nrp);
     }
-    protected void xsetupOuterJoinMemberSecurityAsOne() {
-        MbMemberSecurityCQ cq = getConditionQueryMemberSecurityAsOne();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("MEMBER_ID", "MEMBER_ID");
-        registerOuterJoin(cq, joinOnMap, "memberSecurityAsOne");
-    }
-    public boolean hasConditionQueryMemberSecurityAsOne() {
-        return _conditionQueryMemberSecurityAsOne != null;
-    }
+    protected void xsetupOuterJoinMemberSecurityAsOne() { xregOutJo("memberSecurityAsOne"); }
+    public boolean hasConditionQueryMemberSecurityAsOne() { return xhasQueRlMap("memberSecurityAsOne"); }
 
     /**
      * Get the condition-query for relation table. <br />
      * MEMBER_SERVICE by MEMBER_ID, named 'memberServiceAsOne'.
      * @return The instance of condition-query. (NotNull)
      */
-    public MbMemberServiceCQ queryMemberServiceAsOne() {
-        return getConditionQueryMemberServiceAsOne();
-    }
-    protected MbMemberServiceCQ _conditionQueryMemberServiceAsOne;
+    public MbMemberServiceCQ queryMemberServiceAsOne() { return getConditionQueryMemberServiceAsOne(); }
     public MbMemberServiceCQ getConditionQueryMemberServiceAsOne() {
-        if (_conditionQueryMemberServiceAsOne == null) {
-            _conditionQueryMemberServiceAsOne = xcreateQueryMemberServiceAsOne();
-            xsetupOuterJoinMemberServiceAsOne();
-        }
-        return _conditionQueryMemberServiceAsOne;
+        String prop = "memberServiceAsOne";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberServiceAsOne()); xsetupOuterJoinMemberServiceAsOne(); }
+        return xgetQueRlMap(prop);
     }
     protected MbMemberServiceCQ xcreateQueryMemberServiceAsOne() {
-        String nrp = resolveNextRelationPath("MEMBER", "memberServiceAsOne");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MbMemberServiceCQ cq = new MbMemberServiceCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberServiceAsOne");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("MEMBER", "memberServiceAsOne"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MbMemberServiceCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "memberServiceAsOne", nrp);
     }
-    protected void xsetupOuterJoinMemberServiceAsOne() {
-        MbMemberServiceCQ cq = getConditionQueryMemberServiceAsOne();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("MEMBER_ID", "MEMBER_ID");
-        registerOuterJoin(cq, joinOnMap, "memberServiceAsOne");
-    }
-    public boolean hasConditionQueryMemberServiceAsOne() {
-        return _conditionQueryMemberServiceAsOne != null;
-    }
+    protected void xsetupOuterJoinMemberServiceAsOne() { xregOutJo("memberServiceAsOne"); }
+    public boolean hasConditionQueryMemberServiceAsOne() { return xhasQueRlMap("memberServiceAsOne"); }
 
     /**
      * Get the condition-query for relation table. <br />
      * MEMBER_WITHDRAWAL by MEMBER_ID, named 'memberWithdrawalAsOne'.
      * @return The instance of condition-query. (NotNull)
      */
-    public MbMemberWithdrawalCQ queryMemberWithdrawalAsOne() {
-        return getConditionQueryMemberWithdrawalAsOne();
-    }
-    protected MbMemberWithdrawalCQ _conditionQueryMemberWithdrawalAsOne;
+    public MbMemberWithdrawalCQ queryMemberWithdrawalAsOne() { return getConditionQueryMemberWithdrawalAsOne(); }
     public MbMemberWithdrawalCQ getConditionQueryMemberWithdrawalAsOne() {
-        if (_conditionQueryMemberWithdrawalAsOne == null) {
-            _conditionQueryMemberWithdrawalAsOne = xcreateQueryMemberWithdrawalAsOne();
-            xsetupOuterJoinMemberWithdrawalAsOne();
-        }
-        return _conditionQueryMemberWithdrawalAsOne;
+        String prop = "memberWithdrawalAsOne";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryMemberWithdrawalAsOne()); xsetupOuterJoinMemberWithdrawalAsOne(); }
+        return xgetQueRlMap(prop);
     }
     protected MbMemberWithdrawalCQ xcreateQueryMemberWithdrawalAsOne() {
-        String nrp = resolveNextRelationPath("MEMBER", "memberWithdrawalAsOne");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        MbMemberWithdrawalCQ cq = new MbMemberWithdrawalCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("memberWithdrawalAsOne");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("MEMBER", "memberWithdrawalAsOne"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new MbMemberWithdrawalCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "memberWithdrawalAsOne", nrp);
     }
-    protected void xsetupOuterJoinMemberWithdrawalAsOne() {
-        MbMemberWithdrawalCQ cq = getConditionQueryMemberWithdrawalAsOne();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("MEMBER_ID", "MEMBER_ID");
-        registerOuterJoin(cq, joinOnMap, "memberWithdrawalAsOne");
-    }
-    public boolean hasConditionQueryMemberWithdrawalAsOne() {
-        return _conditionQueryMemberWithdrawalAsOne != null;
-    }
+    protected void xsetupOuterJoinMemberWithdrawalAsOne() { xregOutJo("memberWithdrawalAsOne"); }
+    public boolean hasConditionQueryMemberWithdrawalAsOne() { return xhasQueRlMap("memberWithdrawalAsOne"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -821,61 +557,32 @@ public class MbBsMemberCQ extends MbAbstractBsMemberCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, MbMemberCQ> _scalarConditionMap;
-    public Map<String, MbMemberCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(MbMemberCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, MbMemberCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(MbMemberCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    protected Map<String, MbMemberCQ> _specifyMyselfDerivedMap;
-    public Map<String, MbMemberCQ> getSpecifyMyselfDerived() { return _specifyMyselfDerivedMap; }
-    public String keepSpecifyMyselfDerived(MbMemberCQ sq) {
-        if (_specifyMyselfDerivedMap == null) { _specifyMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_specifyMyselfDerivedMap.size() + 1);
-        _specifyMyselfDerivedMap.put(ky, sq); return "specifyMyselfDerived." + ky;
-    }
+    public Map<String, MbMemberCQ> getSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(MbMemberCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    protected Map<String, MbMemberCQ> _queryMyselfDerivedMap;
-    public Map<String, MbMemberCQ> getQueryMyselfDerived() { return _queryMyselfDerivedMap; }
-    public String keepQueryMyselfDerived(MbMemberCQ sq) {
-        if (_queryMyselfDerivedMap == null) { _queryMyselfDerivedMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_queryMyselfDerivedMap.size() + 1);
-        _queryMyselfDerivedMap.put(ky, sq); return "queryMyselfDerived." + ky;
-    }
-    protected Map<String, Object> _qyeryMyselfDerivedParameterMap;
-    public Map<String, Object> getQueryMyselfDerivedParameter() { return _qyeryMyselfDerivedParameterMap; }
-    public String keepQueryMyselfDerivedParameter(Object vl) {
-        if (_qyeryMyselfDerivedParameterMap == null) { _qyeryMyselfDerivedParameterMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryParameterKey" + (_qyeryMyselfDerivedParameterMap.size() + 1);
-        _qyeryMyselfDerivedParameterMap.put(ky, vl); return "queryMyselfDerivedParameter." + ky;
-    }
+    public Map<String, MbMemberCQ> getQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(MbMemberCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, Object> getQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
     protected Map<String, MbMemberCQ> _myselfExistsMap;
-    public Map<String, MbMemberCQ> getMyselfExists() { return _myselfExistsMap; }
-    public String keepMyselfExists(MbMemberCQ sq) {
-        if (_myselfExistsMap == null) { _myselfExistsMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfExistsMap.size() + 1);
-        _myselfExistsMap.put(ky, sq); return "myselfExists." + ky;
-    }
+    public Map<String, MbMemberCQ> getMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(MbMemberCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    protected Map<String, MbMemberCQ> _myselfInScopeMap;
-    public Map<String, MbMemberCQ> getMyselfInScope() { return _myselfInScopeMap; }
-    public String keepMyselfInScope(MbMemberCQ sq) {
-        if (_myselfInScopeMap == null) { _myselfInScopeMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_myselfInScopeMap.size() + 1);
-        _myselfInScopeMap.put(ky, sq); return "myselfInScope." + ky;
-    }
+    public Map<String, MbMemberCQ> getMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(MbMemberCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

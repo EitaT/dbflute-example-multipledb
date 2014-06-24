@@ -58,18 +58,13 @@ public class LdImplementedCommonColumnAutoSetupper implements CommonColumnAutoSe
     }
 
     protected void doHandleCommonColumnOfInsertIfNeeds(LdEntityDefinedCommonColumn entity) {
-
         final String rUser = entity.getTableDbName() + "-" + org.seasar.dbflute.AccessContext.getAccessUserOnThread();
         entity.setRUser(rUser);
-
         entity.setRModule_Online();
-
         final java.sql.Timestamp rTimestamp = _appDateProvider.currentTimestamp();
         entity.setRTimestamp(rTimestamp);
-
         final String uUser = entity.getRUser();
         entity.setUUser(uUser);
-
         entity.setUModule_Online();
     }
 
@@ -88,10 +83,8 @@ public class LdImplementedCommonColumnAutoSetupper implements CommonColumnAutoSe
     }
 
     protected void doHandleCommonColumnOfUpdateIfNeeds(LdEntityDefinedCommonColumn entity) {
-
         final String uUser = org.seasar.dbflute.AccessContext.getAccessUserOnThread();
         entity.setUUser(uUser);
-
         entity.setUModule_Batch();
     }
 

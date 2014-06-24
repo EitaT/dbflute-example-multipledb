@@ -235,7 +235,7 @@ public class LdAuthorDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdAuthor newEntity() { return new LdAuthor(); }
     public LdAuthor newMyEntity() { return new LdAuthor(); }
 
     // ===================================================================================

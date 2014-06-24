@@ -7,11 +7,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
-import org.seasar.dbflute.optional.*;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.*;
+import com.example.dbflute.multipledb.spring.dbflute.librarydb.bsbhv.loader.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.bsentity.dbmeta.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
@@ -65,7 +68,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return LdBlackListDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -75,10 +78,10 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public LdBlackList newEntity() { return new LdBlackList(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public LdBlackListCB newConditionBean() { return new LdBlackListCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public LdBlackList newMyEntity() { return new LdBlackList(); }
@@ -101,6 +104,10 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(LdBlackListCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(LdBlackListCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -114,10 +121,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
         return delegateSelectCountPlainly(cb);
     }
 
-    @Override
-    protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
-    }
+    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -142,23 +146,22 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectEntity(LdBlackListCB cb) {
-        return doSelectEntity(cb, LdBlackList.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected LdBlackList facadeSelectEntity(LdBlackListCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdBlackList> ENTITY doSelectEntity(LdBlackListCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdBlackListCB>() {
-            public List<ENTITY> callbackSelectList(LdBlackListCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityInternally(cb, tp);
     }
 
     protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectOptionalEntity(LdBlackListCB cb, Class<ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    @Override
-    protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
-    }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br />
@@ -176,19 +179,19 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectEntityWithDeletedCheck(LdBlackListCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, LdBlackList.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected LdBlackList facadeSelectEntityWithDeletedCheck(LdBlackListCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdBlackList> ENTITY doSelectEntityWithDeletedCheck(LdBlackListCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdBlackListCB>() {
-            public List<ENTITY> callbackSelectList(LdBlackListCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
 
-    @Override
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
-    }
+    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -198,15 +201,19 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectByPKValue(Integer blackListId) {
-        return doSelectByPK(blackListId, LdBlackList.class);
+        return facadeSelectByPKValue(blackListId);
     }
 
-    protected <ENTITY extends LdBlackList> ENTITY doSelectByPK(Integer blackListId, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(blackListId), entityType);
+    protected LdBlackList facadeSelectByPKValue(Integer blackListId) {
+        return doSelectByPK(blackListId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer blackListId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(blackListId, entityType), blackListId);
+    protected <ENTITY extends LdBlackList> ENTITY doSelectByPK(Integer blackListId, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(blackListId), tp);
+    }
+
+    protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer blackListId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(blackListId, tp), blackListId);
     }
 
     /**
@@ -218,17 +225,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdBlackList selectByPKValueWithDeletedCheck(Integer blackListId) {
-        return doSelectByPKWithDeletedCheck(blackListId, LdBlackList.class);
+        return doSelectByPKWithDeletedCheck(blackListId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdBlackList> ENTITY doSelectByPKWithDeletedCheck(Integer blackListId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(blackListId), entityType);
+    protected <ENTITY extends LdBlackList> ENTITY doSelectByPKWithDeletedCheck(Integer blackListId, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(blackListId), tp);
     }
 
     protected LdBlackListCB xprepareCBAsPK(Integer blackListId) {
         assertObjectNotNull("blackListId", blackListId);
-        LdBlackListCB cb = newMyConditionBean(); cb.acceptPrimaryKey(blackListId);
-        return cb;
+        return newConditionBean().acceptPK(blackListId);
     }
 
     /**
@@ -240,17 +246,20 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public OptionalEntity<LdBlackList> selectByUniqueOf(Integer lbUserId) {
-        return doSelectByUniqueOf(lbUserId, LdBlackList.class);
+        return facadeSelectByUniqueOf(lbUserId);
     }
 
-    protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer lbUserId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(lbUserId), entityType), lbUserId);
+    protected OptionalEntity<LdBlackList> facadeSelectByUniqueOf(Integer lbUserId) {
+        return doSelectByUniqueOf(lbUserId, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends LdBlackList> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer lbUserId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(lbUserId), tp), lbUserId);
     }
 
     protected LdBlackListCB xprepareCBAsUniqueOf(Integer lbUserId) {
         assertObjectNotNull("lbUserId", lbUserId);
-        LdBlackListCB cb = newMyConditionBean(); cb.acceptUniqueOf(lbUserId);
-        return cb;
+        return newConditionBean().acceptUniqueOf(lbUserId);
     }
 
     // ===================================================================================
@@ -272,20 +281,18 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdBlackList> selectList(LdBlackListCB cb) {
-        return doSelectList(cb, LdBlackList.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<LdBlackList> facadeSelectList(LdBlackListCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdBlackList> ListResultBean<ENTITY> doSelectList(LdBlackListCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdBlackListCB>() {
-            public List<ENTITY> callbackSelectList(LdBlackListCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
+        return helpSelectListInternally(cb, tp);
     }
 
-    @Override
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
-    }
+    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -313,21 +320,18 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdBlackList> selectPage(LdBlackListCB cb) {
-        return doSelectPage(cb, LdBlackList.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<LdBlackList> facadeSelectPage(LdBlackListCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdBlackList> PagingResultBean<ENTITY> doSelectPage(LdBlackListCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdBlackListCB>() {
-            public int callbackSelectCount(LdBlackListCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdBlackListCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        return helpSelectPageInternally(cb, tp);
     }
 
-    @Override
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
-    }
+    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Cursor Select
@@ -347,16 +351,17 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of LdBlackList. (NotNull)
      */
     public void selectCursor(LdBlackListCB cb, EntityRowHandler<LdBlackList> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, LdBlackList.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(LdBlackListCB cb, EntityRowHandler<LdBlackList> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdBlackList> void doSelectCursor(LdBlackListCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdBlackListCB>() {
-            public void callbackSelectCursor(LdBlackListCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(LdBlackListCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -377,23 +382,22 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<LdBlackListCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<LdBlackListCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends LdBlackListCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<LdBlackListCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends LdBlackListCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends LdBlackListCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
-    }
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -407,6 +411,78 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param blackListList The entity list of blackList. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<LdBlackList> blackListList, ReferrerLoaderHandler<LdLoaderOfBlackList> handler) {
+        xassLRArg(blackListList, handler);
+        handler.handle(new LdLoaderOfBlackList().ready(blackListList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param blackList The entity of blackList. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(LdBlackList blackList, ReferrerLoaderHandler<LdLoaderOfBlackList> handler) {
+        xassLRArg(blackList, handler);
+        handler.handle(new LdLoaderOfBlackList().ready(xnewLRAryLs(blackList), _behaviorSelector));
+    }
+
     /**
      * Load referrer of blackActionList by the set-upper of referrer. <br />
      * BLACK_ACTION by BLACK_LIST_ID, named 'blackActionList'.
@@ -435,7 +511,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(List<LdBlackList> blackListList, ConditionBeanSetupper<LdBlackActionCB> setupper) {
+    public NestedReferrerListGateway<LdBlackAction> loadBlackActionList(List<LdBlackList> blackListList, ConditionBeanSetupper<LdBlackActionCB> setupper) {
         xassLRArg(blackListList, setupper);
         return doLoadBlackActionList(blackListList, new LoadReferrerOption<LdBlackActionCB, LdBlackAction>().xinit(setupper));
     }
@@ -466,7 +542,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(LdBlackList blackList, ConditionBeanSetupper<LdBlackActionCB> setupper) {
+    public NestedReferrerListGateway<LdBlackAction> loadBlackActionList(LdBlackList blackList, ConditionBeanSetupper<LdBlackActionCB> setupper) {
         xassLRArg(blackList, setupper);
         return doLoadBlackActionList(xnewLRLs(blackList), new LoadReferrerOption<LdBlackActionCB, LdBlackAction>().xinit(setupper));
     }
@@ -477,7 +553,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(LdBlackList blackList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
+    public NestedReferrerListGateway<LdBlackAction> loadBlackActionList(LdBlackList blackList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
         xassLRArg(blackList, loadReferrerOption);
         return loadBlackActionList(xnewLRLs(blackList), loadReferrerOption);
     }
@@ -489,30 +565,14 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<LdBlackAction> loadBlackActionList(List<LdBlackList> blackListList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
+    public NestedReferrerListGateway<LdBlackAction> loadBlackActionList(List<LdBlackList> blackListList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> loadReferrerOption) {
         xassLRArg(blackListList, loadReferrerOption);
-        if (blackListList.isEmpty()) { return (NestedReferrerLoader<LdBlackAction>)EMPTY_LOADER; }
+        if (blackListList.isEmpty()) { return (NestedReferrerListGateway<LdBlackAction>)EMPTY_NREF_LGWAY; }
         return doLoadBlackActionList(blackListList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<LdBlackAction> doLoadBlackActionList(List<LdBlackList> blackListList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> option) {
-        final LdBlackActionBhv referrerBhv = xgetBSFLR().select(LdBlackActionBhv.class);
-        return helpLoadReferrerInternally(blackListList, option, new InternalLoadReferrerCallback<LdBlackList, Integer, LdBlackActionCB, LdBlackAction>() {
-            public Integer getPKVal(LdBlackList et)
-            { return et.getBlackListId(); }
-            public void setRfLs(LdBlackList et, List<LdBlackAction> ls)
-            { et.setBlackActionList(ls); }
-            public LdBlackActionCB newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(LdBlackActionCB cb, List<Integer> ls)
-            { cb.query().setBlackListId_InScope(ls); }
-            public void qyOdFKAsc(LdBlackActionCB cb) { cb.query().addOrderBy_BlackListId_Asc(); }
-            public void spFKCol(LdBlackActionCB cb) { cb.specify().columnBlackListId(); }
-            public List<LdBlackAction> selRfLs(LdBlackActionCB cb) { return referrerBhv.selectList(cb); }
-            public Integer getFKVal(LdBlackAction re) { return re.getBlackListId(); }
-            public void setlcEt(LdBlackAction re, LdBlackList le)
-            { re.setBlackList(le); }
-            public String getRfPrNm() { return "blackActionList"; }
-        });
+    protected NestedReferrerListGateway<LdBlackAction> doLoadBlackActionList(List<LdBlackList> blackListList, LoadReferrerOption<LdBlackActionCB, LdBlackAction> option) {
+        return helpLoadReferrerInternally(blackListList, option, "blackActionList");
     }
 
     // ===================================================================================
@@ -523,15 +583,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param blackListList The list of blackList. (NotNull, EmptyAllowed)
      * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<LdLbUser> pulloutLbUser(List<LdBlackList> blackListList) {
-        return helpPulloutInternally(blackListList, new InternalPulloutCallback<LdBlackList, LdLbUser>() {
-            public LdLbUser getFr(LdBlackList et)
-            { return et.getLbUser(); }
-            public boolean hasRf() { return true; }
-            public void setRfLs(LdLbUser et, List<LdBlackList> ls)
-            { if (!ls.isEmpty()) { et.setBlackListAsOne(ls.get(0)); } }
-        });
-    }
+    public List<LdLbUser> pulloutLbUser(List<LdBlackList> blackListList)
+    { return helpPulloutInternally(blackListList, "lbUser"); }
 
     // ===================================================================================
     //                                                                      Extract Column
@@ -541,22 +594,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @param blackListList The list of blackList. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractBlackListIdList(List<LdBlackList> blackListList) {
-        return helpExtractListInternally(blackListList, new InternalExtractCallback<LdBlackList, Integer>() {
-            public Integer getCV(LdBlackList et) { return et.getBlackListId(); }
-        });
-    }
+    public List<Integer> extractBlackListIdList(List<LdBlackList> blackListList)
+    { return helpExtractListInternally(blackListList, "blackListId"); }
 
     /**
      * Extract the value list of (single) unique key lbUserId.
      * @param blackListList The list of blackList. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractLbUserIdList(List<LdBlackList> blackListList) {
-        return helpExtractListInternally(blackListList, new InternalExtractCallback<LdBlackList, Integer>() {
-            public Integer getCV(LdBlackList et) { return et.getLbUserId(); }
-        });
-    }
+    public List<Integer> extractLbUserIdList(List<LdBlackList> blackListList)
+    { return helpExtractListInternally(blackListList, "lbUserId"); }
 
     // ===================================================================================
     //                                                                       Entity Update
@@ -575,32 +622,23 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * ... = blackList.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param blackList The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param blackList The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdBlackList blackList) {
         doInsert(blackList, null);
     }
 
-    protected void doInsert(LdBlackList blackList, InsertOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackList", blackList);
-        prepareInsertOption(op);
-        delegateInsert(blackList, op);
+    protected void doInsert(LdBlackList et, InsertOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackList", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<LdBlackListCB> op) {
-        if (op == null) { return; }
-        assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) {
-            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    @Override
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
-    }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
@@ -611,7 +649,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//blackList.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//blackList.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * blackList.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     blackListBhv.<span style="color: #DD4747">update</span>(blackList);
@@ -619,50 +657,32 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param blackList The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final LdBlackList blackList) {
+    public void update(LdBlackList blackList) {
         doUpdate(blackList, null);
     }
 
-    protected void doUpdate(LdBlackList blackList, final UpdateOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackList", blackList);
-        prepareUpdateOption(op);
-        helpUpdateInternally(blackList, new InternalUpdateCallback<LdBlackList>() {
-            public int callbackDelegateUpdate(LdBlackList et) { return delegateUpdate(et, op); } });
+    protected void doUpdate(LdBlackList et, UpdateOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackList", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
 
     protected void prepareUpdateOption(UpdateOption<LdBlackListCB> op) {
-        if (op == null) { return; }
-        assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected LdBlackListCB createCBForVaryingUpdate() {
-        LdBlackListCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected LdBlackListCB createCBForVaryingUpdate()
+    { LdBlackListCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected LdBlackListCB createCBForSpecifiedUpdate() {
-        LdBlackListCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected LdBlackListCB createCBForSpecifiedUpdate()
+    { LdBlackListCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
-    @Override
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
-    }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
@@ -673,101 +693,73 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//blackList.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//blackList.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
      * blackListBhv.<span style="color: #DD4747">updateNonstrict</span>(blackList);
      * </pre>
-     * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param blackList The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void updateNonstrict(final LdBlackList blackList) {
+    public void updateNonstrict(LdBlackList blackList) {
         doUpdateNonstrict(blackList, null);
     }
 
-    protected void doUpdateNonstrict(LdBlackList blackList, final UpdateOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackList", blackList);
-        prepareUpdateOption(op);
-        helpUpdateNonstrictInternally(blackList, new InternalUpdateNonstrictCallback<LdBlackList>() {
-            public int callbackDelegateUpdateNonstrict(LdBlackList et) { return delegateUpdateNonstrict(et, op); } });
+    protected void doUpdateNonstrict(LdBlackList et, UpdateOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackList", et); prepareUpdateOption(op); helpUpdateNonstrictInternally(et, op);
     }
 
-    @Override
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { updateNonstrict(downcast(et)); }
-        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
+    { doUpdateNonstrict(downcast(et), downcast(op)); }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param blackList The entity of insert or update target. (NotNull)
+     * @param blackList The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdBlackList blackList) {
-        doInesrtOrUpdate(blackList, null, null);
+        doInsertOrUpdate(blackList, null, null);
     }
 
-    protected void doInesrtOrUpdate(LdBlackList blackList, final InsertOption<LdBlackListCB> iop, final UpdateOption<LdBlackListCB> uop) {
-        helpInsertOrUpdateInternally(blackList, new InternalInsertOrUpdateCallback<LdBlackList, LdBlackListCB>() {
-            public void callbackInsert(LdBlackList et) { doInsert(et, iop); }
-            public void callbackUpdate(LdBlackList et) { doUpdate(et, uop); }
-            public LdBlackListCB callbackNewMyConditionBean() { return newMyConditionBean(); }
-            public int callbackSelectCount(LdBlackListCB cb) { return selectCount(cb); }
-        });
+    protected void doInsertOrUpdate(LdBlackList et, InsertOption<LdBlackListCB> iop, UpdateOption<LdBlackListCB> uop) {
+        assertObjectNotNull("blackList", et); helpInsertOrUpdateInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdBlackListCB>();
-            uop = uop != null ? uop : new UpdateOption<LdBlackListCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param blackList The entity of insert or update target. (NotNull)
+     * @param blackList The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdBlackList blackList) {
-        doInesrtOrUpdateNonstrict(blackList, null, null);
+        doInsertOrUpdateNonstrict(blackList, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(LdBlackList blackList, final InsertOption<LdBlackListCB> iop, final UpdateOption<LdBlackListCB> uop) {
-        helpInsertOrUpdateInternally(blackList, new InternalInsertOrUpdateNonstrictCallback<LdBlackList>() {
-            public void callbackInsert(LdBlackList et) { doInsert(et, iop); }
-            public void callbackUpdateNonstrict(LdBlackList et) { doUpdateNonstrict(et, uop); }
-        });
+    protected void doInsertOrUpdateNonstrict(LdBlackList et, InsertOption<LdBlackListCB> iop, UpdateOption<LdBlackListCB> uop) {
+        assertObjectNotNull("blackList", et); helpInsertOrUpdateNonstrictInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdBlackListCB>();
-            uop = uop != null ? uop : new UpdateOption<LdBlackListCB>();
-            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
      * <pre>
      * LdBlackList blackList = new LdBlackList();
      * blackList.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * blackList.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     blackListBhv.<span style="color: #DD4747">delete</span>(blackList);
@@ -775,7 +767,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param blackList The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -783,35 +775,25 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
         doDelete(blackList, null);
     }
 
-    protected void doDelete(LdBlackList blackList, final DeleteOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackList", blackList);
-        prepareDeleteOption(op);
-        helpDeleteInternally(blackList, new InternalDeleteCallback<LdBlackList>() {
-            public int callbackDelegateDelete(LdBlackList et) { return delegateDelete(et, op); } });
+    protected void doDelete(LdBlackList et, final DeleteOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackList", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<LdBlackListCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<LdBlackListCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
 
-    @Override
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
-    }
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
      * LdBlackList blackList = new LdBlackList();
      * blackList.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
      * blackListBhv.<span style="color: #DD4747">deleteNonstrict</span>(blackList);
      * </pre>
-     * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param blackList The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -819,11 +801,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
         doDeleteNonstrict(blackList, null);
     }
 
-    protected void doDeleteNonstrict(LdBlackList blackList, final DeleteOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackList", blackList);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictInternally(blackList, new InternalDeleteNonstrictCallback<LdBlackList>() {
-            public int callbackDelegateDeleteNonstrict(LdBlackList et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrict(LdBlackList et, final DeleteOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackList", et); prepareDeleteOption(op); helpDeleteNonstrictInternally(et, op);
     }
 
     /**
@@ -831,31 +810,25 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdBlackList blackList = new LdBlackList();
      * blackList.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
      * blackListBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(blackList);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
-     * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param blackList The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdBlackList blackList) {
         doDeleteNonstrictIgnoreDeleted(blackList, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(LdBlackList blackList, final DeleteOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackList", blackList);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictIgnoreDeletedInternally(blackList, new InternalDeleteNonstrictIgnoreDeletedCallback<LdBlackList>() {
-            public int callbackDelegateDeleteNonstrict(LdBlackList et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrictIgnoreDeleted(LdBlackList et, final DeleteOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackList", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
-    @Override
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { deleteNonstrict(downcast(et)); }
-        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
+    { doDeleteNonstrict(downcast(et), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -885,27 +858,23 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<LdBlackList> blackListList) {
-        InsertOption<LdBlackListCB> op = createInsertUpdateOption();
-        return doBatchInsert(blackListList, op);
+        return doBatchInsert(blackListList, null);
     }
 
-    protected int[] doBatchInsert(List<LdBlackList> blackListList, InsertOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackListList", blackListList);
-        prepareBatchInsertOption(blackListList, op);
-        return delegateBatchInsert(blackListList, op);
+    protected int[] doBatchInsert(List<LdBlackList> ls, InsertOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackListList", ls);
+        InsertOption<LdBlackListCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<LdBlackList> blackListList, InsertOption<LdBlackListCB> op) {
+    protected void prepareBatchInsertOption(List<LdBlackList> ls, InsertOption<LdBlackListCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(blackListList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
-    @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
@@ -927,31 +896,27 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * }
      * blackListBhv.<span style="color: #DD4747">batchUpdate</span>(blackListList);
      * </pre>
-     * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdBlackList> blackListList) {
-        UpdateOption<LdBlackListCB> op = createPlainUpdateOption();
-        return doBatchUpdate(blackListList, op);
+        return doBatchUpdate(blackListList, null);
     }
 
-    protected int[] doBatchUpdate(List<LdBlackList> blackListList, UpdateOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackListList", blackListList);
-        prepareBatchUpdateOption(blackListList, op);
-        return delegateBatchUpdate(blackListList, op);
+    protected int[] doBatchUpdate(List<LdBlackList> ls, UpdateOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackListList", ls);
+        UpdateOption<LdBlackListCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<LdBlackList> blackListList, UpdateOption<LdBlackListCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(blackListList);
+    protected void prepareBatchUpdateOption(List<LdBlackList> ls, UpdateOption<LdBlackListCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
-    @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
@@ -976,7 +941,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * and an optimistic lock column because they are specified implicitly.</p>
      * <p>And you should specify columns that are modified in any entities (at least one entity).
      * But if you specify every column, it has no check.</p>
-     * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param blackListList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
@@ -1010,14 +975,14 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdBlackList> blackListList) {
-        UpdateOption<LdBlackListCB> option = createPlainUpdateOption();
-        return doBatchUpdateNonstrict(blackListList, option);
+        return doBatchUpdateNonstrict(blackListList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<LdBlackList> blackListList, UpdateOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackListList", blackListList);
-        prepareBatchUpdateOption(blackListList, op);
-        return delegateBatchUpdateNonstrict(blackListList, op);
+    protected int[] doBatchUpdateNonstrict(List<LdBlackList> ls, UpdateOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackListList", ls);
+        UpdateOption<LdBlackListCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop);
+        return delegateBatchUpdateNonstrict(ls, rlop);
     }
 
     /**
@@ -1052,10 +1017,8 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
+    { return doBatchUpdateNonstrict(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list. (ExclusiveControl) <br />
@@ -1068,17 +1031,13 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
         return doBatchDelete(blackListList, null);
     }
 
-    protected int[] doBatchDelete(List<LdBlackList> blackListList, DeleteOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackListList", blackListList);
+    protected int[] doBatchDelete(List<LdBlackList> ls, DeleteOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackListList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(blackListList, op);
+        return delegateBatchDelete(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list non-strictly. {NonExclusiveControl} <br />
@@ -1091,17 +1050,14 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(blackListList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<LdBlackList> blackListList, DeleteOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackListList", blackListList);
+    protected int[] doBatchDeleteNonstrict(List<LdBlackList> ls, DeleteOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackListList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(blackListList, op);
+        return delegateBatchDeleteNonstrict(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
+    { return doBatchDeleteNonstrict(downcast(ls), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -1122,7 +1078,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1137,24 +1093,16 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     }
 
     protected int doQueryInsert(QueryInsertSetupper<LdBlackList, LdBlackListCB> sp, InsertOption<LdBlackListCB> op) {
-        assertObjectNotNull("setupper", sp);
-        prepareInsertOption(op);
-        LdBlackList e = new LdBlackList();
-        LdBlackListCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
+        LdBlackList et = newEntity(); LdBlackListCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected LdBlackListCB createCBForQueryInsert() {
-        LdBlackListCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected LdBlackListCB createCBForQueryInsert()
+    { LdBlackListCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
-    @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
-    }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
+    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -1166,7 +1114,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//blackList.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//blackList.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
      * LdBlackListCB cb = new LdBlackListCB();
@@ -1182,17 +1130,13 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(blackList, cb, null);
     }
 
-    protected int doQueryUpdate(LdBlackList blackList, LdBlackListCB cb, UpdateOption<LdBlackListCB> op) {
-        assertObjectNotNull("blackList", blackList); assertCBStateValid(cb);
-        prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(blackList, cb, op) : 0;
+    protected int doQueryUpdate(LdBlackList et, LdBlackListCB cb, UpdateOption<LdBlackListCB> op) {
+        assertObjectNotNull("blackList", et); assertCBStateValid(cb); prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (LdBlackListCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (LdBlackListCB)cb, downcast(op)); }
-    }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
+    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
@@ -1210,16 +1154,11 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     }
 
     protected int doQueryDelete(LdBlackListCB cb, DeleteOption<LdBlackListCB> op) {
-        assertCBStateValid(cb);
-        prepareDeleteOption(op);
+        assertCBStateValid(cb); prepareDeleteOption(op);
         return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((LdBlackListCB)cb); }
-        else { return varyingQueryDelete((LdBlackListCB)cb, downcast(op)); }
-    }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1242,7 +1181,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * blackListBhv.<span style="color: #DD4747">varyingInsert</span>(blackList, option);
      * ... = blackList.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param blackList The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param blackList The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1259,7 +1198,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * LdBlackList blackList = new LdBlackList();
      * blackList.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * blackList.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * blackList.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1274,7 +1213,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param blackList The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1294,7 +1233,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * LdBlackList blackList = new LdBlackList();
      * blackList.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * blackList.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
      * UpdateOption&lt;LdBlackListCB&gt; option = new UpdateOption&lt;LdBlackListCB&gt;();
@@ -1305,7 +1244,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * blackListBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(blackList, option);
      * </pre>
-     * @param blackList The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param blackList The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1319,7 +1258,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param blackList The entity of insert or update target. (NotNull)
+     * @param blackList The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1328,13 +1267,13 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(LdBlackList blackList, InsertOption<LdBlackListCB> insertOption, UpdateOption<LdBlackListCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(blackList, insertOption, updateOption);
+        doInsertOrUpdate(blackList, insertOption, updateOption);
     }
 
     /**
      * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdateNonstrict(entity).
-     * @param blackList The entity of insert or update target. (NotNull)
+     * @param blackList The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1343,14 +1282,14 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdateNonstrict(LdBlackList blackList, InsertOption<LdBlackListCB> insertOption, UpdateOption<LdBlackListCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdateNonstrict(blackList, insertOption, updateOption);
+        doInsertOrUpdateNonstrict(blackList, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, ExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param blackList The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1364,7 +1303,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as deleteNonstrict(entity).
-     * @param blackList The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param blackList The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1472,7 +1411,7 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//blackList.setPK...(value);</span>
      * blackList.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//blackList.setVersionNo(value);</span>
      * LdBlackListCB cb = new LdBlackListCB();
@@ -1549,62 +1488,6 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Delegate Method
-    //                                                                     ===============
-    // [Behavior Command]
-    // -----------------------------------------------------
-    //                                                Select
-    //                                                ------
-    protected int delegateSelectCountUniquely(LdBlackListCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
-    protected int delegateSelectCountPlainly(LdBlackListCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdBlackList> void delegateSelectCursor(LdBlackListCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
-    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
-    protected <ENTITY extends LdBlackList> List<ENTITY> delegateSelectList(LdBlackListCB cb, Class<ENTITY> tp)
-    { return invoke(createSelectListCBCommand(cb, tp)); }
-
-    // -----------------------------------------------------
-    //                                                Update
-    //                                                ------
-    protected int delegateInsert(LdBlackList et, InsertOption<LdBlackListCB> op)
-    { if (!processBeforeInsert(et, op)) { return 0; }
-      return invoke(createInsertEntityCommand(et, op)); }
-    protected int delegateUpdate(LdBlackList et, UpdateOption<LdBlackListCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateEntityCommand(et, op)); }
-    protected int delegateUpdateNonstrict(LdBlackList et, UpdateOption<LdBlackListCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
-    protected int delegateDelete(LdBlackList et, DeleteOption<LdBlackListCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteEntityCommand(et, op)); }
-    protected int delegateDeleteNonstrict(LdBlackList et, DeleteOption<LdBlackListCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
-
-    protected int[] delegateBatchInsert(List<LdBlackList> ls, InsertOption<LdBlackListCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchInsertCommand(processBatchInternally(ls, op), op)); }
-    protected int[] delegateBatchUpdate(List<LdBlackList> ls, UpdateOption<LdBlackListCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchUpdateNonstrict(List<LdBlackList> ls, UpdateOption<LdBlackListCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-    protected int[] delegateBatchDelete(List<LdBlackList> ls, DeleteOption<LdBlackListCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchDeleteNonstrict(List<LdBlackList> ls, DeleteOption<LdBlackListCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-
-    protected int delegateQueryInsert(LdBlackList et, LdBlackListCB inCB, ConditionBean resCB, InsertOption<LdBlackListCB> op)
-    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(LdBlackList et, LdBlackListCB cb, UpdateOption<LdBlackListCB> op)
-    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
-    protected int delegateQueryDelete(LdBlackListCB cb, DeleteOption<LdBlackListCB> op)
-    { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
-
-    // ===================================================================================
     //                                                                     Filter Override
     //                                                                     ===============
     @Override
@@ -1618,55 +1501,26 @@ public abstract class LdBsBlackListBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                Optimistic Lock Info
     //                                                                ====================
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean hasVersionNoValue(Entity et) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected boolean hasUpdateDateValue(Entity et) {
         return downcast(et).getUTimestamp() != null;
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected LdBlackList downcast(Entity et) {
-        return helpEntityDowncastInternally(et, LdBlackList.class);
-    }
-
-    protected LdBlackListCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, LdBlackListCB.class);
-    }
-
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<LdBlackList> typeOfSelectedEntity() { return LdBlackList.class; }
+    protected LdBlackList downcast(Entity et) { return helpEntityDowncastInternally(et, LdBlackList.class); }
+    protected LdBlackListCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdBlackListCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<LdBlackList> downcast(List<? extends Entity> ls) {
-        return (List<LdBlackList>)ls;
-    }
-
+    protected List<LdBlackList> downcast(List<? extends Entity> ls) { return (List<LdBlackList>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<LdBlackListCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<LdBlackListCB>)op;
-    }
-
+    protected InsertOption<LdBlackListCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<LdBlackListCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<LdBlackListCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<LdBlackListCB>)op;
-    }
-
+    protected UpdateOption<LdBlackListCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<LdBlackListCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<LdBlackListCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<LdBlackListCB>)op;
-    }
-
+    protected DeleteOption<LdBlackListCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<LdBlackListCB>)op; }
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdBlackList, LdBlackListCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<LdBlackList, LdBlackListCB>)sp;
-    }
+    protected QueryInsertSetupper<LdBlackList, LdBlackListCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<LdBlackList, LdBlackListCB>)sp; }
 }

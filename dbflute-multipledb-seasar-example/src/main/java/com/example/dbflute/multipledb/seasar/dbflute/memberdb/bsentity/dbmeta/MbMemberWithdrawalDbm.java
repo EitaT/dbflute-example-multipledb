@@ -259,7 +259,7 @@ public class MbMemberWithdrawalDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbMemberWithdrawal newEntity() { return new MbMemberWithdrawal(); }
     public MbMemberWithdrawal newMyEntity() { return new MbMemberWithdrawal(); }
 
     // ===================================================================================

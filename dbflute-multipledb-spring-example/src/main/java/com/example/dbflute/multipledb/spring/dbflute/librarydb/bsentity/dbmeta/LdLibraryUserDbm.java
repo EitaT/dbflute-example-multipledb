@@ -267,7 +267,7 @@ public class LdLibraryUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdLibraryUser newEntity() { return new LdLibraryUser(); }
     public LdLibraryUser newMyEntity() { return new LdLibraryUser(); }
 
     // ===================================================================================

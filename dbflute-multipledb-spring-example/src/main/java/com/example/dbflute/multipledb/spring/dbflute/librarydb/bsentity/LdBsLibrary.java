@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -186,7 +186,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     protected LdLibraryTypeLookup _libraryTypeLookup;
 
     /**
-     * LIBRARY_TYPE_LOOKUP by my LIBRARY_TYPE_CODE, named 'libraryTypeLookup'.
+     * [get] LIBRARY_TYPE_LOOKUP by my LIBRARY_TYPE_CODE, named 'libraryTypeLookup'.
      * @return The entity of foreign property 'libraryTypeLookup'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdLibraryTypeLookup getLibraryTypeLookup() {
@@ -194,7 +194,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * LIBRARY_TYPE_LOOKUP by my LIBRARY_TYPE_CODE, named 'libraryTypeLookup'.
+     * [set] LIBRARY_TYPE_LOOKUP by my LIBRARY_TYPE_CODE, named 'libraryTypeLookup'.
      * @param libraryTypeLookup The entity of foreign property 'libraryTypeLookup'. (NullAllowed)
      */
     public void setLibraryTypeLookup(LdLibraryTypeLookup libraryTypeLookup) {
@@ -208,7 +208,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     protected List<LdCollection> _collectionList;
 
     /**
-     * COLLECTION by LIBRARY_ID, named 'collectionList'.
+     * [get] COLLECTION by LIBRARY_ID, named 'collectionList'.
      * @return The entity list of referrer property 'collectionList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdCollection> getCollectionList() {
@@ -217,7 +217,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * COLLECTION by LIBRARY_ID, named 'collectionList'.
+     * [set] COLLECTION by LIBRARY_ID, named 'collectionList'.
      * @param collectionList The entity list of referrer property 'collectionList'. (NullAllowed)
      */
     public void setCollectionList(List<LdCollection> collectionList) {
@@ -228,7 +228,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     protected List<LdLibraryUser> _libraryUserList;
 
     /**
-     * LIBRARY_USER by LIBRARY_ID, named 'libraryUserList'.
+     * [get] LIBRARY_USER by LIBRARY_ID, named 'libraryUserList'.
      * @return The entity list of referrer property 'libraryUserList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdLibraryUser> getLibraryUserList() {
@@ -237,7 +237,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * LIBRARY_USER by LIBRARY_ID, named 'libraryUserList'.
+     * [set] LIBRARY_USER by LIBRARY_ID, named 'libraryUserList'.
      * @param libraryUserList The entity list of referrer property 'libraryUserList'. (NullAllowed)
      */
     public void setLibraryUserList(List<LdLibraryUser> libraryUserList) {
@@ -248,7 +248,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     protected List<LdNextLibrary> _nextLibraryByLibraryIdList;
 
     /**
-     * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdList'.
+     * [get] NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdList'.
      * @return The entity list of referrer property 'nextLibraryByLibraryIdList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdNextLibrary> getNextLibraryByLibraryIdList() {
@@ -257,7 +257,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdList'.
+     * [set] NEXT_LIBRARY by LIBRARY_ID, named 'nextLibraryByLibraryIdList'.
      * @param nextLibraryByLibraryIdList The entity list of referrer property 'nextLibraryByLibraryIdList'. (NullAllowed)
      */
     public void setNextLibraryByLibraryIdList(List<LdNextLibrary> nextLibraryByLibraryIdList) {
@@ -268,7 +268,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     protected List<LdNextLibrary> _nextLibraryByNextLibraryIdList;
 
     /**
-     * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdList'.
+     * [get] NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdList'.
      * @return The entity list of referrer property 'nextLibraryByNextLibraryIdList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdNextLibrary> getNextLibraryByNextLibraryIdList() {
@@ -277,7 +277,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
     }
 
     /**
-     * NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdList'.
+     * [set] NEXT_LIBRARY by NEXT_LIBRARY_ID, named 'nextLibraryByNextLibraryIdList'.
      * @param nextLibraryByNextLibraryIdList The entity list of referrer property 'nextLibraryByNextLibraryIdList'. (NullAllowed)
      */
     public void setNextLibraryByNextLibraryIdList(List<LdNextLibrary> nextLibraryByNextLibraryIdList) {
@@ -480,7 +480,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setLibraryId(Integer libraryId) {
         __modifiedProperties.addPropertyName("libraryId");
-        this._libraryId = libraryId;
+        _libraryId = libraryId;
     }
 
     /**
@@ -497,7 +497,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setLibraryName(String libraryName) {
         __modifiedProperties.addPropertyName("libraryName");
-        this._libraryName = libraryName;
+        _libraryName = libraryName;
     }
 
     /**
@@ -514,7 +514,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setLibraryTypeCode(String libraryTypeCode) {
         __modifiedProperties.addPropertyName("libraryTypeCode");
-        this._libraryTypeCode = libraryTypeCode;
+        _libraryTypeCode = libraryTypeCode;
     }
 
     /**
@@ -531,7 +531,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -548,7 +548,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -565,7 +565,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -582,7 +582,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -599,7 +599,7 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -616,6 +616,6 @@ public abstract class LdBsLibrary implements Entity, Serializable, Cloneable {
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

@@ -7,11 +7,14 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
+import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
+import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
-import org.seasar.dbflute.optional.*;
+import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exbhv.*;
+import com.example.dbflute.multipledb.spring.dbflute.librarydb.bsbhv.loader.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.bsentity.dbmeta.*;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
@@ -65,7 +68,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                              DBMeta
     //                                                                              ======
-    /** @return The instance of DBMeta. (NotNull) */
+    /** {@inheritDoc} */
     public DBMeta getDBMeta() { return LdPublisherDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
@@ -75,10 +78,10 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public Entity newEntity() { return newMyEntity(); }
+    public LdPublisher newEntity() { return new LdPublisher(); }
 
     /** {@inheritDoc} */
-    public ConditionBean newConditionBean() { return newMyConditionBean(); }
+    public LdPublisherCB newConditionBean() { return new LdPublisherCB(); }
 
     /** @return The instance of new entity as my table type. (NotNull) */
     public LdPublisher newMyEntity() { return new LdPublisher(); }
@@ -101,6 +104,10 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @return The count for the condition. (NotMinus)
      */
     public int selectCount(LdPublisherCB cb) {
+        return facadeSelectCount(cb);
+    }
+
+    protected int facadeSelectCount(LdPublisherCB cb) {
         return doSelectCountUniquely(cb);
     }
 
@@ -114,10 +121,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
         return delegateSelectCountPlainly(cb);
     }
 
-    @Override
-    protected int doReadCount(ConditionBean cb) {
-        return selectCount(downcast(cb));
-    }
+    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -142,23 +146,22 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectEntity(LdPublisherCB cb) {
-        return doSelectEntity(cb, LdPublisher.class);
+        return facadeSelectEntity(cb);
+    }
+
+    protected LdPublisher facadeSelectEntity(LdPublisherCB cb) {
+        return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdPublisher> ENTITY doSelectEntity(LdPublisherCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityInternally(cb, tp, new InternalSelectEntityCallback<ENTITY, LdPublisherCB>() {
-            public List<ENTITY> callbackSelectList(LdPublisherCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityInternally(cb, tp);
     }
 
     protected <ENTITY extends LdPublisher> OptionalEntity<ENTITY> doSelectOptionalEntity(LdPublisherCB cb, Class<ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
-    @Override
-    protected Entity doReadEntity(ConditionBean cb) {
-        return selectEntity(downcast(cb));
-    }
+    protected Entity doReadEntity(ConditionBean cb) { return facadeSelectEntity(downcast(cb)); }
 
     /**
      * Select the entity by the condition-bean with deleted check. <br />
@@ -176,19 +179,19 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectEntityWithDeletedCheck(LdPublisherCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, LdPublisher.class);
+        return facadeSelectEntityWithDeletedCheck(cb);
+    }
+
+    protected LdPublisher facadeSelectEntityWithDeletedCheck(LdPublisherCB cb) {
+        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdPublisher> ENTITY doSelectEntityWithDeletedCheck(LdPublisherCB cb, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp, new InternalSelectEntityWithDeletedCheckCallback<ENTITY, LdPublisherCB>() {
-            public List<ENTITY> callbackSelectList(LdPublisherCB lcb, Class<ENTITY> ltp) { return doSelectList(lcb, ltp); } });
+        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
     }
 
-    @Override
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) {
-        return selectEntityWithDeletedCheck(downcast(cb));
-    }
+    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
 
     /**
      * Select the entity by the primary-key value.
@@ -198,15 +201,19 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectByPKValue(Integer publisherId) {
-        return doSelectByPK(publisherId, LdPublisher.class);
+        return facadeSelectByPKValue(publisherId);
     }
 
-    protected <ENTITY extends LdPublisher> ENTITY doSelectByPK(Integer publisherId, Class<ENTITY> entityType) {
-        return doSelectEntity(xprepareCBAsPK(publisherId), entityType);
+    protected LdPublisher facadeSelectByPKValue(Integer publisherId) {
+        return doSelectByPK(publisherId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdPublisher> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer publisherId, Class<ENTITY> entityType) {
-        return createOptionalEntity(doSelectByPK(publisherId, entityType), publisherId);
+    protected <ENTITY extends LdPublisher> ENTITY doSelectByPK(Integer publisherId, Class<ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(publisherId), tp);
+    }
+
+    protected <ENTITY extends LdPublisher> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer publisherId, Class<ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(publisherId, tp), publisherId);
     }
 
     /**
@@ -218,17 +225,16 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @exception SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
     public LdPublisher selectByPKValueWithDeletedCheck(Integer publisherId) {
-        return doSelectByPKWithDeletedCheck(publisherId, LdPublisher.class);
+        return doSelectByPKWithDeletedCheck(publisherId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdPublisher> ENTITY doSelectByPKWithDeletedCheck(Integer publisherId, Class<ENTITY> entityType) {
-        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(publisherId), entityType);
+    protected <ENTITY extends LdPublisher> ENTITY doSelectByPKWithDeletedCheck(Integer publisherId, Class<ENTITY> tp) {
+        return doSelectEntityWithDeletedCheck(xprepareCBAsPK(publisherId), tp);
     }
 
     protected LdPublisherCB xprepareCBAsPK(Integer publisherId) {
         assertObjectNotNull("publisherId", publisherId);
-        LdPublisherCB cb = newMyConditionBean(); cb.acceptPrimaryKey(publisherId);
-        return cb;
+        return newConditionBean().acceptPK(publisherId);
     }
 
     // ===================================================================================
@@ -250,20 +256,18 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public ListResultBean<LdPublisher> selectList(LdPublisherCB cb) {
-        return doSelectList(cb, LdPublisher.class);
+        return facadeSelectList(cb);
+    }
+
+    protected ListResultBean<LdPublisher> facadeSelectList(LdPublisherCB cb) {
+        return doSelectList(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdPublisher> ListResultBean<ENTITY> doSelectList(LdPublisherCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        return helpSelectListInternally(cb, tp, new InternalSelectListCallback<ENTITY, LdPublisherCB>() {
-            public List<ENTITY> callbackSelectList(LdPublisherCB lcb, Class<ENTITY> ltp) { return delegateSelectList(lcb, ltp); } });
+        return helpSelectListInternally(cb, tp);
     }
 
-    @Override
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) {
-        return selectList(downcast(cb));
-    }
+    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -291,21 +295,18 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @exception DangerousResultSizeException When the result size is over the specified safety size.
      */
     public PagingResultBean<LdPublisher> selectPage(LdPublisherCB cb) {
-        return doSelectPage(cb, LdPublisher.class);
+        return facadeSelectPage(cb);
+    }
+
+    protected PagingResultBean<LdPublisher> facadeSelectPage(LdPublisherCB cb) {
+        return doSelectPage(cb, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdPublisher> PagingResultBean<ENTITY> doSelectPage(LdPublisherCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectPageInternally(cb, tp, new InternalSelectPageCallback<ENTITY, LdPublisherCB>() {
-            public int callbackSelectCount(LdPublisherCB cb) { return doSelectCountPlainly(cb); }
-            public List<ENTITY> callbackSelectList(LdPublisherCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        return helpSelectPageInternally(cb, tp);
     }
 
-    @Override
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) {
-        return selectPage(downcast(cb));
-    }
+    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Cursor Select
@@ -325,16 +326,17 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param entityRowHandler The handler of entity row of LdPublisher. (NotNull)
      */
     public void selectCursor(LdPublisherCB cb, EntityRowHandler<LdPublisher> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, LdPublisher.class);
+        facadeSelectCursor(cb, entityRowHandler);
+    }
+
+    protected void facadeSelectCursor(LdPublisherCB cb, EntityRowHandler<LdPublisher> entityRowHandler) {
+        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
     }
 
     protected <ENTITY extends LdPublisher> void doSelectCursor(LdPublisherCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
         assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
         assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp, new InternalSelectCursorCallback<ENTITY, LdPublisherCB>() {
-            public void callbackSelectCursor(LdPublisherCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) { delegateSelectCursor(cb, handler, tp); }
-            public List<ENTITY> callbackSelectList(LdPublisherCB cb, Class<ENTITY> tp) { return doSelectList(cb, tp); }
-        });
+        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -355,23 +357,22 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> SLFunction<LdPublisherCB, RESULT> scalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newMyConditionBean());
+    public <RESULT> HpSLSFunction<LdPublisherCB, RESULT> scalarSelect(Class<RESULT> resultType) {
+        return facadeScalarSelect(resultType);
     }
 
-    protected <RESULT, CB extends LdPublisherCB> SLFunction<CB, RESULT> doScalarSelect(Class<RESULT> tp, CB cb) {
+    protected <RESULT> HpSLSFunction<LdPublisherCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
+        return doScalarSelect(resultType, newConditionBean());
+    }
+
+    protected <RESULT, CB extends LdPublisherCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
         assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
         cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        return createSLFunction(cb, tp);
+        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
+        return createSLSFunction(cb, tp, executor);
     }
 
-    protected <RESULT, CB extends LdPublisherCB> SLFunction<CB, RESULT> createSLFunction(CB cb, Class<RESULT> tp) {
-        return new SLFunction<CB, RESULT>(cb, tp);
-    }
-
-    protected <RESULT> SLFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) {
-        return doScalarSelect(tp, newMyConditionBean());
-    }
+    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -385,6 +386,78 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    /**
+     * Load referrer by the the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * List&lt;Member&gt; memberList = memberBhv.selectList(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(memberList, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param publisherList The entity list of publisher. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(List<LdPublisher> publisherList, ReferrerLoaderHandler<LdLoaderOfPublisher> handler) {
+        xassLRArg(publisherList, handler);
+        handler.handle(new LdLoaderOfPublisher().ready(publisherList, _behaviorSelector));
+    }
+
+    /**
+     * Load referrer of ${referrer.referrerJavaBeansRulePropertyName} by the referrer loader. <br />
+     * <pre>
+     * MemberCB cb = new MemberCB();
+     * cb.query().set...
+     * Member member = memberBhv.selectEntityWithDeletedCheck(cb);
+     * memberBhv.<span style="color: #DD4747">load</span>(member, loader -&gt; {
+     *     loader.<span style="color: #DD4747">loadPurchaseList</span>(purchaseCB -&gt; {
+     *         purchaseCB.query().set...
+     *         purchaseCB.query().addOrderBy_PurchasePrice_Desc();
+     *     }); <span style="color: #3F7E5E">// you can also load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedList(purchaseLoader -&gt {</span>
+     *     <span style="color: #3F7E5E">//    purchaseLoader.loadPurchasePaymentList(...);</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     *
+     *     <span style="color: #3F7E5E">// you can also pull out foreign table and load its referrer</span>
+     *     <span style="color: #3F7E5E">// (setupSelect of the foreign table should be called)</span>
+     *     <span style="color: #3F7E5E">//loader.pulloutMemberStatus().loadMemberLoginList(...)</span>
+     * }
+     * for (Member member : memberList) {
+     *     List&lt;Purchase&gt; purchaseList = member.<span style="color: #DD4747">getPurchaseList()</span>;
+     *     for (Purchase purchase : purchaseList) {
+     *         ...
+     *     }
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br />
+     * The condition-bean, which the set-upper provides, has order by FK before callback.
+     * @param publisher The entity of publisher. (NotNull)
+     * @param handler The callback to handle the referrer loader for actually loading referrer. (NotNull)
+     */
+    public void load(LdPublisher publisher, ReferrerLoaderHandler<LdLoaderOfPublisher> handler) {
+        xassLRArg(publisher, handler);
+        handler.handle(new LdLoaderOfPublisher().ready(xnewLRAryLs(publisher), _behaviorSelector));
+    }
+
     /**
      * Load referrer of bookList by the set-upper of referrer. <br />
      * BOOK by PUBLISHER_ID, named 'bookList'.
@@ -413,7 +486,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBook> loadBookList(List<LdPublisher> publisherList, ConditionBeanSetupper<LdBookCB> setupper) {
+    public NestedReferrerListGateway<LdBook> loadBookList(List<LdPublisher> publisherList, ConditionBeanSetupper<LdBookCB> setupper) {
         xassLRArg(publisherList, setupper);
         return doLoadBookList(publisherList, new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
     }
@@ -444,7 +517,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param setupper The callback to set up referrer condition-bean for loading referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBook> loadBookList(LdPublisher publisher, ConditionBeanSetupper<LdBookCB> setupper) {
+    public NestedReferrerListGateway<LdBook> loadBookList(LdPublisher publisher, ConditionBeanSetupper<LdBookCB> setupper) {
         xassLRArg(publisher, setupper);
         return doLoadBookList(xnewLRLs(publisher), new LoadReferrerOption<LdBookCB, LdBook>().xinit(setupper));
     }
@@ -455,7 +528,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
-    public NestedReferrerLoader<LdBook> loadBookList(LdPublisher publisher, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    public NestedReferrerListGateway<LdBook> loadBookList(LdPublisher publisher, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(publisher, loadReferrerOption);
         return loadBookList(xnewLRLs(publisher), loadReferrerOption);
     }
@@ -467,36 +540,19 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
      */
     @SuppressWarnings("unchecked")
-    public NestedReferrerLoader<LdBook> loadBookList(List<LdPublisher> publisherList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
+    public NestedReferrerListGateway<LdBook> loadBookList(List<LdPublisher> publisherList, LoadReferrerOption<LdBookCB, LdBook> loadReferrerOption) {
         xassLRArg(publisherList, loadReferrerOption);
-        if (publisherList.isEmpty()) { return (NestedReferrerLoader<LdBook>)EMPTY_LOADER; }
+        if (publisherList.isEmpty()) { return (NestedReferrerListGateway<LdBook>)EMPTY_NREF_LGWAY; }
         return doLoadBookList(publisherList, loadReferrerOption);
     }
 
-    protected NestedReferrerLoader<LdBook> doLoadBookList(List<LdPublisher> publisherList, LoadReferrerOption<LdBookCB, LdBook> option) {
-        final LdBookBhv referrerBhv = xgetBSFLR().select(LdBookBhv.class);
-        return helpLoadReferrerInternally(publisherList, option, new InternalLoadReferrerCallback<LdPublisher, Integer, LdBookCB, LdBook>() {
-            public Integer getPKVal(LdPublisher et)
-            { return et.getPublisherId(); }
-            public void setRfLs(LdPublisher et, List<LdBook> ls)
-            { et.setBookList(ls); }
-            public LdBookCB newMyCB() { return referrerBhv.newMyConditionBean(); }
-            public void qyFKIn(LdBookCB cb, List<Integer> ls)
-            { cb.query().setPublisherId_InScope(ls); }
-            public void qyOdFKAsc(LdBookCB cb) { cb.query().addOrderBy_PublisherId_Asc(); }
-            public void spFKCol(LdBookCB cb) { cb.specify().columnPublisherId(); }
-            public List<LdBook> selRfLs(LdBookCB cb) { return referrerBhv.selectList(cb); }
-            public Integer getFKVal(LdBook re) { return re.getPublisherId(); }
-            public void setlcEt(LdBook re, LdPublisher le)
-            { re.setPublisher(le); }
-            public String getRfPrNm() { return "bookList"; }
-        });
+    protected NestedReferrerListGateway<LdBook> doLoadBookList(List<LdPublisher> publisherList, LoadReferrerOption<LdBookCB, LdBook> option) {
+        return helpLoadReferrerInternally(publisherList, option, "bookList");
     }
 
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
-
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
@@ -505,11 +561,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @param publisherList The list of publisher. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractPublisherIdList(List<LdPublisher> publisherList) {
-        return helpExtractListInternally(publisherList, new InternalExtractCallback<LdPublisher, Integer>() {
-            public Integer getCV(LdPublisher et) { return et.getPublisherId(); }
-        });
-    }
+    public List<Integer> extractPublisherIdList(List<LdPublisher> publisherList)
+    { return helpExtractListInternally(publisherList, "publisherId"); }
 
     // ===================================================================================
     //                                                                       Entity Update
@@ -528,32 +581,23 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * ... = publisher.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param publisher The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param publisher The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insert(LdPublisher publisher) {
         doInsert(publisher, null);
     }
 
-    protected void doInsert(LdPublisher publisher, InsertOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisher", publisher);
-        prepareInsertOption(op);
-        delegateInsert(publisher, op);
+    protected void doInsert(LdPublisher et, InsertOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisher", et); prepareInsertOption(op); delegateInsert(et, op);
     }
 
     protected void prepareInsertOption(InsertOption<LdPublisherCB> op) {
-        if (op == null) { return; }
-        assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) {
-            op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertInsertOptionStatus(op);
+        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    @Override
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { insert(downcast(et)); }
-        else { varyingInsert(downcast(et), downcast(op)); }
-    }
+    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
 
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
@@ -564,7 +608,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//publisher.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//publisher.set...;</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * publisher.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     publisherBhv.<span style="color: #DD4747">update</span>(publisher);
@@ -572,50 +616,32 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param publisher The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(final LdPublisher publisher) {
+    public void update(LdPublisher publisher) {
         doUpdate(publisher, null);
     }
 
-    protected void doUpdate(LdPublisher publisher, final UpdateOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisher", publisher);
-        prepareUpdateOption(op);
-        helpUpdateInternally(publisher, new InternalUpdateCallback<LdPublisher>() {
-            public int callbackDelegateUpdate(LdPublisher et) { return delegateUpdate(et, op); } });
+    protected void doUpdate(LdPublisher et, UpdateOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisher", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
     }
 
     protected void prepareUpdateOption(UpdateOption<LdPublisherCB> op) {
-        if (op == null) { return; }
-        assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) {
-            op.resolveSelfSpecification(createCBForVaryingUpdate());
-        }
-        if (op.hasSpecifiedUpdateColumn()) {
-            op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate());
-        }
+        if (op == null) { return; } assertUpdateOptionStatus(op);
+        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
+        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
     }
 
-    protected LdPublisherCB createCBForVaryingUpdate() {
-        LdPublisherCB cb = newMyConditionBean();
-        cb.xsetupForVaryingUpdate();
-        return cb;
-    }
+    protected LdPublisherCB createCBForVaryingUpdate()
+    { LdPublisherCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
 
-    protected LdPublisherCB createCBForSpecifiedUpdate() {
-        LdPublisherCB cb = newMyConditionBean();
-        cb.xsetupForSpecifiedUpdate();
-        return cb;
-    }
+    protected LdPublisherCB createCBForSpecifiedUpdate()
+    { LdPublisherCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
 
-    @Override
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { update(downcast(et)); }
-        else { varyingUpdate(downcast(et), downcast(op)); }
-    }
+    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
 
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
@@ -626,101 +652,73 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//publisher.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//publisher.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
      * publisherBhv.<span style="color: #DD4747">updateNonstrict</span>(publisher);
      * </pre>
-     * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param publisher The entity of update. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void updateNonstrict(final LdPublisher publisher) {
+    public void updateNonstrict(LdPublisher publisher) {
         doUpdateNonstrict(publisher, null);
     }
 
-    protected void doUpdateNonstrict(LdPublisher publisher, final UpdateOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisher", publisher);
-        prepareUpdateOption(op);
-        helpUpdateNonstrictInternally(publisher, new InternalUpdateNonstrictCallback<LdPublisher>() {
-            public int callbackDelegateUpdateNonstrict(LdPublisher et) { return delegateUpdateNonstrict(et, op); } });
+    protected void doUpdateNonstrict(LdPublisher et, UpdateOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisher", et); prepareUpdateOption(op); helpUpdateNonstrictInternally(et, op);
     }
 
-    @Override
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { updateNonstrict(downcast(et)); }
-        else { varyingUpdateNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
+    { doUpdateNonstrict(downcast(et), downcast(op)); }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param publisher The entity of insert or update target. (NotNull)
+     * @param publisher The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdate(LdPublisher publisher) {
-        doInesrtOrUpdate(publisher, null, null);
+        doInsertOrUpdate(publisher, null, null);
     }
 
-    protected void doInesrtOrUpdate(LdPublisher publisher, final InsertOption<LdPublisherCB> iop, final UpdateOption<LdPublisherCB> uop) {
-        helpInsertOrUpdateInternally(publisher, new InternalInsertOrUpdateCallback<LdPublisher, LdPublisherCB>() {
-            public void callbackInsert(LdPublisher et) { doInsert(et, iop); }
-            public void callbackUpdate(LdPublisher et) { doUpdate(et, uop); }
-            public LdPublisherCB callbackNewMyConditionBean() { return newMyConditionBean(); }
-            public int callbackSelectCount(LdPublisherCB cb) { return selectCount(cb); }
-        });
+    protected void doInsertOrUpdate(LdPublisher et, InsertOption<LdPublisherCB> iop, UpdateOption<LdPublisherCB> uop) {
+        assertObjectNotNull("publisher", et); helpInsertOrUpdateInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdate(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdPublisherCB>();
-            uop = uop != null ? uop : new UpdateOption<LdPublisherCB>();
-            varyingInsertOrUpdate(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
      * <p><span style="color: #DD4747; font-size: 120%">Attention, you cannot update by unique keys instead of PK.</span></p>
-     * @param publisher The entity of insert or update target. (NotNull)
+     * @param publisher The entity of insert or update. (NotNull, ...depends on insert or update)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
     public void insertOrUpdateNonstrict(LdPublisher publisher) {
-        doInesrtOrUpdateNonstrict(publisher, null, null);
+        doInsertOrUpdateNonstrict(publisher, null, null);
     }
 
-    protected void doInesrtOrUpdateNonstrict(LdPublisher publisher, final InsertOption<LdPublisherCB> iop, final UpdateOption<LdPublisherCB> uop) {
-        helpInsertOrUpdateInternally(publisher, new InternalInsertOrUpdateNonstrictCallback<LdPublisher>() {
-            public void callbackInsert(LdPublisher et) { doInsert(et, iop); }
-            public void callbackUpdateNonstrict(LdPublisher et) { doUpdateNonstrict(et, uop); }
-        });
+    protected void doInsertOrUpdateNonstrict(LdPublisher et, InsertOption<LdPublisherCB> iop, UpdateOption<LdPublisherCB> uop) {
+        assertObjectNotNull("publisher", et); helpInsertOrUpdateNonstrictInternally(et, iop, uop);
     }
 
-    @Override
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop) {
-        if (iop == null && uop == null) { insertOrUpdateNonstrict(downcast(et)); }
-        else {
-            iop = iop != null ? iop : new InsertOption<LdPublisherCB>();
-            uop = uop != null ? uop : new UpdateOption<LdPublisherCB>();
-            varyingInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop));
-        }
-    }
+    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
+    { doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
      * <pre>
      * LdPublisher publisher = new LdPublisher();
      * publisher.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * publisher.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     publisherBhv.<span style="color: #DD4747">delete</span>(publisher);
@@ -728,7 +726,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param publisher The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -736,35 +734,25 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
         doDelete(publisher, null);
     }
 
-    protected void doDelete(LdPublisher publisher, final DeleteOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisher", publisher);
-        prepareDeleteOption(op);
-        helpDeleteInternally(publisher, new InternalDeleteCallback<LdPublisher>() {
-            public int callbackDelegateDelete(LdPublisher et) { return delegateDelete(et, op); } });
+    protected void doDelete(LdPublisher et, final DeleteOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisher", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
     }
 
-    protected void prepareDeleteOption(DeleteOption<LdPublisherCB> op) {
-        if (op == null) { return; }
-        assertDeleteOptionStatus(op);
-    }
+    protected void prepareDeleteOption(DeleteOption<LdPublisherCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
 
-    @Override
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { delete(downcast(et)); }
-        else { varyingDelete(downcast(et), downcast(op)); }
-    }
+    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
 
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
      * LdPublisher publisher = new LdPublisher();
      * publisher.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
      * publisherBhv.<span style="color: #DD4747">deleteNonstrict</span>(publisher);
      * </pre>
-     * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param publisher The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
@@ -772,11 +760,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
         doDeleteNonstrict(publisher, null);
     }
 
-    protected void doDeleteNonstrict(LdPublisher publisher, final DeleteOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisher", publisher);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictInternally(publisher, new InternalDeleteNonstrictCallback<LdPublisher>() {
-            public int callbackDelegateDeleteNonstrict(LdPublisher et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrict(LdPublisher et, final DeleteOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisher", et); prepareDeleteOption(op); helpDeleteNonstrictInternally(et, op);
     }
 
     /**
@@ -784,31 +769,25 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <pre>
      * LdPublisher publisher = new LdPublisher();
      * publisher.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
      * publisherBhv.<span style="color: #DD4747">deleteNonstrictIgnoreDeleted</span>(publisher);
      * <span style="color: #3F7E5E">// if the target entity doesn't exist, no exception</span>
      * </pre>
-     * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull)
+     * @param publisher The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @exception EntityDuplicatedException When the entity has been duplicated.
      */
     public void deleteNonstrictIgnoreDeleted(LdPublisher publisher) {
         doDeleteNonstrictIgnoreDeleted(publisher, null);
     }
 
-    protected void doDeleteNonstrictIgnoreDeleted(LdPublisher publisher, final DeleteOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisher", publisher);
-        prepareDeleteOption(op);
-        helpDeleteNonstrictIgnoreDeletedInternally(publisher, new InternalDeleteNonstrictIgnoreDeletedCallback<LdPublisher>() {
-            public int callbackDelegateDeleteNonstrict(LdPublisher et) { return delegateDeleteNonstrict(et, op); } });
+    protected void doDeleteNonstrictIgnoreDeleted(LdPublisher et, final DeleteOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisher", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
 
-    @Override
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { deleteNonstrict(downcast(et)); }
-        else { varyingDeleteNonstrict(downcast(et), downcast(op)); }
-    }
+    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
+    { doDeleteNonstrict(downcast(et), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -838,27 +817,23 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
     public int[] batchInsert(List<LdPublisher> publisherList) {
-        InsertOption<LdPublisherCB> op = createInsertUpdateOption();
-        return doBatchInsert(publisherList, op);
+        return doBatchInsert(publisherList, null);
     }
 
-    protected int[] doBatchInsert(List<LdPublisher> publisherList, InsertOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisherList", publisherList);
-        prepareBatchInsertOption(publisherList, op);
-        return delegateBatchInsert(publisherList, op);
+    protected int[] doBatchInsert(List<LdPublisher> ls, InsertOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisherList", ls);
+        InsertOption<LdPublisherCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
+        prepareBatchInsertOption(ls, rlop); // required
+        return delegateBatchInsert(ls, rlop);
     }
 
-    protected void prepareBatchInsertOption(List<LdPublisher> publisherList, InsertOption<LdPublisherCB> op) {
+    protected void prepareBatchInsertOption(List<LdPublisher> ls, InsertOption<LdPublisherCB> op) {
         op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(publisherList);
+        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
         prepareInsertOption(op);
     }
 
-    @Override
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) {
-        if (op == null) { return batchInsert(downcast(ls)); }
-        else { return varyingBatchInsert(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
@@ -880,31 +855,27 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * }
      * publisherBhv.<span style="color: #DD4747">batchUpdate</span>(publisherList);
      * </pre>
-     * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
      */
     public int[] batchUpdate(List<LdPublisher> publisherList) {
-        UpdateOption<LdPublisherCB> op = createPlainUpdateOption();
-        return doBatchUpdate(publisherList, op);
+        return doBatchUpdate(publisherList, null);
     }
 
-    protected int[] doBatchUpdate(List<LdPublisher> publisherList, UpdateOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisherList", publisherList);
-        prepareBatchUpdateOption(publisherList, op);
-        return delegateBatchUpdate(publisherList, op);
+    protected int[] doBatchUpdate(List<LdPublisher> ls, UpdateOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisherList", ls);
+        UpdateOption<LdPublisherCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop); // required
+        return delegateBatchUpdate(ls, rlop);
     }
 
-    protected void prepareBatchUpdateOption(List<LdPublisher> publisherList, UpdateOption<LdPublisherCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(publisherList);
+    protected void prepareBatchUpdateOption(List<LdPublisher> ls, UpdateOption<LdPublisherCB> op) {
+        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
         prepareUpdateOption(op);
     }
 
-    @Override
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdate(downcast(ls)); }
-        else { return varyingBatchUpdate(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
@@ -929,7 +900,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * and an optimistic lock column because they are specified implicitly.</p>
      * <p>And you should specify columns that are modified in any entities (at least one entity).
      * But if you specify every column, it has no check.</p>
-     * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param publisherList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param updateColumnSpec The specification of update columns. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @exception BatchEntityAlreadyUpdatedException When the entity has already been updated. This exception extends EntityAlreadyUpdatedException.
@@ -963,14 +934,14 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
     public int[] batchUpdateNonstrict(List<LdPublisher> publisherList) {
-        UpdateOption<LdPublisherCB> option = createPlainUpdateOption();
-        return doBatchUpdateNonstrict(publisherList, option);
+        return doBatchUpdateNonstrict(publisherList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<LdPublisher> publisherList, UpdateOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisherList", publisherList);
-        prepareBatchUpdateOption(publisherList, op);
-        return delegateBatchUpdateNonstrict(publisherList, op);
+    protected int[] doBatchUpdateNonstrict(List<LdPublisher> ls, UpdateOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisherList", ls);
+        UpdateOption<LdPublisherCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
+        prepareBatchUpdateOption(ls, rlop);
+        return delegateBatchUpdateNonstrict(ls, rlop);
     }
 
     /**
@@ -1005,10 +976,8 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     }
 
     @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return batchUpdateNonstrict(downcast(ls)); }
-        else { return varyingBatchUpdateNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
+    { return doBatchUpdateNonstrict(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list. (ExclusiveControl) <br />
@@ -1021,17 +990,13 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
         return doBatchDelete(publisherList, null);
     }
 
-    protected int[] doBatchDelete(List<LdPublisher> publisherList, DeleteOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisherList", publisherList);
+    protected int[] doBatchDelete(List<LdPublisher> ls, DeleteOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisherList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDelete(publisherList, op);
+        return delegateBatchDelete(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDelete(downcast(ls)); }
-        else { return varyingBatchDelete(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list non-strictly. {NonExclusiveControl} <br />
@@ -1044,17 +1009,14 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(publisherList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<LdPublisher> publisherList, DeleteOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisherList", publisherList);
+    protected int[] doBatchDeleteNonstrict(List<LdPublisher> ls, DeleteOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisherList", ls);
         prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(publisherList, op);
+        return delegateBatchDeleteNonstrict(ls, op);
     }
 
-    @Override
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return batchDeleteNonstrict(downcast(ls)); }
-        else { return varyingBatchDeleteNonstrict(downcast(ls), downcast(op)); }
-    }
+    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
+    { return doBatchDeleteNonstrict(downcast(ls), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Query Update
@@ -1075,7 +1037,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      *         <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      *         <span style="color: #3F7E5E">//entity.setRegisterUser(value);</span>
      *         <span style="color: #3F7E5E">//entity.set...;</span>
-     *         <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     *         <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      *         <span style="color: #3F7E5E">//entity.setVersionNo(value);</span>
      *
      *         return cb;
@@ -1090,24 +1052,16 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     }
 
     protected int doQueryInsert(QueryInsertSetupper<LdPublisher, LdPublisherCB> sp, InsertOption<LdPublisherCB> op) {
-        assertObjectNotNull("setupper", sp);
-        prepareInsertOption(op);
-        LdPublisher e = new LdPublisher();
-        LdPublisherCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(e, cb, sp.setup(e, cb), op);
+        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
+        LdPublisher et = newEntity(); LdPublisherCB cb = createCBForQueryInsert();
+        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
     }
 
-    protected LdPublisherCB createCBForQueryInsert() {
-        LdPublisherCB cb = newMyConditionBean();
-        cb.xsetupForQueryInsert();
-        return cb;
-    }
+    protected LdPublisherCB createCBForQueryInsert()
+    { LdPublisherCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
 
-    @Override
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> option) {
-        if (option == null) { return queryInsert(downcast(setupper)); }
-        else { return varyingQueryInsert(downcast(setupper), downcast(option)); }
-    }
+    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
+    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -1119,7 +1073,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
      * <span style="color: #3F7E5E">//publisher.setRegisterUser(value);</span>
      * <span style="color: #3F7E5E">//publisher.set...;</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
      * LdPublisherCB cb = new LdPublisherCB();
@@ -1135,17 +1089,13 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(publisher, cb, null);
     }
 
-    protected int doQueryUpdate(LdPublisher publisher, LdPublisherCB cb, UpdateOption<LdPublisherCB> op) {
-        assertObjectNotNull("publisher", publisher); assertCBStateValid(cb);
-        prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(publisher, cb, op) : 0;
+    protected int doQueryUpdate(LdPublisher et, LdPublisherCB cb, UpdateOption<LdPublisherCB> op) {
+        assertObjectNotNull("publisher", et); assertCBStateValid(cb); prepareUpdateOption(op);
+        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op) {
-        if (op == null) { return queryUpdate(downcast(et), (LdPublisherCB)cb); }
-        else { return varyingQueryUpdate(downcast(et), (LdPublisherCB)cb, downcast(op)); }
-    }
+    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
+    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
@@ -1163,16 +1113,11 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     }
 
     protected int doQueryDelete(LdPublisherCB cb, DeleteOption<LdPublisherCB> op) {
-        assertCBStateValid(cb);
-        prepareDeleteOption(op);
+        assertCBStateValid(cb); prepareDeleteOption(op);
         return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
     }
 
-    @Override
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) {
-        if (op == null) { return queryDelete((LdPublisherCB)cb); }
-        else { return varyingQueryDelete((LdPublisherCB)cb, downcast(op)); }
-    }
+    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1195,7 +1140,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * publisherBhv.<span style="color: #DD4747">varyingInsert</span>(publisher, option);
      * ... = publisher.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param publisher The entity of insert target. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param publisher The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param option The option of insert for varying requests. (NotNull)
      * @exception EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
@@ -1212,7 +1157,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * LdPublisher publisher = new LdPublisher();
      * publisher.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * publisher.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// if exclusive control, the value of exclusive control column is required</span>
+     * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
      * publisher.<span style="color: #DD4747">setVersionNo</span>(value);
      * try {
      *     <span style="color: #3F7E5E">// you can update by self calculation values</span>
@@ -1227,7 +1172,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      *     ...
      * }
      * </pre>
-     * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param publisher The entity of update. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1247,7 +1192,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * LdPublisher publisher = new LdPublisher();
      * publisher.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * publisher.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
      * UpdateOption&lt;LdPublisherCB&gt; option = new UpdateOption&lt;LdPublisherCB&gt;();
@@ -1258,7 +1203,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * publisherBhv.<span style="color: #DD4747">varyingUpdateNonstrict</span>(publisher, option);
      * </pre>
-     * @param publisher The entity of update target. (NotNull, PrimaryKeyNotNull)
+     * @param publisher The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1272,7 +1217,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdate(entity).
-     * @param publisher The entity of insert or update target. (NotNull)
+     * @param publisher The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
@@ -1281,13 +1226,13 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdate(LdPublisher publisher, InsertOption<LdPublisherCB> insertOption, UpdateOption<LdPublisherCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdate(publisher, insertOption, updateOption);
+        doInsertOrUpdate(publisher, insertOption, updateOption);
     }
 
     /**
      * Insert or update the entity with varying requests non-strictly. (NonExclusiveControl: when update) <br />
      * Other specifications are same as insertOrUpdateNonstrict(entity).
-     * @param publisher The entity of insert or update target. (NotNull)
+     * @param publisher The entity of insert or update. (NotNull)
      * @param insertOption The option of insert for varying requests. (NotNull)
      * @param updateOption The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
@@ -1296,14 +1241,14 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      */
     public void varyingInsertOrUpdateNonstrict(LdPublisher publisher, InsertOption<LdPublisherCB> insertOption, UpdateOption<LdPublisherCB> updateOption) {
         assertInsertOptionNotNull(insertOption); assertUpdateOptionNotNull(updateOption);
-        doInesrtOrUpdateNonstrict(publisher, insertOption, updateOption);
+        doInsertOrUpdateNonstrict(publisher, insertOption, updateOption);
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, ExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as delete(entity).
-     * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param publisher The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyUpdatedException When the entity has already been updated.
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1317,7 +1262,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * Delete the entity with varying requests non-strictly. (ZeroUpdateException, NonExclusiveControl) <br />
      * Now a valid option does not exist. <br />
      * Other specifications are same as deleteNonstrict(entity).
-     * @param publisher The entity of delete target. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnRequired)
+     * @param publisher The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param option The option of update for varying requests. (NotNull)
      * @exception EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @exception EntityDuplicatedException When the entity has been duplicated.
@@ -1425,7 +1370,7 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
      * <span style="color: #3F7E5E">//publisher.setPK...(value);</span>
      * publisher.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
-     * <span style="color: #3F7E5E">// you don't need to set a value of exclusive control column</span>
+     * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
      * <span style="color: #3F7E5E">//publisher.setVersionNo(value);</span>
      * LdPublisherCB cb = new LdPublisherCB();
@@ -1502,62 +1447,6 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                     Delegate Method
-    //                                                                     ===============
-    // [Behavior Command]
-    // -----------------------------------------------------
-    //                                                Select
-    //                                                ------
-    protected int delegateSelectCountUniquely(LdPublisherCB cb) { return invoke(createSelectCountCBCommand(cb, true)); }
-    protected int delegateSelectCountPlainly(LdPublisherCB cb) { return invoke(createSelectCountCBCommand(cb, false)); }
-    protected <ENTITY extends LdPublisher> void delegateSelectCursor(LdPublisherCB cb, EntityRowHandler<ENTITY> rh, Class<ENTITY> tp)
-    { invoke(createSelectCursorCBCommand(cb, rh, tp)); }
-    protected <ENTITY extends LdPublisher> List<ENTITY> delegateSelectList(LdPublisherCB cb, Class<ENTITY> tp)
-    { return invoke(createSelectListCBCommand(cb, tp)); }
-
-    // -----------------------------------------------------
-    //                                                Update
-    //                                                ------
-    protected int delegateInsert(LdPublisher et, InsertOption<LdPublisherCB> op)
-    { if (!processBeforeInsert(et, op)) { return 0; }
-      return invoke(createInsertEntityCommand(et, op)); }
-    protected int delegateUpdate(LdPublisher et, UpdateOption<LdPublisherCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateEntityCommand(et, op)); }
-    protected int delegateUpdateNonstrict(LdPublisher et, UpdateOption<LdPublisherCB> op)
-    { if (!processBeforeUpdate(et, op)) { return 0; }
-      return invoke(createUpdateNonstrictEntityCommand(et, op)); }
-    protected int delegateDelete(LdPublisher et, DeleteOption<LdPublisherCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteEntityCommand(et, op)); }
-    protected int delegateDeleteNonstrict(LdPublisher et, DeleteOption<LdPublisherCB> op)
-    { if (!processBeforeDelete(et, op)) { return 0; }
-      return invoke(createDeleteNonstrictEntityCommand(et, op)); }
-
-    protected int[] delegateBatchInsert(List<LdPublisher> ls, InsertOption<LdPublisherCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchInsertCommand(processBatchInternally(ls, op), op)); }
-    protected int[] delegateBatchUpdate(List<LdPublisher> ls, UpdateOption<LdPublisherCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchUpdateNonstrict(List<LdPublisher> ls, UpdateOption<LdPublisherCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchUpdateNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-    protected int[] delegateBatchDelete(List<LdPublisher> ls, DeleteOption<LdPublisherCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteCommand(processBatchInternally(ls, op, false), op)); }
-    protected int[] delegateBatchDeleteNonstrict(List<LdPublisher> ls, DeleteOption<LdPublisherCB> op)
-    { if (ls.isEmpty()) { return new int[]{}; }
-      return invoke(createBatchDeleteNonstrictCommand(processBatchInternally(ls, op, true), op)); }
-
-    protected int delegateQueryInsert(LdPublisher et, LdPublisherCB inCB, ConditionBean resCB, InsertOption<LdPublisherCB> op)
-    { if (!processBeforeQueryInsert(et, inCB, resCB, op)) { return 0; } return invoke(createQueryInsertCBCommand(et, inCB, resCB, op));  }
-    protected int delegateQueryUpdate(LdPublisher et, LdPublisherCB cb, UpdateOption<LdPublisherCB> op)
-    { if (!processBeforeQueryUpdate(et, cb, op)) { return 0; } return invoke(createQueryUpdateCBCommand(et, cb, op));  }
-    protected int delegateQueryDelete(LdPublisherCB cb, DeleteOption<LdPublisherCB> op)
-    { if (!processBeforeQueryDelete(cb, op)) { return 0; } return invoke(createQueryDeleteCBCommand(cb, op));  }
-
-    // ===================================================================================
     //                                                                     Filter Override
     //                                                                     ===============
     @Override
@@ -1571,55 +1460,26 @@ public abstract class LdBsPublisherBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                Optimistic Lock Info
     //                                                                ====================
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected boolean hasVersionNoValue(Entity et) {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     @Override
     protected boolean hasUpdateDateValue(Entity et) {
         return downcast(et).getUTimestamp() != null;
     }
 
     // ===================================================================================
-    //                                                                     Downcast Helper
-    //                                                                     ===============
-    protected LdPublisher downcast(Entity et) {
-        return helpEntityDowncastInternally(et, LdPublisher.class);
-    }
-
-    protected LdPublisherCB downcast(ConditionBean cb) {
-        return helpConditionBeanDowncastInternally(cb, LdPublisherCB.class);
-    }
-
+    //                                                                       Assist Helper
+    //                                                                       =============
+    protected Class<LdPublisher> typeOfSelectedEntity() { return LdPublisher.class; }
+    protected LdPublisher downcast(Entity et) { return helpEntityDowncastInternally(et, LdPublisher.class); }
+    protected LdPublisherCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdPublisherCB.class); }
     @SuppressWarnings("unchecked")
-    protected List<LdPublisher> downcast(List<? extends Entity> ls) {
-        return (List<LdPublisher>)ls;
-    }
-
+    protected List<LdPublisher> downcast(List<? extends Entity> ls) { return (List<LdPublisher>)ls; }
     @SuppressWarnings("unchecked")
-    protected InsertOption<LdPublisherCB> downcast(InsertOption<? extends ConditionBean> op) {
-        return (InsertOption<LdPublisherCB>)op;
-    }
-
+    protected InsertOption<LdPublisherCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<LdPublisherCB>)op; }
     @SuppressWarnings("unchecked")
-    protected UpdateOption<LdPublisherCB> downcast(UpdateOption<? extends ConditionBean> op) {
-        return (UpdateOption<LdPublisherCB>)op;
-    }
-
+    protected UpdateOption<LdPublisherCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<LdPublisherCB>)op; }
     @SuppressWarnings("unchecked")
-    protected DeleteOption<LdPublisherCB> downcast(DeleteOption<? extends ConditionBean> op) {
-        return (DeleteOption<LdPublisherCB>)op;
-    }
-
+    protected DeleteOption<LdPublisherCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<LdPublisherCB>)op; }
     @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdPublisher, LdPublisherCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp) {
-        return (QueryInsertSetupper<LdPublisher, LdPublisherCB>)sp;
-    }
+    protected QueryInsertSetupper<LdPublisher, LdPublisherCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
+    { return (QueryInsertSetupper<LdPublisher, LdPublisherCB>)sp; }
 }

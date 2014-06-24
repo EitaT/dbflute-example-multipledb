@@ -141,7 +141,7 @@ public class LdVendorConstraintNameAutoQuxDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdVendorConstraintNameAutoQux newEntity() { return new LdVendorConstraintNameAutoQux(); }
     public LdVendorConstraintNameAutoQux newMyEntity() { return new LdVendorConstraintNameAutoQux(); }
 
     // ===================================================================================

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdCDef;
@@ -326,7 +326,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
     protected List<LdLibrary> _libraryList;
 
     /**
-     * LIBRARY by LIBRARY_TYPE_CODE, named 'libraryList'.
+     * [get] LIBRARY by LIBRARY_TYPE_CODE, named 'libraryList'.
      * @return The entity list of referrer property 'libraryList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdLibrary> getLibraryList() {
@@ -335,7 +335,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
     }
 
     /**
-     * LIBRARY by LIBRARY_TYPE_CODE, named 'libraryList'.
+     * [set] LIBRARY by LIBRARY_TYPE_CODE, named 'libraryList'.
      * @param libraryList The entity list of referrer property 'libraryList'. (NullAllowed)
      */
     public void setLibraryList(List<LdLibrary> libraryList) {
@@ -546,7 +546,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setLibraryTypeCode(String libraryTypeCode) {
         __modifiedProperties.addPropertyName("libraryTypeCode");
-        this._libraryTypeCode = libraryTypeCode;
+        _libraryTypeCode = libraryTypeCode;
     }
 
     /**
@@ -563,7 +563,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setLibraryTypeName(String libraryTypeName) {
         __modifiedProperties.addPropertyName("libraryTypeName");
-        this._libraryTypeName = libraryTypeName;
+        _libraryTypeName = libraryTypeName;
     }
 
     /**
@@ -580,7 +580,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setRUser(String rUser) {
         __modifiedProperties.addPropertyName("RUser");
-        this._rUser = rUser;
+        _rUser = rUser;
     }
 
     /**
@@ -597,7 +597,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setRModule(String rModule) {
         __modifiedProperties.addPropertyName("RModule");
-        this._rModule = rModule;
+        _rModule = rModule;
     }
 
     /**
@@ -614,7 +614,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
         __modifiedProperties.addPropertyName("RTimestamp");
-        this._rTimestamp = rTimestamp;
+        _rTimestamp = rTimestamp;
     }
 
     /**
@@ -631,7 +631,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setUUser(String uUser) {
         __modifiedProperties.addPropertyName("UUser");
-        this._uUser = uUser;
+        _uUser = uUser;
     }
 
     /**
@@ -648,7 +648,7 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setUModule(String uModule) {
         __modifiedProperties.addPropertyName("UModule");
-        this._uModule = uModule;
+        _uModule = uModule;
     }
 
     /**
@@ -665,6 +665,6 @@ public abstract class LdBsLibraryTypeLookup implements LdEntityDefinedCommonColu
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
         __modifiedProperties.addPropertyName("UTimestamp");
-        this._uTimestamp = uTimestamp;
+        _uTimestamp = uTimestamp;
     }
 }

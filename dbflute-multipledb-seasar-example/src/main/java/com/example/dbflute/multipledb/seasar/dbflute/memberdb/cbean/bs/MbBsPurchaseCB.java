@@ -81,11 +81,23 @@ public class MbBsPurchaseCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
+     * @return this. (NotNull)
+     */
+    public MbPurchaseCB acceptPK(Long purchaseId) {
+        assertObjectNotNull("purchaseId", purchaseId);
+        MbBsPurchaseCB cb = this;
+        cb.query().setPurchaseId_Equal(purchaseId);
+        return (MbPurchaseCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param purchaseId : PK, ID, NotNull, BIGINT(19). (NotNull)
      */
     public void acceptPrimaryKey(Long purchaseId) {
         assertObjectNotNull("purchaseId", purchaseId);
         MbBsPurchaseCB cb = this;
-        cb.query().setPurchaseId_Equal(purchaseId);;
+        cb.query().setPurchaseId_Equal(purchaseId);
     }
 
     /**
@@ -93,11 +105,13 @@ public class MbBsPurchaseCB extends AbstractConditionBean {
      * @param memberId : UQ+, IX+, NotNull, INTEGER(10), FK to MEMBER. (NotNull)
      * @param productId : +UQ, IX+, NotNull, INTEGER(10), FK to PRODUCT. (NotNull)
      * @param purchaseDatetime : +UQ, IX+, NotNull, TIMESTAMP(23, 10). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
+    public MbPurchaseCB acceptUniqueOf(Integer memberId, Integer productId, java.sql.Timestamp purchaseDatetime) {
         assertObjectNotNull("memberId", memberId);assertObjectNotNull("productId", productId);assertObjectNotNull("purchaseDatetime", purchaseDatetime);
         MbBsPurchaseCB cb = this;
-        cb.query().setMemberId_Equal(memberId);;cb.query().setProductId_Equal(productId);;cb.query().setPurchaseDatetime_Equal(purchaseDatetime);;
+        cb.query().setMemberId_Equal(memberId);cb.query().setProductId_Equal(productId);cb.query().setPurchaseDatetime_Equal(purchaseDatetime);
+        return (MbPurchaseCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

@@ -76,10 +76,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _libraryId;
-    public ConditionValue getLibraryId() {
-        if (_libraryId == null) { _libraryId = nCV(); }
-        return _libraryId;
-    }
+    public ConditionValue getLibraryId()
+    { if (_libraryId == null) { _libraryId = nCV(); }
+      return _libraryId; }
     protected ConditionValue getCValueLibraryId() { return getLibraryId(); }
 
     /** 
@@ -97,10 +96,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_LibraryId_Desc() { regOBD("LIBRARY_ID"); return this; }
 
     protected ConditionValue _lbUserId;
-    public ConditionValue getLbUserId() {
-        if (_lbUserId == null) { _lbUserId = nCV(); }
-        return _lbUserId;
-    }
+    public ConditionValue getLbUserId()
+    { if (_lbUserId == null) { _lbUserId = nCV(); }
+      return _lbUserId; }
     protected ConditionValue getCValueLbUserId() { return getLbUserId(); }
 
     /** 
@@ -118,10 +116,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_LbUserId_Desc() { regOBD("LB_USER_ID"); return this; }
 
     protected ConditionValue _lendingDate;
-    public ConditionValue getLendingDate() {
-        if (_lendingDate == null) { _lendingDate = nCV(); }
-        return _lendingDate;
-    }
+    public ConditionValue getLendingDate()
+    { if (_lendingDate == null) { _lendingDate = nCV(); }
+      return _lendingDate; }
     protected ConditionValue getCValueLendingDate() { return getLendingDate(); }
 
     /** 
@@ -139,27 +136,16 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_LendingDate_Desc() { regOBD("LENDING_DATE"); return this; }
 
     protected ConditionValue _collectionId;
-    public ConditionValue getCollectionId() {
-        if (_collectionId == null) { _collectionId = nCV(); }
-        return _collectionId;
-    }
+    public ConditionValue getCollectionId()
+    { if (_collectionId == null) { _collectionId = nCV(); }
+      return _collectionId; }
     protected ConditionValue getCValueCollectionId() { return getCollectionId(); }
 
-    protected Map<String, LdCollectionCQ> _collectionId_InScopeRelation_CollectionMap;
-    public Map<String, LdCollectionCQ> getCollectionId_InScopeRelation_Collection() { return _collectionId_InScopeRelation_CollectionMap; }
-    public String keepCollectionId_InScopeRelation_Collection(LdCollectionCQ sq) {
-        if (_collectionId_InScopeRelation_CollectionMap == null) { _collectionId_InScopeRelation_CollectionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_collectionId_InScopeRelation_CollectionMap.size() + 1);
-        _collectionId_InScopeRelation_CollectionMap.put(ky, sq); return "collectionId_InScopeRelation_Collection." + ky;
-    }
+    public Map<String, LdCollectionCQ> getCollectionId_InScopeRelation_Collection() { return xgetSQueMap("collectionId_InScopeRelation_Collection"); }
+    public String keepCollectionId_InScopeRelation_Collection(LdCollectionCQ sq) { return xkeepSQue("collectionId_InScopeRelation_Collection", sq); }
 
-    protected Map<String, LdCollectionCQ> _collectionId_NotInScopeRelation_CollectionMap;
-    public Map<String, LdCollectionCQ> getCollectionId_NotInScopeRelation_Collection() { return _collectionId_NotInScopeRelation_CollectionMap; }
-    public String keepCollectionId_NotInScopeRelation_Collection(LdCollectionCQ sq) {
-        if (_collectionId_NotInScopeRelation_CollectionMap == null) { _collectionId_NotInScopeRelation_CollectionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_collectionId_NotInScopeRelation_CollectionMap.size() + 1);
-        _collectionId_NotInScopeRelation_CollectionMap.put(ky, sq); return "collectionId_NotInScopeRelation_Collection." + ky;
-    }
+    public Map<String, LdCollectionCQ> getCollectionId_NotInScopeRelation_Collection() { return xgetSQueMap("collectionId_NotInScopeRelation_Collection"); }
+    public String keepCollectionId_NotInScopeRelation_Collection(LdCollectionCQ sq) { return xkeepSQue("collectionId_NotInScopeRelation_Collection", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -176,10 +162,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_CollectionId_Desc() { regOBD("COLLECTION_ID"); return this; }
 
     protected ConditionValue _returnLimitDate;
-    public ConditionValue getReturnLimitDate() {
-        if (_returnLimitDate == null) { _returnLimitDate = nCV(); }
-        return _returnLimitDate;
-    }
+    public ConditionValue getReturnLimitDate()
+    { if (_returnLimitDate == null) { _returnLimitDate = nCV(); }
+      return _returnLimitDate; }
     protected ConditionValue getCValueReturnLimitDate() { return getReturnLimitDate(); }
 
     /** 
@@ -197,10 +182,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_ReturnLimitDate_Desc() { regOBD("RETURN_LIMIT_DATE"); return this; }
 
     protected ConditionValue _rUser;
-    public ConditionValue getRUser() {
-        if (_rUser == null) { _rUser = nCV(); }
-        return _rUser;
-    }
+    public ConditionValue getRUser()
+    { if (_rUser == null) { _rUser = nCV(); }
+      return _rUser; }
     protected ConditionValue getCValueRUser() { return getRUser(); }
 
     /** 
@@ -218,10 +202,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_RUser_Desc() { regOBD("R_USER"); return this; }
 
     protected ConditionValue _rModule;
-    public ConditionValue getRModule() {
-        if (_rModule == null) { _rModule = nCV(); }
-        return _rModule;
-    }
+    public ConditionValue getRModule()
+    { if (_rModule == null) { _rModule = nCV(); }
+      return _rModule; }
     protected ConditionValue getCValueRModule() { return getRModule(); }
 
     /** 
@@ -239,10 +222,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_RModule_Desc() { regOBD("R_MODULE"); return this; }
 
     protected ConditionValue _rTimestamp;
-    public ConditionValue getRTimestamp() {
-        if (_rTimestamp == null) { _rTimestamp = nCV(); }
-        return _rTimestamp;
-    }
+    public ConditionValue getRTimestamp()
+    { if (_rTimestamp == null) { _rTimestamp = nCV(); }
+      return _rTimestamp; }
     protected ConditionValue getCValueRTimestamp() { return getRTimestamp(); }
 
     /** 
@@ -260,10 +242,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_RTimestamp_Desc() { regOBD("R_TIMESTAMP"); return this; }
 
     protected ConditionValue _uUser;
-    public ConditionValue getUUser() {
-        if (_uUser == null) { _uUser = nCV(); }
-        return _uUser;
-    }
+    public ConditionValue getUUser()
+    { if (_uUser == null) { _uUser = nCV(); }
+      return _uUser; }
     protected ConditionValue getCValueUUser() { return getUUser(); }
 
     /** 
@@ -281,10 +262,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_UUser_Desc() { regOBD("U_USER"); return this; }
 
     protected ConditionValue _uModule;
-    public ConditionValue getUModule() {
-        if (_uModule == null) { _uModule = nCV(); }
-        return _uModule;
-    }
+    public ConditionValue getUModule()
+    { if (_uModule == null) { _uModule = nCV(); }
+      return _uModule; }
     protected ConditionValue getCValueUModule() { return getUModule(); }
 
     /** 
@@ -302,10 +282,9 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdBsLendingCollectionCQ addOrderBy_UModule_Desc() { regOBD("U_MODULE"); return this; }
 
     protected ConditionValue _uTimestamp;
-    public ConditionValue getUTimestamp() {
-        if (_uTimestamp == null) { _uTimestamp = nCV(); }
-        return _uTimestamp;
-    }
+    public ConditionValue getUTimestamp()
+    { if (_uTimestamp == null) { _uTimestamp = nCV(); }
+      return _uTimestamp; }
     protected ConditionValue getCValueUTimestamp() { return getUTimestamp(); }
 
     /** 
@@ -339,8 +318,7 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsLendingCollectionCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public LdBsLendingCollectionCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -356,8 +334,7 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsLendingCollectionCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public LdBsLendingCollectionCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -387,31 +364,17 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdCollectionCQ queryCollection() {
         return getConditionQueryCollection();
     }
-    protected LdCollectionCQ _conditionQueryCollection;
     public LdCollectionCQ getConditionQueryCollection() {
-        if (_conditionQueryCollection == null) {
-            _conditionQueryCollection = xcreateQueryCollection();
-            xsetupOuterJoinCollection();
-        }
-        return _conditionQueryCollection;
+        String prop = "collection";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryCollection()); xsetupOuterJoinCollection(); }
+        return xgetQueRlMap(prop);
     }
     protected LdCollectionCQ xcreateQueryCollection() {
-        String nrp = resolveNextRelationPath("LENDING_COLLECTION", "collection");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdCollectionCQ cq = new LdCollectionCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("collection");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("LENDING_COLLECTION", "collection"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdCollectionCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "collection", nrp);
     }
-    protected void xsetupOuterJoinCollection() {
-        LdCollectionCQ cq = getConditionQueryCollection();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("COLLECTION_ID", "COLLECTION_ID");
-        registerOuterJoin(cq, joinOnMap, "collection");
-    }
-    public boolean hasConditionQueryCollection() {
-        return _conditionQueryCollection != null;
-    }
+    protected void xsetupOuterJoinCollection() { xregOutJo("collection"); }
+    public boolean hasConditionQueryCollection() { return xhasQueRlMap("collection"); }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -421,33 +384,17 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdLendingCQ queryLending() {
         return getConditionQueryLending();
     }
-    protected LdLendingCQ _conditionQueryLending;
     public LdLendingCQ getConditionQueryLending() {
-        if (_conditionQueryLending == null) {
-            _conditionQueryLending = xcreateQueryLending();
-            xsetupOuterJoinLending();
-        }
-        return _conditionQueryLending;
+        String prop = "lending";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryLending()); xsetupOuterJoinLending(); }
+        return xgetQueRlMap(prop);
     }
     protected LdLendingCQ xcreateQueryLending() {
-        String nrp = resolveNextRelationPath("LENDING_COLLECTION", "lending");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdLendingCQ cq = new LdLendingCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("lending");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("LENDING_COLLECTION", "lending"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdLendingCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "lending", nrp);
     }
-    protected void xsetupOuterJoinLending() {
-        LdLendingCQ cq = getConditionQueryLending();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("LIBRARY_ID", "LIBRARY_ID");
-        joinOnMap.put("LB_USER_ID", "LB_USER_ID");
-        joinOnMap.put("LENDING_DATE", "LENDING_DATE");
-        registerOuterJoin(cq, joinOnMap, "lending");
-    }
-    public boolean hasConditionQueryLending() {
-        return _conditionQueryLending != null;
-    }
+    protected void xsetupOuterJoinLending() { xregOutJo("lending"); }
+    public boolean hasConditionQueryLending() { return xhasQueRlMap("lending"); }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -457,32 +404,17 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     public LdLibraryUserCQ queryLibraryUser() {
         return getConditionQueryLibraryUser();
     }
-    protected LdLibraryUserCQ _conditionQueryLibraryUser;
     public LdLibraryUserCQ getConditionQueryLibraryUser() {
-        if (_conditionQueryLibraryUser == null) {
-            _conditionQueryLibraryUser = xcreateQueryLibraryUser();
-            xsetupOuterJoinLibraryUser();
-        }
-        return _conditionQueryLibraryUser;
+        String prop = "libraryUser";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryLibraryUser()); xsetupOuterJoinLibraryUser(); }
+        return xgetQueRlMap(prop);
     }
     protected LdLibraryUserCQ xcreateQueryLibraryUser() {
-        String nrp = resolveNextRelationPath("LENDING_COLLECTION", "libraryUser");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdLibraryUserCQ cq = new LdLibraryUserCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("libraryUser");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("LENDING_COLLECTION", "libraryUser"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdLibraryUserCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "libraryUser", nrp);
     }
-    protected void xsetupOuterJoinLibraryUser() {
-        LdLibraryUserCQ cq = getConditionQueryLibraryUser();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("LIBRARY_ID", "LIBRARY_ID");
-        joinOnMap.put("LB_USER_ID", "LB_USER_ID");
-        registerOuterJoin(cq, joinOnMap, "libraryUser");
-    }
-    public boolean hasConditionQueryLibraryUser() {
-        return _conditionQueryLibraryUser != null;
-    }
+    protected void xsetupOuterJoinLibraryUser() { xregOutJo("libraryUser"); }
+    public boolean hasConditionQueryLibraryUser() { return xhasQueRlMap("libraryUser"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -491,13 +423,8 @@ public class LdBsLendingCollectionCQ extends LdAbstractBsLendingCollectionCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, LdLendingCollectionCQ> _scalarConditionMap;
-    public Map<String, LdLendingCollectionCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdLendingCollectionCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, LdLendingCollectionCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(LdLendingCollectionCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

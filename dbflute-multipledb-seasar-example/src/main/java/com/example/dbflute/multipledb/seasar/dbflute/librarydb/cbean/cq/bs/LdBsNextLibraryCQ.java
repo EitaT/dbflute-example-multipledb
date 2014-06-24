@@ -76,27 +76,16 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     //                                                                               Query
     //                                                                               =====
     protected ConditionValue _libraryId;
-    public ConditionValue getLibraryId() {
-        if (_libraryId == null) { _libraryId = nCV(); }
-        return _libraryId;
-    }
+    public ConditionValue getLibraryId()
+    { if (_libraryId == null) { _libraryId = nCV(); }
+      return _libraryId; }
     protected ConditionValue getCValueLibraryId() { return getLibraryId(); }
 
-    protected Map<String, LdLibraryCQ> _libraryId_InScopeRelation_LibraryByLibraryIdMap;
-    public Map<String, LdLibraryCQ> getLibraryId_InScopeRelation_LibraryByLibraryId() { return _libraryId_InScopeRelation_LibraryByLibraryIdMap; }
-    public String keepLibraryId_InScopeRelation_LibraryByLibraryId(LdLibraryCQ sq) {
-        if (_libraryId_InScopeRelation_LibraryByLibraryIdMap == null) { _libraryId_InScopeRelation_LibraryByLibraryIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_libraryId_InScopeRelation_LibraryByLibraryIdMap.size() + 1);
-        _libraryId_InScopeRelation_LibraryByLibraryIdMap.put(ky, sq); return "libraryId_InScopeRelation_LibraryByLibraryId." + ky;
-    }
+    public Map<String, LdLibraryCQ> getLibraryId_InScopeRelation_LibraryByLibraryId() { return xgetSQueMap("libraryId_InScopeRelation_LibraryByLibraryId"); }
+    public String keepLibraryId_InScopeRelation_LibraryByLibraryId(LdLibraryCQ sq) { return xkeepSQue("libraryId_InScopeRelation_LibraryByLibraryId", sq); }
 
-    protected Map<String, LdLibraryCQ> _libraryId_NotInScopeRelation_LibraryByLibraryIdMap;
-    public Map<String, LdLibraryCQ> getLibraryId_NotInScopeRelation_LibraryByLibraryId() { return _libraryId_NotInScopeRelation_LibraryByLibraryIdMap; }
-    public String keepLibraryId_NotInScopeRelation_LibraryByLibraryId(LdLibraryCQ sq) {
-        if (_libraryId_NotInScopeRelation_LibraryByLibraryIdMap == null) { _libraryId_NotInScopeRelation_LibraryByLibraryIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_libraryId_NotInScopeRelation_LibraryByLibraryIdMap.size() + 1);
-        _libraryId_NotInScopeRelation_LibraryByLibraryIdMap.put(ky, sq); return "libraryId_NotInScopeRelation_LibraryByLibraryId." + ky;
-    }
+    public Map<String, LdLibraryCQ> getLibraryId_NotInScopeRelation_LibraryByLibraryId() { return xgetSQueMap("libraryId_NotInScopeRelation_LibraryByLibraryId"); }
+    public String keepLibraryId_NotInScopeRelation_LibraryByLibraryId(LdLibraryCQ sq) { return xkeepSQue("libraryId_NotInScopeRelation_LibraryByLibraryId", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -113,27 +102,16 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_LibraryId_Desc() { regOBD("LIBRARY_ID"); return this; }
 
     protected ConditionValue _nextLibraryId;
-    public ConditionValue getNextLibraryId() {
-        if (_nextLibraryId == null) { _nextLibraryId = nCV(); }
-        return _nextLibraryId;
-    }
+    public ConditionValue getNextLibraryId()
+    { if (_nextLibraryId == null) { _nextLibraryId = nCV(); }
+      return _nextLibraryId; }
     protected ConditionValue getCValueNextLibraryId() { return getNextLibraryId(); }
 
-    protected Map<String, LdLibraryCQ> _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap;
-    public Map<String, LdLibraryCQ> getNextLibraryId_InScopeRelation_LibraryByNextLibraryId() { return _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap; }
-    public String keepNextLibraryId_InScopeRelation_LibraryByNextLibraryId(LdLibraryCQ sq) {
-        if (_nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap == null) { _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap.size() + 1);
-        _nextLibraryId_InScopeRelation_LibraryByNextLibraryIdMap.put(ky, sq); return "nextLibraryId_InScopeRelation_LibraryByNextLibraryId." + ky;
-    }
+    public Map<String, LdLibraryCQ> getNextLibraryId_InScopeRelation_LibraryByNextLibraryId() { return xgetSQueMap("nextLibraryId_InScopeRelation_LibraryByNextLibraryId"); }
+    public String keepNextLibraryId_InScopeRelation_LibraryByNextLibraryId(LdLibraryCQ sq) { return xkeepSQue("nextLibraryId_InScopeRelation_LibraryByNextLibraryId", sq); }
 
-    protected Map<String, LdLibraryCQ> _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap;
-    public Map<String, LdLibraryCQ> getNextLibraryId_NotInScopeRelation_LibraryByNextLibraryId() { return _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap; }
-    public String keepNextLibraryId_NotInScopeRelation_LibraryByNextLibraryId(LdLibraryCQ sq) {
-        if (_nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap == null) { _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap.size() + 1);
-        _nextLibraryId_NotInScopeRelation_LibraryByNextLibraryIdMap.put(ky, sq); return "nextLibraryId_NotInScopeRelation_LibraryByNextLibraryId." + ky;
-    }
+    public Map<String, LdLibraryCQ> getNextLibraryId_NotInScopeRelation_LibraryByNextLibraryId() { return xgetSQueMap("nextLibraryId_NotInScopeRelation_LibraryByNextLibraryId"); }
+    public String keepNextLibraryId_NotInScopeRelation_LibraryByNextLibraryId(LdLibraryCQ sq) { return xkeepSQue("nextLibraryId_NotInScopeRelation_LibraryByNextLibraryId", sq); }
 
     /** 
      * Add order-by as ascend. <br />
@@ -150,10 +128,9 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_NextLibraryId_Desc() { regOBD("NEXT_LIBRARY_ID"); return this; }
 
     protected ConditionValue _distanceKm;
-    public ConditionValue getDistanceKm() {
-        if (_distanceKm == null) { _distanceKm = nCV(); }
-        return _distanceKm;
-    }
+    public ConditionValue getDistanceKm()
+    { if (_distanceKm == null) { _distanceKm = nCV(); }
+      return _distanceKm; }
     protected ConditionValue getCValueDistanceKm() { return getDistanceKm(); }
 
     /** 
@@ -171,10 +148,9 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_DistanceKm_Desc() { regOBD("DISTANCE_KM"); return this; }
 
     protected ConditionValue _rUser;
-    public ConditionValue getRUser() {
-        if (_rUser == null) { _rUser = nCV(); }
-        return _rUser;
-    }
+    public ConditionValue getRUser()
+    { if (_rUser == null) { _rUser = nCV(); }
+      return _rUser; }
     protected ConditionValue getCValueRUser() { return getRUser(); }
 
     /** 
@@ -192,10 +168,9 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_RUser_Desc() { regOBD("R_USER"); return this; }
 
     protected ConditionValue _rModule;
-    public ConditionValue getRModule() {
-        if (_rModule == null) { _rModule = nCV(); }
-        return _rModule;
-    }
+    public ConditionValue getRModule()
+    { if (_rModule == null) { _rModule = nCV(); }
+      return _rModule; }
     protected ConditionValue getCValueRModule() { return getRModule(); }
 
     /** 
@@ -213,10 +188,9 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_RModule_Desc() { regOBD("R_MODULE"); return this; }
 
     protected ConditionValue _rTimestamp;
-    public ConditionValue getRTimestamp() {
-        if (_rTimestamp == null) { _rTimestamp = nCV(); }
-        return _rTimestamp;
-    }
+    public ConditionValue getRTimestamp()
+    { if (_rTimestamp == null) { _rTimestamp = nCV(); }
+      return _rTimestamp; }
     protected ConditionValue getCValueRTimestamp() { return getRTimestamp(); }
 
     /** 
@@ -234,10 +208,9 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_RTimestamp_Desc() { regOBD("R_TIMESTAMP"); return this; }
 
     protected ConditionValue _uUser;
-    public ConditionValue getUUser() {
-        if (_uUser == null) { _uUser = nCV(); }
-        return _uUser;
-    }
+    public ConditionValue getUUser()
+    { if (_uUser == null) { _uUser = nCV(); }
+      return _uUser; }
     protected ConditionValue getCValueUUser() { return getUUser(); }
 
     /** 
@@ -255,10 +228,9 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_UUser_Desc() { regOBD("U_USER"); return this; }
 
     protected ConditionValue _uModule;
-    public ConditionValue getUModule() {
-        if (_uModule == null) { _uModule = nCV(); }
-        return _uModule;
-    }
+    public ConditionValue getUModule()
+    { if (_uModule == null) { _uModule = nCV(); }
+      return _uModule; }
     protected ConditionValue getCValueUModule() { return getUModule(); }
 
     /** 
@@ -276,10 +248,9 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdBsNextLibraryCQ addOrderBy_UModule_Desc() { regOBD("U_MODULE"); return this; }
 
     protected ConditionValue _uTimestamp;
-    public ConditionValue getUTimestamp() {
-        if (_uTimestamp == null) { _uTimestamp = nCV(); }
-        return _uTimestamp;
-    }
+    public ConditionValue getUTimestamp()
+    { if (_uTimestamp == null) { _uTimestamp = nCV(); }
+      return _uTimestamp; }
     protected ConditionValue getCValueUTimestamp() { return getUTimestamp(); }
 
     /** 
@@ -313,8 +284,7 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsNextLibraryCQ addSpecifiedDerivedOrderBy_Asc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public LdBsNextLibraryCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -330,8 +300,7 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public LdBsNextLibraryCQ addSpecifiedDerivedOrderBy_Desc(String aliasName)
-    { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public LdBsNextLibraryCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
@@ -358,31 +327,17 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdLibraryCQ queryLibraryByLibraryId() {
         return getConditionQueryLibraryByLibraryId();
     }
-    protected LdLibraryCQ _conditionQueryLibraryByLibraryId;
     public LdLibraryCQ getConditionQueryLibraryByLibraryId() {
-        if (_conditionQueryLibraryByLibraryId == null) {
-            _conditionQueryLibraryByLibraryId = xcreateQueryLibraryByLibraryId();
-            xsetupOuterJoinLibraryByLibraryId();
-        }
-        return _conditionQueryLibraryByLibraryId;
+        String prop = "libraryByLibraryId";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryLibraryByLibraryId()); xsetupOuterJoinLibraryByLibraryId(); }
+        return xgetQueRlMap(prop);
     }
     protected LdLibraryCQ xcreateQueryLibraryByLibraryId() {
-        String nrp = resolveNextRelationPath("NEXT_LIBRARY", "libraryByLibraryId");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdLibraryCQ cq = new LdLibraryCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("libraryByLibraryId");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("NEXT_LIBRARY", "libraryByLibraryId"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdLibraryCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "libraryByLibraryId", nrp);
     }
-    protected void xsetupOuterJoinLibraryByLibraryId() {
-        LdLibraryCQ cq = getConditionQueryLibraryByLibraryId();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("LIBRARY_ID", "LIBRARY_ID");
-        registerOuterJoin(cq, joinOnMap, "libraryByLibraryId");
-    }
-    public boolean hasConditionQueryLibraryByLibraryId() {
-        return _conditionQueryLibraryByLibraryId != null;
-    }
+    protected void xsetupOuterJoinLibraryByLibraryId() { xregOutJo("libraryByLibraryId"); }
+    public boolean hasConditionQueryLibraryByLibraryId() { return xhasQueRlMap("libraryByLibraryId"); }
 
     /**
      * Get the condition-query for relation table. <br />
@@ -392,31 +347,17 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     public LdLibraryCQ queryLibraryByNextLibraryId() {
         return getConditionQueryLibraryByNextLibraryId();
     }
-    protected LdLibraryCQ _conditionQueryLibraryByNextLibraryId;
     public LdLibraryCQ getConditionQueryLibraryByNextLibraryId() {
-        if (_conditionQueryLibraryByNextLibraryId == null) {
-            _conditionQueryLibraryByNextLibraryId = xcreateQueryLibraryByNextLibraryId();
-            xsetupOuterJoinLibraryByNextLibraryId();
-        }
-        return _conditionQueryLibraryByNextLibraryId;
+        String prop = "libraryByNextLibraryId";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryLibraryByNextLibraryId()); xsetupOuterJoinLibraryByNextLibraryId(); }
+        return xgetQueRlMap(prop);
     }
     protected LdLibraryCQ xcreateQueryLibraryByNextLibraryId() {
-        String nrp = resolveNextRelationPath("NEXT_LIBRARY", "libraryByNextLibraryId");
-        String jan = resolveJoinAliasName(nrp, xgetNextNestLevel());
-        LdLibraryCQ cq = new LdLibraryCQ(this, xgetSqlClause(), jan, xgetNextNestLevel());
-        cq.xsetBaseCB(_baseCB);
-        cq.xsetForeignPropertyName("libraryByNextLibraryId");
-        cq.xsetRelationPath(nrp); return cq;
+        String nrp = xresolveNRP("NEXT_LIBRARY", "libraryByNextLibraryId"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new LdLibraryCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "libraryByNextLibraryId", nrp);
     }
-    protected void xsetupOuterJoinLibraryByNextLibraryId() {
-        LdLibraryCQ cq = getConditionQueryLibraryByNextLibraryId();
-        Map<String, String> joinOnMap = newLinkedHashMapSized(4);
-        joinOnMap.put("NEXT_LIBRARY_ID", "LIBRARY_ID");
-        registerOuterJoin(cq, joinOnMap, "libraryByNextLibraryId");
-    }
-    public boolean hasConditionQueryLibraryByNextLibraryId() {
-        return _conditionQueryLibraryByNextLibraryId != null;
-    }
+    protected void xsetupOuterJoinLibraryByNextLibraryId() { xregOutJo("libraryByNextLibraryId"); }
+    public boolean hasConditionQueryLibraryByNextLibraryId() { return xhasQueRlMap("libraryByNextLibraryId"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -425,13 +366,8 @@ public class LdBsNextLibraryCQ extends LdAbstractBsNextLibraryCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    protected Map<String, LdNextLibraryCQ> _scalarConditionMap;
-    public Map<String, LdNextLibraryCQ> getScalarCondition() { return _scalarConditionMap; }
-    public String keepScalarCondition(LdNextLibraryCQ sq) {
-        if (_scalarConditionMap == null) { _scalarConditionMap = newLinkedHashMapSized(4); }
-        String ky = "subQueryMapKey" + (_scalarConditionMap.size() + 1);
-        _scalarConditionMap.put(ky, sq); return "scalarCondition." + ky;
-    }
+    public Map<String, LdNextLibraryCQ> getScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(LdNextLibraryCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal

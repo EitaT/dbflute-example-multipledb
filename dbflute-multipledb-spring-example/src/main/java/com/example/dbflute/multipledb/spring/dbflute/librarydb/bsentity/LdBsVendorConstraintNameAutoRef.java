@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -166,7 +166,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
     protected LdVendorConstraintNameAutoFoo _vendorConstraintNameAutoFoo;
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_FOO by my CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoFoo'.
+     * [get] VENDOR_CONSTRAINT_NAME_AUTO_FOO by my CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoFoo'.
      * @return The entity of foreign property 'vendorConstraintNameAutoFoo'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdVendorConstraintNameAutoFoo getVendorConstraintNameAutoFoo() {
@@ -174,7 +174,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
     }
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_FOO by my CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoFoo'.
+     * [set] VENDOR_CONSTRAINT_NAME_AUTO_FOO by my CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoFoo'.
      * @param vendorConstraintNameAutoFoo The entity of foreign property 'vendorConstraintNameAutoFoo'. (NullAllowed)
      */
     public void setVendorConstraintNameAutoFoo(LdVendorConstraintNameAutoFoo vendorConstraintNameAutoFoo) {
@@ -185,7 +185,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
     protected LdVendorConstraintNameAutoBar _vendorConstraintNameAutoBar;
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_BAR by my CONSTRAINT_NAME_AUTO_BAR_ID, named 'vendorConstraintNameAutoBar'.
+     * [get] VENDOR_CONSTRAINT_NAME_AUTO_BAR by my CONSTRAINT_NAME_AUTO_BAR_ID, named 'vendorConstraintNameAutoBar'.
      * @return The entity of foreign property 'vendorConstraintNameAutoBar'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdVendorConstraintNameAutoBar getVendorConstraintNameAutoBar() {
@@ -193,7 +193,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
     }
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_BAR by my CONSTRAINT_NAME_AUTO_BAR_ID, named 'vendorConstraintNameAutoBar'.
+     * [set] VENDOR_CONSTRAINT_NAME_AUTO_BAR by my CONSTRAINT_NAME_AUTO_BAR_ID, named 'vendorConstraintNameAutoBar'.
      * @param vendorConstraintNameAutoBar The entity of foreign property 'vendorConstraintNameAutoBar'. (NullAllowed)
      */
     public void setVendorConstraintNameAutoBar(LdVendorConstraintNameAutoBar vendorConstraintNameAutoBar) {
@@ -204,7 +204,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
     protected LdVendorConstraintNameAutoQux _vendorConstraintNameAutoQux;
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_QUX by my CONSTRAINT_NAME_AUTO_QUX_ID, named 'vendorConstraintNameAutoQux'.
+     * [get] VENDOR_CONSTRAINT_NAME_AUTO_QUX by my CONSTRAINT_NAME_AUTO_QUX_ID, named 'vendorConstraintNameAutoQux'.
      * @return The entity of foreign property 'vendorConstraintNameAutoQux'. (NullAllowed: when e.g. null FK column, no setupSelect)
      */
     public LdVendorConstraintNameAutoQux getVendorConstraintNameAutoQux() {
@@ -212,7 +212,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
     }
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_QUX by my CONSTRAINT_NAME_AUTO_QUX_ID, named 'vendorConstraintNameAutoQux'.
+     * [set] VENDOR_CONSTRAINT_NAME_AUTO_QUX by my CONSTRAINT_NAME_AUTO_QUX_ID, named 'vendorConstraintNameAutoQux'.
      * @param vendorConstraintNameAutoQux The entity of foreign property 'vendorConstraintNameAutoQux'. (NullAllowed)
      */
     public void setVendorConstraintNameAutoQux(LdVendorConstraintNameAutoQux vendorConstraintNameAutoQux) {
@@ -404,7 +404,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
      */
     public void setConstraintNameAutoRefId(java.math.BigDecimal constraintNameAutoRefId) {
         __modifiedProperties.addPropertyName("constraintNameAutoRefId");
-        this._constraintNameAutoRefId = constraintNameAutoRefId;
+        _constraintNameAutoRefId = constraintNameAutoRefId;
     }
 
     /**
@@ -421,7 +421,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
      */
     public void setConstraintNameAutoFooId(java.math.BigDecimal constraintNameAutoFooId) {
         __modifiedProperties.addPropertyName("constraintNameAutoFooId");
-        this._constraintNameAutoFooId = constraintNameAutoFooId;
+        _constraintNameAutoFooId = constraintNameAutoFooId;
     }
 
     /**
@@ -438,7 +438,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
      */
     public void setConstraintNameAutoBarId(java.math.BigDecimal constraintNameAutoBarId) {
         __modifiedProperties.addPropertyName("constraintNameAutoBarId");
-        this._constraintNameAutoBarId = constraintNameAutoBarId;
+        _constraintNameAutoBarId = constraintNameAutoBarId;
     }
 
     /**
@@ -455,7 +455,7 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
      */
     public void setConstraintNameAutoQuxId(java.math.BigDecimal constraintNameAutoQuxId) {
         __modifiedProperties.addPropertyName("constraintNameAutoQuxId");
-        this._constraintNameAutoQuxId = constraintNameAutoQuxId;
+        _constraintNameAutoQuxId = constraintNameAutoQuxId;
     }
 
     /**
@@ -472,6 +472,6 @@ public abstract class LdBsVendorConstraintNameAutoRef implements Entity, Seriali
      */
     public void setConstraintNameAutoUnique(String constraintNameAutoUnique) {
         __modifiedProperties.addPropertyName("constraintNameAutoUnique");
-        this._constraintNameAutoUnique = constraintNameAutoUnique;
+        _constraintNameAutoUnique = constraintNameAutoUnique;
     }
 }

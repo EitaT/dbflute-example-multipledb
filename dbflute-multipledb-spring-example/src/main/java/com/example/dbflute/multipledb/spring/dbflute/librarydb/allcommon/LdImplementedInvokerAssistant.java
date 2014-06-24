@@ -19,6 +19,7 @@ import org.seasar.dbflute.jdbc.HandlingDataSourceWrapper;
 import org.seasar.dbflute.jdbc.SQLExceptionDigger;
 import org.seasar.dbflute.jdbc.StatementConfig;
 import org.seasar.dbflute.jdbc.StatementFactory;
+import org.seasar.dbflute.optional.RelationOptionalFactory;
 import org.seasar.dbflute.outsidesql.factory.DefaultOutsideSqlExecutorFactory;
 import org.seasar.dbflute.outsidesql.factory.OutsideSqlExecutorFactory;
 import org.seasar.dbflute.resource.ResourceParameter;
@@ -62,6 +63,7 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
     protected volatile OutsideSqlExecutorFactory _outsideSqlExecutorFactory;
     protected volatile SQLExceptionHandlerFactory _sqlExceptionHandlerFactory;
     protected volatile SequenceCacheHandler _sequenceCacheHandler;
+    protected volatile RelationOptionalFactory _relationOptionalFactory;
 
     // -----------------------------------------------------
     //                                       Disposable Flag
@@ -130,7 +132,11 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
         if (creator != null) {
             return creator;
         }
-        return new LdImplementedSqlClauseCreator(); // as default
+        return newImplementedSqlClauseCreator(); // as default
+    }
+
+    protected LdImplementedSqlClauseCreator newImplementedSqlClauseCreator() {
+        return new LdImplementedSqlClauseCreator();
     }
 
     // -----------------------------------------------------
@@ -150,11 +156,15 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
     }
 
     protected StatementFactory createStatementFactory() {
-        final TnStatementFactoryImpl factory = new TnStatementFactoryImpl();
+        final TnStatementFactoryImpl factory = newStatementFactoryImpl();
         factory.setDefaultStatementConfig(assistDefaultStatementConfig());
         factory.setInternalDebug(LdDBFluteConfig.getInstance().isInternalDebug());
         factory.setCursorSelectFetchSize(LdDBFluteConfig.getInstance().getCursorSelectFetchSize());
         return factory;
+    }
+
+    protected TnStatementFactoryImpl newStatementFactoryImpl() {
+        return new TnStatementFactoryImpl();
     }
 
     // -----------------------------------------------------
@@ -174,10 +184,42 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
     }
 
     protected TnBeanMetaDataFactory createBeanMetaDataFactory() {
-        final TnBeanMetaDataFactoryExtension factory = new TnBeanMetaDataFactoryExtension();
+        RelationOptionalFactory relationOptionalFactory = assistRelationOptionalFactory();
+        final TnBeanMetaDataFactoryExtension factory = newBeanMetaDataFactoryExtension(relationOptionalFactory);
         factory.setDataSource(_dataSource);
         factory.setInternalDebug(LdDBFluteConfig.getInstance().isInternalDebug());
         return factory;
+    }
+
+    protected TnBeanMetaDataFactoryExtension newBeanMetaDataFactoryExtension(RelationOptionalFactory relationOptionalFactory) {
+        return new TnBeanMetaDataFactoryExtension(relationOptionalFactory);
+    }
+
+    // -----------------------------------------------------
+    //                             Relation Optional Factory
+    //                             -------------------------
+    /**
+     * {@inheritDoc}
+     */
+    public RelationOptionalFactory assistRelationOptionalFactory() {
+        if (_relationOptionalFactory != null) {
+            return _relationOptionalFactory;
+        }
+        synchronized (this) {
+            if (_relationOptionalFactory != null) {
+                return _relationOptionalFactory;
+            }
+            _relationOptionalFactory = createRelationOptionalFactory();
+        }
+        return _relationOptionalFactory;
+    }
+
+    protected RelationOptionalFactory createRelationOptionalFactory() {
+        return newRelationOptionalFactory();
+    }
+
+    protected RelationOptionalFactory newRelationOptionalFactory() {
+        return new RelationOptionalFactory();
     }
 
     // -----------------------------------------------------
@@ -200,6 +242,10 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
     }
 
     protected SqlAnalyzerFactory createSqlAnalyzerFactory() {
+        return newDefaultSqlAnalyzerFactory();
+    }
+
+    protected DefaultSqlAnalyzerFactory newDefaultSqlAnalyzerFactory() {
         return new DefaultSqlAnalyzerFactory();
     }
 
@@ -227,6 +273,10 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
         if (factory != null) {
             return factory;
         }
+        return newDefaultOutsideSqlExecutorFactory(); // as default
+    }
+
+    protected DefaultOutsideSqlExecutorFactory newDefaultOutsideSqlExecutorFactory() {
         return new DefaultOutsideSqlExecutorFactory();
     }
 
@@ -237,6 +287,10 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
      * {@inheritDoc}
      */
     public SQLExceptionDigger assistSQLExceptionDigger() {
+        return createSQLExceptionDigger();
+    }
+
+    protected SQLExceptionDigger createSQLExceptionDigger() {
         return LdDBFluteConfig.getInstance().getSQLExceptionDigger();
     }
 
@@ -260,6 +314,10 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
     }
 
     protected SQLExceptionHandlerFactory createSQLExceptionHandlerFactory() {
+        return newDefaultSQLExceptionHandlerFactory();
+    }
+
+    protected DefaultSQLExceptionHandlerFactory newDefaultSQLExceptionHandlerFactory() {
         return new DefaultSQLExceptionHandlerFactory();
     }
 
@@ -283,13 +341,17 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
     }
 
     protected SequenceCacheHandler createSequenceCacheHandler() {
-        SequenceCacheHandler handler = new SequenceCacheHandler();
+        SequenceCacheHandler handler = newSequenceCacheHandler();
         SequenceCacheKeyGenerator generator = LdDBFluteConfig.getInstance().getSequenceCacheKeyGenerator();
         if (generator != null) {
             handler.setSequenceCacheKeyGenerator(generator);
         }
         handler.setInternalDebug(LdDBFluteConfig.getInstance().isInternalDebug());
         return handler;
+    }
+
+    protected SequenceCacheHandler newSequenceCacheHandler() {
+        return new SequenceCacheHandler();
     }
 
     // -----------------------------------------------------
@@ -324,12 +386,20 @@ public class LdImplementedInvokerAssistant implements InvokerAssistant {
     //                                    Resource Parameter
     //                                    ------------------
     public ResourceParameter assistResourceParameter() {
-        ResourceParameter resourceParameter = new ResourceParameter();
-        resourceParameter.setOutsideSqlPackage(LdDBFluteConfig.getInstance().getOutsideSqlPackage());
-        resourceParameter.setLogDateFormat(LdDBFluteConfig.getInstance().getLogDateFormat());
-        resourceParameter.setLogTimestampFormat(LdDBFluteConfig.getInstance().getLogTimestampFormat());
-        resourceParameter.setInternalDebug(LdDBFluteConfig.getInstance().isInternalDebug());
-        return resourceParameter;
+        return createResourceParameter();
+    }
+
+    protected ResourceParameter createResourceParameter() {
+        ResourceParameter parameter = newResourceParameter();
+        parameter.setOutsideSqlPackage(LdDBFluteConfig.getInstance().getOutsideSqlPackage());
+        parameter.setLogDateFormat(LdDBFluteConfig.getInstance().getLogDateFormat());
+        parameter.setLogTimestampFormat(LdDBFluteConfig.getInstance().getLogTimestampFormat());
+        parameter.setInternalDebug(LdDBFluteConfig.getInstance().isInternalDebug());
+        return parameter;
+    }
+
+    protected ResourceParameter newResourceParameter() {
+        return new ResourceParameter();
     }
 
     // -----------------------------------------------------

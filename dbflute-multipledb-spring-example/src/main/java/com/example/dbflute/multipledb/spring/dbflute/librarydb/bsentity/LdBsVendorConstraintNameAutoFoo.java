@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.Entity;
+import org.seasar.dbflute.dbmeta.DBMeta;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -154,7 +154,7 @@ public abstract class LdBsVendorConstraintNameAutoFoo implements Entity, Seriali
     protected List<LdVendorConstraintNameAutoRef> _vendorConstraintNameAutoRefList;
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefList'.
+     * [get] VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefList'.
      * @return The entity list of referrer property 'vendorConstraintNameAutoRefList'. (NotNull: even if no loading, returns empty list)
      */
     public List<LdVendorConstraintNameAutoRef> getVendorConstraintNameAutoRefList() {
@@ -163,7 +163,7 @@ public abstract class LdBsVendorConstraintNameAutoFoo implements Entity, Seriali
     }
 
     /**
-     * VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefList'.
+     * [set] VENDOR_CONSTRAINT_NAME_AUTO_REF by CONSTRAINT_NAME_AUTO_FOO_ID, named 'vendorConstraintNameAutoRefList'.
      * @param vendorConstraintNameAutoRefList The entity list of referrer property 'vendorConstraintNameAutoRefList'. (NullAllowed)
      */
     public void setVendorConstraintNameAutoRefList(List<LdVendorConstraintNameAutoRef> vendorConstraintNameAutoRefList) {
@@ -344,7 +344,7 @@ public abstract class LdBsVendorConstraintNameAutoFoo implements Entity, Seriali
      */
     public void setConstraintNameAutoFooId(java.math.BigDecimal constraintNameAutoFooId) {
         __modifiedProperties.addPropertyName("constraintNameAutoFooId");
-        this._constraintNameAutoFooId = constraintNameAutoFooId;
+        _constraintNameAutoFooId = constraintNameAutoFooId;
     }
 
     /**
@@ -361,6 +361,6 @@ public abstract class LdBsVendorConstraintNameAutoFoo implements Entity, Seriali
      */
     public void setConstraintNameAutoFooName(String constraintNameAutoFooName) {
         __modifiedProperties.addPropertyName("constraintNameAutoFooName");
-        this._constraintNameAutoFooName = constraintNameAutoFooName;
+        _constraintNameAutoFooName = constraintNameAutoFooName;
     }
 }

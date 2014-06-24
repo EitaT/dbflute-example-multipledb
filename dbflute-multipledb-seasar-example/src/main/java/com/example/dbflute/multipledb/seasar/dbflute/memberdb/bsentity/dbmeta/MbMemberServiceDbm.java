@@ -260,7 +260,7 @@ public class MbMemberServiceDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbMemberService newEntity() { return new MbMemberService(); }
     public MbMemberService newMyEntity() { return new MbMemberService(); }
 
     // ===================================================================================

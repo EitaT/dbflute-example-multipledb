@@ -145,7 +145,7 @@ public class MbPurchaseSummaryMemberDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public MbPurchaseSummaryMember newEntity() { return new MbPurchaseSummaryMember(); }
     public MbPurchaseSummaryMember newMyEntity() { return new MbPurchaseSummaryMember(); }
 
     // ===================================================================================

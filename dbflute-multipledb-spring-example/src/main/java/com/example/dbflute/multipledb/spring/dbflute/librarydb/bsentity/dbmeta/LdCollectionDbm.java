@@ -290,7 +290,7 @@ public class LdCollectionDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdCollection newEntity() { return new LdCollection(); }
     public LdCollection newMyEntity() { return new LdCollection(); }
 
     // ===================================================================================

@@ -82,11 +82,23 @@ public class LdBsAuthorCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param authorId : PK, ID, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdAuthorCB acceptPK(Integer authorId) {
+        assertObjectNotNull("authorId", authorId);
+        LdBsAuthorCB cb = this;
+        cb.query().setAuthorId_Equal(authorId);
+        return (LdAuthorCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param authorId : PK, ID, NotNull, INTEGER(10). (NotNull)
      */
     public void acceptPrimaryKey(Integer authorId) {
         assertObjectNotNull("authorId", authorId);
         LdBsAuthorCB cb = this;
-        cb.query().setAuthorId_Equal(authorId);;
+        cb.query().setAuthorId_Equal(authorId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

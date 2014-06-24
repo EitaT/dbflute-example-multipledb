@@ -141,7 +141,7 @@ public class LdVendorConstraintNameAutoBarDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public Entity newEntity() { return newMyEntity(); }
+    public LdVendorConstraintNameAutoBar newEntity() { return new LdVendorConstraintNameAutoBar(); }
     public LdVendorConstraintNameAutoBar newMyEntity() { return new LdVendorConstraintNameAutoBar(); }
 
     // ===================================================================================

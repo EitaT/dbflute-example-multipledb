@@ -80,21 +80,35 @@ public class MbBsServiceRankCB extends AbstractConditionBean {
     /**
      * Accept the query condition of primary key as equal.
      * @param serviceRankCode : PK, NotNull, CHAR(3). (NotNull)
+     * @return this. (NotNull)
+     */
+    public MbServiceRankCB acceptPK(String serviceRankCode) {
+        assertObjectNotNull("serviceRankCode", serviceRankCode);
+        MbBsServiceRankCB cb = this;
+        cb.query().setServiceRankCode_Equal(serviceRankCode);
+        return (MbServiceRankCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param serviceRankCode : PK, NotNull, CHAR(3). (NotNull)
      */
     public void acceptPrimaryKey(String serviceRankCode) {
         assertObjectNotNull("serviceRankCode", serviceRankCode);
         MbBsServiceRankCB cb = this;
-        cb.query().setServiceRankCode_Equal(serviceRankCode);;
+        cb.query().setServiceRankCode_Equal(serviceRankCode);
     }
 
     /**
      * Accept the query condition of unique key as equal.
      * @param displayOrder : UQ, NotNull, INTEGER(10). (NotNull)
+     * @return this. (NotNull)
      */
-    public void acceptUniqueOf(Integer displayOrder) {
+    public MbServiceRankCB acceptUniqueOf(Integer displayOrder) {
         assertObjectNotNull("displayOrder", displayOrder);
         MbBsServiceRankCB cb = this;
-        cb.query().setDisplayOrder_Equal(displayOrder);;
+        cb.query().setDisplayOrder_Equal(displayOrder);
+        return (MbServiceRankCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {

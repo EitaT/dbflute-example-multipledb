@@ -86,11 +86,26 @@ public class LdBsLendingCollectionCB extends AbstractConditionBean {
      * @param lbUserId : PK, NotNull, INTEGER(10), FK to LENDING. (NotNull)
      * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6), FK to LENDING. (NotNull)
      * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
+     * @return this. (NotNull)
+     */
+    public LdLendingCollectionCB acceptPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId) {
+        assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);assertObjectNotNull("lendingDate", lendingDate);assertObjectNotNull("collectionId", collectionId);
+        LdBsLendingCollectionCB cb = this;
+        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);cb.query().setLendingDate_Equal(lendingDate);cb.query().setCollectionId_Equal(collectionId);
+        return (LdLendingCollectionCB)this;
+    }
+
+    /**
+     * Accept the query condition of primary key as equal. (old style)
+     * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LENDING. (NotNull)
+     * @param lbUserId : PK, NotNull, INTEGER(10), FK to LENDING. (NotNull)
+     * @param lendingDate : PK, NotNull, TIMESTAMP(26, 6), FK to LENDING. (NotNull)
+     * @param collectionId : PK, IX, NotNull, INTEGER(10), FK to COLLECTION. (NotNull)
      */
     public void acceptPrimaryKey(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Integer collectionId) {
         assertObjectNotNull("libraryId", libraryId);assertObjectNotNull("lbUserId", lbUserId);assertObjectNotNull("lendingDate", lendingDate);assertObjectNotNull("collectionId", collectionId);
         LdBsLendingCollectionCB cb = this;
-        cb.query().setLibraryId_Equal(libraryId);;cb.query().setLbUserId_Equal(lbUserId);;cb.query().setLendingDate_Equal(lendingDate);;cb.query().setCollectionId_Equal(collectionId);;
+        cb.query().setLibraryId_Equal(libraryId);cb.query().setLbUserId_Equal(lbUserId);cb.query().setLendingDate_Equal(lendingDate);cb.query().setCollectionId_Equal(collectionId);
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
