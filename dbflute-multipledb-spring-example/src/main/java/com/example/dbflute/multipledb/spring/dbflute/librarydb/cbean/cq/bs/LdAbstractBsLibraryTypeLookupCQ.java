@@ -46,7 +46,6 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * LIBRARY_TYPE_CODE: {PK, NotNull, CHAR(3)}
@@ -1317,6 +1316,9 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     }
     public abstract String keepMyselfInScope(LdLibraryTypeLookupCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1353,8 +1355,8 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1383,6 +1385,11 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1390,6 +1397,7 @@ public abstract class LdAbstractBsLibraryTypeLookupCQ extends AbstractConditionQ
         return new LdLibraryTypeLookupCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdLibraryTypeLookupCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

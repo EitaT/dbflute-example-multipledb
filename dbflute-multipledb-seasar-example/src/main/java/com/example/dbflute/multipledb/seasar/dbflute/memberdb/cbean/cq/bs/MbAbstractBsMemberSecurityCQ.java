@@ -44,7 +44,6 @@ public abstract class MbAbstractBsMemberSecurityCQ extends AbstractConditionQuer
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
@@ -396,7 +395,7 @@ public abstract class MbAbstractBsMemberSecurityCQ extends AbstractConditionQuer
 
     protected void regReminderAnswer(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueReminderAnswer(), "REMINDER_ANSWER"); }
     protected abstract ConditionValue getCValueReminderAnswer();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * REMINDER_USE_COUNT: {NotNull, INTEGER(10)}
@@ -837,7 +836,7 @@ public abstract class MbAbstractBsMemberSecurityCQ extends AbstractConditionQuer
 
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
     protected abstract ConditionValue getCValueUpdateUser();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VERSION_NO: {NotNull, BIGINT(19)}
@@ -1116,6 +1115,9 @@ public abstract class MbAbstractBsMemberSecurityCQ extends AbstractConditionQuer
     }
     public abstract String keepMyselfInScope(MbMemberSecurityCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1152,8 +1154,8 @@ public abstract class MbAbstractBsMemberSecurityCQ extends AbstractConditionQuer
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1182,6 +1184,11 @@ public abstract class MbAbstractBsMemberSecurityCQ extends AbstractConditionQuer
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1189,6 +1196,7 @@ public abstract class MbAbstractBsMemberSecurityCQ extends AbstractConditionQuer
         return new MbMemberSecurityCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return MbMemberSecurityCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

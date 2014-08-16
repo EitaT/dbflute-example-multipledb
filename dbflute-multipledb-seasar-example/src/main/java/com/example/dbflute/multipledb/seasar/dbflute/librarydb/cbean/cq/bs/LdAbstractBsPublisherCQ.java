@@ -46,7 +46,6 @@ public abstract class LdAbstractBsPublisherCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * PUBLISHER_ID: {PK, ID, NotNull, INTEGER(10)}
@@ -1309,6 +1308,9 @@ public abstract class LdAbstractBsPublisherCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(LdPublisherCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1345,8 +1347,8 @@ public abstract class LdAbstractBsPublisherCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1375,6 +1377,11 @@ public abstract class LdAbstractBsPublisherCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1382,6 +1389,7 @@ public abstract class LdAbstractBsPublisherCQ extends AbstractConditionQuery {
         return new LdPublisherCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdPublisherCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

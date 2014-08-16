@@ -46,7 +46,6 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * CONSTRAINT_NAME_AUTO_REF_ID: {PK, NotNull, NUMERIC(16)}
@@ -162,7 +161,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
 
     protected void regConstraintNameAutoRefId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueConstraintNameAutoRefId(), "CONSTRAINT_NAME_AUTO_REF_ID"); }
     protected abstract ConditionValue getCValueConstraintNameAutoRefId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * CONSTRAINT_NAME_AUTO_FOO_ID: {IX, NotNull, NUMERIC(16), FK to VENDOR_CONSTRAINT_NAME_AUTO_FOO}
@@ -296,7 +295,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
 
     protected void regConstraintNameAutoFooId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueConstraintNameAutoFooId(), "CONSTRAINT_NAME_AUTO_FOO_ID"); }
     protected abstract ConditionValue getCValueConstraintNameAutoFooId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * CONSTRAINT_NAME_AUTO_BAR_ID: {IX, NotNull, NUMERIC(16), FK to VENDOR_CONSTRAINT_NAME_AUTO_BAR}
@@ -430,7 +429,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
 
     protected void regConstraintNameAutoBarId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueConstraintNameAutoBarId(), "CONSTRAINT_NAME_AUTO_BAR_ID"); }
     protected abstract ConditionValue getCValueConstraintNameAutoBarId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * CONSTRAINT_NAME_AUTO_QUX_ID: {IX, NotNull, NUMERIC(16), FK to VENDOR_CONSTRAINT_NAME_AUTO_QUX}
@@ -874,6 +873,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
     }
     public abstract String keepMyselfInScope(LdVendorConstraintNameAutoRefCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -910,8 +912,8 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -940,6 +942,11 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -947,6 +954,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoRefCQ extends Abstract
         return new LdVendorConstraintNameAutoRefCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdVendorConstraintNameAutoRefCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

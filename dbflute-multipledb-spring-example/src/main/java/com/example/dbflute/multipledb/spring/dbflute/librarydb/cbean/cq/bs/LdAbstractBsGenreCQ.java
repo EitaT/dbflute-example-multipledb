@@ -46,7 +46,6 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * GENRE_CODE: {PK, NotNull, VARCHAR(24)}
@@ -536,7 +535,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
 
     protected void regGenreName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueGenreName(), "GENRE_NAME"); }
     protected abstract ConditionValue getCValueGenreName();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * HIERARCHY_LEVEL: {NotNull, NUMERIC(9)}
@@ -640,7 +639,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
 
     protected void regHierarchyLevel(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueHierarchyLevel(), "HIERARCHY_LEVEL"); }
     protected abstract ConditionValue getCValueHierarchyLevel();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * HIERARCHY_ORDER: {NotNull, NUMERIC(10)}
@@ -1812,6 +1811,9 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(LdGenreCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1848,8 +1850,8 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1878,6 +1880,11 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1885,6 +1892,7 @@ public abstract class LdAbstractBsGenreCQ extends AbstractConditionQuery {
         return new LdGenreCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdGenreCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

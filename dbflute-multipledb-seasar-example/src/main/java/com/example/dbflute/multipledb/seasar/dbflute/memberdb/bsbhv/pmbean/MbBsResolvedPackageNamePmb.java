@@ -209,7 +209,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
     //                                                                            ========
     /**
      * [get] string1 <br />
-     * @return The value of string1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of string1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getString1() {
         return filterStringParameter(_string1);
@@ -225,7 +225,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] integer1 <br />
-     * @return The value of integer1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of integer1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getInteger1() {
         return _integer1;
@@ -241,7 +241,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] bigDecimal1 <br />
-     * @return The value of bigDecimal1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of bigDecimal1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.math.BigDecimal getBigDecimal1() {
         return _bigDecimal1;
@@ -257,7 +257,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] bigDecimal2 <br />
-     * @return The value of bigDecimal2. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of bigDecimal2. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.math.BigDecimal getBigDecimal2() {
         return _bigDecimal2;
@@ -273,7 +273,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] date1 <br />
-     * @return The value of date1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of date1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Date getDate1() {
         return toUtilDate(_date1);
@@ -289,7 +289,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] date2 <br />
-     * @return The value of date2. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of date2. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.util.Date getDate2() {
         return toUtilDate(_date2);
@@ -305,7 +305,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] date3 <br />
-     * @return The value of date3. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of date3. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Date getDate3() {
         return _date3;
@@ -321,7 +321,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] time1 <br />
-     * @return The value of time1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of time1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Time getTime1() {
         return _time1;
@@ -337,7 +337,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] time2 <br />
-     * @return The value of time2. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of time2. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Time getTime2() {
         return _time2;
@@ -353,7 +353,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] timestamp1 <br />
-     * @return The value of timestamp1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of timestamp1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Timestamp getTimestamp1() {
         return _timestamp1;
@@ -369,7 +369,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] timestamp2 <br />
-     * @return The value of timestamp2. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of timestamp2. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.sql.Timestamp getTimestamp2() {
         return _timestamp2;
@@ -385,7 +385,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] list1 <br />
-     * @return The value of list1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of list1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public List<String> getList1() {
         return _list1;
@@ -401,7 +401,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] list2 <br />
-     * @return The value of list2. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of list2. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.util.List<String> getList2() {
         return _list2;
@@ -417,7 +417,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] map1 <br />
-     * @return The value of map1. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of map1. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Map<String, String> getMap1() {
         return _map1;
@@ -433,7 +433,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] map2 <br />
-     * @return The value of map2. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of map2. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public java.util.Map<String, String> getMap2() {
         return _map2;
@@ -449,7 +449,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] cdef <br />
-     * @return The value of cdef. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of cdef. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbCDef getCdef() {
         return _cdef;
@@ -465,7 +465,7 @@ public class MbBsResolvedPackageNamePmb implements ExecuteHandlingPmb<MbMemberBh
 
     /**
      * [get] cdefFlg <br />
-     * @return The value of cdefFlg. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of cdefFlg. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbCDef.Flg getCdefFlg() {
         return _cdefFlg;

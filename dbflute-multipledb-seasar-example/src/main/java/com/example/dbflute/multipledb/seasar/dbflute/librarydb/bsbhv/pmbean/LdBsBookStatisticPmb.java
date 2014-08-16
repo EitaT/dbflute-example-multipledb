@@ -160,7 +160,7 @@ public class LdBsBookStatisticPmb implements ListHandlingPmb<LdBookBhv, LdBookSt
     //                                                                            ========
     /**
      * [get] bookId <br />
-     * @return The value of bookId. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of bookId. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public Integer getBookId() {
         return _bookId;
@@ -176,7 +176,7 @@ public class LdBsBookStatisticPmb implements ListHandlingPmb<LdBookBhv, LdBookSt
 
     /**
      * [get] bookName <br />
-     * @return The value of bookName. (Nullable, NotEmptyString(when String): if empty string, returns null)
+     * @return The value of bookName. (NullAllowed, NotEmptyString(when String): if empty string, returns null)
      */
     public String getBookName() {
         return filterStringParameter(_bookName);

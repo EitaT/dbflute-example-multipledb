@@ -46,7 +46,6 @@ public abstract class LdAbstractBsGarbagePlusCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * GARBAGE_MEMO: {VARCHAR(50)}
@@ -309,7 +308,7 @@ public abstract class LdAbstractBsGarbagePlusCQ extends AbstractConditionQuery {
 
     protected void regGarbageTime(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueGarbageTime(), "GARBAGE_TIME"); }
     protected abstract ConditionValue getCValueGarbageTime();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * GARBAGE_COUNT: {INTEGER(10)}
@@ -1269,6 +1268,9 @@ public abstract class LdAbstractBsGarbagePlusCQ extends AbstractConditionQuery {
         LdGarbagePlusCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1305,8 +1307,8 @@ public abstract class LdAbstractBsGarbagePlusCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1335,6 +1337,11 @@ public abstract class LdAbstractBsGarbagePlusCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1342,6 +1349,7 @@ public abstract class LdAbstractBsGarbagePlusCQ extends AbstractConditionQuery {
         return new LdGarbagePlusCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdGarbagePlusCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

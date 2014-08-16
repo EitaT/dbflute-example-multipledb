@@ -46,7 +46,6 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * LIBRARY_ID: {PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER}
@@ -162,7 +161,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
 
     protected void regLibraryId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueLibraryId(), "LIBRARY_ID"); }
     protected abstract ConditionValue getCValueLibraryId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * LB_USER_ID: {PK, NotNull, INTEGER(10), FK to LIBRARY_USER}
@@ -1235,6 +1234,9 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         LdLendingCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1271,8 +1273,8 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1301,6 +1303,11 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1308,6 +1315,7 @@ public abstract class LdAbstractBsLendingCQ extends AbstractConditionQuery {
         return new LdLendingCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdLendingCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

@@ -7,7 +7,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -51,19 +50,13 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
+public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable<LdVendorCheck, LdVendorCheckCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "VENDOR_CHECK"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -77,9 +70,6 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public LdVendorCheck newEntity() { return new LdVendorCheck(); }
-
     /** {@inheritDoc} */
     public LdVendorCheckCB newConditionBean() { return new LdVendorCheckCB(); }
 
@@ -106,22 +96,6 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
     public int selectCount(LdVendorCheckCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(LdVendorCheckCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(LdVendorCheckCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(LdVendorCheckCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -153,11 +127,7 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdVendorCheck> ENTITY doSelectEntity(LdVendorCheckCB cb, Class<ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
-    protected <ENTITY extends LdVendorCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(LdVendorCheckCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends LdVendorCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(LdVendorCheckCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -182,17 +152,6 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
 
-    protected LdVendorCheck facadeSelectEntityWithDeletedCheck(LdVendorCheckCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorCheck> ENTITY doSelectEntityWithDeletedCheck(LdVendorCheckCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         List Select
     //                                                                         ===========
@@ -214,16 +173,6 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
     public ListResultBean<LdVendorCheck> selectList(LdVendorCheckCB cb) {
         return facadeSelectList(cb);
     }
-
-    protected ListResultBean<LdVendorCheck> facadeSelectList(LdVendorCheckCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorCheck> ListResultBean<ENTITY> doSelectList(LdVendorCheckCB cb, Class<ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -254,16 +203,6 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<LdVendorCheck> facadeSelectPage(LdVendorCheckCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorCheck> PagingResultBean<ENTITY> doSelectPage(LdVendorCheckCB cb, Class<ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -283,16 +222,6 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
      */
     public void selectCursor(LdVendorCheckCB cb, EntityRowHandler<LdVendorCheck> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(LdVendorCheckCB cb, EntityRowHandler<LdVendorCheck> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorCheck> void doSelectCursor(LdVendorCheckCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -316,19 +245,6 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
     public <RESULT> HpSLSFunction<LdVendorCheckCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<LdVendorCheckCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends LdVendorCheckCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -479,11 +395,9 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected Class<LdVendorCheck> typeOfSelectedEntity() { return LdVendorCheck.class; }
-    protected LdVendorCheck downcast(Entity et) { return helpEntityDowncastInternally(et, LdVendorCheck.class); }
-    protected LdVendorCheckCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdVendorCheckCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<LdVendorCheck> downcast(List<? extends Entity> ls) { return (List<LdVendorCheck>)ls; }
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends LdVendorCheck> typeOfSelectedEntity() { return LdVendorCheck.class; }
+    protected Class<LdVendorCheck> typeOfHandlingEntity() { return LdVendorCheck.class; }
+    protected Class<LdVendorCheckCB> typeOfHandlingConditionBean() { return LdVendorCheckCB.class; }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -49,19 +48,13 @@ import com.example.dbflute.multipledb.seasar.dbflute.memberdb.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
+public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable<MbSummaryProduct, MbSummaryProductCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "SUMMARY_PRODUCT"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -75,9 +68,6 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public MbSummaryProduct newEntity() { return new MbSummaryProduct(); }
-
     /** {@inheritDoc} */
     public MbSummaryProductCB newConditionBean() { return new MbSummaryProductCB(); }
 
@@ -104,22 +94,6 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
     public int selectCount(MbSummaryProductCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(MbSummaryProductCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(MbSummaryProductCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(MbSummaryProductCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -151,11 +125,7 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends MbSummaryProduct> ENTITY doSelectEntity(MbSummaryProductCB cb, Class<ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
-    protected <ENTITY extends MbSummaryProduct> OptionalEntity<ENTITY> doSelectOptionalEntity(MbSummaryProductCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends MbSummaryProduct> OptionalEntity<ENTITY> doSelectOptionalEntity(MbSummaryProductCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -180,17 +150,6 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
 
-    protected MbSummaryProduct facadeSelectEntityWithDeletedCheck(MbSummaryProductCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MbSummaryProduct> ENTITY doSelectEntityWithDeletedCheck(MbSummaryProductCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         List Select
     //                                                                         ===========
@@ -212,16 +171,6 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
     public ListResultBean<MbSummaryProduct> selectList(MbSummaryProductCB cb) {
         return facadeSelectList(cb);
     }
-
-    protected ListResultBean<MbSummaryProduct> facadeSelectList(MbSummaryProductCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MbSummaryProduct> ListResultBean<ENTITY> doSelectList(MbSummaryProductCB cb, Class<ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
 
     // ===================================================================================
     //                                                                         Page Select
@@ -252,16 +201,6 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<MbSummaryProduct> facadeSelectPage(MbSummaryProductCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MbSummaryProduct> PagingResultBean<ENTITY> doSelectPage(MbSummaryProductCB cb, Class<ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -281,16 +220,6 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
      */
     public void selectCursor(MbSummaryProductCB cb, EntityRowHandler<MbSummaryProduct> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(MbSummaryProductCB cb, EntityRowHandler<MbSummaryProduct> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends MbSummaryProduct> void doSelectCursor(MbSummaryProductCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -314,19 +243,6 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
     public <RESULT> HpSLSFunction<MbSummaryProductCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<MbSummaryProductCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends MbSummaryProductCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -458,11 +374,9 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected Class<MbSummaryProduct> typeOfSelectedEntity() { return MbSummaryProduct.class; }
-    protected MbSummaryProduct downcast(Entity et) { return helpEntityDowncastInternally(et, MbSummaryProduct.class); }
-    protected MbSummaryProductCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, MbSummaryProductCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<MbSummaryProduct> downcast(List<? extends Entity> ls) { return (List<MbSummaryProduct>)ls; }
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends MbSummaryProduct> typeOfSelectedEntity() { return MbSummaryProduct.class; }
+    protected Class<MbSummaryProduct> typeOfHandlingEntity() { return MbSummaryProduct.class; }
+    protected Class<MbSummaryProductCB> typeOfHandlingConditionBean() { return MbSummaryProductCB.class; }
 }

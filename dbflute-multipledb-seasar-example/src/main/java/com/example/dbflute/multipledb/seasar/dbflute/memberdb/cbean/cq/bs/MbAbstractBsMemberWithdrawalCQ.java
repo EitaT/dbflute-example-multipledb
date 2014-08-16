@@ -44,7 +44,6 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * MEMBER_ID: {PK, NotNull, INTEGER(10), FK to MEMBER}
@@ -841,7 +840,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
 
     protected void regUpdateUser(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueUpdateUser(), "UPDATE_USER"); }
     protected abstract ConditionValue getCValueUpdateUser();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VERSION_NO: {NotNull, BIGINT(19)}
@@ -1120,6 +1119,9 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
     }
     public abstract String keepMyselfInScope(MbMemberWithdrawalCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1156,8 +1158,8 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1186,6 +1188,11 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1193,6 +1200,7 @@ public abstract class MbAbstractBsMemberWithdrawalCQ extends AbstractConditionQu
         return new MbMemberWithdrawalCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return MbMemberWithdrawalCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

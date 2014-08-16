@@ -46,7 +46,6 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * AUTHOR_ID: {PK, ID, NotNull, INTEGER(10)}
@@ -401,7 +400,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
 
     protected void regAuthorName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueAuthorName(), "AUTHOR_NAME"); }
     protected abstract ConditionValue getCValueAuthorName();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * AUTHOR_AGE: {SMALLINT(5)}
@@ -1415,6 +1414,9 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(LdAuthorCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1451,8 +1453,8 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1481,6 +1483,11 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1488,6 +1495,7 @@ public abstract class LdAbstractBsAuthorCQ extends AbstractConditionQuery {
         return new LdAuthorCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdAuthorCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

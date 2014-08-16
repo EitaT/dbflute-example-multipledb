@@ -46,7 +46,6 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * BLACK_ACTION_ID: {PK, ID, NotNull, INTEGER(10)}
@@ -162,7 +161,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
 
     protected void regBlackActionId(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackActionId(), "BLACK_ACTION_ID"); }
     protected abstract ConditionValue getCValueBlackActionId();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * BLACK_LIST_ID: {IX, NotNull, INTEGER(10), FK to BLACK_LIST}
@@ -448,7 +447,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
 
     protected void regBlackActionCode(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueBlackActionCode(), "BLACK_ACTION_CODE"); }
     protected abstract ConditionValue getCValueBlackActionCode();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * BLACK_LEVEL: {NotNull, SMALLINT(5)}
@@ -675,6 +674,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
 
     protected void regActionDate(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueActionDate(), "ACTION_DATE"); }
     protected abstract ConditionValue getCValueActionDate();
+
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br />
@@ -1588,6 +1588,9 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(LdBlackActionCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1624,8 +1627,8 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1654,6 +1657,11 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1661,6 +1669,7 @@ public abstract class LdAbstractBsBlackActionCQ extends AbstractConditionQuery {
         return new LdBlackActionCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdBlackActionCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

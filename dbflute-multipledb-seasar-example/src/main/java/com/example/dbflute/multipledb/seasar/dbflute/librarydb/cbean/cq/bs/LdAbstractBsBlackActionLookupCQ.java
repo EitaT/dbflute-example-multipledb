@@ -46,7 +46,6 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * BLACK_ACTION_CODE: {PK, NotNull, CHAR(3)}
@@ -1327,6 +1326,9 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     }
     public abstract String keepMyselfInScope(LdBlackActionLookupCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1363,8 +1365,8 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1393,6 +1395,11 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1400,6 +1407,7 @@ public abstract class LdAbstractBsBlackActionLookupCQ extends AbstractConditionQ
         return new LdBlackActionLookupCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdBlackActionLookupCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

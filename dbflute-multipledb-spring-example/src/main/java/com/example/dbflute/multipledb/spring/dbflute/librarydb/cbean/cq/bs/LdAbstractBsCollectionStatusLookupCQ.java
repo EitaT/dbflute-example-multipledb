@@ -46,7 +46,6 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * COLLECTION_STATUS_CODE: {PK, NotNull, CHAR(3), classification=CollectionStatus}
@@ -1338,6 +1337,9 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     }
     public abstract String keepMyselfInScope(LdCollectionStatusLookupCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1374,8 +1376,8 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1404,6 +1406,11 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1411,6 +1418,7 @@ public abstract class LdAbstractBsCollectionStatusLookupCQ extends AbstractCondi
         return new LdCollectionStatusLookupCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdCollectionStatusLookupCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

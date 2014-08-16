@@ -44,7 +44,6 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br />
      * WITHDRAWAL_REASON_CODE: {PK, NotNull, CHAR(3)}
@@ -319,7 +318,7 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
 
     protected void regWithdrawalReasonText(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueWithdrawalReasonText(), "WITHDRAWAL_REASON_TEXT"); }
     protected abstract ConditionValue getCValueWithdrawalReasonText();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * DISPLAY_ORDER: {UQ, NotNull, INTEGER(10)}
@@ -598,6 +597,9 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     }
     public abstract String keepMyselfInScope(MbWithdrawalReasonCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -634,8 +636,8 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -664,6 +666,11 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -671,6 +678,7 @@ public abstract class MbAbstractBsWithdrawalReasonCQ extends AbstractConditionQu
         return new MbWithdrawalReasonCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return MbWithdrawalReasonCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

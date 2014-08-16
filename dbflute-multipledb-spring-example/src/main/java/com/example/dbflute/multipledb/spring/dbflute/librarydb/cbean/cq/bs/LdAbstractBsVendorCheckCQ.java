@@ -46,7 +46,6 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * VENDOR_CHECK_ID: {NotNull, BIGINT(19)}
@@ -704,7 +703,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfClob(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfClob(), "TYPE_OF_CLOB"); }
     protected abstract ConditionValue getCValueTypeOfClob();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_DECIMAL_INTEGER: {DECIMAL(5)}
@@ -820,7 +819,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfDecimalInteger(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfDecimalInteger(), "TYPE_OF_DECIMAL_INTEGER"); }
     protected abstract ConditionValue getCValueTypeOfDecimalInteger();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_DECIMAL_BIGINT: {DECIMAL(12)}
@@ -936,7 +935,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfDecimalBigint(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfDecimalBigint(), "TYPE_OF_DECIMAL_BIGINT"); }
     protected abstract ConditionValue getCValueTypeOfDecimalBigint();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_DECIMAL_DECIMAL: {DECIMAL(5, 3)}
@@ -1052,7 +1051,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfDecimalDecimal(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfDecimalDecimal(), "TYPE_OF_DECIMAL_DECIMAL"); }
     protected abstract ConditionValue getCValueTypeOfDecimalDecimal();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_BIGINT: {BIGINT(19)}
@@ -1168,7 +1167,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
 
     protected void regTypeOfBigint(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueTypeOfBigint(), "TYPE_OF_BIGINT"); }
     protected abstract ConditionValue getCValueTypeOfBigint();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * TYPE_OF_INTEGER: {INTEGER(10)}
@@ -1749,6 +1748,9 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
         LdVendorCheckCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1785,8 +1787,8 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1815,6 +1817,11 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1822,6 +1829,7 @@ public abstract class LdAbstractBsVendorCheckCQ extends AbstractConditionQuery {
         return new LdVendorCheckCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdVendorCheckCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

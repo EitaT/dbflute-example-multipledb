@@ -46,7 +46,6 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * COLLECTION_ID: {PK, IX, NotNull, INTEGER(10), FK to COLLECTION}
@@ -1273,6 +1272,9 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
     }
     public abstract String keepMyselfInScope(LdCollectionStatusCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -1309,8 +1311,8 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -1339,6 +1341,11 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -1346,6 +1353,7 @@ public abstract class LdAbstractBsCollectionStatusCQ extends AbstractConditionQu
         return new LdCollectionStatusCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdCollectionStatusCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

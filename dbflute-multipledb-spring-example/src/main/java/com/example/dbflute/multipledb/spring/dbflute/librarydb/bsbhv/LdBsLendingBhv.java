@@ -7,7 +7,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -51,19 +50,13 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
+public abstract class LdBsLendingBhv extends AbstractBehaviorWritable<LdLending, LdLendingCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "LENDING"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -77,9 +70,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public LdLending newEntity() { return new LdLending(); }
-
     /** {@inheritDoc} */
     public LdLendingCB newConditionBean() { return new LdLendingCB(); }
 
@@ -106,22 +96,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     public int selectCount(LdLendingCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(LdLendingCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(LdLendingCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(LdLendingCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -153,11 +127,7 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdLending> ENTITY doSelectEntity(LdLendingCB cb, Class<ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
-    protected <ENTITY extends LdLending> OptionalEntity<ENTITY> doSelectOptionalEntity(LdLendingCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends LdLending> OptionalEntity<ENTITY> doSelectOptionalEntity(LdLendingCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -182,17 +152,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
 
-    protected LdLending facadeSelectEntityWithDeletedCheck(LdLendingCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdLending> ENTITY doSelectEntityWithDeletedCheck(LdLendingCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
-
     /**
      * Select the entity by the primary-key value.
      * @param libraryId : PK, IX+, NotNull, SMALLINT(5), FK to LIBRARY_USER. (NotNull)
@@ -210,11 +169,11 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doSelectByPK(libraryId, lbUserId, lendingDate, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdLending> ENTITY doSelectByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<ENTITY> tp) {
+    protected <ENTITY extends LdLending> ENTITY doSelectByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(libraryId, lbUserId, lendingDate), tp);
     }
 
-    protected <ENTITY extends LdLending> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<ENTITY> tp) {
+    protected <ENTITY extends LdLending> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer libraryId, Integer lbUserId, java.sql.Timestamp lendingDate, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(libraryId, lbUserId, lendingDate, tp), libraryId, lbUserId, lendingDate);
     }
 
@@ -263,16 +222,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<LdLending> facadeSelectList(LdLendingCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdLending> ListResultBean<ENTITY> doSelectList(LdLendingCB cb, Class<ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
@@ -302,16 +251,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<LdLending> facadeSelectPage(LdLendingCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdLending> PagingResultBean<ENTITY> doSelectPage(LdLendingCB cb, Class<ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -331,16 +270,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
      */
     public void selectCursor(LdLendingCB cb, EntityRowHandler<LdLending> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(LdLendingCB cb, EntityRowHandler<LdLending> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdLending> void doSelectCursor(LdLendingCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -364,19 +293,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     public <RESULT> HpSLSFunction<LdLendingCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<LdLendingCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends LdLendingCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -538,7 +454,7 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     }
 
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
+     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
      * @param lendingList The entity list of lending. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
@@ -592,17 +508,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         doInsert(lending, null);
     }
 
-    protected void doInsert(LdLending et, InsertOption<LdLendingCB> op) {
-        assertObjectNotNull("lending", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void prepareInsertOption(InsertOption<LdLendingCB> op) {
-        if (op == null) { return; } assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, ExclusiveControl)
      * <pre>
@@ -629,24 +534,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         doUpdate(lending, null);
     }
 
-    protected void doUpdate(LdLending et, UpdateOption<LdLendingCB> op) {
-        assertObjectNotNull("lending", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void prepareUpdateOption(UpdateOption<LdLendingCB> op) {
-        if (op == null) { return; } assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
-        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected LdLendingCB createCBForVaryingUpdate()
-    { LdLendingCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
-
-    protected LdLendingCB createCBForSpecifiedUpdate()
-    { LdLendingCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
     /**
      * Update the entity non-strictly modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -670,13 +557,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         doUpdateNonstrict(lending, null);
     }
 
-    protected void doUpdateNonstrict(LdLending et, UpdateOption<LdLendingCB> op) {
-        assertObjectNotNull("lending", et); prepareUpdateOption(op); helpUpdateNonstrictInternally(et, op);
-    }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doUpdateNonstrict(downcast(et), downcast(op)); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, ExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -690,13 +570,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         doInsertOrUpdate(lending, null, null);
     }
 
-    protected void doInsertOrUpdate(LdLending et, InsertOption<LdLendingCB> iop, UpdateOption<LdLendingCB> uop) {
-        assertObjectNotNull("lending", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
     /**
      * Insert or update the entity non-strictly modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() }
@@ -709,13 +582,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     public void insertOrUpdateNonstrict(LdLending lending) {
         doInsertOrUpdateNonstrict(lending, null, null);
     }
-
-    protected void doInsertOrUpdateNonstrict(LdLending et, InsertOption<LdLendingCB> iop, UpdateOption<LdLendingCB> uop) {
-        assertObjectNotNull("lending", et); helpInsertOrUpdateNonstrictInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdateNonstrict(downcast(et), downcast(iop), downcast(uop)); }
 
     /**
      * Delete the entity. (ZeroUpdateException, ExclusiveControl)
@@ -738,14 +604,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         doDelete(lending, null);
     }
 
-    protected void doDelete(LdLending et, final DeleteOption<LdLendingCB> op) {
-        assertObjectNotNull("lending", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void prepareDeleteOption(DeleteOption<LdLendingCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
     /**
      * Delete the entity non-strictly. {ZeroUpdateException, NonExclusiveControl}
      * <pre>
@@ -762,10 +620,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
      */
     public void deleteNonstrict(LdLending lending) {
         doDeleteNonstrict(lending, null);
-    }
-
-    protected void doDeleteNonstrict(LdLending et, final DeleteOption<LdLendingCB> op) {
-        assertObjectNotNull("lending", et); prepareDeleteOption(op); helpDeleteNonstrictInternally(et, op);
     }
 
     /**
@@ -789,9 +643,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     protected void doDeleteNonstrictIgnoreDeleted(LdLending et, final DeleteOption<LdLendingCB> op) {
         assertObjectNotNull("lending", et); prepareDeleteOption(op); helpDeleteNonstrictIgnoreDeletedInternally(et, op);
     }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doDeleteNonstrict(downcast(et), downcast(op)); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -824,21 +675,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doBatchInsert(lendingList, null);
     }
 
-    protected int[] doBatchInsert(List<LdLending> ls, InsertOption<LdLendingCB> op) {
-        assertObjectNotNull("lendingList", ls);
-        InsertOption<LdLendingCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected void prepareBatchInsertOption(List<LdLending> ls, InsertOption<LdLendingCB> op) {
-        op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
-        prepareInsertOption(op);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -866,20 +702,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     public int[] batchUpdate(List<LdLending> lendingList) {
         return doBatchUpdate(lendingList, null);
     }
-
-    protected int[] doBatchUpdate(List<LdLending> ls, UpdateOption<LdLendingCB> op) {
-        assertObjectNotNull("lendingList", ls);
-        UpdateOption<LdLendingCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected void prepareBatchUpdateOption(List<LdLending> ls, UpdateOption<LdLendingCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
-        prepareUpdateOption(op);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (ExclusiveControl) <br />
@@ -941,13 +763,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doBatchUpdateNonstrict(lendingList, null);
     }
 
-    protected int[] doBatchUpdateNonstrict(List<LdLending> ls, UpdateOption<LdLendingCB> op) {
-        assertObjectNotNull("lendingList", ls);
-        UpdateOption<LdLendingCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop);
-        return delegateBatchUpdateNonstrict(ls, rlop);
-    }
-
     /**
      * Batch-update the entity list non-strictly specified-only. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -979,10 +794,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doBatchUpdateNonstrict(lendingList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doBatchUpdateNonstrict(downcast(ls), downcast(op)); }
-
     /**
      * Batch-delete the entity list. (ExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -993,14 +804,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     public int[] batchDelete(List<LdLending> lendingList) {
         return doBatchDelete(lendingList, null);
     }
-
-    protected int[] doBatchDelete(List<LdLending> ls, DeleteOption<LdLendingCB> op) {
-        assertObjectNotNull("lendingList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
 
     /**
      * Batch-delete the entity list non-strictly. {NonExclusiveControl} <br />
@@ -1013,15 +816,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doBatchDeleteNonstrict(lendingList, null);
     }
 
-    protected int[] doBatchDeleteNonstrict(List<LdLending> ls, DeleteOption<LdLendingCB> op) {
-        assertObjectNotNull("lendingList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDeleteNonstrict(ls, op);
-    }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doBatchDeleteNonstrict(downcast(ls), downcast(op)); }
-
     // ===================================================================================
     //                                                                        Query Update
     //                                                                        ============
@@ -1029,7 +823,7 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * lendingBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdLending, LdLendingCB&gt;() {
-     *     public ConditionBean setup(lending entity, LdLendingCB intoCB) {
+     *     public ConditionBean setup(LdLending entity, LdLendingCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -1048,24 +842,12 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<LdLending, LdLendingCB> setupper) {
         return doQueryInsert(setupper, null);
     }
-
-    protected int doQueryInsert(QueryInsertSetupper<LdLending, LdLendingCB> sp, InsertOption<LdLendingCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        LdLending et = newEntity(); LdLendingCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected LdLendingCB createCBForQueryInsert()
-    { LdLendingCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -1093,14 +875,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(lending, cb, null);
     }
 
-    protected int doQueryUpdate(LdLending et, LdLendingCB cb, UpdateOption<LdLendingCB> op) {
-        assertObjectNotNull("lending", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -1115,13 +889,6 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     public int queryDelete(LdLendingCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(LdLendingCB cb, DeleteOption<LdLendingCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1354,7 +1121,7 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */
@@ -1465,25 +1232,12 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable {
     //                                                                Optimistic Lock Info
     //                                                                ====================
     @Override
-    protected boolean hasUpdateDateValue(Entity et) {
-        return downcast(et).getUTimestamp() != null;
-    }
+    protected boolean hasUpdateDateValue(Entity et) { return downcast(et).getUTimestamp() != null; }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected Class<LdLending> typeOfSelectedEntity() { return LdLending.class; }
-    protected LdLending downcast(Entity et) { return helpEntityDowncastInternally(et, LdLending.class); }
-    protected LdLendingCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdLendingCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<LdLending> downcast(List<? extends Entity> ls) { return (List<LdLending>)ls; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<LdLendingCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<LdLendingCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<LdLendingCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<LdLendingCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<LdLendingCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<LdLendingCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdLending, LdLendingCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<LdLending, LdLendingCB>)sp; }
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends LdLending> typeOfSelectedEntity() { return LdLending.class; }
+    protected Class<LdLending> typeOfHandlingEntity() { return LdLending.class; }
+    protected Class<LdLendingCB> typeOfHandlingConditionBean() { return LdLendingCB.class; }
 }

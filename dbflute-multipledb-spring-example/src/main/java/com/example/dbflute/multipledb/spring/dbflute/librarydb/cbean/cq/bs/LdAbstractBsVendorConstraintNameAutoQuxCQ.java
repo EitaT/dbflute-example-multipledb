@@ -46,7 +46,6 @@ public abstract class LdAbstractBsVendorConstraintNameAutoQuxCQ extends Abstract
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * CONSTRAINT_NAME_AUTO_QUX_ID: {PK, NotNull, NUMERIC(16)}
@@ -589,6 +588,9 @@ public abstract class LdAbstractBsVendorConstraintNameAutoQuxCQ extends Abstract
     }
     public abstract String keepMyselfInScope(LdVendorConstraintNameAutoQuxCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -625,8 +627,8 @@ public abstract class LdAbstractBsVendorConstraintNameAutoQuxCQ extends Abstract
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -655,6 +657,11 @@ public abstract class LdAbstractBsVendorConstraintNameAutoQuxCQ extends Abstract
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -662,6 +669,7 @@ public abstract class LdAbstractBsVendorConstraintNameAutoQuxCQ extends Abstract
         return new LdVendorConstraintNameAutoQuxCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdVendorConstraintNameAutoQuxCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

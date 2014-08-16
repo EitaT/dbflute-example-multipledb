@@ -7,7 +7,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -51,19 +50,13 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehaviorWritable {
+public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehaviorWritable<LdVendorConstraintNameAutoFoo, LdVendorConstraintNameAutoFooCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "VENDOR_CONSTRAINT_NAME_AUTO_FOO"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -77,9 +70,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public LdVendorConstraintNameAutoFoo newEntity() { return new LdVendorConstraintNameAutoFoo(); }
-
     /** {@inheritDoc} */
     public LdVendorConstraintNameAutoFooCB newConditionBean() { return new LdVendorConstraintNameAutoFooCB(); }
 
@@ -106,22 +96,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     public int selectCount(LdVendorConstraintNameAutoFooCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(LdVendorConstraintNameAutoFooCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(LdVendorConstraintNameAutoFooCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(LdVendorConstraintNameAutoFooCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -153,11 +127,7 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> ENTITY doSelectEntity(LdVendorConstraintNameAutoFooCB cb, Class<ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> OptionalEntity<ENTITY> doSelectOptionalEntity(LdVendorConstraintNameAutoFooCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends LdVendorConstraintNameAutoFoo> OptionalEntity<ENTITY> doSelectOptionalEntity(LdVendorConstraintNameAutoFooCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -182,17 +152,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return facadeSelectEntityWithDeletedCheck(cb);
     }
 
-    protected LdVendorConstraintNameAutoFoo facadeSelectEntityWithDeletedCheck(LdVendorConstraintNameAutoFooCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> ENTITY doSelectEntityWithDeletedCheck(LdVendorConstraintNameAutoFooCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
-
     /**
      * Select the entity by the primary-key value.
      * @param constraintNameAutoFooId : PK, NotNull, NUMERIC(16). (NotNull)
@@ -208,11 +167,11 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return doSelectByPK(constraintNameAutoFooId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> ENTITY doSelectByPK(java.math.BigDecimal constraintNameAutoFooId, Class<ENTITY> tp) {
+    protected <ENTITY extends LdVendorConstraintNameAutoFoo> ENTITY doSelectByPK(java.math.BigDecimal constraintNameAutoFooId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(constraintNameAutoFooId), tp);
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> OptionalEntity<ENTITY> doSelectOptionalByPK(java.math.BigDecimal constraintNameAutoFooId, Class<ENTITY> tp) {
+    protected <ENTITY extends LdVendorConstraintNameAutoFoo> OptionalEntity<ENTITY> doSelectOptionalByPK(java.math.BigDecimal constraintNameAutoFooId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(constraintNameAutoFooId, tp), constraintNameAutoFooId);
     }
 
@@ -253,7 +212,7 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return doSelectByUniqueOf(constraintNameAutoFooName, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> OptionalEntity<ENTITY> doSelectByUniqueOf(String constraintNameAutoFooName, Class<ENTITY> tp) {
+    protected <ENTITY extends LdVendorConstraintNameAutoFoo> OptionalEntity<ENTITY> doSelectByUniqueOf(String constraintNameAutoFooName, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(constraintNameAutoFooName), tp), constraintNameAutoFooName);
     }
 
@@ -284,16 +243,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<LdVendorConstraintNameAutoFoo> facadeSelectList(LdVendorConstraintNameAutoFooCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> ListResultBean<ENTITY> doSelectList(LdVendorConstraintNameAutoFooCB cb, Class<ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
@@ -323,16 +272,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<LdVendorConstraintNameAutoFoo> facadeSelectPage(LdVendorConstraintNameAutoFooCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> PagingResultBean<ENTITY> doSelectPage(LdVendorConstraintNameAutoFooCB cb, Class<ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -352,16 +291,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
      */
     public void selectCursor(LdVendorConstraintNameAutoFooCB cb, EntityRowHandler<LdVendorConstraintNameAutoFoo> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(LdVendorConstraintNameAutoFooCB cb, EntityRowHandler<LdVendorConstraintNameAutoFoo> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdVendorConstraintNameAutoFoo> void doSelectCursor(LdVendorConstraintNameAutoFooCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -385,19 +314,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     public <RESULT> HpSLSFunction<LdVendorConstraintNameAutoFooCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<LdVendorConstraintNameAutoFooCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends LdVendorConstraintNameAutoFooCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -559,7 +475,7 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     }
 
     /**
-     * {Refer to overload method that has an argument of condition-bean setupper.} #beforejava8
+     * {Refer to overload method that has an argument of condition-bean set-upper} #beforejava8
      * @param vendorConstraintNameAutoFooList The entity list of vendorConstraintNameAutoFoo. (NotNull)
      * @param loadReferrerOption The option of load-referrer. (NotNull)
      * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
@@ -621,17 +537,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         doInsert(vendorConstraintNameAutoFoo, null);
     }
 
-    protected void doInsert(LdVendorConstraintNameAutoFoo et, InsertOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("vendorConstraintNameAutoFoo", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void prepareInsertOption(InsertOption<LdVendorConstraintNameAutoFooCB> op) {
-        if (op == null) { return; } assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -658,27 +563,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         doUpdate(vendorConstraintNameAutoFoo, null);
     }
 
-    protected void doUpdate(LdVendorConstraintNameAutoFoo et, UpdateOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("vendorConstraintNameAutoFoo", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void prepareUpdateOption(UpdateOption<LdVendorConstraintNameAutoFooCB> op) {
-        if (op == null) { return; } assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
-        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected LdVendorConstraintNameAutoFooCB createCBForVaryingUpdate()
-    { LdVendorConstraintNameAutoFooCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
-
-    protected LdVendorConstraintNameAutoFooCB createCBForSpecifiedUpdate()
-    { LdVendorConstraintNameAutoFooCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doModify(et, op); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -691,16 +575,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     public void insertOrUpdate(LdVendorConstraintNameAutoFoo vendorConstraintNameAutoFoo) {
         doInsertOrUpdate(vendorConstraintNameAutoFoo, null, null);
     }
-
-    protected void doInsertOrUpdate(LdVendorConstraintNameAutoFoo et, InsertOption<LdVendorConstraintNameAutoFooCB> iop, UpdateOption<LdVendorConstraintNameAutoFooCB> uop) {
-        assertObjectNotNull("vendorConstraintNameAutoFoo", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doCreateOrModify(et, iop, uop); }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
@@ -722,17 +596,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     public void delete(LdVendorConstraintNameAutoFoo vendorConstraintNameAutoFoo) {
         doDelete(vendorConstraintNameAutoFoo, null);
     }
-
-    protected void doDelete(LdVendorConstraintNameAutoFoo et, final DeleteOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("vendorConstraintNameAutoFoo", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void prepareDeleteOption(DeleteOption<LdVendorConstraintNameAutoFooCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doRemove(et, op); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -765,21 +628,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return doBatchInsert(vendorConstraintNameAutoFooList, null);
     }
 
-    protected int[] doBatchInsert(List<LdVendorConstraintNameAutoFoo> ls, InsertOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("vendorConstraintNameAutoFooList", ls);
-        InsertOption<LdVendorConstraintNameAutoFooCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected void prepareBatchInsertOption(List<LdVendorConstraintNameAutoFoo> ls, InsertOption<LdVendorConstraintNameAutoFooCB> op) {
-        op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
-        prepareInsertOption(op);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -807,20 +655,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     public int[] batchUpdate(List<LdVendorConstraintNameAutoFoo> vendorConstraintNameAutoFooList) {
         return doBatchUpdate(vendorConstraintNameAutoFooList, null);
     }
-
-    protected int[] doBatchUpdate(List<LdVendorConstraintNameAutoFoo> ls, UpdateOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("vendorConstraintNameAutoFooList", ls);
-        UpdateOption<LdVendorConstraintNameAutoFooCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected void prepareBatchUpdateOption(List<LdVendorConstraintNameAutoFoo> ls, UpdateOption<LdVendorConstraintNameAutoFooCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
-        prepareUpdateOption(op);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
@@ -854,10 +688,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return doBatchUpdate(vendorConstraintNameAutoFooList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doLumpModify(ls, op); }
-
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -869,17 +699,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return doBatchDelete(vendorConstraintNameAutoFooList, null);
     }
 
-    protected int[] doBatchDelete(List<LdVendorConstraintNameAutoFoo> ls, DeleteOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("vendorConstraintNameAutoFooList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doLumpRemove(ls, op); }
-
     // ===================================================================================
     //                                                                        Query Update
     //                                                                        ============
@@ -887,7 +706,7 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * vendorConstraintNameAutoFooBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdVendorConstraintNameAutoFoo, LdVendorConstraintNameAutoFooCB&gt;() {
-     *     public ConditionBean setup(vendorConstraintNameAutoFoo entity, LdVendorConstraintNameAutoFooCB intoCB) {
+     *     public ConditionBean setup(LdVendorConstraintNameAutoFoo entity, LdVendorConstraintNameAutoFooCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -906,24 +725,12 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<LdVendorConstraintNameAutoFoo, LdVendorConstraintNameAutoFooCB> setupper) {
         return doQueryInsert(setupper, null);
     }
-
-    protected int doQueryInsert(QueryInsertSetupper<LdVendorConstraintNameAutoFoo, LdVendorConstraintNameAutoFooCB> sp, InsertOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        LdVendorConstraintNameAutoFoo et = newEntity(); LdVendorConstraintNameAutoFooCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected LdVendorConstraintNameAutoFooCB createCBForQueryInsert()
-    { LdVendorConstraintNameAutoFooCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -951,14 +758,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
         return doQueryUpdate(vendorConstraintNameAutoFoo, cb, null);
     }
 
-    protected int doQueryUpdate(LdVendorConstraintNameAutoFoo et, LdVendorConstraintNameAutoFooCB cb, UpdateOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertObjectNotNull("vendorConstraintNameAutoFoo", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -973,13 +772,6 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     public int queryDelete(LdVendorConstraintNameAutoFooCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(LdVendorConstraintNameAutoFooCB cb, DeleteOption<LdVendorConstraintNameAutoFooCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1125,7 +917,7 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */
@@ -1222,20 +1014,9 @@ public abstract class LdBsVendorConstraintNameAutoFooBhv extends AbstractBehavio
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected Class<LdVendorConstraintNameAutoFoo> typeOfSelectedEntity() { return LdVendorConstraintNameAutoFoo.class; }
-    protected LdVendorConstraintNameAutoFoo downcast(Entity et) { return helpEntityDowncastInternally(et, LdVendorConstraintNameAutoFoo.class); }
-    protected LdVendorConstraintNameAutoFooCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdVendorConstraintNameAutoFooCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<LdVendorConstraintNameAutoFoo> downcast(List<? extends Entity> ls) { return (List<LdVendorConstraintNameAutoFoo>)ls; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<LdVendorConstraintNameAutoFooCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<LdVendorConstraintNameAutoFooCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<LdVendorConstraintNameAutoFooCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<LdVendorConstraintNameAutoFooCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<LdVendorConstraintNameAutoFooCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<LdVendorConstraintNameAutoFooCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdVendorConstraintNameAutoFoo, LdVendorConstraintNameAutoFooCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<LdVendorConstraintNameAutoFoo, LdVendorConstraintNameAutoFooCB>)sp; }
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends LdVendorConstraintNameAutoFoo> typeOfSelectedEntity() { return LdVendorConstraintNameAutoFoo.class; }
+    protected Class<LdVendorConstraintNameAutoFoo> typeOfHandlingEntity() { return LdVendorConstraintNameAutoFoo.class; }
+    protected Class<LdVendorConstraintNameAutoFooCB> typeOfHandlingConditionBean() { return LdVendorConstraintNameAutoFooCB.class; }
 }

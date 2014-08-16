@@ -46,7 +46,6 @@ public abstract class LdAbstractBsMyselfCheckCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * MYSELF_CHECK_ID: {PK, NotNull, INTEGER(10)}
@@ -284,7 +283,7 @@ public abstract class LdAbstractBsMyselfCheckCQ extends AbstractConditionQuery {
 
     protected void regMyselfCheckName(ConditionKey ky, Object vl) { regQ(ky, vl, getCValueMyselfCheckName(), "MYSELF_CHECK_NAME"); }
     protected abstract ConditionValue getCValueMyselfCheckName();
-    
+
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br />
      * MYSELF_ID: {IX, INTEGER(10), FK to MYSELF}
@@ -618,6 +617,9 @@ public abstract class LdAbstractBsMyselfCheckCQ extends AbstractConditionQuery {
     }
     public abstract String keepMyselfInScope(LdMyselfCheckCQ sq);
 
+    // ===================================================================================
+    //                                                                        Manual Order
+    //                                                                        ============
     /**
      * Order along manual ordering information.
      * <pre>
@@ -654,8 +656,8 @@ public abstract class LdAbstractBsMyselfCheckCQ extends AbstractConditionQuery {
     }
 
     // ===================================================================================
-    //                                                                          Compatible
-    //                                                                          ==========
+    //                                                                    Small Adjustment
+    //                                                                    ================
     /**
      * Order along the list of manual values. #beforejava8 <br />
      * This function with Union is unsupported! <br />
@@ -684,6 +686,11 @@ public abstract class LdAbstractBsMyselfCheckCQ extends AbstractConditionQuery {
         withManualOrder(manualOrderBean);
     }
 
+    @Override
+    protected void filterFromToOption(FromToOption option) {
+        option.allowOneSide();
+    }
+
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
@@ -691,6 +698,7 @@ public abstract class LdAbstractBsMyselfCheckCQ extends AbstractConditionQuery {
         return new LdMyselfCheckCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
+    protected String xabUDT() { return Date.class.getName(); }
     protected String xabCQ() { return LdMyselfCheckCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSSQS() { return HpSSQSetupper.class.getName(); }

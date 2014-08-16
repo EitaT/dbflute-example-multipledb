@@ -7,7 +7,6 @@ import java.util.List;
 import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
-import org.seasar.dbflute.cbean.chelper.HpSLSExecutor;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
@@ -51,19 +50,13 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.cbean.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
+public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable<LdMyselfCheck, LdMyselfCheckCB> {
 
     // ===================================================================================
     //                                                                          Definition
     //                                                                          ==========
     /*df:beginQueryPath*/
     /*df:endQueryPath*/
-
-    // ===================================================================================
-    //                                                                          Table name
-    //                                                                          ==========
-    /** @return The name on database of table. (NotNull) */
-    public String getTableDbName() { return "MYSELF_CHECK"; }
 
     // ===================================================================================
     //                                                                              DBMeta
@@ -77,9 +70,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
-    /** {@inheritDoc} */
-    public LdMyselfCheck newEntity() { return new LdMyselfCheck(); }
-
     /** {@inheritDoc} */
     public LdMyselfCheckCB newConditionBean() { return new LdMyselfCheckCB(); }
 
@@ -106,22 +96,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     public int selectCount(LdMyselfCheckCB cb) {
         return facadeSelectCount(cb);
     }
-
-    protected int facadeSelectCount(LdMyselfCheckCB cb) {
-        return doSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountUniquely(LdMyselfCheckCB cb) { // called by selectCount(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountUniquely(cb);
-    }
-
-    protected int doSelectCountPlainly(LdMyselfCheckCB cb) { // called by selectPage(cb)
-        assertCBStateValid(cb);
-        return delegateSelectCountPlainly(cb);
-    }
-
-    protected int doReadCount(ConditionBean cb) { return facadeSelectCount(downcast(cb)); }
 
     // ===================================================================================
     //                                                                       Entity Select
@@ -153,11 +127,7 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return doSelectEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectEntity(LdMyselfCheckCB cb, Class<ENTITY> tp) {
-        return helpSelectEntityInternally(cb, tp);
-    }
-
-    protected <ENTITY extends LdMyselfCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(LdMyselfCheckCB cb, Class<ENTITY> tp) {
+    protected <ENTITY extends LdMyselfCheck> OptionalEntity<ENTITY> doSelectOptionalEntity(LdMyselfCheckCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -182,17 +152,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return facadeSelectEntityWithDeletedCheck(cb);
     }
 
-    protected LdMyselfCheck facadeSelectEntityWithDeletedCheck(LdMyselfCheckCB cb) {
-        return doSelectEntityWithDeletedCheck(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectEntityWithDeletedCheck(LdMyselfCheckCB cb, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityType", tp);
-        return helpSelectEntityWithDeletedCheckInternally(cb, tp);
-    }
-
-    protected Entity doReadEntityWithDeletedCheck(ConditionBean cb) { return facadeSelectEntityWithDeletedCheck(downcast(cb)); }
-
     /**
      * Select the entity by the primary-key value.
      * @param myselfCheckId : PK, NotNull, INTEGER(10). (NotNull)
@@ -208,11 +167,11 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return doSelectByPK(myselfCheckId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectByPK(Integer myselfCheckId, Class<ENTITY> tp) {
+    protected <ENTITY extends LdMyselfCheck> ENTITY doSelectByPK(Integer myselfCheckId, Class<? extends ENTITY> tp) {
         return doSelectEntity(xprepareCBAsPK(myselfCheckId), tp);
     }
 
-    protected <ENTITY extends LdMyselfCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer myselfCheckId, Class<ENTITY> tp) {
+    protected <ENTITY extends LdMyselfCheck> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer myselfCheckId, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectByPK(myselfCheckId, tp), myselfCheckId);
     }
 
@@ -259,16 +218,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return facadeSelectList(cb);
     }
 
-    protected ListResultBean<LdMyselfCheck> facadeSelectList(LdMyselfCheckCB cb) {
-        return doSelectList(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdMyselfCheck> ListResultBean<ENTITY> doSelectList(LdMyselfCheckCB cb, Class<ENTITY> tp) {
-        return helpSelectListInternally(cb, tp);
-    }
-
-    protected ListResultBean<? extends Entity> doReadList(ConditionBean cb) { return facadeSelectList(downcast(cb)); }
-
     // ===================================================================================
     //                                                                         Page Select
     //                                                                         ===========
@@ -298,16 +247,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return facadeSelectPage(cb);
     }
 
-    protected PagingResultBean<LdMyselfCheck> facadeSelectPage(LdMyselfCheckCB cb) {
-        return doSelectPage(cb, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdMyselfCheck> PagingResultBean<ENTITY> doSelectPage(LdMyselfCheckCB cb, Class<ENTITY> tp) {
-        return helpSelectPageInternally(cb, tp);
-    }
-
-    protected PagingResultBean<? extends Entity> doReadPage(ConditionBean cb) { return facadeSelectPage(downcast(cb)); }
-
     // ===================================================================================
     //                                                                       Cursor Select
     //                                                                       =============
@@ -327,16 +266,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
      */
     public void selectCursor(LdMyselfCheckCB cb, EntityRowHandler<LdMyselfCheck> entityRowHandler) {
         facadeSelectCursor(cb, entityRowHandler);
-    }
-
-    protected void facadeSelectCursor(LdMyselfCheckCB cb, EntityRowHandler<LdMyselfCheck> entityRowHandler) {
-        doSelectCursor(cb, entityRowHandler, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends LdMyselfCheck> void doSelectCursor(LdMyselfCheckCB cb, EntityRowHandler<ENTITY> handler, Class<ENTITY> tp) {
-        assertCBStateValid(cb); assertObjectNotNull("entityRowHandler", handler); assertObjectNotNull("entityType", tp);
-        assertSpecifyDerivedReferrerEntityProperty(cb, tp);
-        helpSelectCursorInternally(cb, handler, tp);
     }
 
     // ===================================================================================
@@ -360,19 +289,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     public <RESULT> HpSLSFunction<LdMyselfCheckCB, RESULT> scalarSelect(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
-
-    protected <RESULT> HpSLSFunction<LdMyselfCheckCB, RESULT> facadeScalarSelect(Class<RESULT> resultType) {
-        return doScalarSelect(resultType, newConditionBean());
-    }
-
-    protected <RESULT, CB extends LdMyselfCheckCB> HpSLSFunction<CB, RESULT> doScalarSelect(final Class<RESULT> tp, final CB cb) {
-        assertObjectNotNull("resultType", tp); assertCBStateValid(cb);
-        cb.xsetupForScalarSelect(); cb.getSqlClause().disableSelectIndex(); // for when you use union
-        HpSLSExecutor<CB, RESULT> executor = createHpSLSExecutor(); // variable to resolve generic
-        return createSLSFunction(cb, tp, executor);
-    }
-
-    protected <RESULT> HpSLSFunction<? extends ConditionBean, RESULT> doReadScalar(Class<RESULT> tp) { return facadeScalarSelect(tp); }
 
     // ===================================================================================
     //                                                                            Sequence
@@ -504,17 +420,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         doInsert(myselfCheck, null);
     }
 
-    protected void doInsert(LdMyselfCheck et, InsertOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("myselfCheck", et); prepareInsertOption(op); delegateInsert(et, op);
-    }
-
-    protected void prepareInsertOption(InsertOption<LdMyselfCheckCB> op) {
-        if (op == null) { return; } assertInsertOptionStatus(op);
-        if (op.hasSpecifiedInsertColumn()) { op.resolveInsertColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected void doCreate(Entity et, InsertOption<? extends ConditionBean> op) { doInsert(downcast(et), downcast(op)); }
-
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl)
      * <pre>
@@ -541,27 +446,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         doUpdate(myselfCheck, null);
     }
 
-    protected void doUpdate(LdMyselfCheck et, UpdateOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("myselfCheck", et); prepareUpdateOption(op); helpUpdateInternally(et, op);
-    }
-
-    protected void prepareUpdateOption(UpdateOption<LdMyselfCheckCB> op) {
-        if (op == null) { return; } assertUpdateOptionStatus(op);
-        if (op.hasSelfSpecification()) { op.resolveSelfSpecification(createCBForVaryingUpdate()); }
-        if (op.hasSpecifiedUpdateColumn()) { op.resolveUpdateColumnSpecification(createCBForSpecifiedUpdate()); }
-    }
-
-    protected LdMyselfCheckCB createCBForVaryingUpdate()
-    { LdMyselfCheckCB cb = newConditionBean(); cb.xsetupForVaryingUpdate(); return cb; }
-
-    protected LdMyselfCheckCB createCBForSpecifiedUpdate()
-    { LdMyselfCheckCB cb = newConditionBean(); cb.xsetupForSpecifiedUpdate(); return cb; }
-
-    protected void doModify(Entity et, UpdateOption<? extends ConditionBean> op) { doUpdate(downcast(et), downcast(op)); }
-
-    protected void doModifyNonstrict(Entity et, UpdateOption<? extends ConditionBean> op)
-    { doModify(et, op); }
-
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br />
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br />
@@ -574,16 +458,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     public void insertOrUpdate(LdMyselfCheck myselfCheck) {
         doInsertOrUpdate(myselfCheck, null, null);
     }
-
-    protected void doInsertOrUpdate(LdMyselfCheck et, InsertOption<LdMyselfCheckCB> iop, UpdateOption<LdMyselfCheckCB> uop) {
-        assertObjectNotNull("myselfCheck", et); helpInsertOrUpdateInternally(et, iop, uop);
-    }
-
-    protected void doCreateOrModify(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doInsertOrUpdate(downcast(et), downcast(iop), downcast(uop)); }
-
-    protected void doCreateOrModifyNonstrict(Entity et, InsertOption<? extends ConditionBean> iop, UpdateOption<? extends ConditionBean> uop)
-    { doCreateOrModify(et, iop, uop); }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl)
@@ -605,17 +479,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     public void delete(LdMyselfCheck myselfCheck) {
         doDelete(myselfCheck, null);
     }
-
-    protected void doDelete(LdMyselfCheck et, final DeleteOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("myselfCheck", et); prepareDeleteOption(op); helpDeleteInternally(et, op);
-    }
-
-    protected void prepareDeleteOption(DeleteOption<LdMyselfCheckCB> op) { if (op != null) { assertDeleteOptionStatus(op); } }
-
-    protected void doRemove(Entity et, DeleteOption<? extends ConditionBean> op) { doDelete(downcast(et), downcast(op)); }
-
-    protected void doRemoveNonstrict(Entity et, DeleteOption<? extends ConditionBean> op)
-    { doRemove(et, op); }
 
     // ===================================================================================
     //                                                                        Batch Update
@@ -648,21 +511,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return doBatchInsert(myselfCheckList, null);
     }
 
-    protected int[] doBatchInsert(List<LdMyselfCheck> ls, InsertOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("myselfCheckList", ls);
-        InsertOption<LdMyselfCheckCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainInsertOption(); }
-        prepareBatchInsertOption(ls, rlop); // required
-        return delegateBatchInsert(ls, rlop);
-    }
-
-    protected void prepareBatchInsertOption(List<LdMyselfCheck> ls, InsertOption<LdMyselfCheckCB> op) {
-        op.xallowInsertColumnModifiedPropertiesFragmented();
-        op.xacceptInsertColumnModifiedPropertiesIfNeeds(ls);
-        prepareInsertOption(op);
-    }
-
-    protected int[] doLumpCreate(List<Entity> ls, InsertOption<? extends ConditionBean> op) { return doBatchInsert(downcast(ls), downcast(op)); }
-
     /**
      * Batch-update the entity list modified-only of same-set columns. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement. <br />
@@ -690,20 +538,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     public int[] batchUpdate(List<LdMyselfCheck> myselfCheckList) {
         return doBatchUpdate(myselfCheckList, null);
     }
-
-    protected int[] doBatchUpdate(List<LdMyselfCheck> ls, UpdateOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("myselfCheckList", ls);
-        UpdateOption<LdMyselfCheckCB> rlop; if (op != null) { rlop = op; } else { rlop = createPlainUpdateOption(); }
-        prepareBatchUpdateOption(ls, rlop); // required
-        return delegateBatchUpdate(ls, rlop);
-    }
-
-    protected void prepareBatchUpdateOption(List<LdMyselfCheck> ls, UpdateOption<LdMyselfCheckCB> op) {
-        op.xacceptUpdateColumnModifiedPropertiesIfNeeds(ls);
-        prepareUpdateOption(op);
-    }
-
-    protected int[] doLumpModify(List<Entity> ls, UpdateOption<? extends ConditionBean> op) { return doBatchUpdate(downcast(ls), downcast(op)); }
 
     /**
      * Batch-update the entity list specified-only. (NonExclusiveControl) <br />
@@ -737,10 +571,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return doBatchUpdate(myselfCheckList, createSpecifiedUpdateOption(updateColumnSpec));
     }
 
-    @Override
-    protected int[] doLumpModifyNonstrict(List<Entity> ls, UpdateOption<? extends ConditionBean> op)
-    { return doLumpModify(ls, op); }
-
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br />
      * This method uses executeBatch() of java.sql.PreparedStatement.
@@ -752,17 +582,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return doBatchDelete(myselfCheckList, null);
     }
 
-    protected int[] doBatchDelete(List<LdMyselfCheck> ls, DeleteOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("myselfCheckList", ls);
-        prepareDeleteOption(op);
-        return delegateBatchDelete(ls, op);
-    }
-
-    protected int[] doLumpRemove(List<Entity> ls, DeleteOption<? extends ConditionBean> op) { return doBatchDelete(downcast(ls), downcast(op)); }
-
-    protected int[] doLumpRemoveNonstrict(List<Entity> ls, DeleteOption<? extends ConditionBean> op)
-    { return doLumpRemove(ls, op); }
-
     // ===================================================================================
     //                                                                        Query Update
     //                                                                        ============
@@ -770,7 +589,7 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
      * myselfCheckBhv.<span style="color: #DD4747">queryInsert</span>(new QueryInsertSetupper&lt;LdMyselfCheck, LdMyselfCheckCB&gt;() {
-     *     public ConditionBean setup(myselfCheck entity, LdMyselfCheckCB intoCB) {
+     *     public ConditionBean setup(LdMyselfCheck entity, LdMyselfCheckCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -789,24 +608,12 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
      *     }
      * });
      * </pre>
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @return The inserted count.
      */
     public int queryInsert(QueryInsertSetupper<LdMyselfCheck, LdMyselfCheckCB> setupper) {
         return doQueryInsert(setupper, null);
     }
-
-    protected int doQueryInsert(QueryInsertSetupper<LdMyselfCheck, LdMyselfCheckCB> sp, InsertOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("setupper", sp); prepareInsertOption(op);
-        LdMyselfCheck et = newEntity(); LdMyselfCheckCB cb = createCBForQueryInsert();
-        return delegateQueryInsert(et, cb, sp.setup(et, cb), op);
-    }
-
-    protected LdMyselfCheckCB createCBForQueryInsert()
-    { LdMyselfCheckCB cb = newConditionBean(); cb.xsetupForQueryInsert(); return cb; }
-
-    protected int doRangeCreate(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> setupper, InsertOption<? extends ConditionBean> op)
-    { return doQueryInsert(downcast(setupper), downcast(op)); }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
@@ -834,14 +641,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
         return doQueryUpdate(myselfCheck, cb, null);
     }
 
-    protected int doQueryUpdate(LdMyselfCheck et, LdMyselfCheckCB cb, UpdateOption<LdMyselfCheckCB> op) {
-        assertObjectNotNull("myselfCheck", et); assertCBStateValid(cb); prepareUpdateOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryUpdate(et, cb, op) : 0;
-    }
-
-    protected int doRangeModify(Entity et, ConditionBean cb, UpdateOption<? extends ConditionBean> op)
-    { return doQueryUpdate(downcast(et), downcast(cb), downcast(op)); }
-
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
@@ -856,13 +655,6 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     public int queryDelete(LdMyselfCheckCB cb) {
         return doQueryDelete(cb, null);
     }
-
-    protected int doQueryDelete(LdMyselfCheckCB cb, DeleteOption<LdMyselfCheckCB> op) {
-        assertCBStateValid(cb); prepareDeleteOption(op);
-        return checkCountBeforeQueryUpdateIfNeeds(cb) ? delegateQueryDelete(cb, op) : 0;
-    }
-
-    protected int doRangeRemove(ConditionBean cb, DeleteOption<? extends ConditionBean> op) { return doQueryDelete(downcast(cb), downcast(op)); }
 
     // ===================================================================================
     //                                                                      Varying Update
@@ -1008,7 +800,7 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
      * Insert the several entities by query with varying requests (modified-only for fixed value). <br />
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br />
      * Other specifications are same as queryInsert(entity, setupper).
-     * @param setupper The setup-per of query-insert. (NotNull)
+     * @param setupper The set-upper of query-insert. (NotNull)
      * @param option The option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */
@@ -1105,20 +897,9 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable {
     }
 
     // ===================================================================================
-    //                                                                       Assist Helper
-    //                                                                       =============
-    protected Class<LdMyselfCheck> typeOfSelectedEntity() { return LdMyselfCheck.class; }
-    protected LdMyselfCheck downcast(Entity et) { return helpEntityDowncastInternally(et, LdMyselfCheck.class); }
-    protected LdMyselfCheckCB downcast(ConditionBean cb) { return helpConditionBeanDowncastInternally(cb, LdMyselfCheckCB.class); }
-    @SuppressWarnings("unchecked")
-    protected List<LdMyselfCheck> downcast(List<? extends Entity> ls) { return (List<LdMyselfCheck>)ls; }
-    @SuppressWarnings("unchecked")
-    protected InsertOption<LdMyselfCheckCB> downcast(InsertOption<? extends ConditionBean> op) { return (InsertOption<LdMyselfCheckCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected UpdateOption<LdMyselfCheckCB> downcast(UpdateOption<? extends ConditionBean> op) { return (UpdateOption<LdMyselfCheckCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected DeleteOption<LdMyselfCheckCB> downcast(DeleteOption<? extends ConditionBean> op) { return (DeleteOption<LdMyselfCheckCB>)op; }
-    @SuppressWarnings("unchecked")
-    protected QueryInsertSetupper<LdMyselfCheck, LdMyselfCheckCB> downcast(QueryInsertSetupper<? extends Entity, ? extends ConditionBean> sp)
-    { return (QueryInsertSetupper<LdMyselfCheck, LdMyselfCheckCB>)sp; }
+    //                                                                         Type Helper
+    //                                                                         ===========
+    protected Class<? extends LdMyselfCheck> typeOfSelectedEntity() { return LdMyselfCheck.class; }
+    protected Class<LdMyselfCheck> typeOfHandlingEntity() { return LdMyselfCheck.class; }
+    protected Class<LdMyselfCheckCB> typeOfHandlingConditionBean() { return LdMyselfCheckCB.class; }
 }
