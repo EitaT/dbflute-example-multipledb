@@ -7,6 +7,7 @@ import java.util.*;
 import org.seasar.dbflute.jdbc.Classification;
 import org.seasar.dbflute.jdbc.ClassificationCodeType;
 import org.seasar.dbflute.jdbc.ClassificationMeta;
+import org.seasar.dbflute.jdbc.ClassificationUndefinedHandlingType;
 
 /**
  * The definition of classification.
@@ -171,6 +172,10 @@ public interface LdCDef extends Classification {
         /** 蔵書の状態を示す */
         CollectionStatus
         ;
+        public String classificationName() {
+            return name(); // same as definition name
+        }
+
         public Classification codeOf(Object code) {
             if ("YesNo".equals(name())) { return LdCDef.YesNo.codeOf(code); }
             if ("CollectionStatus".equals(name())) { return LdCDef.CollectionStatus.codeOf(code); }
@@ -204,6 +209,12 @@ public interface LdCDef extends Classification {
             if ("YesNo".equals(name())) { return ClassificationCodeType.String; }
             if ("CollectionStatus".equals(name())) { return ClassificationCodeType.String; }
             return ClassificationCodeType.String; // as default
+        }
+
+        public ClassificationUndefinedHandlingType undefinedHandlingType() {
+            if ("YesNo".equals(name())) { return ClassificationUndefinedHandlingType.EXCEPTION; }
+            if ("CollectionStatus".equals(name())) { return ClassificationUndefinedHandlingType.EXCEPTION; }
+            return ClassificationUndefinedHandlingType.LOGGING; // as default
         }
     }
 }
