@@ -8,7 +8,6 @@ import org.seasar.dbflute.*;
 import org.seasar.dbflute.bhv.*;
 import org.seasar.dbflute.cbean.*;
 import org.seasar.dbflute.cbean.chelper.HpSLSFunction;
-import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.exception.*;
 import org.seasar.dbflute.optional.OptionalEntity;
 import org.seasar.dbflute.outsidesql.executor.*;
@@ -66,7 +65,7 @@ public abstract class LdBsBookBhv extends AbstractBehaviorWritable<LdBook, LdBoo
     //                                                                              DBMeta
     //                                                                              ======
     /** {@inheritDoc} */
-    public DBMeta getDBMeta() { return LdBookDbm.getInstance(); }
+    public LdBookDbm getDBMeta() { return LdBookDbm.getInstance(); }
 
     /** @return The instance of DBMeta as my table type. (NotNull) */
     public LdBookDbm getMyDBMeta() { return LdBookDbm.getInstance(); }

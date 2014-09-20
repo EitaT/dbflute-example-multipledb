@@ -339,7 +339,7 @@ public class MbBsSummaryProductCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<MbSummaryProductCB> columnQuery(final SpecifyQuery<MbSummaryProductCB> leftSpecifyQuery) {
-        return new HpColQyOperand<MbSummaryProductCB>(new HpColQyHandler<MbSummaryProductCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<MbSummaryProductCB>() {
             public HpCalculator handle(SpecifyQuery<MbSummaryProductCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

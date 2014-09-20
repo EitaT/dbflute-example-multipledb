@@ -351,7 +351,7 @@ public class LdBsGarbageCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<LdGarbageCB> columnQuery(final SpecifyQuery<LdGarbageCB> leftSpecifyQuery) {
-        return new HpColQyOperand<LdGarbageCB>(new HpColQyHandler<LdGarbageCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<LdGarbageCB>() {
             public HpCalculator handle(SpecifyQuery<LdGarbageCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

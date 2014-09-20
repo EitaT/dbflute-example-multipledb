@@ -409,7 +409,7 @@ public class LdBsMyselfCheckCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<LdMyselfCheckCB> columnQuery(final SpecifyQuery<LdMyselfCheckCB> leftSpecifyQuery) {
-        return new HpColQyOperand<LdMyselfCheckCB>(new HpColQyHandler<LdMyselfCheckCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<LdMyselfCheckCB>() {
             public HpCalculator handle(SpecifyQuery<LdMyselfCheckCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

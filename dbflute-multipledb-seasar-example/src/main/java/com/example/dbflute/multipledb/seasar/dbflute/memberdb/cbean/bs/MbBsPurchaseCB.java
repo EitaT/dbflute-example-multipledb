@@ -530,7 +530,7 @@ public class MbBsPurchaseCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<MbPurchaseCB> columnQuery(final SpecifyQuery<MbPurchaseCB> leftSpecifyQuery) {
-        return new HpColQyOperand<MbPurchaseCB>(new HpColQyHandler<MbPurchaseCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<MbPurchaseCB>() {
             public HpCalculator handle(SpecifyQuery<MbPurchaseCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

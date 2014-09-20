@@ -521,7 +521,7 @@ public class LdBsVendorConstraintNameAutoRefCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<LdVendorConstraintNameAutoRefCB> columnQuery(final SpecifyQuery<LdVendorConstraintNameAutoRefCB> leftSpecifyQuery) {
-        return new HpColQyOperand<LdVendorConstraintNameAutoRefCB>(new HpColQyHandler<LdVendorConstraintNameAutoRefCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<LdVendorConstraintNameAutoRefCB>() {
             public HpCalculator handle(SpecifyQuery<LdVendorConstraintNameAutoRefCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

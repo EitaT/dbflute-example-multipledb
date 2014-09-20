@@ -409,7 +409,7 @@ public class LdBsCollectionStatusLookupCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<LdCollectionStatusLookupCB> columnQuery(final SpecifyQuery<LdCollectionStatusLookupCB> leftSpecifyQuery) {
-        return new HpColQyOperand<LdCollectionStatusLookupCB>(new HpColQyHandler<LdCollectionStatusLookupCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<LdCollectionStatusLookupCB>() {
             public HpCalculator handle(SpecifyQuery<LdCollectionStatusLookupCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

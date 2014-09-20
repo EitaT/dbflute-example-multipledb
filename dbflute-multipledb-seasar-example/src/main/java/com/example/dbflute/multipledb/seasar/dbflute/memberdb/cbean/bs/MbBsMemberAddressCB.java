@@ -515,7 +515,7 @@ public class MbBsMemberAddressCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<MbMemberAddressCB> columnQuery(final SpecifyQuery<MbMemberAddressCB> leftSpecifyQuery) {
-        return new HpColQyOperand<MbMemberAddressCB>(new HpColQyHandler<MbMemberAddressCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<MbMemberAddressCB>() {
             public HpCalculator handle(SpecifyQuery<MbMemberAddressCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

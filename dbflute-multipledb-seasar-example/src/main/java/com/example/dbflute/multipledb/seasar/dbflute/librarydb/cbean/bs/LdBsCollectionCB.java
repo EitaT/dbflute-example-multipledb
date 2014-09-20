@@ -587,7 +587,7 @@ public class LdBsCollectionCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<LdCollectionCB> columnQuery(final SpecifyQuery<LdCollectionCB> leftSpecifyQuery) {
-        return new HpColQyOperand<LdCollectionCB>(new HpColQyHandler<LdCollectionCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<LdCollectionCB>() {
             public HpCalculator handle(SpecifyQuery<LdCollectionCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }

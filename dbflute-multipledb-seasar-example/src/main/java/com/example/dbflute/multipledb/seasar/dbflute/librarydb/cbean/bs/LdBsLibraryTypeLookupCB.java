@@ -409,7 +409,7 @@ public class LdBsLibraryTypeLookupCB extends AbstractConditionBean {
      * @return The object for setting up operand and right column. (NotNull)
      */
     public HpColQyOperand<LdLibraryTypeLookupCB> columnQuery(final SpecifyQuery<LdLibraryTypeLookupCB> leftSpecifyQuery) {
-        return new HpColQyOperand<LdLibraryTypeLookupCB>(new HpColQyHandler<LdLibraryTypeLookupCB>() {
+        return xcreateColQyOperand(new HpColQyHandler<LdLibraryTypeLookupCB>() {
             public HpCalculator handle(SpecifyQuery<LdLibraryTypeLookupCB> rightSp, String operand) {
                 return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), leftSpecifyQuery, rightSp, operand);
             }
