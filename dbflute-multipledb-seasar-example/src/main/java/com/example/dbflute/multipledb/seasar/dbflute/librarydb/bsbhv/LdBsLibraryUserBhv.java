@@ -1311,7 +1311,8 @@ public abstract class LdBsLibraryUserBhv extends AbstractBehaviorWritable<LdLibr
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdLibraryUserBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<LdLibraryUserBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

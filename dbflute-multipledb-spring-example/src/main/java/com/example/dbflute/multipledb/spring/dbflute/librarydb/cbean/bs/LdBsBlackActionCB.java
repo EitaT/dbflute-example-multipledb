@@ -45,6 +45,9 @@ public class LdBsBlackActionCB extends AbstractConditionBean {
         if (LdDBFluteConfig.getInstance().isPagingCountLeastJoin()) {
             enablePagingCountLeastJoin();
         }
+        if (LdDBFluteConfig.getInstance().isNonSpecifiedColumnAccessAllowed()) {
+            enableNonSpecifiedColumnAccess();
+        }
         if (LdDBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
             enableQueryUpdateCountPreCheck();
         }

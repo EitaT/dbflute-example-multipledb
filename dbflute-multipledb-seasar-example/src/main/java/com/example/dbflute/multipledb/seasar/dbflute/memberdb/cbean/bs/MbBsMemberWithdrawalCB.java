@@ -43,6 +43,9 @@ public class MbBsMemberWithdrawalCB extends AbstractConditionBean {
         if (MbDBFluteConfig.getInstance().isPagingCountLeastJoin()) {
             enablePagingCountLeastJoin();
         }
+        if (MbDBFluteConfig.getInstance().isNonSpecifiedColumnAccessAllowed()) {
+            enableNonSpecifiedColumnAccess();
+        }
         if (MbDBFluteConfig.getInstance().isQueryUpdateCountPreCheck()) {
             enableQueryUpdateCountPreCheck();
         }

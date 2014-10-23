@@ -2,13 +2,11 @@
  * Copyright(c) DBFlute TestCo.,TestLtd. All Rights Reserved.
  */package com.example.dbflute.multipledb.spring.dbflute.librarydb.bsentity;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
 
-import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.dbmeta.AbstractEntity;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -70,7 +68,7 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
+public abstract class LdBsGenre extends AbstractEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -117,18 +115,6 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
     /** U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]} */
     protected java.sql.Timestamp _uTimestamp;
 
-    // -----------------------------------------------------
-    //                                              Internal
-    //                                              --------
-    /** The unique-driven properties for this entity. (NotNull) */
-    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
-
-    /** The modified properties for this entity. (NotNull) */
-    protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
-
-    /** Is the entity created by DBFlute select process? */
-    protected boolean __createdBySelect;
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -165,17 +151,6 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
     public boolean hasPrimaryKeyValue() {
         if (getGenreCode() == null) { return false; }
         return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> myuniqueDrivenProperties() {
-        return __uniqueDrivenProperties.getPropertyNames();
-    }
-
-    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
-        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -248,172 +223,77 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
     }
 
     // ===================================================================================
-    //                                                                 Modified Properties
-    //                                                                 ===================
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> modifiedProperties() {
-        return __modifiedProperties.getPropertyNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void clearModifiedInfo() {
-        __modifiedProperties.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean hasModification() {
-        return !__modifiedProperties.isEmpty();
-    }
-
-    protected EntityModifiedProperties newModifiedProperties() {
-        return new EntityModifiedProperties();
-    }
-
-    // ===================================================================================
-    //                                                                     Birthplace Mark
-    //                                                                     ===============
-    /**
-     * {@inheritDoc}
-     */
-    public void markAsSelect() {
-        __createdBySelect = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean createdBySelect() {
-        return __createdBySelect;
-    }
-
-    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
-    /**
-     * Determine the object is equal with this. <br />
-     * If primary-keys or columns of the other are same as this one, returns true.
-     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
-     * @return Comparing result.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof LdBsGenre)) { return false; }
-        LdBsGenre other = (LdBsGenre)obj;
-        if (!xSV(getGenreCode(), other.getGenreCode())) { return false; }
-        return true;
-    }
-    protected boolean xSV(Object v1, Object v2) {
-        return FunCustodial.isSameValue(v1, v2);
+    @Override
+    protected boolean doEquals(Object obj) {
+        if (obj instanceof LdBsGenre) {
+            LdBsGenre other = (LdBsGenre)obj;
+            if (!xSV(_genreCode, other._genreCode)) { return false; }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Calculate the hash-code from primary-keys or columns.
-     * @return The hash-code from primary-key or columns.
-     */
-    public int hashCode() {
-        int hs = 17;
+    @Override
+    protected int doHashCode(int initial) {
+        int hs = initial;
         hs = xCH(hs, getTableDbName());
-        hs = xCH(hs, getGenreCode());
+        hs = xCH(hs, _genreCode);
         return hs;
     }
-    protected int xCH(int hs, Object vl) {
-        return FunCustodial.calculateHashcode(hs, vl);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int instanceHash() {
-        return super.hashCode();
-    }
-
-    /**
-     * Convert to display string of entity's data. (no relation data)
-     * @return The display string of all columns and relation existences. (NotNull)
-     */
-    public String toString() {
-        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toStringWithRelation() {
+    @Override
+    protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        sb.append(toString());
-        String li = "\n  ";
         if (_genreSelf != null)
         { sb.append(li).append(xbRDS(_genreSelf, "genreSelf")); }
-        if (_bookList != null) { for (Entity et : _bookList)
+        if (_bookList != null) { for (LdBook et : _bookList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "bookList")); } } }
-        if (_genreSelfList != null) { for (Entity et : _genreSelfList)
+        if (_genreSelfList != null) { for (LdGenre et : _genreSelfList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "genreSelfList")); } } }
         return sb.toString();
     }
-    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
-        return et.buildDisplayString(name, true, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String buildDisplayString(String name, boolean column, boolean relation) {
+    @Override
+    protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (name != null) { sb.append(name).append(column || relation ? ":" : ""); }
-        if (column) { sb.append(buildColumnString()); }
-        if (relation) { sb.append(buildRelationString()); }
-        sb.append("@").append(Integer.toHexString(hashCode()));
-        return sb.toString();
-    }
-    protected String buildColumnString() {
-        StringBuilder sb = new StringBuilder();
-        String dm = ", ";
-        sb.append(dm).append(getGenreCode());
-        sb.append(dm).append(getGenreName());
-        sb.append(dm).append(getHierarchyLevel());
-        sb.append(dm).append(getHierarchyOrder());
-        sb.append(dm).append(getParentGenreCode());
-        sb.append(dm).append(getRUser());
-        sb.append(dm).append(getRModule());
-        sb.append(dm).append(getRTimestamp());
-        sb.append(dm).append(getUUser());
-        sb.append(dm).append(getUModule());
-        sb.append(dm).append(getUTimestamp());
+        sb.append(dm).append(xfND(_genreCode));
+        sb.append(dm).append(xfND(_genreName));
+        sb.append(dm).append(xfND(_hierarchyLevel));
+        sb.append(dm).append(xfND(_hierarchyOrder));
+        sb.append(dm).append(xfND(_parentGenreCode));
+        sb.append(dm).append(xfND(_rUser));
+        sb.append(dm).append(xfND(_rModule));
+        sb.append(dm).append(xfND(_rTimestamp));
+        sb.append(dm).append(xfND(_uUser));
+        sb.append(dm).append(xfND(_uModule));
+        sb.append(dm).append(xfND(_uTimestamp));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
-    protected String buildRelationString() {
+
+    @Override
+    protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        String cm = ",";
-        if (_genreSelf != null) { sb.append(cm).append("genreSelf"); }
+        if (_genreSelf != null) { sb.append(dm).append("genreSelf"); }
         if (_bookList != null && !_bookList.isEmpty())
-        { sb.append(cm).append("bookList"); }
+        { sb.append(dm).append("bookList"); }
         if (_genreSelfList != null && !_genreSelfList.isEmpty())
-        { sb.append(cm).append("genreSelfList"); }
-        if (sb.length() > cm.length()) {
-            sb.delete(0, cm.length()).insert(0, "(").append(")");
+        { sb.append(dm).append("genreSelfList"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
 
-    /**
-     * Clone entity instance using super.clone(). (shallow copy) 
-     * @return The cloned instance of this entity. (NotNull)
-     */
+    @Override
     public LdGenre clone() {
-        try {
-            return (LdGenre)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone the entity: " + toString(), e);
-        }
+        return (LdGenre)super.clone();
     }
 
     // ===================================================================================
@@ -424,6 +304,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'GENRE_CODE'. (basically NotNull if selected: for the constraint)
      */
     public String getGenreCode() {
+        checkSpecifiedProperty("genreCode");
         return _genreCode;
     }
 
@@ -441,6 +322,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'GENRE_NAME'. (basically NotNull if selected: for the constraint)
      */
     public String getGenreName() {
+        checkSpecifiedProperty("genreName");
         return _genreName;
     }
 
@@ -458,6 +340,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'HIERARCHY_LEVEL'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getHierarchyLevel() {
+        checkSpecifiedProperty("hierarchyLevel");
         return _hierarchyLevel;
     }
 
@@ -475,6 +358,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'HIERARCHY_ORDER'. (basically NotNull if selected: for the constraint)
      */
     public java.math.BigDecimal getHierarchyOrder() {
+        checkSpecifiedProperty("hierarchyOrder");
         return _hierarchyOrder;
     }
 
@@ -492,6 +376,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'PARENT_GENRE_CODE'. (NullAllowed even if selected: for no constraint)
      */
     public String getParentGenreCode() {
+        checkSpecifiedProperty("parentGenreCode");
         return _parentGenreCode;
     }
 
@@ -509,6 +394,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'R_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRUser() {
+        checkSpecifiedProperty("RUser");
         return _rUser;
     }
 
@@ -526,6 +412,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'R_MODULE'. (basically NotNull if selected: for the constraint)
      */
     public String getRModule() {
+        checkSpecifiedProperty("RModule");
         return _rModule;
     }
 
@@ -543,6 +430,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'R_TIMESTAMP'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRTimestamp() {
+        checkSpecifiedProperty("RTimestamp");
         return _rTimestamp;
     }
 
@@ -560,6 +448,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'U_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUUser() {
+        checkSpecifiedProperty("UUser");
         return _uUser;
     }
 
@@ -577,6 +466,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'U_MODULE'. (basically NotNull if selected: for the constraint)
      */
     public String getUModule() {
+        checkSpecifiedProperty("UModule");
         return _uModule;
     }
 
@@ -594,6 +484,7 @@ public abstract class LdBsGenre implements Entity, Serializable, Cloneable {
      * @return The value of the column 'U_TIMESTAMP'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUTimestamp() {
+        checkSpecifiedProperty("UTimestamp");
         return _uTimestamp;
     }
 

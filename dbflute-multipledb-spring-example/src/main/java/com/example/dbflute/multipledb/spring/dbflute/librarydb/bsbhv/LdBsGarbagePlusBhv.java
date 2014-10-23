@@ -390,7 +390,8 @@ public abstract class LdBsGarbagePlusBhv extends AbstractBehaviorReadable<LdGarb
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdGarbagePlusBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<LdGarbagePlusBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

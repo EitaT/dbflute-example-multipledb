@@ -1100,7 +1100,8 @@ public abstract class MbBsMemberStatusBhv extends AbstractBehaviorWritable<MbMem
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<MbMemberStatusBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<MbMemberStatusBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

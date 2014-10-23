@@ -1213,7 +1213,8 @@ public abstract class LdBsLendingBhv extends AbstractBehaviorWritable<LdLending,
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdLendingBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<LdLendingBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

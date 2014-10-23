@@ -369,7 +369,8 @@ public abstract class MbBsSummaryProductBhv extends AbstractBehaviorReadable<MbS
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<MbSummaryProductBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<MbSummaryProductBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

@@ -974,7 +974,8 @@ public abstract class MbBsRegionBhv extends AbstractBehaviorWritable<MbRegion, M
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<MbRegionBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<MbRegionBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

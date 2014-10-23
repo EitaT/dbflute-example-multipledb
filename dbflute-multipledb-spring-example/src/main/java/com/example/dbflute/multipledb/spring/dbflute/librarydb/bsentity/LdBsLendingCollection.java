@@ -2,13 +2,11 @@
  * Copyright(c) DBFlute TestCo.,TestLtd. All Rights Reserved.
  */package com.example.dbflute.multipledb.spring.dbflute.librarydb.bsentity;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
 
-import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.dbmeta.AbstractEntity;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
 
@@ -70,7 +68,7 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsLendingCollection implements Entity, Serializable, Cloneable {
+public abstract class LdBsLendingCollection extends AbstractEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -117,18 +115,6 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
     /** U_TIMESTAMP: {NotNull, TIMESTAMP(26, 6), default=[CURRENT_TIMESTAMP]} */
     protected java.sql.Timestamp _uTimestamp;
 
-    // -----------------------------------------------------
-    //                                              Internal
-    //                                              --------
-    /** The unique-driven properties for this entity. (NotNull) */
-    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
-
-    /** The modified properties for this entity. (NotNull) */
-    protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
-
-    /** Is the entity created by DBFlute select process? */
-    protected boolean __createdBySelect;
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -168,17 +154,6 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
         if (getLendingDate() == null) { return false; }
         if (getCollectionId() == null) { return false; }
         return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> myuniqueDrivenProperties() {
-        return __uniqueDrivenProperties.getPropertyNames();
-    }
-
-    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
-        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -249,111 +224,36 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
     }
 
     // ===================================================================================
-    //                                                                 Modified Properties
-    //                                                                 ===================
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> modifiedProperties() {
-        return __modifiedProperties.getPropertyNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void clearModifiedInfo() {
-        __modifiedProperties.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean hasModification() {
-        return !__modifiedProperties.isEmpty();
-    }
-
-    protected EntityModifiedProperties newModifiedProperties() {
-        return new EntityModifiedProperties();
-    }
-
-    // ===================================================================================
-    //                                                                     Birthplace Mark
-    //                                                                     ===============
-    /**
-     * {@inheritDoc}
-     */
-    public void markAsSelect() {
-        __createdBySelect = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean createdBySelect() {
-        return __createdBySelect;
-    }
-
-    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
-    /**
-     * Determine the object is equal with this. <br />
-     * If primary-keys or columns of the other are same as this one, returns true.
-     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
-     * @return Comparing result.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof LdBsLendingCollection)) { return false; }
-        LdBsLendingCollection other = (LdBsLendingCollection)obj;
-        if (!xSV(getLibraryId(), other.getLibraryId())) { return false; }
-        if (!xSV(getLbUserId(), other.getLbUserId())) { return false; }
-        if (!xSV(getLendingDate(), other.getLendingDate())) { return false; }
-        if (!xSV(getCollectionId(), other.getCollectionId())) { return false; }
-        return true;
-    }
-    protected boolean xSV(Object v1, Object v2) {
-        return FunCustodial.isSameValue(v1, v2);
+    @Override
+    protected boolean doEquals(Object obj) {
+        if (obj instanceof LdBsLendingCollection) {
+            LdBsLendingCollection other = (LdBsLendingCollection)obj;
+            if (!xSV(_libraryId, other._libraryId)) { return false; }
+            if (!xSV(_lbUserId, other._lbUserId)) { return false; }
+            if (!xSV(_lendingDate, other._lendingDate)) { return false; }
+            if (!xSV(_collectionId, other._collectionId)) { return false; }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Calculate the hash-code from primary-keys or columns.
-     * @return The hash-code from primary-key or columns.
-     */
-    public int hashCode() {
-        int hs = 17;
+    @Override
+    protected int doHashCode(int initial) {
+        int hs = initial;
         hs = xCH(hs, getTableDbName());
-        hs = xCH(hs, getLibraryId());
-        hs = xCH(hs, getLbUserId());
-        hs = xCH(hs, getLendingDate());
-        hs = xCH(hs, getCollectionId());
+        hs = xCH(hs, _libraryId);
+        hs = xCH(hs, _lbUserId);
+        hs = xCH(hs, _lendingDate);
+        hs = xCH(hs, _collectionId);
         return hs;
     }
-    protected int xCH(int hs, Object vl) {
-        return FunCustodial.calculateHashcode(hs, vl);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int instanceHash() {
-        return super.hashCode();
-    }
-
-    /**
-     * Convert to display string of entity's data. (no relation data)
-     * @return The display string of all columns and relation existences. (NotNull)
-     */
-    public String toString() {
-        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toStringWithRelation() {
+    @Override
+    protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        sb.append(toString());
-        String li = "\n  ";
         if (_collection != null)
         { sb.append(li).append(xbRDS(_collection, "collection")); }
         if (_lending != null)
@@ -362,63 +262,43 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
         { sb.append(li).append(xbRDS(_libraryUser, "libraryUser")); }
         return sb.toString();
     }
-    protected String xbRDS(Entity et, String name) { // buildRelationDisplayString()
-        return et.buildDisplayString(name, true, true);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String buildDisplayString(String name, boolean column, boolean relation) {
+    @Override
+    protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (name != null) { sb.append(name).append(column || relation ? ":" : ""); }
-        if (column) { sb.append(buildColumnString()); }
-        if (relation) { sb.append(buildRelationString()); }
-        sb.append("@").append(Integer.toHexString(hashCode()));
-        return sb.toString();
-    }
-    protected String buildColumnString() {
-        StringBuilder sb = new StringBuilder();
-        String dm = ", ";
-        sb.append(dm).append(getLibraryId());
-        sb.append(dm).append(getLbUserId());
-        sb.append(dm).append(getLendingDate());
-        sb.append(dm).append(getCollectionId());
-        sb.append(dm).append(getReturnLimitDate());
-        sb.append(dm).append(getRUser());
-        sb.append(dm).append(getRModule());
-        sb.append(dm).append(getRTimestamp());
-        sb.append(dm).append(getUUser());
-        sb.append(dm).append(getUModule());
-        sb.append(dm).append(getUTimestamp());
+        sb.append(dm).append(xfND(_libraryId));
+        sb.append(dm).append(xfND(_lbUserId));
+        sb.append(dm).append(xfND(_lendingDate));
+        sb.append(dm).append(xfND(_collectionId));
+        sb.append(dm).append(xfND(_returnLimitDate));
+        sb.append(dm).append(xfND(_rUser));
+        sb.append(dm).append(xfND(_rModule));
+        sb.append(dm).append(xfND(_rTimestamp));
+        sb.append(dm).append(xfND(_uUser));
+        sb.append(dm).append(xfND(_uModule));
+        sb.append(dm).append(xfND(_uTimestamp));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
-    protected String buildRelationString() {
+
+    @Override
+    protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        String cm = ",";
-        if (_collection != null) { sb.append(cm).append("collection"); }
-        if (_lending != null) { sb.append(cm).append("lending"); }
-        if (_libraryUser != null) { sb.append(cm).append("libraryUser"); }
-        if (sb.length() > cm.length()) {
-            sb.delete(0, cm.length()).insert(0, "(").append(")");
+        if (_collection != null) { sb.append(dm).append("collection"); }
+        if (_lending != null) { sb.append(dm).append("lending"); }
+        if (_libraryUser != null) { sb.append(dm).append("libraryUser"); }
+        if (sb.length() > dm.length()) {
+            sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
         return sb.toString();
     }
 
-    /**
-     * Clone entity instance using super.clone(). (shallow copy) 
-     * @return The cloned instance of this entity. (NotNull)
-     */
+    @Override
     public LdLendingCollection clone() {
-        try {
-            return (LdLendingCollection)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone the entity: " + toString(), e);
-        }
+        return (LdLendingCollection)super.clone();
     }
 
     // ===================================================================================
@@ -429,6 +309,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'LIBRARY_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLibraryId() {
+        checkSpecifiedProperty("libraryId");
         return _libraryId;
     }
 
@@ -446,6 +327,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'LB_USER_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getLbUserId() {
+        checkSpecifiedProperty("lbUserId");
         return _lbUserId;
     }
 
@@ -463,6 +345,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'LENDING_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getLendingDate() {
+        checkSpecifiedProperty("lendingDate");
         return _lendingDate;
     }
 
@@ -480,6 +363,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'COLLECTION_ID'. (basically NotNull if selected: for the constraint)
      */
     public Integer getCollectionId() {
+        checkSpecifiedProperty("collectionId");
         return _collectionId;
     }
 
@@ -497,6 +381,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'RETURN_LIMIT_DATE'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getReturnLimitDate() {
+        checkSpecifiedProperty("returnLimitDate");
         return _returnLimitDate;
     }
 
@@ -514,6 +399,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'R_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getRUser() {
+        checkSpecifiedProperty("RUser");
         return _rUser;
     }
 
@@ -531,6 +417,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'R_MODULE'. (basically NotNull if selected: for the constraint)
      */
     public String getRModule() {
+        checkSpecifiedProperty("RModule");
         return _rModule;
     }
 
@@ -548,6 +435,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'R_TIMESTAMP'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getRTimestamp() {
+        checkSpecifiedProperty("RTimestamp");
         return _rTimestamp;
     }
 
@@ -565,6 +453,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'U_USER'. (basically NotNull if selected: for the constraint)
      */
     public String getUUser() {
+        checkSpecifiedProperty("UUser");
         return _uUser;
     }
 
@@ -582,6 +471,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'U_MODULE'. (basically NotNull if selected: for the constraint)
      */
     public String getUModule() {
+        checkSpecifiedProperty("UModule");
         return _uModule;
     }
 
@@ -599,6 +489,7 @@ public abstract class LdBsLendingCollection implements Entity, Serializable, Clo
      * @return The value of the column 'U_TIMESTAMP'. (basically NotNull if selected: for the constraint)
      */
     public java.sql.Timestamp getUTimestamp() {
+        checkSpecifiedProperty("UTimestamp");
         return _uTimestamp;
     }
 

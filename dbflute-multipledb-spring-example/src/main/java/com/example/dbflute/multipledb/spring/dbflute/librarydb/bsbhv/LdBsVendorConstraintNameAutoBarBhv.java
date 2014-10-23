@@ -1009,7 +1009,8 @@ public abstract class LdBsVendorConstraintNameAutoBarBhv extends AbstractBehavio
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdVendorConstraintNameAutoBarBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<LdVendorConstraintNameAutoBarBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

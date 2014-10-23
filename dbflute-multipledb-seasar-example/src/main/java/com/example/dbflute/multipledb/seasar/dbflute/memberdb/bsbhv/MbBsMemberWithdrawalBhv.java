@@ -1131,7 +1131,8 @@ public abstract class MbBsMemberWithdrawalBhv extends AbstractBehaviorWritable<M
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<MbMemberWithdrawalBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<MbMemberWithdrawalBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

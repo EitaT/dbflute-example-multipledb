@@ -892,7 +892,8 @@ public abstract class LdBsMyselfCheckBhv extends AbstractBehaviorWritable<LdMyse
      * @return The basic executor of outside-SQL. (NotNull)
      */
     public OutsideSqlBasicExecutor<LdMyselfCheckBhv> outsideSql() {
-        return doOutsideSql();
+        OutsideSqlAllFacadeExecutor<LdMyselfCheckBhv> facadeExecutor = doOutsideSql();
+        return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
     }
 
     // ===================================================================================

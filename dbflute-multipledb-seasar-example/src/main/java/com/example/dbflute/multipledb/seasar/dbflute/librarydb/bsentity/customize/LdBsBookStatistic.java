@@ -2,13 +2,11 @@
  * Copyright(c) DBFlute TestCo.,TestLtd. All Rights Reserved.
  */package com.example.dbflute.multipledb.seasar.dbflute.librarydb.bsentity.customize;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
 
-import org.seasar.dbflute.Entity;
 import org.seasar.dbflute.dbmeta.DBMeta;
+import org.seasar.dbflute.dbmeta.AbstractEntity;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdCDef;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.customize.*;
 
@@ -68,7 +66,7 @@ import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.customiz
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneable {
+public abstract class LdBsBookStatistic extends AbstractEntity {
 
     // ===================================================================================
     //                                                                          Definition
@@ -112,18 +110,6 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
     /** U_TIMESTAMP: {TIMESTAMP(26, 6), refers to BOOK.U_TIMESTAMP} */
     protected java.sql.Timestamp _uTimestamp;
 
-    // -----------------------------------------------------
-    //                                              Internal
-    //                                              --------
-    /** The unique-driven properties for this entity. (NotNull) */
-    protected final EntityUniqueDrivenProperties __uniqueDrivenProperties = newUniqueDrivenProperties();
-
-    /** The modified properties for this entity. (NotNull) */
-    protected final EntityModifiedProperties __modifiedProperties = newModifiedProperties();
-
-    /** Is the entity created by DBFlute select process? */
-    protected boolean __createdBySelect;
-
     // ===================================================================================
     //                                                                          Table Name
     //                                                                          ==========
@@ -159,17 +145,6 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      */
     public boolean hasPrimaryKeyValue() {
         return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> myuniqueDrivenProperties() {
-        return __uniqueDrivenProperties.getPropertyNames();
-    }
-
-    protected EntityUniqueDrivenProperties newUniqueDrivenProperties() {
-        return new EntityUniqueDrivenProperties();
     }
 
     // ===================================================================================
@@ -390,169 +365,78 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
     }
 
     // ===================================================================================
-    //                                                                 Modified Properties
-    //                                                                 ===================
-    /**
-     * {@inheritDoc}
-     */
-    public Set<String> modifiedProperties() {
-        return __modifiedProperties.getPropertyNames();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void clearModifiedInfo() {
-        __modifiedProperties.clear();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean hasModification() {
-        return !__modifiedProperties.isEmpty();
-    }
-
-    protected EntityModifiedProperties newModifiedProperties() {
-        return new EntityModifiedProperties();
-    }
-
-    // ===================================================================================
-    //                                                                     Birthplace Mark
-    //                                                                     ===============
-    /**
-     * {@inheritDoc}
-     */
-    public void markAsSelect() {
-        __createdBySelect = true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean createdBySelect() {
-        return __createdBySelect;
-    }
-
-    // ===================================================================================
     //                                                                      Basic Override
     //                                                                      ==============
-    /**
-     * Determine the object is equal with this. <br />
-     * If primary-keys or columns of the other are same as this one, returns true.
-     * @param obj The object as other entity. (NullAllowed: if null, returns false fixedly)
-     * @return Comparing result.
-     */
-    public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof LdBsBookStatistic)) { return false; }
-        LdBsBookStatistic other = (LdBsBookStatistic)obj;
-        if (!xSV(getBookId(), other.getBookId())) { return false; }
-        if (!xSV(getBookName(), other.getBookName())) { return false; }
-        if (!xSV(getCollectionCount(), other.getCollectionCount())) { return false; }
-        if (!xSV(getOutOfUserSelectYn(), other.getOutOfUserSelectYn())) { return false; }
-        if (!xSV(getRUser(), other.getRUser())) { return false; }
-        if (!xSV(getRModule(), other.getRModule())) { return false; }
-        if (!xSV(getRTimestamp(), other.getRTimestamp())) { return false; }
-        if (!xSV(getUUser(), other.getUUser())) { return false; }
-        if (!xSV(getUModule(), other.getUModule())) { return false; }
-        if (!xSV(getUTimestamp(), other.getUTimestamp())) { return false; }
-        return true;
-    }
-    protected boolean xSV(Object v1, Object v2) {
-        return FunCustodial.isSameValue(v1, v2);
+    @Override
+    protected boolean doEquals(Object obj) {
+        if (obj instanceof LdBsBookStatistic) {
+            LdBsBookStatistic other = (LdBsBookStatistic)obj;
+            if (!xSV(_bookId, other._bookId)) { return false; }
+            if (!xSV(_bookName, other._bookName)) { return false; }
+            if (!xSV(_collectionCount, other._collectionCount)) { return false; }
+            if (!xSV(_outOfUserSelectYn, other._outOfUserSelectYn)) { return false; }
+            if (!xSV(_rUser, other._rUser)) { return false; }
+            if (!xSV(_rModule, other._rModule)) { return false; }
+            if (!xSV(_rTimestamp, other._rTimestamp)) { return false; }
+            if (!xSV(_uUser, other._uUser)) { return false; }
+            if (!xSV(_uModule, other._uModule)) { return false; }
+            if (!xSV(_uTimestamp, other._uTimestamp)) { return false; }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    /**
-     * Calculate the hash-code from primary-keys or columns.
-     * @return The hash-code from primary-key or columns.
-     */
-    public int hashCode() {
-        int hs = 17;
+    @Override
+    protected int doHashCode(int initial) {
+        int hs = initial;
         hs = xCH(hs, getTableDbName());
-        hs = xCH(hs, getBookId());
-        hs = xCH(hs, getBookName());
-        hs = xCH(hs, getCollectionCount());
-        hs = xCH(hs, getOutOfUserSelectYn());
-        hs = xCH(hs, getRUser());
-        hs = xCH(hs, getRModule());
-        hs = xCH(hs, getRTimestamp());
-        hs = xCH(hs, getUUser());
-        hs = xCH(hs, getUModule());
-        hs = xCH(hs, getUTimestamp());
+        hs = xCH(hs, _bookId);
+        hs = xCH(hs, _bookName);
+        hs = xCH(hs, _collectionCount);
+        hs = xCH(hs, _outOfUserSelectYn);
+        hs = xCH(hs, _rUser);
+        hs = xCH(hs, _rModule);
+        hs = xCH(hs, _rTimestamp);
+        hs = xCH(hs, _uUser);
+        hs = xCH(hs, _uModule);
+        hs = xCH(hs, _uTimestamp);
         return hs;
     }
-    protected int xCH(int hs, Object vl) {
-        return FunCustodial.calculateHashcode(hs, vl);
+
+    @Override
+    protected String doBuildStringWithRelation(String li) {
+        return "";
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public int instanceHash() {
-        return super.hashCode();
-    }
-
-    /**
-     * Convert to display string of entity's data. (no relation data)
-     * @return The display string of all columns and relation existences. (NotNull)
-     */
-    public String toString() {
-        return buildDisplayString(FunCustodial.toClassTitle(this), true, true);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String toStringWithRelation() {
+    @Override
+    protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(toString());
-        return sb.toString();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String buildDisplayString(String name, boolean column, boolean relation) {
-        StringBuilder sb = new StringBuilder();
-        if (name != null) { sb.append(name).append(column || relation ? ":" : ""); }
-        if (column) { sb.append(buildColumnString()); }
-        if (relation) { sb.append(buildRelationString()); }
-        sb.append("@").append(Integer.toHexString(hashCode()));
-        return sb.toString();
-    }
-    protected String buildColumnString() {
-        StringBuilder sb = new StringBuilder();
-        String dm = ", ";
-        sb.append(dm).append(getBookId());
-        sb.append(dm).append(getBookName());
-        sb.append(dm).append(getCollectionCount());
-        sb.append(dm).append(getOutOfUserSelectYn());
-        sb.append(dm).append(getRUser());
-        sb.append(dm).append(getRModule());
-        sb.append(dm).append(getRTimestamp());
-        sb.append(dm).append(getUUser());
-        sb.append(dm).append(getUModule());
-        sb.append(dm).append(getUTimestamp());
+        sb.append(dm).append(xfND(_bookId));
+        sb.append(dm).append(xfND(_bookName));
+        sb.append(dm).append(xfND(_collectionCount));
+        sb.append(dm).append(xfND(_outOfUserSelectYn));
+        sb.append(dm).append(xfND(_rUser));
+        sb.append(dm).append(xfND(_rModule));
+        sb.append(dm).append(xfND(_rTimestamp));
+        sb.append(dm).append(xfND(_uUser));
+        sb.append(dm).append(xfND(_uModule));
+        sb.append(dm).append(xfND(_uTimestamp));
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length());
         }
         sb.insert(0, "{").append("}");
         return sb.toString();
     }
-    protected String buildRelationString() {
+
+    @Override
+    protected String doBuildRelationString(String dm) {
         return "";
     }
 
-    /**
-     * Clone entity instance using super.clone(). (shallow copy) 
-     * @return The cloned instance of this entity. (NotNull)
-     */
+    @Override
     public LdBookStatistic clone() {
-        try {
-            return (LdBookStatistic)super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new IllegalStateException("Failed to clone the entity: " + toString(), e);
-        }
+        return (LdBookStatistic)super.clone();
     }
 
     // ===================================================================================
@@ -563,6 +447,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'BOOK_ID'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getBookId() {
+        checkSpecifiedProperty("bookId");
         return _bookId;
     }
 
@@ -580,6 +465,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'BOOK_NAME'. (NullAllowed even if selected: for no constraint)
      */
     public String getBookName() {
+        checkSpecifiedProperty("bookName");
         return _bookName;
     }
 
@@ -597,6 +483,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'COLLECTION_COUNT'. (NullAllowed even if selected: for no constraint)
      */
     public Integer getCollectionCount() {
+        checkSpecifiedProperty("collectionCount");
         return _collectionCount;
     }
 
@@ -614,6 +501,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'OUT_OF_USER_SELECT_YN'. (NullAllowed even if selected: for no constraint)
      */
     public String getOutOfUserSelectYn() {
+        checkSpecifiedProperty("outOfUserSelectYn");
         return _outOfUserSelectYn;
     }
 
@@ -631,6 +519,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'R_USER'. (NullAllowed even if selected: for no constraint)
      */
     public String getRUser() {
+        checkSpecifiedProperty("RUser");
         return _rUser;
     }
 
@@ -648,6 +537,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'R_MODULE'. (NullAllowed even if selected: for no constraint)
      */
     public String getRModule() {
+        checkSpecifiedProperty("RModule");
         return _rModule;
     }
 
@@ -665,6 +555,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'R_TIMESTAMP'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getRTimestamp() {
+        checkSpecifiedProperty("RTimestamp");
         return _rTimestamp;
     }
 
@@ -682,6 +573,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'U_USER'. (NullAllowed even if selected: for no constraint)
      */
     public String getUUser() {
+        checkSpecifiedProperty("UUser");
         return _uUser;
     }
 
@@ -699,6 +591,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'U_MODULE'. (NullAllowed even if selected: for no constraint)
      */
     public String getUModule() {
+        checkSpecifiedProperty("UModule");
         return _uModule;
     }
 
@@ -716,6 +609,7 @@ public abstract class LdBsBookStatistic implements Entity, Serializable, Cloneab
      * @return The value of the column 'U_TIMESTAMP'. (NullAllowed even if selected: for no constraint)
      */
     public java.sql.Timestamp getUTimestamp() {
+        checkSpecifiedProperty("UTimestamp");
         return _uTimestamp;
     }
 
