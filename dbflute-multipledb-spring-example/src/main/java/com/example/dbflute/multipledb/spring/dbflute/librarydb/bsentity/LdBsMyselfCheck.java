@@ -188,7 +188,8 @@ public abstract class LdBsMyselfCheck extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_myself != null) { sb.append(dm).append("myself"); }
+        if (_myself != null)
+        { sb.append(dm).append("myself"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -217,7 +218,7 @@ public abstract class LdBsMyselfCheck extends AbstractEntity {
      * @param myselfCheckId The value of the column 'MYSELF_CHECK_ID'. (basically NotNull if update: for the constraint)
      */
     public void setMyselfCheckId(Integer myselfCheckId) {
-        __modifiedProperties.addPropertyName("myselfCheckId");
+        registerModifiedProperty("myselfCheckId");
         _myselfCheckId = myselfCheckId;
     }
 
@@ -235,7 +236,7 @@ public abstract class LdBsMyselfCheck extends AbstractEntity {
      * @param myselfCheckName The value of the column 'MYSELF_CHECK_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setMyselfCheckName(String myselfCheckName) {
-        __modifiedProperties.addPropertyName("myselfCheckName");
+        registerModifiedProperty("myselfCheckName");
         _myselfCheckName = myselfCheckName;
     }
 
@@ -253,7 +254,7 @@ public abstract class LdBsMyselfCheck extends AbstractEntity {
      * @param myselfId The value of the column 'MYSELF_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMyselfId(Integer myselfId) {
-        __modifiedProperties.addPropertyName("myselfId");
+        registerModifiedProperty("myselfId");
         _myselfId = myselfId;
     }
 }

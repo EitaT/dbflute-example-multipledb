@@ -192,7 +192,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param memberId The value of the column 'MEMBER_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberId(Integer memberId) {
-        __modifiedProperties.addPropertyName("memberId");
+        registerModifiedProperty("memberId");
         _memberId = memberId;
     }
 
@@ -212,7 +212,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param memberName The value of the column 'MEMBER_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setMemberName(String memberName) {
-        __modifiedProperties.addPropertyName("memberName");
+        registerModifiedProperty("memberName");
         _memberName = memberName;
     }
 
@@ -230,7 +230,7 @@ public abstract class BsPurchaseSummaryMember extends AbstractEntity {
      * @param purchaseSummary The value of the column 'PURCHASE_SUMMARY'. (NullAllowed: null update allowed for no constraint)
      */
     public void setPurchaseSummary(Long purchaseSummary) {
-        __modifiedProperties.addPropertyName("purchaseSummary");
+        registerModifiedProperty("purchaseSummary");
         _purchaseSummary = purchaseSummary;
     }
 }

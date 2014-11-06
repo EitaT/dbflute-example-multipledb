@@ -255,7 +255,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param authorId The value of the column 'AUTHOR_ID'. (basically NotNull if update: for the constraint)
      */
     public void setAuthorId(Integer authorId) {
-        __modifiedProperties.addPropertyName("authorId");
+        registerModifiedProperty("authorId");
         _authorId = authorId;
     }
 
@@ -273,7 +273,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param authorName The value of the column 'AUTHOR_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setAuthorName(String authorName) {
-        __modifiedProperties.addPropertyName("authorName");
+        registerModifiedProperty("authorName");
         _authorName = authorName;
     }
 
@@ -291,7 +291,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param authorAge The value of the column 'AUTHOR_AGE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setAuthorAge(Integer authorAge) {
-        __modifiedProperties.addPropertyName("authorAge");
+        registerModifiedProperty("authorAge");
         _authorAge = authorAge;
     }
 
@@ -309,7 +309,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param rUser The value of the column 'R_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -327,7 +327,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param rModule The value of the column 'R_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -345,7 +345,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -363,7 +363,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param uUser The value of the column 'U_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -381,7 +381,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param uModule The value of the column 'U_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -399,7 +399,7 @@ public abstract class LdBsAuthor extends AbstractEntity {
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

@@ -443,8 +443,10 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_blackList != null) { sb.append(dm).append("blackList"); }
-        if (_blackActionLookup != null) { sb.append(dm).append("blackActionLookup"); }
+        if (_blackList != null)
+        { sb.append(dm).append("blackList"); }
+        if (_blackActionLookup != null)
+        { sb.append(dm).append("blackActionLookup"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -473,7 +475,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param blackActionId The value of the column 'BLACK_ACTION_ID'. (basically NotNull if update: for the constraint)
      */
     public void setBlackActionId(Integer blackActionId) {
-        __modifiedProperties.addPropertyName("blackActionId");
+        registerModifiedProperty("blackActionId");
         _blackActionId = blackActionId;
     }
 
@@ -491,7 +493,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param blackListId The value of the column 'BLACK_LIST_ID'. (basically NotNull if update: for the constraint)
      */
     public void setBlackListId(Integer blackListId) {
-        __modifiedProperties.addPropertyName("blackListId");
+        registerModifiedProperty("blackListId");
         _blackListId = blackListId;
     }
 
@@ -509,7 +511,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param blackActionCode The value of the column 'BLACK_ACTION_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setBlackActionCode(String blackActionCode) {
-        __modifiedProperties.addPropertyName("blackActionCode");
+        registerModifiedProperty("blackActionCode");
         _blackActionCode = blackActionCode;
     }
 
@@ -527,7 +529,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param blackLevel The value of the column 'BLACK_LEVEL'. (basically NotNull if update: for the constraint)
      */
     public void setBlackLevel(Integer blackLevel) {
-        __modifiedProperties.addPropertyName("blackLevel");
+        registerModifiedProperty("blackLevel");
         _blackLevel = blackLevel;
     }
 
@@ -545,7 +547,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param actionDate The value of the column 'ACTION_DATE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setActionDate(java.sql.Timestamp actionDate) {
-        __modifiedProperties.addPropertyName("actionDate");
+        registerModifiedProperty("actionDate");
         _actionDate = actionDate;
     }
 
@@ -563,7 +565,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param evidencePhotograph The value of the column 'EVIDENCE_PHOTOGRAPH'. (NullAllowed: null update allowed for no constraint)
      */
     public void setEvidencePhotograph(byte[] evidencePhotograph) {
-        __modifiedProperties.addPropertyName("evidencePhotograph");
+        registerModifiedProperty("evidencePhotograph");
         _evidencePhotograph = evidencePhotograph;
     }
 
@@ -581,7 +583,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param rUser The value of the column 'R_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -599,7 +601,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param rModule The value of the column 'R_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -617,7 +619,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -635,7 +637,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param uUser The value of the column 'U_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -653,7 +655,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param uModule The value of the column 'U_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -671,7 +673,7 @@ public abstract class LdBsBlackAction extends AbstractEntity implements LdEntity
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

@@ -452,10 +452,14 @@ public abstract class LdBsBook extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_author != null) { sb.append(dm).append("author"); }
-        if (_genre != null) { sb.append(dm).append("genre"); }
-        if (_publisher != null) { sb.append(dm).append("publisher"); }
-        if (_collectionStatusLookupAsNonExist != null) { sb.append(dm).append("collectionStatusLookupAsNonExist"); }
+        if (_author != null)
+        { sb.append(dm).append("author"); }
+        if (_genre != null)
+        { sb.append(dm).append("genre"); }
+        if (_publisher != null)
+        { sb.append(dm).append("publisher"); }
+        if (_collectionStatusLookupAsNonExist != null)
+        { sb.append(dm).append("collectionStatusLookupAsNonExist"); }
         if (_collectionList != null && !_collectionList.isEmpty())
         { sb.append(dm).append("collectionList"); }
         if (sb.length() > dm.length()) {
@@ -486,7 +490,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param bookId The value of the column 'BOOK_ID'. (basically NotNull if update: for the constraint)
      */
     public void setBookId(Integer bookId) {
-        __modifiedProperties.addPropertyName("bookId");
+        registerModifiedProperty("bookId");
         _bookId = bookId;
     }
 
@@ -504,7 +508,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param isbn The value of the column 'ISBN'. (basically NotNull if update: for the constraint)
      */
     public void setIsbn(String isbn) {
-        __modifiedProperties.addPropertyName("isbn");
+        registerModifiedProperty("isbn");
         _isbn = isbn;
     }
 
@@ -522,7 +526,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param bookName The value of the column 'BOOK_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setBookName(String bookName) {
-        __modifiedProperties.addPropertyName("bookName");
+        registerModifiedProperty("bookName");
         _bookName = bookName;
     }
 
@@ -540,7 +544,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param authorId The value of the column 'AUTHOR_ID'. (basically NotNull if update: for the constraint)
      */
     public void setAuthorId(Integer authorId) {
-        __modifiedProperties.addPropertyName("authorId");
+        registerModifiedProperty("authorId");
         _authorId = authorId;
     }
 
@@ -558,7 +562,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param publisherId The value of the column 'PUBLISHER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setPublisherId(Integer publisherId) {
-        __modifiedProperties.addPropertyName("publisherId");
+        registerModifiedProperty("publisherId");
         _publisherId = publisherId;
     }
 
@@ -576,7 +580,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param genreCode The value of the column 'GENRE_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setGenreCode(String genreCode) {
-        __modifiedProperties.addPropertyName("genreCode");
+        registerModifiedProperty("genreCode");
         _genreCode = genreCode;
     }
 
@@ -594,7 +598,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param openingPart The value of the column 'OPENING_PART'. (NullAllowed: null update allowed for no constraint)
      */
     public void setOpeningPart(String openingPart) {
-        __modifiedProperties.addPropertyName("openingPart");
+        registerModifiedProperty("openingPart");
         _openingPart = openingPart;
     }
 
@@ -612,7 +616,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param maxLendingDateCount The value of the column 'MAX_LENDING_DATE_COUNT'. (basically NotNull if update: for the constraint)
      */
     public void setMaxLendingDateCount(Integer maxLendingDateCount) {
-        __modifiedProperties.addPropertyName("maxLendingDateCount");
+        registerModifiedProperty("maxLendingDateCount");
         _maxLendingDateCount = maxLendingDateCount;
     }
 
@@ -630,7 +634,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param outOfUserSelectYn The value of the column 'OUT_OF_USER_SELECT_YN'. (basically NotNull if update: for the constraint)
      */
     public void setOutOfUserSelectYn(String outOfUserSelectYn) {
-        __modifiedProperties.addPropertyName("outOfUserSelectYn");
+        registerModifiedProperty("outOfUserSelectYn");
         _outOfUserSelectYn = outOfUserSelectYn;
     }
 
@@ -648,7 +652,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param outOfUserSelectReason The value of the column 'OUT_OF_USER_SELECT_REASON'. (NullAllowed: null update allowed for no constraint)
      */
     public void setOutOfUserSelectReason(String outOfUserSelectReason) {
-        __modifiedProperties.addPropertyName("outOfUserSelectReason");
+        registerModifiedProperty("outOfUserSelectReason");
         _outOfUserSelectReason = outOfUserSelectReason;
     }
 
@@ -666,7 +670,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param rUser The value of the column 'R_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -684,7 +688,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param rModule The value of the column 'R_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -702,7 +706,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -720,7 +724,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param uUser The value of the column 'U_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -738,7 +742,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param uModule The value of the column 'U_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -756,7 +760,7 @@ public abstract class LdBsBook extends AbstractEntity {
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

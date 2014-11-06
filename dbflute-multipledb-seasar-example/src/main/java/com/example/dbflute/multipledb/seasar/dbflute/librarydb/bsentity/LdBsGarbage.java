@@ -225,7 +225,7 @@ public abstract class LdBsGarbage extends AbstractEntity {
      * @param garbageMemo The value of the column 'GARBAGE_MEMO'. (NullAllowed: null update allowed for no constraint)
      */
     public void setGarbageMemo(String garbageMemo) {
-        __modifiedProperties.addPropertyName("garbageMemo");
+        registerModifiedProperty("garbageMemo");
         _garbageMemo = garbageMemo;
     }
 
@@ -243,7 +243,7 @@ public abstract class LdBsGarbage extends AbstractEntity {
      * @param garbageTime The value of the column 'GARBAGE_TIME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setGarbageTime(java.sql.Timestamp garbageTime) {
-        __modifiedProperties.addPropertyName("garbageTime");
+        registerModifiedProperty("garbageTime");
         _garbageTime = garbageTime;
     }
 
@@ -261,7 +261,7 @@ public abstract class LdBsGarbage extends AbstractEntity {
      * @param garbageCount The value of the column 'GARBAGE_COUNT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setGarbageCount(Integer garbageCount) {
-        __modifiedProperties.addPropertyName("garbageCount");
+        registerModifiedProperty("garbageCount");
         _garbageCount = garbageCount;
     }
 
@@ -279,7 +279,7 @@ public abstract class LdBsGarbage extends AbstractEntity {
      * @param rUser The value of the column 'R_USER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -297,7 +297,7 @@ public abstract class LdBsGarbage extends AbstractEntity {
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (NullAllowed: null update allowed for no constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -315,7 +315,7 @@ public abstract class LdBsGarbage extends AbstractEntity {
      * @param uUser The value of the column 'U_USER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -333,7 +333,7 @@ public abstract class LdBsGarbage extends AbstractEntity {
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

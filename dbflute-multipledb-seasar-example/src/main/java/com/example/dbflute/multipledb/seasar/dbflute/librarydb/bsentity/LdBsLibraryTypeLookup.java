@@ -429,7 +429,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param libraryTypeCode The value of the column 'LIBRARY_TYPE_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryTypeCode(String libraryTypeCode) {
-        __modifiedProperties.addPropertyName("libraryTypeCode");
+        registerModifiedProperty("libraryTypeCode");
         _libraryTypeCode = libraryTypeCode;
     }
 
@@ -447,7 +447,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param libraryTypeName The value of the column 'LIBRARY_TYPE_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryTypeName(String libraryTypeName) {
-        __modifiedProperties.addPropertyName("libraryTypeName");
+        registerModifiedProperty("libraryTypeName");
         _libraryTypeName = libraryTypeName;
     }
 
@@ -465,7 +465,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param rUser The value of the column 'R_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -483,7 +483,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param rModule The value of the column 'R_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -501,7 +501,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -519,7 +519,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param uUser The value of the column 'U_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -537,7 +537,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param uModule The value of the column 'U_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -555,7 +555,7 @@ public abstract class LdBsLibraryTypeLookup extends AbstractEntity implements Ld
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

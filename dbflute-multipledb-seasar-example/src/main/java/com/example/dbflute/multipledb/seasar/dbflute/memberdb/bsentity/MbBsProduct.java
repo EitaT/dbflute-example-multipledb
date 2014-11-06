@@ -320,8 +320,10 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_productCategory != null) { sb.append(dm).append("productCategory"); }
-        if (_productStatus != null) { sb.append(dm).append("productStatus"); }
+        if (_productCategory != null)
+        { sb.append(dm).append("productCategory"); }
+        if (_productStatus != null)
+        { sb.append(dm).append("productStatus"); }
         if (_purchaseList != null && !_purchaseList.isEmpty())
         { sb.append(dm).append("purchaseList"); }
         if (sb.length() > dm.length()) {
@@ -352,7 +354,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param productId The value of the column 'PRODUCT_ID'. (basically NotNull if update: for the constraint)
      */
     public void setProductId(Integer productId) {
-        __modifiedProperties.addPropertyName("productId");
+        registerModifiedProperty("productId");
         _productId = productId;
     }
 
@@ -370,7 +372,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param productName The value of the column 'PRODUCT_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setProductName(String productName) {
-        __modifiedProperties.addPropertyName("productName");
+        registerModifiedProperty("productName");
         _productName = productName;
     }
 
@@ -388,7 +390,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param productHandleCode The value of the column 'PRODUCT_HANDLE_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setProductHandleCode(String productHandleCode) {
-        __modifiedProperties.addPropertyName("productHandleCode");
+        registerModifiedProperty("productHandleCode");
         _productHandleCode = productHandleCode;
     }
 
@@ -406,7 +408,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param productCategoryCode The value of the column 'PRODUCT_CATEGORY_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setProductCategoryCode(String productCategoryCode) {
-        __modifiedProperties.addPropertyName("productCategoryCode");
+        registerModifiedProperty("productCategoryCode");
         _productCategoryCode = productCategoryCode;
     }
 
@@ -424,7 +426,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param productStatusCode The value of the column 'PRODUCT_STATUS_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setProductStatusCode(String productStatusCode) {
-        __modifiedProperties.addPropertyName("productStatusCode");
+        registerModifiedProperty("productStatusCode");
         _productStatusCode = productStatusCode;
     }
 
@@ -442,7 +444,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param regularPrice The value of the column 'REGULAR_PRICE'. (basically NotNull if update: for the constraint)
      */
     public void setRegularPrice(Integer regularPrice) {
-        __modifiedProperties.addPropertyName("regularPrice");
+        registerModifiedProperty("regularPrice");
         _regularPrice = regularPrice;
     }
 
@@ -460,7 +462,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param registerDatetime The value of the column 'REGISTER_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterDatetime(java.sql.Timestamp registerDatetime) {
-        __modifiedProperties.addPropertyName("registerDatetime");
+        registerModifiedProperty("registerDatetime");
         _registerDatetime = registerDatetime;
     }
 
@@ -478,7 +480,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param registerUser The value of the column 'REGISTER_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRegisterUser(String registerUser) {
-        __modifiedProperties.addPropertyName("registerUser");
+        registerModifiedProperty("registerUser");
         _registerUser = registerUser;
     }
 
@@ -496,7 +498,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param updateDatetime The value of the column 'UPDATE_DATETIME'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateDatetime(java.sql.Timestamp updateDatetime) {
-        __modifiedProperties.addPropertyName("updateDatetime");
+        registerModifiedProperty("updateDatetime");
         _updateDatetime = updateDatetime;
     }
 
@@ -514,7 +516,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param updateUser The value of the column 'UPDATE_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUpdateUser(String updateUser) {
-        __modifiedProperties.addPropertyName("updateUser");
+        registerModifiedProperty("updateUser");
         _updateUser = updateUser;
     }
 
@@ -532,7 +534,7 @@ public abstract class MbBsProduct extends AbstractEntity implements MbEntityDefi
      * @param versionNo The value of the column 'VERSION_NO'. (basically NotNull if update: for the constraint)
      */
     public void setVersionNo(Long versionNo) {
-        __modifiedProperties.addPropertyName("versionNo");
+        registerModifiedProperty("versionNo");
         _versionNo = versionNo;
     }
 }

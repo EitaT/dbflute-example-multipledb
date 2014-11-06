@@ -224,7 +224,7 @@ public abstract class LdBsVendorConstraintNameAutoFoo extends AbstractEntity {
      * @param constraintNameAutoFooId The value of the column 'CONSTRAINT_NAME_AUTO_FOO_ID'. (basically NotNull if update: for the constraint)
      */
     public void setConstraintNameAutoFooId(java.math.BigDecimal constraintNameAutoFooId) {
-        __modifiedProperties.addPropertyName("constraintNameAutoFooId");
+        registerModifiedProperty("constraintNameAutoFooId");
         _constraintNameAutoFooId = constraintNameAutoFooId;
     }
 
@@ -242,7 +242,7 @@ public abstract class LdBsVendorConstraintNameAutoFoo extends AbstractEntity {
      * @param constraintNameAutoFooName The value of the column 'CONSTRAINT_NAME_AUTO_FOO_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setConstraintNameAutoFooName(String constraintNameAutoFooName) {
-        __modifiedProperties.addPropertyName("constraintNameAutoFooName");
+        registerModifiedProperty("constraintNameAutoFooName");
         _constraintNameAutoFooName = constraintNameAutoFooName;
     }
 }

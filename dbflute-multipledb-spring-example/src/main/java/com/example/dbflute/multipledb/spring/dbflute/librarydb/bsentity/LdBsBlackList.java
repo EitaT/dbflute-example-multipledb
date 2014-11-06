@@ -257,7 +257,8 @@ public abstract class LdBsBlackList extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_lbUser != null) { sb.append(dm).append("lbUser"); }
+        if (_lbUser != null)
+        { sb.append(dm).append("lbUser"); }
         if (_blackActionList != null && !_blackActionList.isEmpty())
         { sb.append(dm).append("blackActionList"); }
         if (sb.length() > dm.length()) {
@@ -288,7 +289,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param blackListId The value of the column 'BLACK_LIST_ID'. (basically NotNull if update: for the constraint)
      */
     public void setBlackListId(Integer blackListId) {
-        __modifiedProperties.addPropertyName("blackListId");
+        registerModifiedProperty("blackListId");
         _blackListId = blackListId;
     }
 
@@ -306,7 +307,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param lbUserId The value of the column 'LB_USER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLbUserId(Integer lbUserId) {
-        __modifiedProperties.addPropertyName("lbUserId");
+        registerModifiedProperty("lbUserId");
         _lbUserId = lbUserId;
     }
 
@@ -324,7 +325,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param blackRank The value of the column 'BLACK_RANK'. (basically NotNull if update: for the constraint)
      */
     public void setBlackRank(String blackRank) {
-        __modifiedProperties.addPropertyName("blackRank");
+        registerModifiedProperty("blackRank");
         _blackRank = blackRank;
     }
 
@@ -342,7 +343,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param rUser The value of the column 'R_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -360,7 +361,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param rModule The value of the column 'R_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -378,7 +379,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -396,7 +397,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param uUser The value of the column 'U_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -414,7 +415,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param uModule The value of the column 'U_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -432,7 +433,7 @@ public abstract class LdBsBlackList extends AbstractEntity {
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

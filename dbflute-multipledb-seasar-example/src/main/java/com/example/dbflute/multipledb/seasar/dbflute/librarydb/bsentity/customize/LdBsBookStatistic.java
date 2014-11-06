@@ -456,7 +456,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param bookId The value of the column 'BOOK_ID'. (NullAllowed: null update allowed for no constraint)
      */
     public void setBookId(Integer bookId) {
-        __modifiedProperties.addPropertyName("bookId");
+        registerModifiedProperty("bookId");
         _bookId = bookId;
     }
 
@@ -474,7 +474,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param bookName The value of the column 'BOOK_NAME'. (NullAllowed: null update allowed for no constraint)
      */
     public void setBookName(String bookName) {
-        __modifiedProperties.addPropertyName("bookName");
+        registerModifiedProperty("bookName");
         _bookName = bookName;
     }
 
@@ -492,7 +492,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param collectionCount The value of the column 'COLLECTION_COUNT'. (NullAllowed: null update allowed for no constraint)
      */
     public void setCollectionCount(Integer collectionCount) {
-        __modifiedProperties.addPropertyName("collectionCount");
+        registerModifiedProperty("collectionCount");
         _collectionCount = collectionCount;
     }
 
@@ -510,7 +510,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param outOfUserSelectYn The value of the column 'OUT_OF_USER_SELECT_YN'. (NullAllowed: null update allowed for no constraint)
      */
     public void setOutOfUserSelectYn(String outOfUserSelectYn) {
-        __modifiedProperties.addPropertyName("outOfUserSelectYn");
+        registerModifiedProperty("outOfUserSelectYn");
         _outOfUserSelectYn = outOfUserSelectYn;
     }
 
@@ -528,7 +528,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param rUser The value of the column 'R_USER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -546,7 +546,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param rModule The value of the column 'R_MODULE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -564,7 +564,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (NullAllowed: null update allowed for no constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -582,7 +582,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param uUser The value of the column 'U_USER'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -600,7 +600,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param uModule The value of the column 'U_MODULE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -618,7 +618,7 @@ public abstract class LdBsBookStatistic extends AbstractEntity {
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (NullAllowed: null update allowed for no constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

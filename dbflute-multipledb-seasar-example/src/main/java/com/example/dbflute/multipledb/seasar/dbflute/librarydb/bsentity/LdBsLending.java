@@ -432,7 +432,8 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_libraryUser != null) { sb.append(dm).append("libraryUser"); }
+        if (_libraryUser != null)
+        { sb.append(dm).append("libraryUser"); }
         if (_lendingCollectionList != null && !_lendingCollectionList.isEmpty())
         { sb.append(dm).append("lendingCollectionList"); }
         if (sb.length() > dm.length()) {
@@ -463,7 +464,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param libraryId The value of the column 'LIBRARY_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLibraryId(Integer libraryId) {
-        __modifiedProperties.addPropertyName("libraryId");
+        registerModifiedProperty("libraryId");
         _libraryId = libraryId;
     }
 
@@ -481,7 +482,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param lbUserId The value of the column 'LB_USER_ID'. (basically NotNull if update: for the constraint)
      */
     public void setLbUserId(Integer lbUserId) {
-        __modifiedProperties.addPropertyName("lbUserId");
+        registerModifiedProperty("lbUserId");
         _lbUserId = lbUserId;
     }
 
@@ -499,7 +500,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param lendingDate The value of the column 'LENDING_DATE'. (basically NotNull if update: for the constraint)
      */
     public void setLendingDate(java.sql.Timestamp lendingDate) {
-        __modifiedProperties.addPropertyName("lendingDate");
+        registerModifiedProperty("lendingDate");
         _lendingDate = lendingDate;
     }
 
@@ -517,7 +518,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param rUser The value of the column 'R_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -535,7 +536,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param rModule The value of the column 'R_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -553,7 +554,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -571,7 +572,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param uUser The value of the column 'U_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -589,7 +590,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param uModule The value of the column 'U_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -607,7 +608,7 @@ public abstract class LdBsLending extends AbstractEntity implements LdEntityDefi
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }

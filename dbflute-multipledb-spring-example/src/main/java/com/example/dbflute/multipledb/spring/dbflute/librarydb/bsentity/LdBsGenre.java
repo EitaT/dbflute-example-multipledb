@@ -280,7 +280,8 @@ public abstract class LdBsGenre extends AbstractEntity {
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_genreSelf != null) { sb.append(dm).append("genreSelf"); }
+        if (_genreSelf != null)
+        { sb.append(dm).append("genreSelf"); }
         if (_bookList != null && !_bookList.isEmpty())
         { sb.append(dm).append("bookList"); }
         if (_genreSelfList != null && !_genreSelfList.isEmpty())
@@ -313,7 +314,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param genreCode The value of the column 'GENRE_CODE'. (basically NotNull if update: for the constraint)
      */
     public void setGenreCode(String genreCode) {
-        __modifiedProperties.addPropertyName("genreCode");
+        registerModifiedProperty("genreCode");
         _genreCode = genreCode;
     }
 
@@ -331,7 +332,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param genreName The value of the column 'GENRE_NAME'. (basically NotNull if update: for the constraint)
      */
     public void setGenreName(String genreName) {
-        __modifiedProperties.addPropertyName("genreName");
+        registerModifiedProperty("genreName");
         _genreName = genreName;
     }
 
@@ -349,7 +350,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param hierarchyLevel The value of the column 'HIERARCHY_LEVEL'. (basically NotNull if update: for the constraint)
      */
     public void setHierarchyLevel(java.math.BigDecimal hierarchyLevel) {
-        __modifiedProperties.addPropertyName("hierarchyLevel");
+        registerModifiedProperty("hierarchyLevel");
         _hierarchyLevel = hierarchyLevel;
     }
 
@@ -367,7 +368,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param hierarchyOrder The value of the column 'HIERARCHY_ORDER'. (basically NotNull if update: for the constraint)
      */
     public void setHierarchyOrder(java.math.BigDecimal hierarchyOrder) {
-        __modifiedProperties.addPropertyName("hierarchyOrder");
+        registerModifiedProperty("hierarchyOrder");
         _hierarchyOrder = hierarchyOrder;
     }
 
@@ -385,7 +386,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param parentGenreCode The value of the column 'PARENT_GENRE_CODE'. (NullAllowed: null update allowed for no constraint)
      */
     public void setParentGenreCode(String parentGenreCode) {
-        __modifiedProperties.addPropertyName("parentGenreCode");
+        registerModifiedProperty("parentGenreCode");
         _parentGenreCode = parentGenreCode;
     }
 
@@ -403,7 +404,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param rUser The value of the column 'R_USER'. (basically NotNull if update: for the constraint)
      */
     public void setRUser(String rUser) {
-        __modifiedProperties.addPropertyName("RUser");
+        registerModifiedProperty("RUser");
         _rUser = rUser;
     }
 
@@ -421,7 +422,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param rModule The value of the column 'R_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setRModule(String rModule) {
-        __modifiedProperties.addPropertyName("RModule");
+        registerModifiedProperty("RModule");
         _rModule = rModule;
     }
 
@@ -439,7 +440,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param rTimestamp The value of the column 'R_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setRTimestamp(java.sql.Timestamp rTimestamp) {
-        __modifiedProperties.addPropertyName("RTimestamp");
+        registerModifiedProperty("RTimestamp");
         _rTimestamp = rTimestamp;
     }
 
@@ -457,7 +458,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param uUser The value of the column 'U_USER'. (basically NotNull if update: for the constraint)
      */
     public void setUUser(String uUser) {
-        __modifiedProperties.addPropertyName("UUser");
+        registerModifiedProperty("UUser");
         _uUser = uUser;
     }
 
@@ -475,7 +476,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param uModule The value of the column 'U_MODULE'. (basically NotNull if update: for the constraint)
      */
     public void setUModule(String uModule) {
-        __modifiedProperties.addPropertyName("UModule");
+        registerModifiedProperty("UModule");
         _uModule = uModule;
     }
 
@@ -493,7 +494,7 @@ public abstract class LdBsGenre extends AbstractEntity {
      * @param uTimestamp The value of the column 'U_TIMESTAMP'. (basically NotNull if update: for the constraint)
      */
     public void setUTimestamp(java.sql.Timestamp uTimestamp) {
-        __modifiedProperties.addPropertyName("UTimestamp");
+        registerModifiedProperty("UTimestamp");
         _uTimestamp = uTimestamp;
     }
 }
