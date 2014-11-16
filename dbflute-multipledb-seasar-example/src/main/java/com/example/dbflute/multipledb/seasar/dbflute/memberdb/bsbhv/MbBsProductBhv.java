@@ -1267,6 +1267,19 @@ public abstract class MbBsProductBhv extends AbstractBehaviorWritable<MbProduct,
     protected boolean hasVersionNoValue(Entity et) { return downcast(et).getVersionNo() != null; }
 
     // ===================================================================================
+    //                                                                         Hyper Patch
+    //                                                                         ===========
+    @Override
+    protected <RESULT extends MbProduct> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
+    }
+
+    @Override
+    protected <RESULT extends MbProduct> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
+    }
+
+    // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
     protected Class<? extends MbProduct> typeOfSelectedEntity() { return MbProduct.class; }

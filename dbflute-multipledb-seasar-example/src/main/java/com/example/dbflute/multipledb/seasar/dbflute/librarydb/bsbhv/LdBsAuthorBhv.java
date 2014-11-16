@@ -1222,6 +1222,19 @@ public abstract class LdBsAuthorBhv extends AbstractBehaviorWritable<LdAuthor, L
     protected boolean hasUpdateDateValue(Entity et) { return downcast(et).getUTimestamp() != null; }
 
     // ===================================================================================
+    //                                                                         Hyper Patch
+    //                                                                         ===========
+    @Override
+    protected <RESULT extends LdAuthor> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
+    }
+
+    @Override
+    protected <RESULT extends LdAuthor> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
+    }
+
+    // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
     protected Class<? extends LdAuthor> typeOfSelectedEntity() { return LdAuthor.class; }

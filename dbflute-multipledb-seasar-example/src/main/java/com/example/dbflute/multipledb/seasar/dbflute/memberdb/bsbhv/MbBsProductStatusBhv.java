@@ -1012,6 +1012,19 @@ public abstract class MbBsProductStatusBhv extends AbstractBehaviorWritable<MbPr
     }
 
     // ===================================================================================
+    //                                                                         Hyper Patch
+    //                                                                         ===========
+    @Override
+    protected <RESULT extends MbProductStatus> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
+    }
+
+    @Override
+    protected <RESULT extends MbProductStatus> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
+    }
+
+    // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
     protected Class<? extends MbProductStatus> typeOfSelectedEntity() { return MbProductStatus.class; }

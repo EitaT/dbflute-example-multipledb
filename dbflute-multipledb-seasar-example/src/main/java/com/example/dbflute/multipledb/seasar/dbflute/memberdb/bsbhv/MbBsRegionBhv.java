@@ -979,6 +979,19 @@ public abstract class MbBsRegionBhv extends AbstractBehaviorWritable<MbRegion, M
     }
 
     // ===================================================================================
+    //                                                                         Hyper Patch
+    //                                                                         ===========
+    @Override
+    protected <RESULT extends MbRegion> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
+    }
+
+    @Override
+    protected <RESULT extends MbRegion> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
+    }
+
+    // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
     protected Class<? extends MbRegion> typeOfSelectedEntity() { return MbRegion.class; }

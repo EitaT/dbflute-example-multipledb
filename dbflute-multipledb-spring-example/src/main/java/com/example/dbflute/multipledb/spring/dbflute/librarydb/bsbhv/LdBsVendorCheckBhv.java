@@ -395,6 +395,19 @@ public abstract class LdBsVendorCheckBhv extends AbstractBehaviorReadable<LdVend
     }
 
     // ===================================================================================
+    //                                                                         Hyper Patch
+    //                                                                         ===========
+    @Override
+    protected <RESULT extends LdVendorCheck> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
+        return new com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
+    }
+
+    @Override
+    protected <RESULT extends LdVendorCheck> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
+        return new com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
+    }
+
+    // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
     protected Class<? extends LdVendorCheck> typeOfSelectedEntity() { return LdVendorCheck.class; }
