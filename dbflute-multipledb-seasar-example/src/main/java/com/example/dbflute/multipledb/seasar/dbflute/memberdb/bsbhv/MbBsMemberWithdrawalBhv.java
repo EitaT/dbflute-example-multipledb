@@ -1085,7 +1085,7 @@ public abstract class MbBsMemberWithdrawalBhv extends AbstractBehaviorWritable<M
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
-     * Other specifications are same as batchUpdateNonstrict(entityList).
+     * Other specifications are same as queryDelete(cb).
      * @param cb The condition-bean of MbMemberWithdrawal. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
@@ -1140,19 +1140,6 @@ public abstract class MbBsMemberWithdrawalBhv extends AbstractBehaviorWritable<M
     //                                                                ====================
     @Override
     protected boolean hasVersionNoValue(Entity et) { return downcast(et).getVersionNo() != null; }
-
-    // ===================================================================================
-    //                                                                         Hyper Patch
-    //                                                                         ===========
-    @Override
-    protected <RESULT extends MbMemberWithdrawal> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
-    }
-
-    @Override
-    protected <RESULT extends MbMemberWithdrawal> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
-    }
 
     // ===================================================================================
     //                                                                         Type Helper

@@ -961,7 +961,7 @@ public abstract class MbBsProductStatusBhv extends AbstractBehaviorWritable<MbPr
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
-     * Other specifications are same as batchUpdateNonstrict(entityList).
+     * Other specifications are same as queryDelete(cb).
      * @param cb The condition-bean of MbProductStatus. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
@@ -1009,19 +1009,6 @@ public abstract class MbBsProductStatusBhv extends AbstractBehaviorWritable<MbPr
     public OutsideSqlBasicExecutor<MbProductStatusBhv> outsideSql() {
         OutsideSqlAllFacadeExecutor<MbProductStatusBhv> facadeExecutor = doOutsideSql();
         return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
-    }
-
-    // ===================================================================================
-    //                                                                         Hyper Patch
-    //                                                                         ===========
-    @Override
-    protected <RESULT extends MbProductStatus> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
-    }
-
-    @Override
-    protected <RESULT extends MbProductStatus> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
     }
 
     // ===================================================================================

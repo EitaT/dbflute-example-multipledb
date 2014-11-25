@@ -1087,7 +1087,7 @@ public abstract class LdBsCollectionStatusBhv extends AbstractBehaviorWritable<L
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
-     * Other specifications are same as batchUpdateNonstrict(entityList).
+     * Other specifications are same as queryDelete(cb).
      * @param cb The condition-bean of LdCollectionStatus. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
@@ -1142,19 +1142,6 @@ public abstract class LdBsCollectionStatusBhv extends AbstractBehaviorWritable<L
     //                                                                ====================
     @Override
     protected boolean hasUpdateDateValue(Entity et) { return downcast(et).getUTimestamp() != null; }
-
-    // ===================================================================================
-    //                                                                         Hyper Patch
-    //                                                                         ===========
-    @Override
-    protected <RESULT extends LdCollectionStatus> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
-    }
-
-    @Override
-    protected <RESULT extends LdCollectionStatus> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
-    }
 
     // ===================================================================================
     //                                                                         Type Helper

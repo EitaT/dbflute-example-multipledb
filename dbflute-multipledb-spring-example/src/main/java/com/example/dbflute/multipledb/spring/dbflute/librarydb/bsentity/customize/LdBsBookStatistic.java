@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdCDef;
 import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.customize.*;
 
@@ -66,7 +67,7 @@ import com.example.dbflute.multipledb.spring.dbflute.librarydb.exentity.customiz
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsBookStatistic extends AbstractEntity {
+public abstract class LdBsBookStatistic extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition

@@ -963,7 +963,7 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     /**
      * Delete the several entities by query with varying requests non-strictly. <br />
      * For example, allowNonQueryDelete(). <br />
-     * Other specifications are same as batchUpdateNonstrict(entityList).
+     * Other specifications are same as queryDelete(cb).
      * @param cb The condition-bean of LdVendorConstraintNameAutoQux. (NotNull)
      * @param option The option of delete for varying requests. (NotNull)
      * @return The deleted count.
@@ -1011,19 +1011,6 @@ public abstract class LdBsVendorConstraintNameAutoQuxBhv extends AbstractBehavio
     public OutsideSqlBasicExecutor<LdVendorConstraintNameAutoQuxBhv> outsideSql() {
         OutsideSqlAllFacadeExecutor<LdVendorConstraintNameAutoQuxBhv> facadeExecutor = doOutsideSql();
         return facadeExecutor.xbasicExecutor(); // variable to resolve generic type
-    }
-
-    // ===================================================================================
-    //                                                                         Hyper Patch
-    //                                                                         ===========
-    @Override
-    protected <RESULT extends LdVendorConstraintNameAutoQux> org.seasar.dbflute.bhv.core.command.SelectCursorCBCommand<RESULT> newSelectCursorCBCommand() {
-        return new com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectCursorCBCommandHyperPatch<RESULT>();
-    }
-
-    @Override
-    protected <RESULT extends LdVendorConstraintNameAutoQux> org.seasar.dbflute.bhv.core.command.SelectListCBCommand<RESULT> newSelectListCBCommand() {
-        return new com.example.dbflute.multipledb.spring.dbflute.librarydb.allcommon.LdDBFluteConfig.SelectListCBCommandHyperPatch<RESULT>();
     }
 
     // ===================================================================================

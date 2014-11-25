@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.DomainEntity;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdEntityDefinedCommonColumn;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdDBMetaInstanceHandler;
 import com.example.dbflute.multipledb.seasar.dbflute.librarydb.allcommon.LdCDef;
@@ -66,7 +67,7 @@ import com.example.dbflute.multipledb.seasar.dbflute.librarydb.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class LdBsLbUser extends AbstractEntity implements LdEntityDefinedCommonColumn {
+public abstract class LdBsLbUser extends AbstractEntity implements DomainEntity, LdEntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition

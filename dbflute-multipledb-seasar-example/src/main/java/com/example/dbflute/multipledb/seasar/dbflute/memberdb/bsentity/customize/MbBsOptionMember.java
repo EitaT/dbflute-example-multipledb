@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.CustomizeEntity;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.allcommon.MbCDef;
 import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.customize.*;
 
@@ -52,7 +53,7 @@ import com.example.dbflute.multipledb.seasar.dbflute.memberdb.exentity.customize
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class MbBsOptionMember extends AbstractEntity {
+public abstract class MbBsOptionMember extends AbstractEntity implements CustomizeEntity {
 
     // ===================================================================================
     //                                                                          Definition

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.seasar.dbflute.dbmeta.DBMeta;
 import org.seasar.dbflute.dbmeta.AbstractEntity;
+import org.seasar.dbflute.dbmeta.accessory.DomainEntity;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.allcommon.DBMetaInstanceHandler;
 import com.example.dbflute.multipledb.spring.dbflute.memberdb.exentity.*;
 
@@ -54,7 +55,7 @@ import com.example.dbflute.multipledb.spring.dbflute.memberdb.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class BsSummaryProduct extends AbstractEntity {
+public abstract class BsSummaryProduct extends AbstractEntity implements DomainEntity {
 
     // ===================================================================================
     //                                                                          Definition
